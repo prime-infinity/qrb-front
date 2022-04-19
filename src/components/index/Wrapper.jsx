@@ -3,20 +3,28 @@ function Wrapper() {
     <>
       <div className="wrapper">
         <div className="container-fluid wrapper-down">
-          <div className="row">
-            <div className="col-12">
-              <span>Yogurstory</span> <br />
+          <div className="row justify-content-center justify-content-md-start wr-sec">
+            <div className="col-11 col-md-5 text-white">
+              <span className="h1 font-weight-bold">Yogurstory</span> <br />
+              <br />
               <span>local’s favorite brunch restaurant</span> <br />
+              <br />
               <div className="row">
-                <div className="col-6">honolulu</div>
-                <div className="col-6">since 2014</div>
+                <div className="col-3">honolulu</div>
+                <div className="col-1">|</div>
+                <div className="col-4">since 2014</div>
               </div>
+              <br />
               <div className="row">
-                <div className="col-5">
-                  <button className="btn w-100">info</button>
+                <div className="col-6">
+                  <button className="btn py-3 bg-them w-100 text-white">
+                    info
+                  </button>
                 </div>
-                <div className="col-5">
-                  <button className="btn w-100">menu</button>
+                <div className="col-6">
+                  <button className="btn py-3 bg-dark w-100 bg-white">
+                    menu
+                  </button>
                 </div>
               </div>
             </div>
