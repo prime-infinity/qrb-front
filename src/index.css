@@ -1,3 +1,6 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
 .wrapper {
   background-image: url("/public/images/qrbwrapon.png");
   background-size: cover;
@@ -49,7 +52,15 @@
   opacity: 0.4;
 }
 .svg-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   vertical-align: text-bottom;
+}
+.mm-db {
+  position: absolute;
+  width: inherit;
+  bottom: 5%;
+}
+.q-font-weight-bold {
+  font-weight: 900;
 }

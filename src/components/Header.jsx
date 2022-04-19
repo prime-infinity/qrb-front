@@ -28,7 +28,12 @@ function Header() {
           <MobileMenu /> <Overlay />
         </>
       )}
-      <Navbar collapseOnSelect expand="lg" id="myHeader" className="">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        id="myHeader"
+        className={`${location.pathname === "/about" ? "bg-white" : ""}`}
+      >
         <Container fluid className="mx-md-5">
           <Navbar.Brand className="cur-pointer">
             {location.pathname !== "/" && (
@@ -46,7 +51,9 @@ function Header() {
                     clipRule="evenodd"
                   />
                 </svg>
-                {!mMenu && <span className="ms-3">Yogurstory</span>}
+                {!mMenu && (
+                  <span className="ms-3 q-font-weight-bold">yogurstory</span>
+                )}
               </span>
             )}
           </Navbar.Brand>
