@@ -46,7 +46,7 @@ function Header() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="ms-3">Yogurstory</span>
+                {!mMenu && <span className="ms-3">Yogurstory</span>}
               </span>
             )}
           </Navbar.Brand>

@@ -1,8 +1,10 @@
+import AboutCardPics from "../ui/AboutCardPics";
+
 function About() {
   return (
     <div className="container-fluid pt-5">
-      <div className="row justify-content-md-center pt-5">
-        <div className="col-12">
+      <div className="row pt-5">
+        <div className="col-12 col-md-6 offset-md-3">
           <div>
             <span className="pe-2">mon-fri</span>
             <span className="pe-2">|</span>
@@ -167,6 +169,19 @@ function About() {
                   d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
                 />
               </svg>
+            </div>
+          </div>
+
+          <div className="row justify-content-center pb-5 mt-5">
+            <div className="col-12">
+              <div
+                className="row g-0 example flex-nowrap"
+                style={{ overflowX: "scroll" }}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                  <AboutCardPics key={index} item={item} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
