@@ -1,7 +1,7 @@
 import MenuItemSlide from "../ui/MenuItemSlide";
 import { useState } from "react";
 
-function MenuItems({ index }) {
+function MenuItems({ index, viewMenuItem }) {
   const [viewing, setIsview] = useState(false);
 
   const expandMenu = () => {
@@ -13,10 +13,10 @@ function MenuItems({ index }) {
       <div className={`row ${viewing && "pt-2"}`}>
         {!viewing && (
           <>
-            <div className="col-4 ps-0" onClick={expandMenu}>
+            <div className="col-4 ps-0" onClick={viewMenuItem}>
               <img src="images/qbacon.jpg" className="img-fluid w-100" alt="" />
             </div>
-            <div className="col-8 my-auto">
+            <div className="col-8 my-auto" onClick={expandMenu}>
               <div className="row">
                 <div className="col-9 ps-0">
                   <span className="h6 fw-bold">flavored cafe late</span>

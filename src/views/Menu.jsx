@@ -1,6 +1,19 @@
+import { useState } from "react";
 import MenuItems from "../ui/MenuItems";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
+  let navigate = useNavigate();
+  const [subBut, showSubB] = useState(false);
+
+  const showSubButtons = () => {
+    showSubB(!subBut);
+  };
+
+  const viewMenuItem = () => {
+    navigate("/view-item");
+  };
+
   const btt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -38,11 +51,37 @@ function Menu() {
             style={{ overflowX: "scroll" }}
           >
             <div className="col-5">
-              <button className="btn bg-them w-100 text-white q-font-weight-bold">
+              <button
+                onClick={showSubButtons}
+                className="btn bg-them w-100 text-white q-font-weight-bold"
+              >
                 drinks
                 {btt}
               </button>
             </div>
+            {subBut && (
+              <>
+                <div className="col-2">
+                  <button className="btn w-100 q-font-weight-bold">
+                    cofee
+                  </button>
+                </div>
+                <div className="col-2">
+                  <button className="btn w-100 q-font-weight-bold">
+                    juice
+                  </button>
+                </div>
+                <div className="col-2">
+                  <button className="btn w-100 q-font-weight-bold">tea</button>
+                </div>
+                <div className="col-2">
+                  <button className="btn w-100 q-font-weight-bold">soda</button>
+                </div>
+                <div className="col-2">
+                  <button className="btn w-100 q-font-weight-bold">milk</button>
+                </div>
+              </>
+            )}
             <div className="col-5">
               <button className="btn bg-them w-100 text-white q-font-weight-bold">
                 main menu
@@ -70,7 +109,11 @@ function Menu() {
               </div>
               <div className="row justify-content-center">
                 {[1, 2].map((item, index) => (
-                  <MenuItems key={index} index={index} />
+                  <MenuItems
+                    key={index}
+                    viewMenuItem={viewMenuItem}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>
@@ -84,7 +127,11 @@ function Menu() {
               </div>
               <div className="row justify-content-center">
                 {[1, 2, 3, 4, 5].map((item, index) => (
-                  <MenuItems key={index} index={index} />
+                  <MenuItems
+                    key={index}
+                    viewMenuItem={viewMenuItem}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>
@@ -98,7 +145,11 @@ function Menu() {
               </div>
               <div className="row justify-content-center">
                 {[1, 2, 3].map((item, index) => (
-                  <MenuItems key={index} index={index} />
+                  <MenuItems
+                    key={index}
+                    viewMenuItem={viewMenuItem}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>

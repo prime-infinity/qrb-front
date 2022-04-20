@@ -29,11 +29,20 @@ function Header() {
     setSchBar(!schBar);
   };
 
+  const goToAddMenu = () => {
+    navigate("/add-item");
+  };
+
+  const addMenuItem = () => {
+    console.log("Is adding menu item,");
+  };
+
   return (
     <>
       {mMenu && (
         <>
-          <MobileMenu goMenu={goMenu} /> <Overlay />
+          <MobileMenu goMenu={goMenu} />{" "}
+          <Overlay width={`30%`} closeOverlay={showMobileMenu} />
         </>
       )}
       <Navbar
@@ -82,30 +91,67 @@ function Header() {
             <Navbar.Brand className="cur-pointer">
               {location.pathname !== "/" && (
                 <span>
-                  <svg
-                    onClick={goHome}
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ width: "30px" }}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  {!mMenu && (
-                    <span className="ms-3 q-font-weight-bold" onClick={goMenu}>
-                      yogurstory
-                    </span>
+                  {location.pathname === "/add-item" ||
+                  location.pathname === "/view-item" ? (
+                    <svg
+                      onClick={goMenu}
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "25px", verticalAlign: "text-bottom" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      onClick={goHome}
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "30px", verticalAlign: "text-bottom" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   )}
+                  {!mMenu &&
+                    (location.pathname === "/add-item" ? (
+                      <span
+                        className="ms-3 q-font-weight-bold"
+                        onClick={goMenu}
+                      >
+                        add item
+                      </span>
+                    ) : location.pathname === "/view-item" ? (
+                      <span
+                        className="ms-3 q-font-weight-bold"
+                        onClick={goMenu}
+                      >
+                        kalua pig meat
+                      </span>
+                    ) : (
+                      <span
+                        className="ms-3 q-font-weight-bold"
+                        onClick={goMenu}
+                      >
+                        yogurstory
+                      </span>
+                    ))}
                 </span>
               )}
             </Navbar.Brand>
             <span className="" style={{ zIndex: "3" }}>
               {location.pathname === "/menu" && (
-                <span className="">
+                <span onClick={goToAddMenu} className="">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ width: "30px" }}
@@ -136,7 +182,24 @@ function Header() {
                   </svg>
                 </span>
               )}
-              {mMenu ? (
+              {location.pathname === "/add-item" ||
+              location.pathname === "/view-item" ? (
+                <svg
+                  onClick={addMenuItem}
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ width: "30px" }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              ) : mMenu ? (
                 <svg
                   onClick={showMobileMenu}
                   xmlns="http://www.w3.org/2000/svg"
