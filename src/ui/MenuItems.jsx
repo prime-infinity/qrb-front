@@ -10,7 +10,7 @@ function MenuItems({ index }) {
 
   return (
     <div className="col-11 border border-dark mb-3">
-      <div className={`row ${viewing && "py-2"}`}>
+      <div className={`row ${viewing && "pt-2"}`}>
         {!viewing && (
           <>
             <div className="col-4 ps-0" onClick={expandMenu}>
@@ -43,7 +43,7 @@ function MenuItems({ index }) {
                 <div className="col-3 text-end">
                   <span>${8.49}</span>
                 </div>
-                <div className="col-12">
+                <div className="col-12 pb-3">
                   <span style={{ verticalAlign: "text-top" }}>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   </span>
@@ -51,7 +51,7 @@ function MenuItems({ index }) {
               </div>
             </div>
             {/**carousel */}
-            <div className="col-12 px-0">
+            <div className="col-12 border border-dark border-bottom-0 px-0">
               <MenuItemSlide />
             </div>
           </>
