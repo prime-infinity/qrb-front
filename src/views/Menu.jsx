@@ -1,4 +1,3 @@
-import MenuCatButtons from "../ui/MenuCatButtons";
 import MenuItems from "../ui/MenuItems";
 
 function Menu() {
@@ -46,14 +45,17 @@ function Menu() {
             </div>
             <div className="col-5">
               <button className="btn bg-them w-100 text-white q-font-weight-bold">
-                stews
+                main menu
                 {btt}
               </button>
             </div>
 
-            {[1, 2, 3, 4].map((index) => (
-              <MenuCatButtons key={index} index={index} />
-            ))}
+            <div className="col-5">
+              <button className="btn bg-them w-100 text-white q-font-weight-bold">
+                lunch
+                {btt}
+              </button>
+            </div>
           </div>
 
           {/** menu part */}
@@ -61,63 +63,21 @@ function Menu() {
             {/** the menuss */}
             <div className="col-12 mb-4">
               {/** the category */}
-              <div className="col-6 ps-1 text-start">
+              <div className="col-6 pb-2 ps-1 text-start">
                 <span>menu</span>
                 <span>{chevNxt}</span>
                 <span>drinks</span>
               </div>
               <div className="row justify-content-center">
-                <div className="col-11 border border-dark mb-3">
-                  <div className="row">
-                    <div className="col-2 ps-0">
-                      <img
-                        src="images/qbacon.jpg"
-                        className="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-4 ps-0 my-auto">kalbi tang</div>
-                    <div className="col-4 text-end my-auto">
-                      <span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="svg-icon me-1"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <span>sold out</span>
-                    </div>
-                    <div className="col-2 text-end my-auto">${8.49}</div>
-                  </div>
-                </div>
-
-                <div className="col-11 border border-dark">
-                  <div className="row">
-                    <div className="col-2 ps-0">
-                      <img
-                        src="images/qkala.jpg"
-                        className="img-fluid"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-4 ps-0 my-auto">goolbi goo-e</div>
-                    <div className="col-4 text-end my-auto"></div>
-                    <div className="col-2 text-end my-auto">${8.49}</div>
-                  </div>
-                </div>
+                {[1, 2].map((item, index) => (
+                  <MenuItems key={index} index={index} />
+                ))}
               </div>
             </div>
 
             <div className="col-12 mb-4">
               {/** the category */}
-              <div className="col-6 ps-1 text-start">
+              <div className="col-6 pb-2 ps-1 text-start">
                 <span>menu</span>
                 <span>{chevNxt}</span>
                 <span>stews</span>
@@ -131,13 +91,13 @@ function Menu() {
 
             <div className="col-12 mb-4">
               {/** the category */}
-              <div className="col-6 ps-1 text-start">
+              <div className="col-6 pb-2 ps-1 text-start">
                 <span>menu</span>
                 <span>{chevNxt}</span>
                 <span>category 3</span>
               </div>
               <div className="row justify-content-center">
-                {[1, 2, 3, 4, 5].map((item, index) => (
+                {[1, 2, 3].map((item, index) => (
                   <MenuItems key={index} index={index} />
                 ))}
               </div>
