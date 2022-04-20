@@ -10,10 +10,10 @@ function MenuItems({ index }) {
 
   return (
     <div className="col-11 border border-dark mb-3">
-      <div className={`row ${viewing && "py-2"}`} onClick={expandMenu}>
+      <div className={`row ${viewing && "py-2"}`}>
         {!viewing && (
           <>
-            <div className="col-4 ps-0">
+            <div className="col-4 ps-0" onClick={expandMenu}>
               <img src="images/qbacon.jpg" className="img-fluid w-100" alt="" />
             </div>
             <div className="col-8 my-auto">
@@ -35,7 +35,7 @@ function MenuItems({ index }) {
         )}
         {viewing && (
           <>
-            <div className="col-12">
+            <div className="col-12" onClick={expandMenu}>
               <div className="row">
                 <div className="col-9">
                   <span className="h6 fw-bold">flavored cafe late</span>
