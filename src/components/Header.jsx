@@ -51,7 +51,7 @@ function Header() {
                     type="text"
                     className="form-control"
                     id="inlineFormInputGroupUsername2"
-                    placeholder=""
+                    placeholder="search yogurstory's menu"
                   />
                   <div className="input-group-prepend">
                     <div className="input-group-text bg-white">
