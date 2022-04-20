@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-function MobileMenu() {
+function MobileMenu({ goMenu }) {
   const [isUser, setIsUser] = useState(false);
 
   const toggleIsUser = () => {
@@ -79,7 +79,7 @@ function MobileMenu() {
                   </svg>
                 </span>
               </li>
-              <li className="">
+              <li className="" onClick={goMenu}>
                 <span>Menu</span>
                 <span className="btn pe-0">
                   <svg

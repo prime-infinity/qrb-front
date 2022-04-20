@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Wrapper() {
   let navigate = useNavigate();
@@ -36,9 +36,11 @@ function Wrapper() {
                   </button>
                 </div>
                 <div className="col-6">
-                  <button className="btn py-3 bg-dark w-100 bg-white q-font-weight-bold">
-                    menu
-                  </button>
+                  <Link to="/menu">
+                    <button className="btn py-3 bg-dark w-100 bg-white q-font-weight-bold">
+                      menu
+                    </button>{" "}
+                  </Link>
                 </div>
               </div>
             </div>

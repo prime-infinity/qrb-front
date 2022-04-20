@@ -4,7 +4,7 @@ function About() {
   return (
     <div className="container-fluid pt-5">
       <div className="row pt-5">
-        <div className="col-12 col-md-6 offset-md-3">
+        <div className="col-12 col-md-6 offset-md-3 px-3">
           <div>
             <span className="pe-2">mon-fri</span>
             <span className="pe-2">|</span>
@@ -157,7 +157,7 @@ function About() {
           <div className="row justify-content-center pb-5 mt-5">
             <div className="col-12">
               <div
-                className="row g-0 example flex-nowrap"
+                className="row g-0 flex-nowrap"
                 style={{ overflowX: "scroll" }}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (

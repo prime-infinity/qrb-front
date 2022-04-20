@@ -54,7 +54,7 @@ body {
 .svg-icon {
   width: 20px;
   height: 20px;
-  vertical-align: text-bottom;
+  vertical-align: sub;
 }
 .mm-db {
   position: absolute;
@@ -63,4 +63,7 @@ body {
 }
 .q-font-weight-bold {
   font-weight: 900;
+}
+.scroll-div::-webkit-scrollbar {
+  display: none;
 }
