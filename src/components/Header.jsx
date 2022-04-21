@@ -4,6 +4,7 @@ import { useState } from "react";
 import MobileMenu from "../ui/MobileMenu";
 import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
+import CreateRestHeader from "../ui/CreateRestHeader";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -37,7 +38,20 @@ function Header() {
     console.log("Is adding menu item,");
   };
 
-  return (
+  const inRestCreation = () => {
+    if (
+      location.pathname === "/create-resturant/name" ||
+      location.pathname === "/create-resturant/location" ||
+      location.pathname === "/create-resturant/year" ||
+      location.pathname === "/create-resturant/description" ||
+      location.pathname === "/create-resturant/welcome"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  return !inRestCreation() ? (
     <>
       {mMenu && (
         <>
@@ -259,7 +273,9 @@ function Header() {
         )}
       </Navbar>
     </>
-  );
+  ) : inRestCreation() ? (
+    <CreateRestHeader />
+  ) : null;
 }
 
 export default Header;
