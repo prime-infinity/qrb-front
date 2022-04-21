@@ -1,12 +1,19 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-function MobileMenu({ goMenu }) {
+function MobileMenu({ goMenu, closeMenu }) {
+  let navigate = useNavigate();
   const [isUser, setIsUser] = useState(false);
 
   const toggleIsUser = () => {
     setIsUser(!isUser);
+  };
+
+  const goLogin = () => {
+    closeMenu();
+    navigate("/login");
   };
 
   return (
@@ -100,7 +107,7 @@ function MobileMenu({ goMenu }) {
             <div className="mm-db">
               <hr />
               <ul className="navbar-nav ml-auto">
-                <li className="">
+                <li className="" onClick={goLogin}>
                   <span>login</span>
                   <span className="btn pe-0">
                     <svg

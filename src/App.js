@@ -5,6 +5,7 @@ import About from "./views/About";
 import Menu from "./views/Menu";
 import AddMenuItem from "./views/AddMenuItem";
 import ViewMenuItem from "./views/ViewMenuItem";
+import Login from "./views/Login";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/add-item" element={<AddMenuItem />} />
