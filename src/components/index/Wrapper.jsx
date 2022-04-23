@@ -26,8 +26,8 @@ function Wrapper() {
                 <div className="col-4 q-font-weight-bold">since 2014</div>
               </div>
               <br />
-              <div className="row">
-                <div className="col-6">
+              <div className="row g-0">
+                <div className="col-6 pe-1">
                   <button
                     onClick={toAbout}
                     className="btn py-3 bg-them w-100 text-white q-font-weight-bold"
@@ -35,7 +35,7 @@ function Wrapper() {
                     info
                   </button>
                 </div>
-                <div className="col-6">
+                <div className="col-6 ps-0">
                   <Link to="/menu">
                     <button className="btn py-3 bg-dark w-100 bg-white q-font-weight-bold">
                       menu

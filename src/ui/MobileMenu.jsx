@@ -24,7 +24,7 @@ function MobileMenu({ goMenu, closeMenu }) {
           <div className="col-10 offset-1 text-end">
             <div className="row mx-auto">
               <div className="col-4">customer</div>
-              <div className="col-3 text-center">
+              <div className="col-3 ">
                 <Form.Check
                   type="switch"
                   defaultChecked={isResOwner}

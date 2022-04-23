@@ -88,3 +88,6 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.ww-25 {
+  width: 25% !important;
+}
