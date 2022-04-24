@@ -1,4 +1,9 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuth } from "./redux/slices/authSlice";
+import ProtectedRouteRestOwner from "./helpers/ProtectedRouteRestOwner";
+
 import Index from "./views/Index";
 import Header from "./components/Header";
 import About from "./views/About";
@@ -14,6 +19,13 @@ import CreateResturantDesc from "./components/createresturant/CreateResturantDes
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
 
 function App() {
+  const authState = useSelector((state) => state.auth.auth);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAuth());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Header />
@@ -25,7 +37,15 @@ function App() {
         <Route path="/add-item" element={<AddMenuItem />} />
         <Route path="/view-item" element={<ViewMenuItem />} />
 
-        <Route path="/create-resturant" element={<CreateResturant />}>
+        <Route
+          path="/create-resturant"
+          element={
+            <ProtectedRouteRestOwner auth={authState}>
+              {" "}
+              <CreateResturant />
+            </ProtectedRouteRestOwner>
+          }
+        >
           <Route index element={<CreateResturant />} />
           <Route path="name" element={<CreateResturantName />} />
           <Route path="location" element={<CreateResturantLoc />} />

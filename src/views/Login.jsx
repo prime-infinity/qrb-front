@@ -2,12 +2,14 @@ import { useState } from "react";
 import LoginFirst from "../components/login/LoginFirst";
 import LoginSecond from "../components/login/LoginSecond";
 import { loginFirst } from "../helpers/web";
+import "../react-phone-number.css";
+import PhoneInput from "react-phone-number-input";
+
 function Login() {
   const [secondStage, setSecondStage] = useState(false);
-  const [field, setField] = useState("");
+  const [field, setField] = useState();
   const [firstPending, setFirstPending] = useState(false);
   const [error, setErrors] = useState(null);
-
   const handleErrors = (e) => {
     e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
   };
@@ -34,7 +36,7 @@ function Login() {
   };
 
   const disableButton = () => {
-    if (field === "") {
+    if (!field) {
       return true;
     }
     return false;
@@ -44,13 +46,13 @@ function Login() {
     <div className="container-fluid pt-5 px-3">
       <div className="row pt-5">
         <div className="col-12 mb-3">
-          <input
-            readOnly={secondStage}
-            value={field}
-            onChange={(e) => setField(e.target.value)}
-            type="number"
+          <PhoneInput
             placeholder="enter mobile no"
+            defaultCountry="IN"
+            readOnly={secondStage}
             className="form-control mb-2 border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            value={field}
+            onChange={setField}
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>
