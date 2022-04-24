@@ -11,6 +11,7 @@ function CreateResturantYear() {
   const authState = useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
+  const [error, setErrors] = useState(null);
   const [pending, setPending] = useState(false);
   let navigate = useNavigate();
 
@@ -63,7 +64,7 @@ function CreateResturantYear() {
           </div>
           <button
             onClick={next}
-            disabled={disabled}
+            disabled={disabled()}
             className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
           >
             {pending && (

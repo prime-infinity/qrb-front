@@ -12,6 +12,7 @@ function CreateResturantName() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [name, setName] = useState("");
+  const [error, setErrors] = useState(null);
   const [pending, setPending] = useState(false);
 
   const errorDiv = <small className="text-danger">{error}</small>;
@@ -64,7 +65,7 @@ function CreateResturantName() {
           </div>
           <button
             onClick={next}
-            disabled={disabled}
+            disabled={disabled()}
             className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
           >
             {pending && (
