@@ -1,20 +1,35 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
+import { removeFromLocal } from "../helpers/storage";
+import { setAuth } from "../redux/slices/authSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth.auth);
   const [isResOwner, setIsUser] = useState(false);
+  const [logoutMenu, showLogoutMenu] = useState(false);
 
   const toggleIsUser = () => {
     setIsUser(!isResOwner);
   };
 
   const goLogin = () => {
-    closeMenu();
-    navigate("/login");
+    if (authState) {
+      showLogoutMenu(!logoutMenu);
+    } else {
+      closeMenu();
+      navigate("/login");
+    }
+  };
+
+  const logout = () => {
+    dispatch(setAuth(null));
+    removeFromLocal();
   };
 
   return (
@@ -111,9 +126,32 @@ function MobileMenu({ goMenu, closeMenu }) {
 
             <div className="mm-db">
               <hr />
-              <ul className="navbar-nav ml-auto">
+              {logoutMenu && (
+                <div
+                  className="sm-me border py-2 px-2"
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    backgroundColor: "#eee",
+                    zIndex: "1",
+                    top: "-30%",
+                  }}
+                >
+                  <ul className="navbar-nav">
+                    <li onClick={logout}>logout</li>
+                  </ul>
+                </div>
+              )}
+              <ul
+                className="navbar-nav ml-auto"
+                style={{ position: "relative" }}
+              >
                 <li className="" onClick={goLogin}>
-                  <span>login</span>
+                  {authState ? (
+                    <span>{authState.field}</span>
+                  ) : (
+                    <span>login</span>
+                  )}
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon"

@@ -20,11 +20,13 @@ import CreateResturantWel from "./components/createresturant/CreateResturantWel"
 
 function App() {
   const authState = useSelector((state) => state.auth.auth);
-
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getAuth());
-  }, [dispatch]);
+    if (authState === null) {
+      dispatch(getAuth());
+    }
+  }, [dispatch, authState]);
 
   return (
     <BrowserRouter>

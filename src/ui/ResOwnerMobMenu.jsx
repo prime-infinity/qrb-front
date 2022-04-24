@@ -15,14 +15,14 @@ function ResOwnerMobMenu({ closeMenu }) {
       <div className="row mt-3">
         <div className="col-12 text-start">
           <span className="btn ps-0">
-            <svg
+            {/*<svg
               className="svg-icon"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
-            </svg>
+            </svg>*/}
           </span>
           <span>
             we will help you set up your digital menu for your customers
@@ -30,27 +30,27 @@ function ResOwnerMobMenu({ closeMenu }) {
         </div>
         <div className="col-12 text-start my-3">
           <span className="btn ps-0">
-            <svg
+            {/*<svg
               className="svg-icon"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
-            </svg>
+            </svg>*/}
           </span>
           <span>we will deliver high quality qr code signs for your menu</span>
         </div>
         <div className="col-12 text-start">
           <span className="btn ps-0">
-            <svg
+            {/*<svg
               className="svg-icon"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
-            </svg>
+            </svg>*/}
           </span>
           <span>we will arrange photograph for all your menu items</span>
         </div>

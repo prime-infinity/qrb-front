@@ -23,6 +23,7 @@ function Header() {
   };
 
   const goMenu = () => {
+    setMmenu(!mMenu);
     navigate("/menu");
   };
 

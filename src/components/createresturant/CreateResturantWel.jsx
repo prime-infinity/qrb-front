@@ -1,12 +1,15 @@
 import { useState } from "react";
 import DoneCreatRest from "../../ui/DoneCreatRest";
+import { useSelector } from "react-redux";
 
 function CreateResturantWel() {
+  const restCreation = useSelector((state) => state.createrest);
   const [done, setDone] = useState(false);
 
   const next = () => {
     setDone(true);
   };
+  console.log(restCreation);
   return done ? (
     <DoneCreatRest />
   ) : (
