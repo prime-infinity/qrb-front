@@ -55,7 +55,7 @@ function CreateResturantDesc() {
       <div className="row justify-content-center pt-5">
         <div className="col-10">
           <span className="fw-bold h2">brief definition</span>
-          <input
+          <textarea
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}

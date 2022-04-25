@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ResOwnerMobMenu({ closeMenu }) {
+  const authState = useSelector((state) => state.auth.auth);
   let navigate = useNavigate();
   const resOwnerGetStarted = () => {
     closeMenu();
-    navigate("/create-resturant/name");
+    if (!authState) {
+      navigate("/login");
+    } else {
+      navigate("/create-resturant/name");
+    }
   };
 
   return (

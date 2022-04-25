@@ -20,7 +20,7 @@ export function loginSecond(data) {
     axios
       .post(backendHost + "login/verify-token", data)
       .then((result) => {
-        res(result.data);
+        res({ ...result.data, token: result.headers["x-auth-token"] });
       })
       .catch((err) => {
         rej(err);
@@ -86,6 +86,24 @@ export function createRestDesc(data, token) {
       .post(backendHost + "create-rest/description", data, {
         headers: {
           "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function createRestFinal(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "create-rest/final", data, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((result) => {
