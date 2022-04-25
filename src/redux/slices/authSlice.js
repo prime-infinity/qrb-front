@@ -10,10 +10,14 @@ export const authSlice = createSlice({
     setAuth: (state, action) => {
       state.auth = action.payload;
     },
+    setIsResOwner: (state, action) => {
+      state.auth = { ...state.auth, isRestOwner: action.payload };
+    },
   },
 });
 
 export const { setAuth } = authSlice.actions;
+export const { setIsResOwner } = authSlice.actions;
 
 export const getAuth = () => async (dispatch) => {
   const dataFromGet = await loadFromLocal();

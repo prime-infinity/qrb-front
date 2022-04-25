@@ -1,12 +1,15 @@
 import { useState } from "react";
 import DoneCreatRest from "../../ui/DoneCreatRest";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
+import { setIsResOwner } from "../../redux/slices/authSlice";
+import { setRest } from "../../redux/slices/restSlice";
 
 function CreateResturantWel() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const restCreation = useSelector((state) => state.createrest);
   const [file, selectFile] = useFileUpload();
@@ -21,8 +24,12 @@ function CreateResturantWel() {
     e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = (e) => {
+    //set resturnat in state
+    dispatch(setRest(e));
     setDone(true);
+    //change the isRstOwner of user to true
+    dispatch(setIsResOwner(true));
     setTimeout(() => {
       navigate("/");
     }, 2000);
