@@ -91,3 +91,12 @@ body {
 .ww-25 {
   width: 25% !important;
 }
+.cover{
+  position: fixed;
+  top: 0%;
+  background-color: #eee;
+  height: 100%;
+  width: 100%;
+  left: 0%;
+  z-index: 3;
+}

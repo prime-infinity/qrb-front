@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
-import { setIsResOwner } from "../../redux/slices/authSlice";
+import { setIsResOwner,saveAuthToLocal } from "../../redux/slices/authSlice";
 import { setRest } from "../../redux/slices/restSlice";
 
 function CreateResturantWel() {
@@ -30,6 +30,7 @@ function CreateResturantWel() {
     setDone(true);
     //change the isRstOwner of user to true
     dispatch(setIsResOwner(true));
+    dispatch(saveAuthToLocal())
     setTimeout(() => {
       navigate("/");
     }, 2000);

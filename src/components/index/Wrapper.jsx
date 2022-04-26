@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Wrapper() {
+  const rest = useSelector((state) => state.rest.rest);
+  //console.log(rest)
   let navigate = useNavigate();
 
   const toAbout = () => {
@@ -13,17 +16,17 @@ function Wrapper() {
         <div className="container-fluid wrapper-down">
           <div className="row justify-content-center justify-content-md-start wr-sec">
             <div className="col-11 col-md-6 text-white">
-              <span className="h1 q-font-weight-bold">yogurstory</span> <br />
+              <span className="h1 q-font-weight-bold">{rest.name}</span> <br />
               <br />
               <span className="q-font-weight-bold">
-                local’s favorite brunch restaurant
+                {rest.description}
               </span>{" "}
               <br />
               <br />
               <div className="row">
-                <div className="col-3 q-font-weight-bold">honolulu</div>
+                <div className="col-3 q-font-weight-bold">{rest.location}</div>
                 <div className="col-1 q-font-weight-bold">|</div>
-                <div className="col-4 q-font-weight-bold">since 2014</div>
+                <div className="col-4 q-font-weight-bold">{rest.year}</div>
               </div>
               <br />
               <div className="row g-0">
@@ -35,7 +38,7 @@ function Wrapper() {
                     info
                   </button>
                 </div>
-                <div className="col-6 ps-0">
+                <div className="col-6 ps-1">
                   <Link to="/menu">
                     <button className="btn py-3 bg-dark w-100 bg-white q-font-weight-bold">
                       menu

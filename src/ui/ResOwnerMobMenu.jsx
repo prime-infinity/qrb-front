@@ -30,9 +30,13 @@ function ResOwnerMobMenu({ closeMenu }) {
     </svg>
   );
 
+  const editMyInfo = ()=>{
+    
+  }
+
   return (
     <>
-      {authState.isRestOwner ? (
+      {authState?.isRestOwner ? (
         <ul className="navbar-nav ml-auto">
           <li className="">
             <span>home</span>
@@ -48,7 +52,7 @@ function ResOwnerMobMenu({ closeMenu }) {
               </svg>
             </span>
           </li>
-          <li className="">
+          <li className="" onClick={editMyInfo}>
             <span>edit my info</span>
 
             <span className="btn pe-0">{editIcon}</span>

@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -9,6 +9,7 @@ import { setAuth } from "../redux/slices/authSlice";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
+  let location = useLocation()
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const [isResOwner, setIsUser] = useState(false);
@@ -25,6 +26,10 @@ function MobileMenu({ goMenu, closeMenu }) {
       closeMenu();
       navigate("/login");
     }
+  };
+
+  const toAbout = () => {
+    navigate("/about");
   };
 
   const logout = () => {
@@ -56,7 +61,7 @@ function MobileMenu({ goMenu, closeMenu }) {
               <ResOwnerMobMenu closeMenu={closeMenu} />
             ) : (
               <ul className="navbar-nav ml-auto">
-                <li className="">
+                {location.pathname !== "/" &&<li className="">
                   <span>home</span>
 
                   <span className="btn pe-0">
@@ -69,8 +74,8 @@ function MobileMenu({ goMenu, closeMenu }) {
                       <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
                     </svg>
                   </span>
-                </li>
-                <li className="">
+                </li>}
+                <li className="" onClick={toAbout}>
                   <span>info</span>
                   <span className="btn pe-0">
                     <svg
@@ -86,7 +91,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     </svg>
                   </span>
                 </li>
-                <li className="">
+                {false && <li className="">
                   <span>Covid pass</span>
                   <span className="btn pe-0">
                     <svg
@@ -104,7 +109,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                       />
                     </svg>
                   </span>
-                </li>
+                </li>}
                 <li className="" onClick={goMenu}>
                   <span>Menu</span>
                   <span className="btn pe-0">

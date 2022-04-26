@@ -114,3 +114,23 @@ export function createRestFinal(data, token) {
       });
   });
 }
+
+//getting resturants
+export async function getRestOfOwner(token) {
+  try {
+    const { data } = await axios.get(backendHost + "resturant/owner", {
+      headers: { "x-auth-token": token },
+    });
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}
+export async function getRandomRest() {
+  try {
+    const { data } = await axios.get(backendHost + "resturant/random")
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}
