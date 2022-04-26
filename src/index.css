@@ -2,7 +2,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 .wrapper {
-  background-image: url("/public/images/qrbwrapon.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

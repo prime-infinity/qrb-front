@@ -12,7 +12,7 @@ function Wrapper() {
 
   return (
     <>
-      <div className="wrapper">
+      <div className="wrapper" style={{backgroundImage:`url(${rest.welcomescreen})`}}>
         <div className="container-fluid wrapper-down">
           <div className="row justify-content-center justify-content-md-start wr-sec">
             <div className="col-11 col-md-6 text-white">
