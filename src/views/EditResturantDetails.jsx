@@ -1,30 +1,80 @@
 
+import React from 'react';
 import { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getRestDetails } from "../redux/slices/restDetailsSlice"
+import { getRestDetails,setRestDetailSummary } from "../redux/slices/restDetailsSlice"
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
-import AboutCardPics from "../ui/AboutCardPics";
+import ImageUploading from 'react-images-uploading';
+import { submitRestSumm,uploadRestDetailImages } from "../helpers/web"
 
 function EditResturantDetails() {
    const dispatch = useDispatch();
    const restdetails = useSelector((state) => state.restdetails.details);
    const rest = useSelector((state) => state.rest.rest);
+   const authState = useSelector((state) => state.auth.auth);
    let navigate = useNavigate();
-   const [summary,setSummary] = useState(restdetails?.summary ?restdetails.summar :"")
+   const [summary,setSummary] = useState(restdetails?.summary ?restdetails.summary :"")
    const [isEditingSum,setIsEdSum] = useState(false)
    const [pending, setPending] = useState(false);
    const [error, setErrors] = useState(null);
+   const [imageUpPending,setImageUpPending] = useState(false)
+   const [imaUpLdErr,setImgErr]=useState(null)
+
+   const [images, setImages] = React.useState([]);
+   const maxNumber = 6;
+
+   const uploadImages = ()=>{
+      setImageUpPending(true)
+      setImgErr(null)
+     const imageAsArray = images.map((img)=>(img.file))
+    
+     const formData = new FormData();
+
+     for (let i = 0; i < imageAsArray.length; i++) {
+         formData.append(
+            "rest-images",
+            imageAsArray[i],
+            imageAsArray[i].name
+         );
+      }
+
+      formData.append("restid",rest._id)
+
+      uploadRestDetailImages(formData, authState.token)
+      .then((res) => {
+       //set details image to array
+       console.log(res.images);
+         console.log(imageAsArray)
+         setImageUpPending(false)
+         alert("updated")
+      })
+      .catch((err) => {
+         setImageUpPending(false)
+         err.response?.data ? setImgErr(err.response.data) : setImgErr(err.message);
+      });
+   }
+
+   const onChange = (imageList, addUpdateIndex) => {
+      // data for submit
+      //console.log(imageList/*, addUpdateIndex*/);
+      setImages(imageList);
+    };
 
    const errorDiv = <small className="text-danger">{error}</small>;
+   const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
+
 
    const handleErrors = (e) => {
+      setPending(false)
       e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
     };
 
     const handleSuccess = (e) => {
+      setPending(false)
+      dispatch(setRestDetailSummary(summary))
       alert("updated")
     };
 
@@ -51,6 +101,21 @@ function EditResturantDetails() {
          }
          return false;
        };
+
+       const submitSum = ()=>{
+         setPending(true)
+         setErrors(null)
+         let data = {summ:summary,restid:rest._id}
+         submitRestSumm(data, authState.token).then((res)=>{
+            console.log(res);
+            handleSuccess(res);
+         }).catch((err)=>{
+            console.log(err)
+            handleErrors(err);
+         })
+
+       }
+
     return (restdetails === null ? <LoadingScreen /> : restdetails === "Network Error" ? <NetworkErr /> :
       <div className="container-fluid pt-5">
           <div className="row pt-5">
@@ -59,14 +124,14 @@ function EditResturantDetails() {
                 <textarea 
                 value={summary}
                 onChange={(e) => setSsummary(e.target.value)}
-                 className="my-4 py-5 form-control text-center border border-dark" type="text" placeholder="enter short summary for your business"/>
+                 className="my-4 py-5 form-control text-center border border-dark" type="text" placeholder={`${restdetails?.summary? restdetails?.summary :"enter short summary for your business"}`} />
              </span>
                
              <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>
           </div>
 
-          {isEditingSum && <button
+          {isEditingSum && <button onClick={submitSum}
             disabled={pending || disabled()}
             className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
           >
@@ -209,25 +274,89 @@ function EditResturantDetails() {
           </div>
           {/** little icons end */}
 
+            
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNumber}
+            acceptType={['jpg','jpeg']}
+            dataURLKey="data_url"
+            >
+            {({
+               imageList,
+               onImageUpload,
+               onImageUpdate,
+               onImageRemove,
+               errors
+            }) => (
+               // write your building UI
+               <div className="row justify-content-center pb-5 mt-5">
 
-          <div className="row justify-content-center pb-5 mt-5">
-            <div className="col-12">
-              <div
-                className="row g-0 flex-nowrap"
-                style={{ overflowX: "scroll" }}
-              >
+                  <div className="col-12">
+                     <span className="h6">Add Images</span>
+                     
+                     <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
 
-                <div className="col-5">
-                  <img src={rest.welcomescreen} className="img-fluid" alt="" />
-                </div>
+                     {errors && <div className='text-danger'>
+                        {errors.maxNumber && <span className='row'>Number of selected images exceed {maxNumber}</span>}
+                        {errors.acceptType && <span className='row'>Your selected file type is not allow</span>}
+                        {errors.maxFileSize && <span className='row'>Selected file size exceed maxFileSize</span>}
+                     </div>}
 
-                {restdetails.images.length > 0 && [restdetails.images].map((item, index) => (
-                  <AboutCardPics key={index} item={item} />
-                ))}
+                     <div className="row flex-nowrap" style={{ overflowX: "scroll" }}>
 
-              </div>
-            </div>
-          </div>
+                        
+                     {images.length > 0 &&(
+                        imageUpPending ?<div className='col-3 text-center my-auto'> <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span></div> : 
+                     <div className="col-3 text-center my-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" onClick={uploadImages} width="30" viewBox="0 0 20 20" fill="currentColor">
+                           <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                        </svg> <br />
+                        upload
+                     </div>)}
+
+                     <div className="col-3 text-center my-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" onClick={onImageUpload} width="50"
+                           height="50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                     </div>
+
+                     {imageList.map((image, index) => (
+                        <div key={index} className="col-5">
+                           <img src={image['data_url']} alt=""className="img-fluid" />
+
+                           <div className="row pt-2">
+
+                              <div className="col-6 text-center">
+                                 <svg onClick={() => onImageUpdate(index)} xmlns="http://www.w3.org/2000/svg" className="svg-icon" viewBox="0 0 20 20" fill="currentColor">
+                                 <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                                 </svg>
+                              </div>
+                              <div className="col-6 text-center">
+                                 <span>
+                                    <svg  onClick={() => onImageRemove(index)} xmlns="http://www.w3.org/2000/svg" className="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                 </span>
+                              </div>
+                              
+                           </div>
+
+                        </div>
+                     ))}
+                  </div>
+
+                  </div>
+
+               </div>
+            )}
+            </ImageUploading>
 
           </div>
           </div>

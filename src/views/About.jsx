@@ -178,7 +178,7 @@ function About() {
           <div className="row justify-content-center pb-5 mt-5">
             <div className="col-12">
               <div
-                className="row g-0 flex-nowrap"
+                className="row flex-nowrap"
                 style={{ overflowX: "scroll" }}
               >
 
@@ -186,7 +186,7 @@ function About() {
                   <img src={rest.welcomescreen} className="img-fluid" alt="" />
                 </div>
 
-                {restdetails.images.length > 0 && [restdetails.images].map((item, index) => (
+                {restdetails.images.length > 0 && restdetails.images.map((item, index) => (
                   <AboutCardPics key={index} item={item} />
                 ))}
 

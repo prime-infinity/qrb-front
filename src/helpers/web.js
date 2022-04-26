@@ -144,3 +144,40 @@ export async function getDetailsOfRest(id){
     return e.message;
   }
 }
+
+//rest owner editing resturant
+
+export async function submitRestSumm(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/summary", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function uploadRestDetailImages(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/images", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}

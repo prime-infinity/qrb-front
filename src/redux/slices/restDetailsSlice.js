@@ -10,10 +10,15 @@ export const restDetailsSlice = createSlice({
     setRestDetails: (state, action) => {
       state.details = action.payload;
     },
+    setRestDetailSummary:(state,action)=>{
+      state.details = {...state.details,summary:action.payload}
+    }
   },
 });
 
 export const { setRestDetails } = restDetailsSlice.actions;
+export const { setRestDetailSummary } = restDetailsSlice.actions;
+
 
 export const getRestDetails = (id)=>  async (dispatch) => {
     const dataFromGet = await getDetailsOfRest(id);
