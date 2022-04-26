@@ -10,6 +10,7 @@ import About from "./views/About";
 import Menu from "./views/Menu";
 import AddMenuItem from "./views/AddMenuItem";
 import ViewMenuItem from "./views/ViewMenuItem";
+import EditResturantDetails from "./views/EditResturantDetails"
 import Login from "./views/Login";
 import CreateResturant from "./views/CreateResturant";
 import CreateResturantName from "./components/createresturant/CreateResturantName";
@@ -36,10 +37,8 @@ function App() {
   },[dispatch, rest,authState])
 
   useEffect(() => {
-    if (authState === null) {
       dispatch(getAuth());
-    }
-  }, [dispatch, authState]);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -51,7 +50,8 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/add-item" element={<AddMenuItem />} />
         <Route path="/view-item" element={<ViewMenuItem />} />
-
+        <Route path="/edit-resturant-details" element={<EditResturantDetails />} />
+        
         <Route
           path="/create-resturant"
           element={

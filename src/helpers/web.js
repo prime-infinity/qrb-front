@@ -134,3 +134,13 @@ export async function getRandomRest() {
     return e.message;
   }
 }
+export async function getDetailsOfRest(id){
+  try {
+    const { data } = await axios.get(backendHost + "resturant/details", {
+      params: { id: id },
+    });
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}

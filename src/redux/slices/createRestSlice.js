@@ -4,7 +4,6 @@ export const createRestSlice = createSlice({
   name: "createrest",
   initialState: {
     creationState: 1,
-    id: "",
     restName: "",
     restLoc: "",
     restYear: "",

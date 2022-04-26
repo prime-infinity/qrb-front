@@ -1,7 +1,7 @@
-function AboutCardPics() {
+function AboutCardPics({item}) {
   return (
     <div className="col-5">
-      <img src="images/qrbwrapon.png" className="img-fluid" alt="" />
+      <img src={item} className="img-fluid" alt="" />
     </div>
   );
 }

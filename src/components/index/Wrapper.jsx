@@ -10,9 +10,17 @@ function Wrapper() {
     navigate("/about");
   };
 
+  const wrapImage = ()=>{
+    if(rest.welcomescreen){
+      return {backgroundImage:`url(${rest.welcomescreen})`}
+    }else{
+      return {backgroundColor:"#979191"}
+    }
+  }
+
   return (
     <>
-      <div className="wrapper" style={{backgroundImage:`url(${rest.welcomescreen})`}}>
+      <div className="wrapper" style={wrapImage()}>
         <div className="container-fluid wrapper-down">
           <div className="row justify-content-center justify-content-md-start wr-sec">
             <div className="col-11 col-md-6 text-white">

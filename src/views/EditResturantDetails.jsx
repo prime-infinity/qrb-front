@@ -1,51 +1,85 @@
-import AboutCardPics from "../ui/AboutCardPics";
+
+import { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getRestDetails } from "../redux/slices/restDetailsSlice"
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
+import AboutCardPics from "../ui/AboutCardPics";
 
-function About() {
-  const dispatch = useDispatch();
-  const restdetails = useSelector((state) => state.restdetails.details);
-  const rest = useSelector((state) => state.rest.rest);
-  let navigate = useNavigate();
-  
-  useEffect(()=>{
-    if(rest === null){
-      navigate("/");
-    }else{
-      if (restdetails === null) {
-        console.log(rest);
-        dispatch(getRestDetails(rest._id));
+function EditResturantDetails() {
+   const dispatch = useDispatch();
+   const restdetails = useSelector((state) => state.restdetails.details);
+   const rest = useSelector((state) => state.rest.rest);
+   let navigate = useNavigate();
+   const [summary,setSummary] = useState(restdetails?.summary ?restdetails.summar :"")
+   const [isEditingSum,setIsEdSum] = useState(false)
+   const [pending, setPending] = useState(false);
+   const [error, setErrors] = useState(null);
+
+   const errorDiv = <small className="text-danger">{error}</small>;
+
+   const handleErrors = (e) => {
+      e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
+    };
+
+    const handleSuccess = (e) => {
+      alert("updated")
+    };
+
+   useEffect(()=>{
+      if(rest === null){
+        navigate("/");
+      }else{
+        if (restdetails === null) {
+          console.log(rest);
+          dispatch(getRestDetails(rest._id));
+        }
       }
-    }
-   
-  },[dispatch,restdetails,rest,navigate])
+     
+    },[dispatch,restdetails,rest,navigate])
 
-  return (restdetails === null ? <LoadingScreen /> : restdetails === "Network Error" ? <NetworkErr /> :
-    <div className="container-fluid pt-5">
-      <div className="row pt-5">
-        <div className="col-12 col-md-6 offset-md-3 px-3">
-          <div>
-            <span className="pe-2">mon-fri</span>
-            <span className="pe-2">|</span>
-            <span>2:00 am - 8:00 pm</span>
+    const setSsummary = (e)=>{
+      setSummary(e)
+      setIsEdSum(true)
+      }
+      
+      const disabled = () => {
+         if (summary === "") {
+           return true;
+         }
+         return false;
+       };
+    return (restdetails === null ? <LoadingScreen /> : restdetails === "Network Error" ? <NetworkErr /> :
+      <div className="container-fluid pt-5">
+          <div className="row pt-5">
+          <div className="col-12 col-md-6 offset-md-3 px-3">
+             <span className="p">
+                <textarea 
+                value={summary}
+                onChange={(e) => setSsummary(e.target.value)}
+                 className="my-4 py-5 form-control text-center border border-dark" type="text" placeholder="enter short summary for your business"/>
+             </span>
+               
+             <div className="row text-center">
+            <div className="col-12">{error ? errorDiv : null}</div>
           </div>
-          <div>
-            <span className="pe-2">sat-sun</span>
-            <span className="pe-2">|</span>
-            <span className="pe-2">9:00 am - 1:00 pm</span>
-            <span className="pe-2">&</span>
-            <span>9:00 am - 1:00 pm</span>
-          </div>
-          <br />
-          <span className="p">
-            {restdetails.summary?restdetails.summary:" "}
-          </span>
 
-          <ul className="navbar-nav mt-5">
+          {isEditingSum && <button
+            disabled={pending || disabled()}
+            className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+          >
+            {pending && (
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            )}
+            {!pending && <span>update summary</span>}
+          </button>}
+             <ul className="navbar-nav mt-5">
             <li className="pb-2">
               <span>
                 <svg
@@ -60,7 +94,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.phone?restdetails.inactive.phone:""}</span>
+                <span>{restdetails.inactive?.phone?restdetails.inactive.phone:"phone number"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -77,7 +111,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.email?restdetails.inactive.email:""}</span>
+                <span>{restdetails.inactive?.email?restdetails.inactive.email:"email"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -94,7 +128,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.website?restdetails.inactive.website:""}</span>
+                <span>{restdetails.inactive?.website?restdetails.inactive.website:"website"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -111,7 +145,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.address?restdetails.inactive.address:""}</span>
+                <span>{restdetails.inactive?.address?restdetails.inactive.address:"address"}</span>
               </span>
             </li>
           </ul>
@@ -175,6 +209,7 @@ function About() {
           </div>
           {/** little icons end */}
 
+
           <div className="row justify-content-center pb-5 mt-5">
             <div className="col-12">
               <div
@@ -193,10 +228,13 @@ function About() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-export default About;
+          </div>
+          </div>
+       </div>
+      
+    );
+  }
+  
+  export default EditResturantDetails;
+  

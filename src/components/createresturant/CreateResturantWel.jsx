@@ -39,7 +39,7 @@ function CreateResturantWel() {
   const next = () => {
     setPending(true);
     const formData = new FormData();
-    formData.append("welcome-image", file.file, file.name);
+      formData.append("welcome-image", file.file, file.name);    
     formData.append("name", restCreation.restName);
     formData.append("location", restCreation.restLoc);
     formData.append("year", restCreation.restYear);
@@ -55,7 +55,21 @@ function CreateResturantWel() {
       });
   };
   const skip = () => {
-    handleSuccess();
+    setPending(true);
+    const formData = new FormData();
+    formData.append("name", restCreation.restName);
+    formData.append("location", restCreation.restLoc);
+    formData.append("year", restCreation.restYear);
+    formData.append("description", restCreation.restDesc);
+
+    createRestFinal(formData, authState.token)
+      .then((res) => {
+        console.log(res);
+        handleSuccess(res);
+      })
+      .catch((err) => {
+        handleErrors(err);
+      });
   };
 
   return done ? (
