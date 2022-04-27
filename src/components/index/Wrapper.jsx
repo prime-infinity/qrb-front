@@ -18,6 +18,10 @@ function Wrapper() {
     }
   }
 
+  const stripTease = (e)=>{
+    return e.slice(0,8).concat('...')
+  }
+  
   return (
     <>
       <div className="wrapper" style={wrapImage()}>
@@ -32,7 +36,7 @@ function Wrapper() {
               <br />
               <br />
               <div className="row">
-                <div className="col-3 q-font-weight-bold">{rest.location}</div>
+                <div className="col-3 q-font-weight-bold">{ stripTease(rest.location) }</div>
                 <div className="col-1 q-font-weight-bold">|</div>
                 <div className="col-4 q-font-weight-bold">{rest.year}</div>
               </div>

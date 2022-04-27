@@ -27,6 +27,9 @@ function ResOwnerMobMenu({ closeMenu }) {
     navigate("/edit-resturant-details");
   }
 
+  const editMyMenu = ()=>{
+    console.log("is editing menu");
+  }
   return (
     <>
       {authState?.isRestOwner ? (
@@ -50,7 +53,7 @@ function ResOwnerMobMenu({ closeMenu }) {
 
             <span className="btn pe-0">{editIcon}</span>
           </li>
-          <li className="">
+          <li className="" onClick={editMyMenu}>
             <span>edit my menu</span>
 
             <span className="btn pe-0">{editIcon}</span>

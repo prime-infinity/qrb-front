@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getRestDetails,setRestDetailSummary } from "../redux/slices/restDetailsSlice"
+import { setRestSummary,setRestImages } from "../redux/slices/restSlice"
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,10 @@ import { submitRestSumm,uploadRestDetailImages } from "../helpers/web"
 
 function EditResturantDetails() {
    const dispatch = useDispatch();
-   const restdetails = useSelector((state) => state.restdetails.details);
    const rest = useSelector((state) => state.rest.rest);
    const authState = useSelector((state) => state.auth.auth);
    let navigate = useNavigate();
-   const [summary,setSummary] = useState(restdetails?.summary ?restdetails.summary :"")
+   const [summary,setSummary] = useState(rest?.summary ?rest.summary :"")
    const [isEditingSum,setIsEdSum] = useState(false)
    const [pending, setPending] = useState(false);
    const [error, setErrors] = useState(null);
@@ -46,8 +45,9 @@ function EditResturantDetails() {
       uploadRestDetailImages(formData, authState.token)
       .then((res) => {
        //set details image to array
-       console.log(res.images);
-         console.log(imageAsArray)
+         console.log(res.images);
+         dispatch(setRestImages(res.images))
+         //console.log(imageAsArray)
          setImageUpPending(false)
          alert("updated")
       })
@@ -74,21 +74,16 @@ function EditResturantDetails() {
 
     const handleSuccess = (e) => {
       setPending(false)
-      dispatch(setRestDetailSummary(summary))
+      dispatch(setRestSummary(summary))
       alert("updated")
     };
 
    useEffect(()=>{
       if(rest === null){
         navigate("/");
-      }else{
-        if (restdetails === null) {
-          console.log(rest);
-          dispatch(getRestDetails(rest._id));
-        }
       }
-     
-    },[dispatch,restdetails,rest,navigate])
+    
+    },[rest,navigate])
 
     const setSsummary = (e)=>{
       setSummary(e)
@@ -116,7 +111,7 @@ function EditResturantDetails() {
 
        }
 
-    return (restdetails === null ? <LoadingScreen /> : restdetails === "Network Error" ? <NetworkErr /> :
+    return (rest === null ? <LoadingScreen /> : rest === "Network Error" ? <NetworkErr /> :
       <div className="container-fluid pt-5">
           <div className="row pt-5">
           <div className="col-12 col-md-6 offset-md-3 px-3">
@@ -124,7 +119,7 @@ function EditResturantDetails() {
                 <textarea 
                 value={summary}
                 onChange={(e) => setSsummary(e.target.value)}
-                 className="my-4 py-5 form-control text-center border border-dark" type="text" placeholder={`${restdetails?.summary? restdetails?.summary :"enter short summary for your business"}`} />
+                 className="my-4 py-5 form-control text-center border border-dark" type="text" placeholder={`${rest?.summary? rest?.summary :"enter short summary for your business"}`} />
              </span>
                
              <div className="row text-center">
@@ -159,7 +154,7 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.phone?restdetails.inactive.phone:"phone number"}</span>
+                <span>{rest.phone?rest.phone:"phone number"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -176,7 +171,7 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.email?restdetails.inactive.email:"email"}</span>
+                <span>{rest.email?rest.email:"email"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -193,7 +188,7 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.website?restdetails.inactive.website:"website"}</span>
+                <span>{rest.website?rest.website:"website"}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -210,7 +205,7 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.address?restdetails.inactive.address:"address"}</span>
+                <span>{rest.address?rest.address:"address"}</span>
               </span>
             </li>
           </ul>
@@ -294,7 +289,7 @@ function EditResturantDetails() {
                <div className="row justify-content-center pb-5 mt-5">
 
                   <div className="col-12">
-                     <span className="h6">Add Images</span>
+                     <span className="h6">Upload new Images</span>
                      
                      <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
 

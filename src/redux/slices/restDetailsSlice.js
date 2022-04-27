@@ -12,12 +12,16 @@ export const restDetailsSlice = createSlice({
     },
     setRestDetailSummary:(state,action)=>{
       state.details = {...state.details,summary:action.payload}
+    },
+    setRestDetailsImages:(state,action)=>{
+      state.details = {...state.details,images:action.payload}
     }
   },
 });
 
 export const { setRestDetails } = restDetailsSlice.actions;
 export const { setRestDetailSummary } = restDetailsSlice.actions;
+export const { setRestDetailsImages } = restDetailsSlice.actions;
 
 
 export const getRestDetails = (id)=>  async (dispatch) => {

@@ -11,6 +11,7 @@ import Menu from "./views/Menu";
 import AddMenuItem from "./views/AddMenuItem";
 import ViewMenuItem from "./views/ViewMenuItem";
 import EditResturantDetails from "./views/EditResturantDetails"
+import EditResturantProfile from "./views/EditResturantProfile"
 import Login from "./views/Login";
 import CreateResturant from "./views/CreateResturant";
 import CreateResturantName from "./components/createresturant/CreateResturantName";
@@ -51,6 +52,7 @@ function App() {
         <Route path="/add-item" element={<AddMenuItem />} />
         <Route path="/view-item" element={<ViewMenuItem />} />
         <Route path="/edit-resturant-details" element={<EditResturantDetails />} />
+        <Route path="/edit-rest-profile" element={<EditResturantProfile />} />
         
         <Route
           path="/create-resturant"

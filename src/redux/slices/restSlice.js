@@ -10,10 +10,19 @@ export const restSlice = createSlice({
     setRest: (state, action) => {
       state.rest = action.payload;
     },
+    setRestSummary:(state,action)=>{
+      state.rest = {...state.rest,summary:action.payload}
+    },
+    setRestImages:(state,action)=>{
+      state.rest = {...state.rest,images:action.payload}
+    }
   },
 });
 
 export const { setRest } = restSlice.actions;
+export const { setRestSummary } = restSlice.actions;
+export const { setRestImages } = restSlice.actions;
+
 
 export const getRestOwnerRest = (token) => async (dispatch) => {
   const dataFromGet = await getRestOfOwner(token);

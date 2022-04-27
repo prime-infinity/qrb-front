@@ -1,30 +1,22 @@
 import AboutCardPics from "../ui/AboutCardPics";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getRestDetails } from "../redux/slices/restDetailsSlice"
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
 
 function About() {
-  const dispatch = useDispatch();
-  const restdetails = useSelector((state) => state.restdetails.details);
   const rest = useSelector((state) => state.rest.rest);
   let navigate = useNavigate();
   
   useEffect(()=>{
     if(rest === null){
       navigate("/");
-    }else{
-      if (restdetails === null) {
-        console.log(rest);
-        dispatch(getRestDetails(rest._id));
-      }
     }
-   
-  },[dispatch,restdetails,rest,navigate])
+  
+  },[rest,navigate])
 
-  return (restdetails === null ? <LoadingScreen /> : restdetails === "Network Error" ? <NetworkErr /> :
+  return (rest === null ? <LoadingScreen /> : rest === "Network Error" ? <NetworkErr /> :
     <div className="container-fluid pt-5">
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
@@ -42,7 +34,7 @@ function About() {
           </div>
           <br />
           <span className="p">
-            {restdetails.summary?restdetails.summary:" "}
+            {rest.summary?rest.summary:" "}
           </span>
 
           <ul className="navbar-nav mt-5">
@@ -60,7 +52,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.phone?restdetails.inactive.phone:""}</span>
+                <span>{rest.phone?rest.phone:""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -77,7 +69,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.email?restdetails.inactive.email:""}</span>
+                <span>{rest.email?rest.email:""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -94,7 +86,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.website?restdetails.inactive.website:""}</span>
+                <span>{rest.website?rest.website:""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -111,7 +103,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{restdetails.inactive?.address?restdetails.inactive.address:""}</span>
+                <span>{rest.address?rest.address:""}</span>
               </span>
             </li>
           </ul>
@@ -186,7 +178,7 @@ function About() {
                   <img src={rest.welcomescreen} className="img-fluid" alt="" />
                 </div>
 
-                {restdetails.images.length > 0 && restdetails.images.map((item, index) => (
+                {rest.images.length > 0 && rest.images.map((item, index) => (
                   <AboutCardPics key={index} item={item} />
                 ))}
 

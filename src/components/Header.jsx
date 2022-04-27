@@ -42,6 +42,18 @@ function Header() {
     console.log("Is adding menu item,");
   };
 
+  const toEditRestProfile = ()=>{
+    navigate("/edit-rest-profile");
+  }
+
+  const goDetails = ()=>{
+    navigate("/edit-resturant-details")
+  }
+
+  const goToAbout = ()=>{
+    navigate("/about")
+  }
+
   const inRestCreation = () => {
     if (
       location.pathname === "/create-resturant/name" ||
@@ -130,6 +142,22 @@ function Header() {
                     <span onClick={goHome} className="ps-2 fw-bold">
                       qrb
                     </span>
+                  ) : location.pathname === "/edit-rest-profile" ? (
+                    <svg
+                      onClick={goDetails}
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "25px", verticalAlign: "text-bottom" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
                   ) : (
                     <svg
                       onClick={goHome}
@@ -162,7 +190,14 @@ function Header() {
                       </span>
                     ) : location.pathname === "/login" ? (
                       <span className="ms-3 h6">menu platform</span>
-                    ) : (
+                    ) :  location.pathname === "/edit-rest-profile" ? (
+                      <span
+                        className="ms-3 q-font-weight-bold"
+                      >
+                        {"edit resturant"}
+                      </span>
+                    ) :
+                     (
                       <span
                         className="ms-3 q-font-weight-bold"
                         onClick={goMenu}
@@ -207,7 +242,7 @@ function Header() {
                 </span>
               )}
               {location.pathname === "/edit-resturant-details" && (
-                <span onClick={()=>console.log("editing")} className="px-4">
+                <span onClick={toEditRestProfile} className="px-4">
                   <svg  width="23"
                     height="23" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#252525" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -249,7 +284,21 @@ function Header() {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-              ) : mMenu ? (
+              ) : location.pathname === "/edit-rest-profile" ?(<svg
+                onClick={goToAbout}
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: "30px" }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>): mMenu ? (
                 <svg
                   onClick={showMobileMenu}
                   xmlns="http://www.w3.org/2000/svg"

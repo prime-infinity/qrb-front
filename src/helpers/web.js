@@ -181,3 +181,37 @@ export function uploadRestDetailImages(deta, token) {
       });
   });
 }
+//edit rest details by owner
+export function editRestProOne(data,token){
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/prop-one", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function editRestProTwo(data,token){
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/prop-two", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}

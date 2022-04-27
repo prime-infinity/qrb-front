@@ -57,7 +57,7 @@ function LoginSecond({ resend, field }) {
   return (
     <div className="col-12 mt-5 mb-5">
       <span className="fw-bold h1">verfication code</span> <br />
-      <span>enter the 4 digit number that we sent to {field} or your pin</span>
+      <span>enter the 4 digit number that we sent to {field}.</span>
       <div className="row mt-3 mb-5">
         <div className="col-12">
           {ss && (
