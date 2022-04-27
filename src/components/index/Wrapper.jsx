@@ -37,7 +37,7 @@ function Wrapper() {
               <br />
               <div className="row">
                 <div className="col-3 q-font-weight-bold">
-                  {stripTease(rest.location)}
+                  {rest?.location && (stripTease(rest.location))}
                 </div>
                 <div className="col-1 q-font-weight-bold">|</div>
                 <div className="col-4 q-font-weight-bold">{rest.year}</div>
