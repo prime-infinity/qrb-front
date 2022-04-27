@@ -30,7 +30,7 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
         <div className="row justify-content-center mt-5">
           <div className="col-2 border border-dark py-2">G</div>
           <div
-            className="col-8 border border-dark py-2 text-white fw-bold"
+            className="col-10 border border-dark py-2 text-white fw-bold"
             style={{ backgroundColor: "#5290f4" }}
           >
             Log in with Google
