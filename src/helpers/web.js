@@ -128,13 +128,13 @@ export async function getRestOfOwner(token) {
 }
 export async function getRandomRest() {
   try {
-    const { data } = await axios.get(backendHost + "resturant/random")
+    const { data } = await axios.get(backendHost + "resturant/random");
     return data;
   } catch (e) {
     return e.message;
   }
 }
-export async function getDetailsOfRest(id){
+export async function getDetailsOfRest(id) {
   try {
     const { data } = await axios.get(backendHost + "resturant/details", {
       params: { id: id },
@@ -182,7 +182,7 @@ export function uploadRestDetailImages(deta, token) {
   });
 }
 //edit rest details by owner
-export function editRestProOne(data,token){
+export function editRestProOne(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/prop-one", data, {
@@ -199,7 +199,7 @@ export function editRestProOne(data,token){
   });
 }
 
-export function editRestProTwo(data,token){
+export function editRestProTwo(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/prop-two", data, {

@@ -8,15 +8,18 @@ import { useNavigate } from "react-router-dom";
 function About() {
   const rest = useSelector((state) => state.rest.rest);
   let navigate = useNavigate();
-  
-  useEffect(()=>{
-    if(rest === null){
+
+  useEffect(() => {
+    if (rest === null) {
       navigate("/");
     }
-  
-  },[rest,navigate])
+  }, [rest, navigate]);
 
-  return (rest === null ? <LoadingScreen /> : rest === "Network Error" ? <NetworkErr /> :
+  return rest === null ? (
+    <LoadingScreen />
+  ) : rest === "Network Error" ? (
+    <NetworkErr />
+  ) : (
     <div className="container-fluid pt-5">
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
@@ -33,9 +36,7 @@ function About() {
             <span>9:00 am - 1:00 pm</span>
           </div>
           <br />
-          <span className="p">
-            {rest.summary?rest.summary:" "}
-          </span>
+          <span className="p">{rest.summary ? rest.summary : " "}</span>
 
           <ul className="navbar-nav mt-5">
             <li className="pb-2">
@@ -52,7 +53,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{rest.phone?rest.phone:""}</span>
+                <span>{rest.phone ? rest.phone : ""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -69,7 +70,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{rest.email?rest.email:""}</span>
+                <span>{rest.email ? rest.email : ""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -86,7 +87,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{rest.website?rest.website:""}</span>
+                <span>{rest.website ? rest.website : ""}</span>
               </span>
             </li>
             <li className="pb-2">
@@ -103,7 +104,7 @@ function About() {
                   />
                 </svg>
 
-                <span>{rest.address?rest.address:""}</span>
+                <span>{rest.address ? rest.address : ""}</span>
               </span>
             </li>
           </ul>
@@ -169,19 +170,15 @@ function About() {
 
           <div className="row justify-content-center pb-5 mt-5">
             <div className="col-12">
-              <div
-                className="row flex-nowrap"
-                style={{ overflowX: "scroll" }}
-              >
-
+              <div className="row flex-nowrap" style={{ overflowX: "scroll" }}>
                 <div className="col-5">
                   <img src={rest.welcomescreen} className="img-fluid" alt="" />
                 </div>
 
-                {rest.images.length > 0 && rest.images.map((item, index) => (
-                  <AboutCardPics key={index} item={item} />
-                ))}
-
+                {rest.images.length > 0 &&
+                  rest.images.map((item, index) => (
+                    <AboutCardPics key={index} item={item} />
+                  ))}
               </div>
             </div>
           </div>

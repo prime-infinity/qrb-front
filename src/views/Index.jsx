@@ -7,7 +7,13 @@ import { useSelector } from "react-redux";
 function Index() {
   const rest = useSelector((state) => state.rest.rest);
 
-  return rest === null ? <LoadingScreen /> : rest === "Network Error" ? <NetworkErr /> :<Wrapper />;
+  return rest === null ? (
+    <LoadingScreen />
+  ) : rest === "Network Error" ? (
+    <NetworkErr />
+  ) : (
+    <Wrapper />
+  );
 }
 
 export default Index;

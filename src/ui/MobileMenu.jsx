@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -9,7 +9,7 @@ import { setAuth } from "../redux/slices/authSlice";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
-  let location = useLocation()
+  let location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const [isResOwner, setIsUser] = useState(false);
@@ -61,20 +61,22 @@ function MobileMenu({ goMenu, closeMenu }) {
               <ResOwnerMobMenu closeMenu={closeMenu} />
             ) : (
               <ul className="navbar-nav ml-auto">
-                {location.pathname !== "/" &&<li className="">
-                  <span>home</span>
+                {location.pathname !== "/" && (
+                  <li className="">
+                    <span>home</span>
 
-                  <span className="btn pe-0">
-                    <svg
-                      className="svg-icon"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
-                    </svg>
-                  </span>
-                </li>}
+                    <span className="btn pe-0">
+                      <svg
+                        className="svg-icon"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
+                      </svg>
+                    </span>
+                  </li>
+                )}
                 <li className="" onClick={toAbout}>
                   <span>info</span>
                   <span className="btn pe-0">
@@ -91,25 +93,27 @@ function MobileMenu({ goMenu, closeMenu }) {
                     </svg>
                   </span>
                 </li>
-                {false && <li className="">
-                  <span>Covid pass</span>
-                  <span className="btn pe-0">
-                    <svg
-                      className="svg-icon"
-                      viewBox="0 0 16 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 1.5H3C2.46957 1.5 1.96086 1.71071 1.58579 2.08579C1.21071 2.46086 1 2.96957 1 3.5V15.5C1 16.0304 1.21071 16.5391 1.58579 16.9142C1.96086 17.2893 2.46957 17.5 3 17.5H13C13.5304 17.5 14.0391 17.2893 14.4142 16.9142C14.7893 16.5391 15 16.0304 15 15.5V3.5C15 2.96957 14.7893 2.46086 14.4142 2.08579C14.0391 1.71071 13.5304 1.5 13 1.5H11"
-                        stroke="#252525"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </li>}
+                {false && (
+                  <li className="">
+                    <span>Covid pass</span>
+                    <span className="btn pe-0">
+                      <svg
+                        className="svg-icon"
+                        viewBox="0 0 16 19"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 1.5H3C2.46957 1.5 1.96086 1.71071 1.58579 2.08579C1.21071 2.46086 1 2.96957 1 3.5V15.5C1 16.0304 1.21071 16.5391 1.58579 16.9142C1.96086 17.2893 2.46957 17.5 3 17.5H13C13.5304 17.5 14.0391 17.2893 14.4142 16.9142C14.7893 16.5391 15 16.0304 15 15.5V3.5C15 2.96957 14.7893 2.46086 14.4142 2.08579C14.0391 1.71071 13.5304 1.5 13 1.5H11"
+                          stroke="#252525"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </li>
+                )}
                 <li className="" onClick={goMenu}>
                   <span>Menu</span>
                   <span className="btn pe-0">

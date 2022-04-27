@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
-import { setIsResOwner,saveAuthToLocal } from "../../redux/slices/authSlice";
+import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
 import { setRest } from "../../redux/slices/restSlice";
 
 function CreateResturantWel() {
@@ -30,7 +30,7 @@ function CreateResturantWel() {
     setDone(true);
     //change the isRstOwner of user to true
     dispatch(setIsResOwner(true));
-    dispatch(saveAuthToLocal())
+    dispatch(saveAuthToLocal());
     setTimeout(() => {
       navigate("/");
     }, 2000);
@@ -39,7 +39,7 @@ function CreateResturantWel() {
   const next = () => {
     setPending(true);
     const formData = new FormData();
-      formData.append("welcome-image", file.file, file.name);    
+    formData.append("welcome-image", file.file, file.name);
     formData.append("name", restCreation.restName);
     formData.append("location", restCreation.restLoc);
     formData.append("year", restCreation.restYear);
