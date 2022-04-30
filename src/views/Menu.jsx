@@ -243,18 +243,6 @@ function Menu() {
     navigate("/view-item");
   };
 
-  const btt = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  );
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -301,12 +289,11 @@ function Menu() {
   };
 
   const lockOnTarget = (inv, key) => {
-    /*console.log(inv);*/
-    //console.log(key);
-    //setLock(key);
-    //console.log(inv, key);
     if (inv === true) {
       setLock(key);
+
+      let menuId = CAT.find((cat) => cat.title === returnMainTitle(key)).id;
+      showSubB(menuId);
     }
   };
 
@@ -328,7 +315,25 @@ function Menu() {
                     className="btn bg-them w-100 text-white q-font-weight-bold"
                   >
                     {cat.title}
-                    {btt}
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`svg-icon ${
+                        subBut === cat.id
+                          ? "rotate-icon"
+                          : "counter-rotate-icon"
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
                   </button>
                 </div>
                 <div

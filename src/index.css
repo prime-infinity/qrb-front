@@ -157,3 +157,14 @@ body {
 .sticky + .content {
   padding-top: 102px;
 }
+.rotate-icon {
+  transition: 0.5s ease;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.counter-rotate-icon {
+  transition: 0.5s ease;
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
