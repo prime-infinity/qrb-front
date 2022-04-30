@@ -301,9 +301,13 @@ function Menu() {
   };
 
   const lockOnTarget = (inv, key) => {
-    /*console.log(inv);
-    console.log(key);*/
-    setLock(key);
+    /*console.log(inv);*/
+    //console.log(key);
+    //setLock(key);
+    //console.log(inv, key);
+    if (inv === true) {
+      setLock(key);
+    }
   };
 
   return (
