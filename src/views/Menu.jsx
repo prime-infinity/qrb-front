@@ -288,12 +288,34 @@ function Menu() {
     }
   };
 
+  const fakeHigh = (e) => {
+    if (highLi === e) {
+      setHigLi(null);
+      setTimeout(() => {
+        setHigLi(e);
+      }, 1);
+    } else {
+      setHigLi(e);
+    }
+  };
+
   const lockOnTarget = (inv, key) => {
     if (inv === true) {
       setLock(key);
 
       let menuId = CAT.find((cat) => cat.title === returnMainTitle(key)).id;
       showSubB(menuId);
+
+      var htmlElement = document.getElementById(key);
+      var elementPosition = htmlElement.getBoundingClientRect();
+      //console.log(elementPosition);
+      var outsider = document.getElementById("sticky");
+      outsider.scrollTo({
+        left: elementPosition.x + 50,
+        behavior: "smooth",
+      });
+      //console.log(key);
+      fakeHigh(key);
     }
   };
 
@@ -341,6 +363,7 @@ function Menu() {
                 >
                   {cat.data.map((dat, index) => (
                     <span
+                      id={dat.title}
                       className={`mx-2 my-auto fw-bold ${
                         lock === dat.title ? "border-bottom-drk" : ""
                       } min-width-maxcon`}
