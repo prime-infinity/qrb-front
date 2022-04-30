@@ -20,6 +20,7 @@
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.1",
+    "use-dynamic-refs": "^1.0.0",
     "use-file-upload": "^1.0.11",
     "web-vitals": "^2.1.4"
   },

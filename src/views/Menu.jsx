@@ -2,11 +2,15 @@ import MenuItems from "../ui/MenuItems";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import _ from "lodash";
+import useDynamicRefs from "use-dynamic-refs";
 
 function Menu() {
   let navigate = useNavigate();
 
   const [subBut, showSubB] = useState(null);
+  const [newArr, setNewArr] = useState(null);
+  const [highLi, setHigLi] = useState(null);
+  const [getRef, setRef] = useDynamicRefs();
 
   const viewMenuItem = () => {
     navigate("/view-item");
@@ -124,7 +128,7 @@ function Menu() {
       cat: {
         mainTitle: "Drinks",
         mainId: 1,
-        subTitle: "Milk",
+        subTitle: "Lemonade",
         subId: 6,
       },
     },
@@ -250,7 +254,34 @@ function Menu() {
   const showMenuBut = (id) => {
     subBut === id ? showSubB(null) : showSubB(id);
 
-    console.log(_.groupBy(MENUITEMS, "cat.subTitle"));
+    setNewArr(_.groupBy(MENUITEMS, "cat.subTitle"));
+    ///console.log(_.groupBy(MENUITEMS, "cat.subTitle"));
+  };
+
+  const returnMainTitle = (e) => {
+    let findDeep = function(data, title) {
+      return data.find(function(e) {
+        if (e.title === title) return true;
+        else if (e.data) return findDeep(e.data, title);
+      });
+    };
+    return findDeep(CAT, e).title;
+  };
+
+  const highLightCat = (e) => {
+    //scroll to position
+    const toScrollTo = getRef(e);
+
+    toScrollTo.current.scrollIntoView(true);
+
+    if (highLi === e) {
+      setHigLi(null);
+      setTimeout(() => {
+        setHigLi(e);
+      }, 1);
+    } else {
+      setHigLi(e);
+    }
   };
 
   return (
@@ -278,7 +309,10 @@ function Menu() {
                 >
                   {cat.data.map((dat, index) => (
                     <div className="col-5" key={index}>
-                      <button className="btn w-100 q-font-weight-bold">
+                      <button
+                        onClick={() => highLightCat(dat.title)}
+                        className="btn w-100 q-font-weight-bold"
+                      >
                         {dat.title}
                       </button>
                     </div>
@@ -292,23 +326,37 @@ function Menu() {
           <div className="row  mt-4">
             {/** the menuss */}
 
-            <div className="col-12 mb-4">
-              {/** the category */}
-              <div className="col-6 pb-2 ps-1 text-start">
-                <span>menu</span>
-                <span>{chevNxt}</span>
-                <span>drinks</span>
-              </div>
-              <div className="row justify-content-center">
-                {MENUITEMS.map((item, index) => (
-                  <MenuItems
-                    key={index}
-                    viewMenuItem={viewMenuItem}
-                    item={item}
-                  />
+            {newArr && (
+              <div className="col-12 mb-4">
+                {Object.entries(newArr).map(([key, value]) => (
+                  <div
+                    key={key}
+                    id={key}
+                    ref={setRef(key)}
+                    className={`${
+                      highLi === key ? "bg-highlight" : ""
+                    } row justify-content-center`}
+                  >
+                    <div className="pb-2 ps-3 text-start">
+                      <span>{returnMainTitle(key)}</span>
+                      <span>{chevNxt}</span>
+                      <span>{key}</span>
+                    </div>{" "}
+                    <>
+                      {value.map((item, index) => (
+                        <>
+                          <MenuItems
+                            key={index}
+                            viewMenuItem={viewMenuItem}
+                            item={item}
+                          />
+                        </>
+                      ))}
+                    </>
+                  </div>
                 ))}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

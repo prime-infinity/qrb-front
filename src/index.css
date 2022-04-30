@@ -118,3 +118,23 @@ body {
   height: 0%;
   top: -5%;
 }
+.bg-highlight {
+  animation: toColor 2s;
+}
+@keyframes toColor {
+  0% {
+    background-color: white;
+  }
+  25% {
+    background-color: #eee;
+  }
+  50% {
+    background-color: white;
+  }
+  75% {
+    background-color: #eee;
+  }
+  100% {
+    background-color: white;
+  }
+}
