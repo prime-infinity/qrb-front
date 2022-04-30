@@ -1,47 +1,12 @@
 import MenuItems from "../ui/MenuItems";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
+import { InView } from "react-intersection-observer";
 
 function Menu() {
   let navigate = useNavigate();
-
-  const [subBut, showSubB] = useState(null);
-  const [newArr, setNewArr] = useState(null);
-  const [highLi, setHigLi] = useState(null);
-  const [getRef, setRef] = useDynamicRefs();
-
-  const viewMenuItem = () => {
-    navigate("/view-item");
-  };
-
-  const btt = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  );
-  const chevNxt = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fillRule="evenodd"
-        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
 
   const CAT = [
     {
@@ -251,11 +216,62 @@ function Menu() {
     },
   ];
 
+  useEffect(() => {
+    window.onscroll = function() {
+      myFunction();
+    };
+    var header = document.getElementById("sticky");
+
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    }
+  }, []);
+
+  const [subBut, showSubB] = useState(null);
+  const newArr = _.groupBy(MENUITEMS, "cat.subTitle");
+  const [highLi, setHigLi] = useState(null);
+  const [getRef, setRef] = useDynamicRefs();
+  const [lock, setLock] = useState(null);
+
+  const viewMenuItem = () => {
+    navigate("/view-item");
+  };
+
+  const btt = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="svg-icon"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  );
+  const chevNxt = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="svg-icon"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fillRule="evenodd"
+        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+
   const showMenuBut = (id) => {
     subBut === id ? showSubB(null) : showSubB(id);
-
-    setNewArr(_.groupBy(MENUITEMS, "cat.subTitle"));
-    ///console.log(_.groupBy(MENUITEMS, "cat.subTitle"));
   };
 
   const returnMainTitle = (e) => {
@@ -284,6 +300,12 @@ function Menu() {
     }
   };
 
+  const lockOnTarget = (inv, key) => {
+    /*console.log(inv);
+    console.log(key);*/
+    setLock(key);
+  };
+
   return (
     <div className="container-fluid pt-5">
       <div className="row pt-5">
@@ -291,6 +313,7 @@ function Menu() {
           {/** head button part */}
           <div
             className="row flex-nowrap scroll-div"
+            id="sticky"
             style={{ overflowX: "scroll" }}
           >
             {CAT.map((cat, index) => (
@@ -308,14 +331,15 @@ function Menu() {
                   className={`${subBut === cat.id ? "d-contents" : "d-none"}`}
                 >
                   {cat.data.map((dat, index) => (
-                    <div className="col-5" key={index}>
-                      <button
-                        onClick={() => highLightCat(dat.title)}
-                        className="btn w-100 q-font-weight-bold"
-                      >
-                        {dat.title}
-                      </button>
-                    </div>
+                    <span
+                      className={`mx-2 my-auto fw-bold ${
+                        lock === dat.title ? "border-bottom-drk" : ""
+                      } min-width-maxcon`}
+                      onClick={() => highLightCat(dat.title)}
+                      key={index}
+                    >
+                      {dat.title}
+                    </span>
                   ))}
                 </div>
               </>
@@ -329,31 +353,37 @@ function Menu() {
             {newArr && (
               <div className="col-12 mb-4">
                 {Object.entries(newArr).map(([key, value]) => (
-                  <div
-                    key={key}
-                    id={key}
-                    ref={setRef(key)}
-                    className={`${
-                      highLi === key ? "bg-highlight" : ""
-                    } row justify-content-center`}
+                  <InView
+                    as="div"
+                    onChange={(inView) => lockOnTarget(inView, key)}
+                    threshold={1}
                   >
-                    <div className="pb-2 ps-3 text-start">
-                      <span>{returnMainTitle(key)}</span>
-                      <span>{chevNxt}</span>
-                      <span>{key}</span>
-                    </div>{" "}
-                    <>
-                      {value.map((item, index) => (
-                        <>
-                          <MenuItems
-                            key={index}
-                            viewMenuItem={viewMenuItem}
-                            item={item}
-                          />
-                        </>
-                      ))}
-                    </>
-                  </div>
+                    <div
+                      key={key}
+                      id={key}
+                      ref={setRef(key)}
+                      className={`${
+                        highLi === key ? "bg-highlight" : ""
+                      } row justify-content-center mb-5`}
+                    >
+                      <div className="pb-2 ps-3 text-start">
+                        <span>{returnMainTitle(key)}</span>
+                        <span>{chevNxt}</span>
+                        <span>{key}</span>
+                      </div>{" "}
+                      <>
+                        {value.map((item, index) => (
+                          <>
+                            <MenuItems
+                              key={index}
+                              viewMenuItem={viewMenuItem}
+                              item={item}
+                            />
+                          </>
+                        ))}
+                      </>
+                    </div>
+                  </InView>
                 ))}
               </div>
             )}

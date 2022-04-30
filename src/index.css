@@ -138,3 +138,22 @@ body {
     background-color: white;
   }
 }
+.min-width-maxcon {
+  min-width: max-content;
+}
+.border-bottom-drk {
+  border-bottom: 2px solid black;
+}
+.sticky {
+  transition: 0.5s ease;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  background-color: white;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.sticky + .content {
+  padding-top: 102px;
+}
