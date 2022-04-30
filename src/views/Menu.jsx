@@ -1,14 +1,12 @@
-import { useState } from "react";
 import MenuItems from "../ui/MenuItems";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import _ from "lodash";
 
 function Menu() {
   let navigate = useNavigate();
-  const [subBut, showSubB] = useState(false);
 
-  const showSubButtons = () => {
-    showSubB(!subBut);
-  };
+  const [subBut, showSubB] = useState(null);
 
   const viewMenuItem = () => {
     navigate("/view-item");
@@ -41,6 +39,220 @@ function Menu() {
     </svg>
   );
 
+  const CAT = [
+    {
+      id: 1,
+      title: "Drinks",
+      data: [
+        { id: 1, title: "coffee" },
+        { id: 2, title: "Juice" },
+        { id: 3, title: "Tea" },
+        { id: 4, title: "Soda" },
+        { id: 5, title: "Milk" },
+        { id: 6, title: "Lemonade" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Main Menu",
+      data: [
+        { id: 1, title: "French Fries" },
+        { id: 2, title: "Onion Rings" },
+        { id: 3, title: "Fried Shrimps" },
+        { id: 4, title: "Chicked" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Lunch",
+      data: [
+        { id: 1, title: "Donuts" },
+        { id: 2, title: "Coke" },
+        { id: 3, title: "Chips" },
+      ],
+    },
+  ];
+
+  const MENUITEMS = [
+    {
+      name: "flavored cafe late",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "coffee",
+        subId: 1,
+      },
+    },
+    {
+      name: "flavored cafe late2",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "coffee",
+        subId: 1,
+      },
+    },
+    {
+      name: "flavored cafe late3",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "coffee",
+        subId: 1,
+      },
+    },
+    {
+      name: "flavored Milk",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 5,
+      },
+    },
+    {
+      name: "flaMilk 2",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 5,
+      },
+    },
+    {
+      name: "Lemonade",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 6,
+      },
+    },
+    {
+      name: "Boring Tea",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Tea",
+        subId: 3,
+      },
+    },
+    {
+      name: "Exciting Fries",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "French Fries",
+        subId: 1,
+      },
+    },
+    {
+      name: "More Exciting Fries",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "French Fries",
+        subId: 1,
+      },
+    },
+    {
+      name: "Most Exciting Fries",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "French Fries",
+        subId: 1,
+      },
+    },
+    {
+      name: "Standup Chicken",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "Chicked",
+        subId: 4,
+      },
+    },
+    {
+      name: "surrendered Chicken",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "Chicked",
+        subId: 4,
+      },
+    },
+    {
+      name: "Mr Crabs",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "Fried Shrimps",
+        subId: 3,
+      },
+    },
+    {
+      name: "LOrd of the RIngs?",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "Onion Rings",
+        subId: 2,
+      },
+    },
+    {
+      name: "LIght Snack 1",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Donuts",
+        subId: 1,
+      },
+    },
+    {
+      name: "LIght Snack 2",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Donuts",
+        subId: 1,
+      },
+    },
+    {
+      name: "Coke",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Coke",
+        subId: 2,
+      },
+    },
+    {
+      name: "Chipanzees",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Chips",
+        subId: 3,
+      },
+    },
+    {
+      name: "Chipmunks",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Chips",
+        subId: 3,
+      },
+    },
+  ];
+
+  const showMenuBut = (id) => {
+    subBut === id ? showSubB(null) : showSubB(id);
+
+    console.log(_.groupBy(MENUITEMS, "cat.subTitle"));
+  };
+
   return (
     <div className="container-fluid pt-5">
       <div className="row pt-5">
@@ -50,56 +262,36 @@ function Menu() {
             className="row flex-nowrap scroll-div"
             style={{ overflowX: "scroll" }}
           >
-            <div className="col-5">
-              <button
-                onClick={showSubButtons}
-                className="btn bg-them w-100 text-white q-font-weight-bold"
-              >
-                drinks
-                {btt}
-              </button>
-            </div>
-            {subBut && (
+            {CAT.map((cat, index) => (
               <>
-                <div className="col-2">
-                  <button className="btn w-100 q-font-weight-bold">
-                    cofee
+                <div className="col-5" key={index}>
+                  <button
+                    onClick={() => showMenuBut(cat.id)}
+                    className="btn bg-them w-100 text-white q-font-weight-bold"
+                  >
+                    {cat.title}
+                    {btt}
                   </button>
                 </div>
-                <div className="col-2">
-                  <button className="btn w-100 q-font-weight-bold">
-                    juice
-                  </button>
-                </div>
-                <div className="col-2">
-                  <button className="btn w-100 q-font-weight-bold">tea</button>
-                </div>
-                <div className="col-2">
-                  <button className="btn w-100 q-font-weight-bold">soda</button>
-                </div>
-                <div className="col-2">
-                  <button className="btn w-100 q-font-weight-bold">milk</button>
+                <div
+                  className={`${subBut === cat.id ? "d-contents" : "d-none"}`}
+                >
+                  {cat.data.map((dat, index) => (
+                    <div className="col-5" key={index}>
+                      <button className="btn w-100 q-font-weight-bold">
+                        {dat.title}
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </>
-            )}
-            <div className="col-5">
-              <button className="btn bg-them w-100 text-white q-font-weight-bold">
-                main menu
-                {btt}
-              </button>
-            </div>
-
-            <div className="col-5">
-              <button className="btn bg-them w-100 text-white q-font-weight-bold">
-                lunch
-                {btt}
-              </button>
-            </div>
+            ))}
           </div>
 
           {/** menu part */}
           <div className="row  mt-4">
             {/** the menuss */}
+
             <div className="col-12 mb-4">
               {/** the category */}
               <div className="col-6 pb-2 ps-1 text-start">
@@ -108,47 +300,11 @@ function Menu() {
                 <span>drinks</span>
               </div>
               <div className="row justify-content-center">
-                {[1, 2].map((item, index) => (
+                {MENUITEMS.map((item, index) => (
                   <MenuItems
                     key={index}
                     viewMenuItem={viewMenuItem}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="col-12 mb-4">
-              {/** the category */}
-              <div className="col-6 pb-2 ps-1 text-start">
-                <span>menu</span>
-                <span>{chevNxt}</span>
-                <span>stews</span>
-              </div>
-              <div className="row justify-content-center">
-                {[1, 2, 3, 4, 5].map((item, index) => (
-                  <MenuItems
-                    key={index}
-                    viewMenuItem={viewMenuItem}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="col-12 mb-4">
-              {/** the category */}
-              <div className="col-6 pb-2 ps-1 text-start">
-                <span>menu</span>
-                <span>{chevNxt}</span>
-                <span>category 3</span>
-              </div>
-              <div className="row justify-content-center">
-                {[1, 2, 3].map((item, index) => (
-                  <MenuItems
-                    key={index}
-                    viewMenuItem={viewMenuItem}
-                    index={index}
+                    item={item}
                   />
                 ))}
               </div>

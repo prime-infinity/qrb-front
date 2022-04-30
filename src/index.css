@@ -90,7 +90,7 @@ body {
 .ww-25 {
   width: 25% !important;
 }
-.cover{
+.cover {
   position: fixed;
   top: 0%;
   background-color: #eee;
@@ -99,6 +99,22 @@ body {
   left: 0%;
   z-index: 3;
 }
-.bor-btm-black{
-  border-bottom:1px solid black !important ;
+.bor-btm-black {
+  border-bottom: 1px solid black !important ;
+}
+.d-contents {
+  transition: 5.5s ease;
+  display: contents;
+}
+.showw {
+  display: contents;
+  position: static;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+.not-showw {
+  position: absolute;
+  opacity: 0;
+  height: 0%;
+  top: -5%;
 }
