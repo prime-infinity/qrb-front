@@ -214,6 +214,96 @@ function Menu() {
         subId: 3,
       },
     },
+    {
+      name: "Literal Soda",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Soda",
+        subId: 4,
+      },
+    },
+    {
+      name: "Fizzy Soda",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Soda",
+        subId: 4,
+      },
+    },
+    {
+      name: "HollanDia Yoghurt",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 5,
+      },
+    },
+    {
+      name: "Bread",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Donuts",
+        subId: 1,
+      },
+    },
+    {
+      name: "Diet Coke",
+      cat: {
+        mainTitle: "Lunch",
+        mainId: 3,
+        subTitle: "Coke",
+        subId: 2,
+      },
+    },
+    {
+      name: "LobStery",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "Fried Shrimps",
+        subId: 3,
+      },
+    },
+    {
+      name: "Literal french Fries",
+      cat: {
+        mainTitle: "Main Menu",
+        mainId: 2,
+        subTitle: "French Fries",
+        subId: 1,
+      },
+    },
+    {
+      name: "Boring Drink one",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Tea",
+        subId: 3,
+      },
+    },
+    {
+      name: "CowBell",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 5,
+      },
+    },
+    {
+      name: "Dano",
+      cat: {
+        mainTitle: "Drinks",
+        mainId: 1,
+        subTitle: "Milk",
+        subId: 5,
+      },
+    },
   ];
 
   useEffect(() => {
@@ -311,10 +401,10 @@ function Menu() {
       //console.log(elementPosition);
       var outsider = document.getElementById("sticky");
       outsider.scrollTo({
-        left: elementPosition.x + 50,
+        left: elementPosition.x + 200,
         behavior: "smooth",
       });
-      //console.log(key);
+      console.log(key);
       fakeHigh(key);
     }
   };
