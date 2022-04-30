@@ -354,6 +354,7 @@ function Menu() {
 
   const returnMainTitle = (e) => {
     let findDeep = function(data, title) {
+      //eslint-disable-next-line
       return data.find(function(e) {
         if (e.title === title) return true;
         else if (e.data) return findDeep(e.data, title);
@@ -398,13 +399,12 @@ function Menu() {
 
       var htmlElement = document.getElementById(key);
       var elementPosition = htmlElement.getBoundingClientRect();
-      //console.log(elementPosition);
       var outsider = document.getElementById("sticky");
       outsider.scrollTo({
         left: elementPosition.x + 200,
         behavior: "smooth",
       });
-      console.log(key);
+      //console.log(key);
       fakeHigh(key);
     }
   };
