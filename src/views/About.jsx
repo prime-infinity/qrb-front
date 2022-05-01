@@ -23,18 +23,29 @@ function About() {
     <div className="container-fluid pt-5">
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
-          <div>
-            <span className="pe-2">mon-fri</span>
-            <span className="pe-2">|</span>
-            <span>2:00 am - 8:00 pm</span>
-          </div>
-          <div>
-            <span className="pe-2">sat-sun</span>
-            <span className="pe-2">|</span>
-            <span className="pe-2">9:00 am - 1:00 pm</span>
-            <span className="pe-2">&</span>
-            <span>9:00 am - 1:00 pm</span>
-          </div>
+          {rest.time.length > 0 &&
+            rest.time.map((date, index) => (
+              <div key={index} className="mb-2">
+                {date.selectedDays.length > 0 && (
+                  <span key={index} className="pe-2">
+                    {date.selectedDays[0].s} <span>-</span>{" "}
+                    {date.selectedDays[date.selectedDays.length - 1].s}
+                  </span>
+                )}
+
+                <span className="pe-2">|</span>
+
+                {date.times.length > 0 &&
+                  date.times.map((time, index) => (
+                    <span key={index}>
+                      {time.openingTime} - {time.closingTime}{" "}
+                      {index !== date.times.length - 1 && (
+                        <span className="px-2">&</span>
+                      )}
+                    </span>
+                  ))}
+              </div>
+            ))}
           <br />
           <span className="p">{rest.summary ? rest.summary : " "}</span>
 

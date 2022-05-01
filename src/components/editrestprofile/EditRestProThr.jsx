@@ -1,7 +1,10 @@
 import { useState } from "react";
 import TimePicker from "react-time-picker";
+import { useDispatch } from "react-redux";
+import { setRestTimes } from "../../redux/slices/restSlice";
 
 function EditRestProThr() {
+  const dispatch = useDispatch();
   const days = [
     { s: "M", h: "mon", o: 1 },
     { s: "T", h: "tue", o: 2 },
@@ -25,6 +28,7 @@ function EditRestProThr() {
       ],
     },
   ]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const selectDay = (indexOfDate, dayHide, dayOrder) => {
     //what needs to be done is to spread
@@ -167,7 +171,10 @@ function EditRestProThr() {
     let newDate = dates.filter((date) => dates.indexOf(date) !== e);
     setDates(newDate);
   };
-
+  const update = () => {
+    dispatch(setRestTimes(dates));
+    setIsUpdated(true);
+  };
   return (
     <div className="col-12">
       <div className="row mx-1">
@@ -337,6 +344,25 @@ function EditRestProThr() {
               </div>
             </div>
           ))}
+
+        <div className="col-12 mt-5">
+          {isUpdated ? (
+            <button
+              className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
+              type="button"
+            >
+              {" "}
+              Updated
+            </button>
+          ) : (
+            <button
+              onClick={update}
+              className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+            >
+              update time
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
