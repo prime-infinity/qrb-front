@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TimePicker from "react-time-picker";
 
 function EditRestProThr() {
   const days = [
@@ -14,17 +15,13 @@ function EditRestProThr() {
     {
       selectedDays: [
         { o: 1, s: "mon" },
-        { o: 2, s: "tue" },
+        { o: 5, s: "fri" },
       ],
       times: [
         {
-          openingTime: "9:00 AM",
-          closingTime: "6:00 PM",
+          openingTime: "9:00",
+          closingTime: "6:00",
         },
-        /*{
-          openingTime: "",
-          closingTime: "",
-        },*/
       ],
     },
   ]);
@@ -81,6 +78,96 @@ function EditRestProThr() {
     }
   };
 
+  const setOpeningTime = (e, indexOfDate, indexOfTime) => {
+    const rearrangeTime = (alreadyTime) => {
+      //console.log(alreadyTime);
+      let neww = alreadyTime.map((time) =>
+        alreadyTime.indexOf(time) === indexOfTime
+          ? {
+              ...time,
+              openingTime: e,
+            }
+          : time
+      );
+      return neww;
+    };
+
+    let newDate = dates.map((date) =>
+      dates.indexOf(date) === indexOfDate
+        ? {
+            ...date,
+            times: rearrangeTime(date.times),
+          }
+        : date
+    );
+    setDates(newDate);
+  };
+
+  const setClosingTime = (e, indexOfDate, indexOfTime) => {
+    const rearrangeTime = (alreadyTime) => {
+      //console.log(alreadyTime);
+      let neww = alreadyTime.map((time) =>
+        alreadyTime.indexOf(time) === indexOfTime
+          ? {
+              ...time,
+              closingTime: e,
+            }
+          : time
+      );
+      return neww;
+    };
+
+    let newDate = dates.map((date) =>
+      dates.indexOf(date) === indexOfDate
+        ? {
+            ...date,
+            times: rearrangeTime(date.times),
+          }
+        : date
+    );
+    setDates(newDate);
+  };
+
+  const addHours = (indexOfDate) => {
+    console.log(indexOfDate);
+    let newTime = {
+      openingTime: "2:00 PM",
+      closingTime: "6:00 PM",
+    };
+    let newDate = dates.map((date) =>
+      dates.indexOf(date) === indexOfDate
+        ? {
+            ...date,
+            times: [...date.times, newTime],
+          }
+        : date
+    );
+
+    setDates(newDate);
+  };
+
+  const addSet = () => {
+    const newSet = {
+      selectedDays: [
+        { o: 6, s: "sat" },
+        { o: 7, s: "sun" },
+      ],
+      times: [
+        {
+          openingTime: "9:00",
+          closingTime: "1:00",
+        },
+      ],
+    };
+
+    setDates([...dates, newSet]);
+  };
+
+  const removeSet = (e) => {
+    let newDate = dates.filter((date) => dates.indexOf(date) !== e);
+    setDates(newDate);
+  };
+
   return (
     <div className="col-12">
       <div className="row mx-1">
@@ -100,38 +187,35 @@ function EditRestProThr() {
                 {date.times.length > 0 &&
                   date.times.map((time, index) => (
                     <span key={index}>
-                      {time.openingTime} - {time.closingTime}
+                      {time.openingTime} - {time.closingTime}{" "}
+                      {index !== date.times.length - 1 && (
+                        <span className="px-2">&</span>
+                      )}
                     </span>
                   ))}
               </div>
             ))}
-
-          {/*<div>
-            <span className="pe-2">sat - sun</span>
-            <span className="pe-2">|</span>
-            <span className="pe-2">9:00 am - 1:00 pm</span>
-            <span className="pe-2">&</span>
-            <span>9:00 am - 1:00 pm</span>
-          </div>*/}
         </div>
         <div className="col-4 offset-8 text-end mt-4 pe-0">
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="svg-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </span>
-          <span className="fw-bold">add set</span>
+          <div onClick={addSet}>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="svg-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </span>
+            <span className="fw-bold">add set</span>
+          </div>
         </div>
 
         {/** the edit part */}
@@ -143,7 +227,7 @@ function EditRestProThr() {
                 <div className="col-4 ps-0 fw-bold">set {index + 1}</div>
                 <div className="col-4"></div>
                 <div className="col-4 text-end pe-0 ">
-                  <span>
+                  <span onClick={() => removeSet(index)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={"24px"}
@@ -189,6 +273,68 @@ function EditRestProThr() {
                 </div>
               </div>
               {/** end of days part */}
+
+              {/** time part */}
+
+              {date.times.map((time, index) => (
+                <div className="row mt-4" key={index}>
+                  <div className="col-6">
+                    <div className="row">
+                      <div className="col-6 fw-bold my-auto">opening:</div>
+                      <div className="col-6 px-0">
+                        <TimePicker
+                          clearIcon={null}
+                          clockIcon={null}
+                          onChange={(value) =>
+                            setOpeningTime(value, dates.indexOf(date), index)
+                          }
+                          value={time.openingTime}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="row">
+                      <div className="col-6 fw-bold my-auto">closing:</div>
+                      <div className="col-6 px-0">
+                        <TimePicker
+                          clearIcon={null}
+                          clockIcon={null}
+                          onChange={(value) =>
+                            setClosingTime(value, dates.indexOf(date), index)
+                          }
+                          value={time.closingTime}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/** end of time */}
+
+              <div className="row">
+                <div className="col-4 text-start mt-4 pe-0">
+                  <div onClick={() => addHours(dates.indexOf(date))}>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="svg-icon"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        />
+                      </svg>
+                    </span>
+                    <span className="fw-bold">add hours</span>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
       </div>

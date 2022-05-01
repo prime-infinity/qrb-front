@@ -175,3 +175,6 @@ body {
   background-color: black;
   color: white;
 }
+select {
+  appearance: none !important;
+}
