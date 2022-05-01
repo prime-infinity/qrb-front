@@ -72,6 +72,15 @@ function EditRestProThr() {
     setDates(newDate);
   };
 
+  const isDaySelectd = (toCheckWith, check) => {
+    let ord = toCheckWith.map((e) => e.o);
+    if (ord.includes(check)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className="col-12">
       <div className="row mx-1">
@@ -166,7 +175,11 @@ function EditRestProThr() {
                           onClick={() =>
                             selectDay(dates.indexOf(date), day.h, day.o)
                           }
-                          className={`fw-bold inner-circle border rounded-circle py-2`}
+                          className={`${isDaySelectd(
+                            date.selectedDays,
+                            day.o
+                          ) &&
+                            "date-selected"} fw-bold border rounded-circle py-2`}
                         >
                           {day.s}
                         </div>
