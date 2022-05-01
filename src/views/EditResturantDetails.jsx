@@ -355,7 +355,7 @@ function EditResturantDetails() {
                         </div>
                       ))}
 
-                    <div className="col-3 text-center my-auto">
+                    <div className="col-6 text-center my-auto">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         onClick={onImageUpload}
@@ -372,6 +372,14 @@ function EditResturantDetails() {
                           d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
+                    </div>
+
+                    <div className="col-6 px-0">
+                      <img
+                        src={rest.welcomescreen}
+                        className="img-fluid"
+                        alt=""
+                      />
                     </div>
 
                     {imageList.map((image, index) => (

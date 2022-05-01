@@ -168,3 +168,10 @@ body {
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
 }
+.trans-up {
+  transform: scale(2);
+}
+.date-selected {
+  background-color: black;
+  color: white;
+}
