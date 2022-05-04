@@ -5,20 +5,23 @@ import MobileMenu from "../ui/MobileMenu";
 import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleMenu } from "../redux/slices/menuSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
   const location = useLocation();
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
+  const mMenu = useSelector((state) => state.menu.menu);
 
-  const [mMenu, setMmenu] = useState(false);
+  /*const [mMenu, setMmenu] = useState(false);*/
   const [schBar, setSchBar] = useState(false);
 
   const showMobileMenu = () => {
     //show mobile menu
-    setMmenu(!mMenu);
+    dispatch(toggleMenu());
   };
 
   const goHome = () => {
@@ -26,7 +29,7 @@ function Header() {
   };
 
   const goMenu = () => {
-    setMmenu(!mMenu);
+    //setMmenu(!mMenu);
     navigate("/menu");
   };
 
@@ -69,12 +72,11 @@ function Header() {
 
   return !inRestCreation() ? (
     <>
-      {mMenu && (
-        <>
-          <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />{" "}
-          <Overlay width={`30%`} closeOverlay={showMobileMenu} />
-        </>
-      )}
+      <>
+        <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />{" "}
+        {mMenu && <Overlay width={`30%`} closeOverlay={showMobileMenu} />}
+      </>
+
       <Navbar
         collapseOnSelect
         expand="lg"

@@ -206,3 +206,9 @@ select {
   width: 100%;
   bottom: 7%;
 }
+.animate__animated.animate__slideInRight {
+  --animate-duration: 0.5s;
+}
+.animate__animated.animate__slideOutRight {
+  --animate-duration: 0.5s;
+}

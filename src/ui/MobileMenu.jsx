@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
+import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
+  const mMenu = useSelector((state) => state.menu.menu);
   const [isResOwner, setIsUser] = useState(false);
   const [logoutMenu, showLogoutMenu] = useState(false);
 
@@ -42,7 +44,13 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   return (
     <>
-      <div className="mobile-menu">
+      <div
+        className={`${
+          mMenu
+            ? "animate__animated animate__slideInRight"
+            : "animate__animated animate__slideOutRight"
+        } mobile-menu`}
+      >
         <div className="pt-5 mt-5">
           <div className="col-10 offset-1 text-end">
             <div className="row mx-auto">
