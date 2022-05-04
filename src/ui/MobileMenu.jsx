@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -9,7 +9,6 @@ import { setAuth } from "../redux/slices/authSlice";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
-  let location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const [isResOwner, setIsUser] = useState(false);
@@ -36,6 +35,10 @@ function MobileMenu({ goMenu, closeMenu }) {
     dispatch(setAuth(null));
     removeFromLocal();
   };
+  const goHome = () => {
+    closeMenu();
+    navigate("/");
+  };
 
   return (
     <>
@@ -43,7 +46,7 @@ function MobileMenu({ goMenu, closeMenu }) {
         <div className="pt-5 mt-5">
           <div className="col-10 offset-1 text-end">
             <div className="row mx-auto">
-              <div className="col-4">customer</div>
+              <div className="col-4 fs-14 my-auto">customer</div>
               <div className="col-3 ">
                 <Form.Check
                   type="switch"
@@ -52,7 +55,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   id="custom-switch"
                 />
               </div>
-              <div className="col-4">resturant</div>
+              <div className="col-4 fs-14 my-auto">resturant</div>
             </div>
 
             <hr />
@@ -61,22 +64,21 @@ function MobileMenu({ goMenu, closeMenu }) {
               <ResOwnerMobMenu closeMenu={closeMenu} />
             ) : (
               <ul className="navbar-nav ml-auto">
-                {location.pathname !== "/" && (
-                  <li className="">
-                    <span>home</span>
+                <li className="" onClick={goHome}>
+                  <span>home</span>
 
-                    <span className="btn pe-0">
-                      <svg
-                        className="svg-icon"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
-                      </svg>
-                    </span>
-                  </li>
-                )}
+                  <span className="btn pe-0">
+                    <svg
+                      className="svg-icon"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
+                    </svg>
+                  </span>
+                </li>
+
                 <li className="" onClick={toAbout}>
                   <span>info</span>
                   <span className="btn pe-0">
@@ -176,7 +178,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </span>
                 </li>
                 <li className="">
-                  <span>tech support</span>
+                  <span className="fw-bold">tech support</span>
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon"
@@ -193,7 +195,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 </li>
                 <li className="">
                   <span className="text-secondary">powered by </span>
-                  <span className="font-weight-bold"> qrb.ee</span>
+                  <span className="fw-bold"> qrb.ee</span>
                 </li>
               </ul>
             </div>

@@ -19,7 +19,7 @@ function Wrapper() {
   };
 
   const stripTease = (e) => {
-    return e.slice(0, 8).concat("...");
+    return e.slice(0, 9).concat("...");
   };
 
   return (
@@ -30,31 +30,32 @@ function Wrapper() {
             <div className="col-11 col-md-6 text-white">
               <span className="h1 q-font-weight-bold">{rest.name}</span> <br />
               <br />
-              <span className="q-font-weight-bold">
-                {rest.description}
-              </span>{" "}
-              <br />
-              <br />
               <div className="row">
                 <div className="col-3 q-font-weight-bold">
-                  {rest?.location && (stripTease(rest.location))}
+                  {rest?.location && stripTease(rest.location)}
                 </div>
                 <div className="col-1 q-font-weight-bold">|</div>
                 <div className="col-4 q-font-weight-bold">{rest.year}</div>
+              </div>{" "}
+              <br />
+              <div className="row">
+                <div className="col-12">
+                  <span className="fw-bold fs-14">{rest.description}</span>
+                </div>
               </div>
               <br />
-              <div className="row g-0">
-                <div className="col-6 pe-1">
+              <div className="row">
+                <div className="col-6 ps-0 pe-bt">
                   <button
                     onClick={toAbout}
-                    className="btn py-3 bg-them w-100 text-white q-font-weight-bold"
+                    className="btn py-bt bg-them w-100 text-white fw-bold"
                   >
                     info
                   </button>
                 </div>
-                <div className="col-6 ps-1">
+                <div className="col-6 pe-0 ps-bt">
                   <Link to="/menu">
-                    <button className="btn py-3 bg-dark w-100 bg-white q-font-weight-bold">
+                    <button className="btn py-bt bg-dark w-100 bg-white fw-bold">
                       menu
                     </button>{" "}
                   </Link>

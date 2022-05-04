@@ -45,11 +45,15 @@ function ResOwnerMobMenu({ closeMenu }) {
   const editMyMenu = () => {
     console.log("is editing menu");
   };
+  const goHome = () => {
+    closeMenu();
+    navigate("/");
+  };
   return (
     <>
       {authState?.isRestOwner ? (
         <ul className="navbar-nav ml-auto">
-          <li className="">
+          <li className="" onClick={goHome}>
             <span>home</span>
 
             <span className="btn pe-0">

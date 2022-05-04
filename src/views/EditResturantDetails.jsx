@@ -149,7 +149,7 @@ function EditResturantDetails() {
               {!pending && <span>update summary</span>}
             </button>
           )}
-          <ul className="navbar-nav mt-5">
+          <ul className="navbar-nav mt-5 fs-14">
             <li className="pb-2">
               <span>
                 <svg
@@ -222,7 +222,7 @@ function EditResturantDetails() {
 
           {/** the little icons */}
           <div className="row mt-4">
-            <div className="col-2">
+            <div className="col-1">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 19 19"
@@ -237,7 +237,7 @@ function EditResturantDetails() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-1 px-4">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 18 18"
@@ -250,7 +250,7 @@ function EditResturantDetails() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-1 px-4">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 22 16"
@@ -263,7 +263,7 @@ function EditResturantDetails() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-3">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 16 21"
@@ -297,7 +297,7 @@ function EditResturantDetails() {
               // write your building UI
               <div className="row justify-content-center pb-5 mt-5">
                 <div className="col-12">
-                  <span className="h6">Upload new Images</span>
+                  {/*<span className="h6">Upload new Images</span>*/}
 
                   <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
 
@@ -355,7 +355,10 @@ function EditResturantDetails() {
                         </div>
                       ))}
 
-                    <div className="col-6 text-center my-auto">
+                    <div
+                      className="col-5 text-center"
+                      style={{ position: "relative", backgroundColor: "#eee" }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         onClick={onImageUpload}
@@ -365,6 +368,7 @@ function EditResturantDetails() {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth={2}
+                        className="to-center"
                       >
                         <path
                           strokeLinecap="round"
@@ -374,7 +378,7 @@ function EditResturantDetails() {
                       </svg>
                     </div>
 
-                    <div className="col-6 px-0">
+                    <div className="col-5">
                       <img
                         src={rest.welcomescreen}
                         className="img-fluid"

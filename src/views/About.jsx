@@ -13,6 +13,7 @@ function About() {
     if (rest === null) {
       navigate("/");
     }
+    //console.log(rest);
   }, [rest, navigate]);
 
   return rest === null ? (
@@ -23,7 +24,7 @@ function About() {
     <div className="container-fluid pt-5">
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
-          {rest.time.length > 0 &&
+          {/*rest.time.length > 0 &&
             rest.time.map((date, index) => (
               <div key={index} className="mb-2">
                 {date.selectedDays.length > 0 && (
@@ -45,11 +46,23 @@ function About() {
                     </span>
                   ))}
               </div>
-            ))}
+                      ))*/}
+          <div className="fs-14">
+            <span className="pe-2">mon - fri</span>
+            <span className="pe-2">|</span>
+            <span>2:00 am - 8:00 pm</span>
+          </div>
+          <div className="fs-14">
+            <span className="pe-2">sat - sun</span>
+            <span className="pe-2">|</span>
+            <span className="pe-2">9:00 am - 1:00 pm</span>
+            <span className="pe-2">&</span>
+            <span>9:00 am - 1:00 pm</span>
+          </div>
           <br />
           <span className="p">{rest.summary ? rest.summary : " "}</span>
 
-          <ul className="navbar-nav mt-5">
+          <ul className="navbar-nav mt-5 fs-14">
             <li className="pb-2">
               <span>
                 <svg
@@ -122,7 +135,7 @@ function About() {
 
           {/** the little icons */}
           <div className="row mt-4">
-            <div className="col-2">
+            <div className="col-1">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 19 19"
@@ -137,7 +150,7 @@ function About() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-1 px-4">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 18 18"
@@ -150,7 +163,7 @@ function About() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-1 px-4">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 22 16"
@@ -163,7 +176,7 @@ function About() {
                 />
               </svg>
             </div>
-            <div className="col-2">
+            <div className="col-3">
               <svg
                 className="svg-icon me-2"
                 viewBox="0 0 16 21"
@@ -181,7 +194,10 @@ function About() {
 
           <div className="row justify-content-center pb-5 mt-5">
             <div className="col-12">
-              <div className="row flex-nowrap" style={{ overflowX: "scroll" }}>
+              <div
+                className="row flex-nowrap"
+                style={{ overflowX: "scroll", position: "fixed", bottom: "3%" }}
+              >
                 <div className="col-5">
                   <img src={rest.welcomescreen} className="img-fluid" alt="" />
                 </div>
