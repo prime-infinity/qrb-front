@@ -191,3 +191,18 @@ select {
 .ps-bt {
   padding-left: 0.4rem !important;
 }
+
+/*new index*/
+.videoBg {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.bg-wrapper {
+  position: fixed;
+  width: 100%;
+  bottom: 7%;
+}
