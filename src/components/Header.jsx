@@ -315,11 +315,11 @@ function Header() {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-              ) : mMenu ? (
+              ) : mMenu /** the cancel button */ ? (
                 <svg
                   onClick={showMobileMenu}
                   xmlns="http://www.w3.org/2000/svg"
-                  style={{ width: "30px" }}
+                  style={{ width: "25px" }}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
