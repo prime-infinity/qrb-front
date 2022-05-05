@@ -19,6 +19,7 @@ function Wrapper() {
     }
   };
 
+  // eslint-disable-next-line
   const stripTease = (e) => {
     return e.slice(0, 9).concat("...");
   };
@@ -32,21 +33,29 @@ function Wrapper() {
         <div className="row justify-content-center justify-content-md-start">
           <div className="col-11 col-md-6 text-white">
             <div className="px-3">
-              <span className="q-font-weight-bold" style={{ fontSize: "32px" }}>
+              <span className="sp-title" style={{ fontSize: "40px" }}>
                 {rest.name}
               </span>{" "}
-              <div className="row pt-2">
-                <div className="col-3 q-font-weight-bold">
+              <ul className="sp-details ps-0 pt-3 mb-0">
+                <li>
+                  <h6>honolulu</h6>
+                </li>
+                <li>
+                  <h6>since 2010</h6>
+                </li>
+              </ul>
+              {/*<div className="row pt-2">
+                <div className="col-3 ">
                   {rest?.location && stripTease(rest.location)}
                 </div>
-                <div className="col-1 q-font-weight-bold">|</div>
-                <div className="col-4 q-font-weight-bold">
-                  {"since " + rest.year}
-                </div>
-              </div>{" "}
-              <div className="row pt-2">
+                <div className="col-1 ">|</div>
+                <div className="col-4 ">{"since " + rest.year}</div>
+              </div>{" "}*/}
+              <div className="row">
                 <div className="col-12">
-                  <span className="fw-bold fs-14">{rest.description}</span>
+                  <span className="fs-14" style={{ fontWeight: "500" }}>
+                    {rest.description}
+                  </span>
                 </div>
               </div>
             </div>
@@ -56,14 +65,14 @@ function Wrapper() {
               <div className="col-6 ps-3 pe-bt">
                 <button
                   onClick={toAbout}
-                  className="btn py-bt bg-them w-100 text-white fw-bold"
+                  className="btn btn-solid w-100 bg-them text-white fw-bold"
                 >
                   info
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">
                 <Link to="/menu">
-                  <button className="btn py-bt bg-dark w-100 bg-white fw-bold">
+                  <button className="btn btn-solid w-100 bg-white fw-bold">
                     menu
                   </button>{" "}
                 </Link>

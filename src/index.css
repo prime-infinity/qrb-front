@@ -33,13 +33,14 @@ body {
   color: black;
   position: fixed;
   right: 0%;
-  width: 70%;
+  width: 75%;
   height: 100%;
   overflow-y: scroll;
   padding-bottom: 20%;
   z-index: 2;
   top: 0%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 3px solid black;
 }
 .overlay {
   position: fixed;
@@ -58,9 +59,6 @@ body {
   position: absolute;
   width: inherit;
   bottom: 5%;
-}
-.q-font-weight-bold {
-  font-weight: 900;
 }
 .scroll-div::-webkit-scrollbar {
   display: none;
@@ -207,8 +205,35 @@ select {
   bottom: 7%;
 }
 .animate__animated.animate__slideInRight {
-  --animate-duration: 0.5s;
+  --animate-duration: 0.2s;
 }
 .animate__animated.animate__slideOutRight {
-  --animate-duration: 0.5s;
+  --animate-duration: 0.2s;
+}
+.animate__animated.animate__slideInLeft {
+  --animate-duration: 0.1s;
+}
+.animate__animated.animate__slideOutLeft {
+  --animate-duration: 0.1s;
+}
+.sp-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 28px;
+  color: #ffffff;
+  margin: 30px 0;
+  text-align: center;
+}
+.btn-solid {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.125rem;
+  height: 3.4375rem;
+  line-height: 3.4375rem;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0;
+  padding: 0 1rem;
+  transition: all 0.2s ease;
 }

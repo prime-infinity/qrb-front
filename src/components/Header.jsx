@@ -74,7 +74,7 @@ function Header() {
     <>
       <>
         <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />{" "}
-        <Overlay width={`30%`} closeOverlay={showMobileMenu} />
+        <Overlay width={`25%`} closeOverlay={showMobileMenu} />
       </>
 
       <Navbar
