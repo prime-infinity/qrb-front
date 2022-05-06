@@ -80,7 +80,7 @@ function MenuItems({ item }) {
 
             <Accordion.Collapse eventKey="0">
               <div className={``}>
-                <Slider {...settings}>
+                <Slider {...settings} className="bg-secondary">
                   <div className="slide">
                     <div className="sl-table-group">
                       <div className="sl-table-wrap">
