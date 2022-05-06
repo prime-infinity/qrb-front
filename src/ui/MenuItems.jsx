@@ -3,8 +3,18 @@ import Accordion from "react-bootstrap/Accordion";
 import AccordionContext from "react-bootstrap/AccordionContext";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import { useContext } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function MenuItems({ item }) {
+  const settings = {
+    dots: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
   function CustomToggle({ eventKey, callback }) {
     const { activeEventKey } = useContext(AccordionContext);
 
@@ -23,7 +33,7 @@ function MenuItems({ item }) {
           </div>
           <div className="col-8 my-auto">
             <div className="row">
-              <div className="col-9 ps-0 pb-1">
+              <div className="col-9 ps-0 pb-1 pt-2">
                 <span className="menu-name">{item.name}</span>
               </div>
               <div className="col-3">
@@ -69,7 +79,81 @@ function MenuItems({ item }) {
             <CustomToggle eventKey="0" />
 
             <Accordion.Collapse eventKey="0">
-              <div className={`${item.name}`}>Hello! I'm the body</div>
+              <div className={``}>
+                <Slider {...settings}>
+                  <div className="slide">
+                    <div className="sl-table-group">
+                      <div className="sl-table-wrap">
+                        <div className="sl-table-header">
+                          <h4>milk options</h4>
+                        </div>
+                        <div className="sl-table-table">
+                          <table className="sl-table">
+                            <tbody>
+                              <tr>
+                                <td>regular milk</td>
+                                <td>free</td>
+                              </tr>
+                              <tr>
+                                <td>coconut milk</td>
+                                <td>free</td>
+                              </tr>
+                              <tr>
+                                <td>soy milk</td>
+                                <td>+$1</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div className="sl-table-wrap">
+                        <div className="sl-table-header">
+                          <h4>extras options</h4>
+                        </div>
+                        <div className="sl-table-table">
+                          <table className="sl-table">
+                            <tr>
+                              <td>milk</td>
+                              <td>free</td>
+                            </tr>
+                            <tr>
+                              <td>sugar</td>
+                              <td>free</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="slide">
+                    <div className="sl-img">
+                      <img
+                        src="/ang/gallery001.jpg"
+                        style={{ width: "100%" }}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="slide">
+                    <div className="sl-img">
+                      <img
+                        src="/ang/gallery002.jpg"
+                        style={{ width: "100%" }}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="slide">
+                    <div className="sl-img">
+                      <img
+                        src="/ang/gallery003.jpg"
+                        style={{ width: "100%" }}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </Slider>
+              </div>
             </Accordion.Collapse>
           </div>
         </div>

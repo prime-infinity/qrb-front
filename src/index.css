@@ -267,3 +267,13 @@ select {
 .menu-border {
   border: 2px solid black;
 }
+
+.img-fluid-slider {
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+.slick-dots {
+  bottom: 5% !important;
+}
