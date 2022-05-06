@@ -337,7 +337,7 @@ function Menu() {
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon"
+      className="svg-icon-lg"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -416,7 +416,7 @@ function Menu() {
   };*/
 
   return (
-    <div className="container-fluid pt-5">
+    <div className="container-fluid pt-5 big-bg-theme">
       <div className="row pt-5">
         <div className="col-12">
           {/** head button part */}
@@ -436,7 +436,7 @@ function Menu() {
 
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`svg-icon ${
+                      className={`svg-icon-lg ${
                         subBut === cat.id
                           ? "rotate-icon"
                           : "counter-rotate-icon"
@@ -494,9 +494,9 @@ function Menu() {
                     } row justify-content-center mb-5`}
                   >
                     <div className="pb-2 ps-3 text-start">
-                      <span>{returnMainTitle(key)}</span>
+                      <span className="fs-13">{returnMainTitle(key)}</span>
                       <span>{chevNxt}</span>
-                      <span>{key}</span>
+                      <span className="fs-13">{key}</span>
                     </div>{" "}
                     <>
                       {value.map((item, index) => (

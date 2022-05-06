@@ -153,7 +153,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 3;
-  background-color: white;
+  background-color: #f6f4f2;
   padding-top: 2%;
   padding-bottom: 2%;
 }
@@ -186,6 +186,9 @@ select {
 }
 .fs-12 {
   font-size: 12px;
+}
+.fs-13 {
+  font-size: 13px;
 }
 .py-bt {
   padding-top: 0.7rem !important;
@@ -247,4 +250,20 @@ select {
 }
 .big-bg-theme {
   background-color: #f6f4f2;
+}
+.menu-name {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0;
+  color: #000000;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}
+.menu-border {
+  border: 2px solid black;
 }
