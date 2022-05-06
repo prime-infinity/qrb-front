@@ -27,13 +27,33 @@ function MenuItems({ item }) {
 
     return (
       <div className={`row border-left-right`} onClick={decoratedOnClick}>
-        <>
-          <div
-            className={`${isCurrentEventKey ? "max-w-zero" : "no"} col-4 ps-0`}
-          >
+        <div className="m-cat ps-0 pe-0">
+          <div className="m-cat-head">
+            <div
+              className={` ${isCurrentEventKey ? "max-w-zero " : ""} cat-left`}
+            >
+              <span className="cat-icon">
+                <img src="/ang/gallery004.jpg" alt="" />
+              </span>
+            </div>
+            <div className="cat-right">
+              <div className="cat-head">
+                <h4>lox & bagel</h4>
+                <span className="price">$8.49</span>
+              </div>
+              <p>
+                Viverra nisl, parturient felis vel eget adipiscing felis erat
+                condimentum. Arcu ornare se parturient felis vel eget adipiscing
+                felis erat condimentum.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/*<>
+          <div className={`${isCurrentEventKey ? "yes" : "no"} col-4 ps-0`}>
             <img src="images/qbacon.jpg" className="img-fluid w-100" alt="" />
           </div>
-          <div className={` ${isCurrentEventKey ? "col-11" : "col-8"} `}>
+          <div className="col-8 my-auto">
             <div className="row">
               <div className="col-9 ps-0">
                 <span className="menu-name">{item.name}</span>
@@ -68,7 +88,7 @@ function MenuItems({ item }) {
               </div>
             </div>
           </div>
-        </>
+        </>*/}
       </div>
     );
   }

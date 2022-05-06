@@ -15,7 +15,7 @@ function ResOwnerMobMenu({ closeMenu }) {
 
   const editIcon = (
     <svg
-      className="svg-icon"
+      className="svg-icon-lg"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@ function ResOwnerMobMenu({ closeMenu }) {
 
             <span className="btn pe-0">
               <svg
-                className="svg-icon"
+                className="svg-icon-lg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             <div className="col-12 text-start">
               <span className="btn ps-0">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             <div className="col-12 text-start my-3">
               <span className="btn ps-0">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +117,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             <div className="col-12 text-start">
               <span className="btn ps-0">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 get started
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="svg-icon"
+                  className="svg-icon-lg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

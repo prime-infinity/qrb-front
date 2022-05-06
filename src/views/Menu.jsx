@@ -460,7 +460,7 @@ function Menu() {
                   {cat.data.map((dat, index) => (
                     <span
                       id={dat.title}
-                      className={`mx-2 my-auto fw-bold ${
+                      className={`mx-2 my-auto fs-14 ${
                         lock === dat.title ? "border-bottom-drk" : ""
                       } min-width-maxcon`}
                       onClick={() => highLightCat(dat.title)}

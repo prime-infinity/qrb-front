@@ -61,7 +61,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   defaultChecked={isResOwner}
                   onClick={toggleIsUser}
                   id="custom-switch"
-                  style={{ transform: "scale(1.5)" }}
+                  style={{ transform: "scale(1.3)" }}
                 />
               </div>
               <div className="col-4 fs-14 my-auto">business</div>
