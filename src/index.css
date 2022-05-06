@@ -310,3 +310,6 @@ select {
   opacity: 1 !important;
   border: 1px solid #f6f4f2 !important;
 }
+.max-w-zero {
+  max-width: 0;
+}

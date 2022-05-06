@@ -28,10 +28,12 @@ function MenuItems({ item }) {
     return (
       <div className={`row border-left-right`} onClick={decoratedOnClick}>
         <>
-          <div className={`${isCurrentEventKey ? "yes" : "no"} col-4 ps-0`}>
+          <div
+            className={`${isCurrentEventKey ? "max-w-zero" : "no"} col-4 ps-0`}
+          >
             <img src="images/qbacon.jpg" className="img-fluid w-100" alt="" />
           </div>
-          <div className="col-8 my-auto">
+          <div className={` ${isCurrentEventKey ? "col-11" : "col-8"} `}>
             <div className="row">
               <div className="col-9 ps-0">
                 <span className="menu-name">{item.name}</span>

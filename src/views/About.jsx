@@ -1,4 +1,4 @@
-import AboutCardPics from "../ui/AboutCardPics";
+//import AboutCardPics from "../ui/AboutCardPics";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import LoadingScreen from "../ui/LoadingScreen";
