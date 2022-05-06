@@ -81,7 +81,7 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${location.pathname !== "/" ? "bg-white" : ""}`}
+        className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
       >
         {schBar && (
           <Container fluid>
@@ -161,19 +161,13 @@ function Header() {
                       />
                     </svg>
                   ) : (
-                    <svg
-                      onClick={goHome}
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: "30px", verticalAlign: "text-bottom" }}
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                    <span
+                      className="ms-1 fw-bold"
+                      style={{ fontSize: "22px" }}
+                      onClick={goMenu}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      {rest?.name && rest.name}
+                    </span>
                   )}
                   {!mMenu &&
                     (location.pathname === "/add-item" ? (
@@ -197,12 +191,7 @@ function Header() {
                         {"edit resturant"}
                       </span>
                     ) : (
-                      <span
-                        className="ms-3 q-font-weight-bold"
-                        onClick={goMenu}
-                      >
-                        {rest?.name && rest.name}
-                      </span>
+                      <span className="ms-3 fw-bold"></span>
                     ))}
                 </span>
               )}

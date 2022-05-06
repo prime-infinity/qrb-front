@@ -26,10 +26,10 @@ body {
 #myHeader {
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 1;
 }
 .mobile-menu {
-  background-color: white;
+  background-color: #f6f4f2;
   color: black;
   position: fixed;
   right: 0%;
@@ -51,6 +51,11 @@ body {
   opacity: 0.4;
 }
 .svg-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
+}
+.svg-icon-lg {
   width: 20px;
   height: 20px;
   vertical-align: sub;
@@ -179,6 +184,9 @@ select {
 .fs-14 {
   font-size: 14px;
 }
+.fs-12 {
+  font-size: 12px;
+}
 .py-bt {
   padding-top: 0.7rem !important;
   padding-bottom: 0.7rem !important;
@@ -236,4 +244,7 @@ select {
   border: 0;
   padding: 0 1rem;
   transition: all 0.2s ease;
+}
+.big-bg-theme {
+  background-color: #f6f4f2;
 }

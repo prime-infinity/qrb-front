@@ -51,7 +51,7 @@ function MobileMenu({ goMenu, closeMenu }) {
             : "animate__animated animate__slideOutRight"
         } mobile-menu`}
       >
-        <div className="pt-5 mt-5">
+        <div className="pt-4 mt-4">
           <div className="col-10 offset-1 text-end">
             <div className="row mx-auto">
               <div className="col-4 fs-14 my-auto">customer</div>
@@ -61,9 +61,10 @@ function MobileMenu({ goMenu, closeMenu }) {
                   defaultChecked={isResOwner}
                   onClick={toggleIsUser}
                   id="custom-switch"
+                  style={{ transform: "scale(1.5)" }}
                 />
               </div>
-              <div className="col-4 fs-14 my-auto">resturant</div>
+              <div className="col-4 fs-14 my-auto">business</div>
             </div>
 
             <hr />
@@ -77,7 +78,7 @@ function MobileMenu({ goMenu, closeMenu }) {
 
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon"
+                      className="svg-icon-lg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +94,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <svg
                       viewBox="0 0 20 21"
                       fill="currentColor"
-                      className="svg-icon"
+                      className="svg-icon-lg"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -108,7 +109,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <span>Covid pass</span>
                     <span className="btn pe-0">
                       <svg
-                        className="svg-icon"
+                        className="svg-icon-lg"
                         viewBox="0 0 16 19"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +129,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   <span>Menu</span>
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon"
+                      className="svg-icon-lg"
                       viewBox="0 0 14 19"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +174,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   )}
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon"
+                      className="svg-icon-lg"
                       viewBox="0 0 20 21"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +190,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   <span className="fw-bold">tech support</span>
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon"
+                      className="svg-icon-lg"
                       viewBox="0 0 20 21"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"

@@ -35,3 +35,43 @@
     }
   }
 }
+.covers-list {
+  display: flex;
+  padding: 20px;
+  overflow: auto;
+  li {
+    list-style-type: none;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}
+.cover-item {
+  display: flex;
+  width: 136px;
+  height: 216px;
+  align-items: center;
+  justify-content: center;
+  background: #dadada;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+label {
+  &.cover-item {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    input[type="file"] {
+      display: none;
+    }
+    img {
+      object-fit: none;
+      pointer-events: none;
+      height: 35px;
+      width: 35px;
+    }
+  }
+}
