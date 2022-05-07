@@ -83,7 +83,7 @@ function Header() {
         id="myHeader"
         className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
       >
-        <Container fluid className="mx-md-5 pt-2">
+        <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${schBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />

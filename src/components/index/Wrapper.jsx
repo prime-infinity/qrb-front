@@ -34,9 +34,9 @@ function Wrapper() {
           <div className="col-11 col-md-6 text-white">
             <div className="px-3">
               <span className="sp-title" style={{ fontSize: "40px" }}>
-                {rest.name}
+                {/*rest.name*/ "yogurstory"}
               </span>{" "}
-              <ul className="sp-details ps-0 pt-3 mb-0">
+              <ul className="sp-details ps-0 pt-4 mb-0">
                 <li>
                   <h6>honolulu</h6>
                 </li>
@@ -65,16 +65,14 @@ function Wrapper() {
               <div className="col-6 ps-3 pe-bt">
                 <button
                   onClick={toAbout}
-                  className="btn btn-solid w-100 bg-them text-white fw-bold"
+                  className="btn btn-solid w-100 bg-them text-white "
                 >
                   info
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">
                 <Link to="/menu">
-                  <button className="btn btn-solid w-100 bg-white fw-bold">
-                    menu
-                  </button>{" "}
+                  <button className="btn btn-solid w-100 bg-white">menu</button>{" "}
                 </Link>
               </div>
             </div>

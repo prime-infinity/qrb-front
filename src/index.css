@@ -62,8 +62,8 @@ body {
 }
 
 .svg-icon-menu {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   vertical-align: sub;
 }
 .mm-db {
@@ -196,6 +196,9 @@ select {
 .fs-13 {
   font-size: 13px;
 }
+.fs-18 {
+  font-size: 18px;
+}
 .py-bt {
   padding-top: 0.7rem !important;
   padding-bottom: 0.7rem !important;
@@ -219,7 +222,7 @@ select {
 .bg-wrapper {
   position: fixed;
   width: 100%;
-  bottom: 7%;
+  bottom: 5%;
 }
 .animate__animated.animate__slideInRight {
   --animate-duration: 0.2s;

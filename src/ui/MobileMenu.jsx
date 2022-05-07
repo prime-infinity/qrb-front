@@ -1,20 +1,19 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector /*, useDispatch */ } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
-import { removeFromLocal } from "../helpers/storage";
-import { setAuth } from "../redux/slices/authSlice";
+/*import { removeFromLocal } from "../helpers/storage";
+import { setAuth } from "../redux/slices/authSlice";*/
 import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
   const [isResOwner, setIsUser] = useState(false);
-  const [logoutMenu, showLogoutMenu] = useState(false);
 
   const toggleIsUser = () => {
     setIsUser(!isResOwner);
@@ -22,7 +21,7 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const goLogin = () => {
     if (authState) {
-      showLogoutMenu(!logoutMenu);
+      //showLogoutMenu(!logoutMenu);
     } else {
       closeMenu();
       navigate("/login");
@@ -33,10 +32,10 @@ function MobileMenu({ goMenu, closeMenu }) {
     navigate("/about");
   };
 
-  const logout = () => {
+  /*const logout = () => {
     dispatch(setAuth(null));
     removeFromLocal();
-  };
+  };*/
   const goHome = () => {
     closeMenu();
     navigate("/");
@@ -53,7 +52,7 @@ function MobileMenu({ goMenu, closeMenu }) {
       >
         <div className="pt-4 mt-4">
           <div className="col-10 offset-1 text-end">
-            <div className="row justify-content-between mx-auto">
+            {/*<div className="row justify-content-between mx-auto">
               <div className="col-4 fs-14 my-auto">customer</div>
               <div className="col-3 text-center">
                 <Form.Check
@@ -65,8 +64,8 @@ function MobileMenu({ goMenu, closeMenu }) {
                 />
               </div>
               <div className="col-4 fs-14 my-auto">business</div>
-            </div>
-
+            </div>*/}
+            <span className="fs-18">yogurstory</span>
             <hr />
 
             {isResOwner ? (
@@ -95,7 +94,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </span>
                 </li>
 
-                <li className="" onClick={toAbout}>
+                <li className="py-3" onClick={toAbout}>
                   <span className="fs-14">info</span>
                   <span className="btn pe-0">
                     <svg
@@ -133,7 +132,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </li>
                 )}
                 <li className="" onClick={goMenu}>
-                  <span className="fs-14">Menu</span>
+                  <span className="fs-14">menu</span>
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon-menu"
@@ -152,23 +151,6 @@ function MobileMenu({ goMenu, closeMenu }) {
             )}
 
             <div className="mm-db">
-              <hr />
-              {logoutMenu && (
-                <div
-                  className="sm-me border py-2 px-2"
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    backgroundColor: "#eee",
-                    zIndex: "1",
-                    top: "-30%",
-                  }}
-                >
-                  <ul className="navbar-nav">
-                    <li onClick={logout}>logout</li>
-                  </ul>
-                </div>
-              )}
               <ul
                 className="navbar-nav ml-auto"
                 style={{ position: "relative" }}
@@ -193,7 +175,28 @@ function MobileMenu({ goMenu, closeMenu }) {
                     </svg>
                   </span>
                 </li>
-                <li className="">
+                <hr />
+
+                <li style={{ paddingTop: "5%", paddingBottom: "23%" }}>
+                  <div className="text-start" style={{ position: "relative" }}>
+                    <div
+                      style={{ position: "absolute", width: "40%", left: "0%" }}
+                    >
+                      <span className="fs-14">owner mode</span>
+                    </div>
+                    <div style={{ position: "absolute", left: "42%" }}>
+                      <Form.Check
+                        type="switch"
+                        defaultChecked={isResOwner}
+                        onClick={toggleIsUser}
+                        id="custom-switch"
+                        style={{ transform: "scale(1.2)" }}
+                      />
+                    </div>
+                  </div>
+                </li>
+
+                {/*<li className="">
                   <span className="fw-bold">tech support</span>
                   <span className="btn pe-0">
                     <svg
@@ -208,10 +211,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                       />
                     </svg>
                   </span>
-                </li>
+                  </li>*/}
                 <li className="">
-                  <span className="text-secondary fs-14">powered by </span>
-                  <span className="fw-bold"> qrb.ee</span>
+                  <span className="text-secondary px-2 fs-12 text-decoration-underline">
+                    powered by{" "}
+                  </span>
+                  <span className="fw-bold"> qrb</span>
                 </li>
               </ul>
             </div>
