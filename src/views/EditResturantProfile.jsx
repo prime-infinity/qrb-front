@@ -7,7 +7,10 @@ function EditResturantProfile() {
   const [actionState, setState] = useState(0);
 
   return (
-    <div className="container-fluid pt-5">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row pt-5">
         {/**state buttons */}
         <div className="col-12">

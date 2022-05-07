@@ -76,9 +76,10 @@ function CreateResturantWel() {
     <DoneCreatRest />
   ) : (
     <div className="container-fluid pt-5">
-      <div className="row justify-content-center pt-5">
+      <div className="row pt-5">
+        <div className="col-1 pt-1">5</div>
         <div className="col-10">
-          <span className="fw-bold h2">welcome screen</span>
+          <span className=" h2">welcome screen</span>
 
           <div className="row">
             {!file && (

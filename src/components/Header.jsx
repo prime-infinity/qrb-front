@@ -208,7 +208,7 @@ function Header() {
               </span>
             )}
             {location.pathname === "/edit-resturant-details" && (
-              <span onClick={toEditRestProfile} className="px-4">
+              <span onClick={toEditRestProfile} className="px-3">
                 <svg
                   width="23"
                   height="23"
