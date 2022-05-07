@@ -11,7 +11,7 @@ function Menu() {
   const CAT = [
     {
       id: 1,
-      title: "Drinks",
+      title: "drinks",
       data: [
         { id: 1, title: "coffee" },
         { id: 2, title: "Juice" },
@@ -23,7 +23,7 @@ function Menu() {
     },
     {
       id: 2,
-      title: "Main Menu",
+      title: "main menu",
       data: [
         { id: 1, title: "French Fries" },
         { id: 2, title: "Onion Rings" },
@@ -33,7 +33,7 @@ function Menu() {
     },
     {
       id: 3,
-      title: "Lunch",
+      title: "lunch",
       data: [
         { id: 1, title: "Donuts" },
         { id: 2, title: "Coke" },
@@ -46,7 +46,7 @@ function Menu() {
     {
       name: "flavored cafe late",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "coffee",
         subId: 1,
@@ -55,7 +55,7 @@ function Menu() {
     {
       name: "flavored cafe late2",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "coffee",
         subId: 1,
@@ -64,7 +64,7 @@ function Menu() {
     {
       name: "flavored cafe late3",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "coffee",
         subId: 1,
@@ -73,7 +73,7 @@ function Menu() {
     {
       name: "flavored Milk",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Milk",
         subId: 5,
@@ -82,7 +82,7 @@ function Menu() {
     {
       name: "flaMilk 2",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Milk",
         subId: 5,
@@ -91,7 +91,7 @@ function Menu() {
     {
       name: "Lemonade",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Lemonade",
         subId: 6,
@@ -100,7 +100,7 @@ function Menu() {
     {
       name: "Boring Tea",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Tea",
         subId: 3,
@@ -109,7 +109,7 @@ function Menu() {
     {
       name: "Exciting Fries",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "French Fries",
         subId: 1,
@@ -118,7 +118,7 @@ function Menu() {
     {
       name: "More Exciting Fries",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "French Fries",
         subId: 1,
@@ -127,7 +127,7 @@ function Menu() {
     {
       name: "Most Exciting Fries",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "French Fries",
         subId: 1,
@@ -136,7 +136,7 @@ function Menu() {
     {
       name: "Standup Chicken",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "Chicked",
         subId: 4,
@@ -145,7 +145,7 @@ function Menu() {
     {
       name: "surrendered Chicken",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "Chicked",
         subId: 4,
@@ -154,7 +154,7 @@ function Menu() {
     {
       name: "Mr Crabs",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "Fried Shrimps",
         subId: 3,
@@ -163,7 +163,7 @@ function Menu() {
     {
       name: "LOrd of the RIngs?",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "Onion Rings",
         subId: 2,
@@ -172,7 +172,7 @@ function Menu() {
     {
       name: "LIght Snack 1",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Donuts",
         subId: 1,
@@ -181,7 +181,7 @@ function Menu() {
     {
       name: "LIght Snack 2",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Donuts",
         subId: 1,
@@ -190,7 +190,7 @@ function Menu() {
     {
       name: "Coke",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Coke",
         subId: 2,
@@ -199,7 +199,7 @@ function Menu() {
     {
       name: "Chipanzees",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Chips",
         subId: 3,
@@ -208,7 +208,7 @@ function Menu() {
     {
       name: "Chipmunks",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Chips",
         subId: 3,
@@ -217,7 +217,7 @@ function Menu() {
     {
       name: "Literal Soda",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Soda",
         subId: 4,
@@ -226,7 +226,7 @@ function Menu() {
     {
       name: "Fizzy Soda",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Soda",
         subId: 4,
@@ -235,7 +235,7 @@ function Menu() {
     {
       name: "HollanDia Yoghurt",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Milk",
         subId: 5,
@@ -244,7 +244,7 @@ function Menu() {
     {
       name: "Bread",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Donuts",
         subId: 1,
@@ -253,7 +253,7 @@ function Menu() {
     {
       name: "Diet Coke",
       cat: {
-        mainTitle: "Lunch",
+        mainTitle: "lunch",
         mainId: 3,
         subTitle: "Coke",
         subId: 2,
@@ -262,7 +262,7 @@ function Menu() {
     {
       name: "LobStery",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "Fried Shrimps",
         subId: 3,
@@ -271,7 +271,7 @@ function Menu() {
     {
       name: "Literal french Fries",
       cat: {
-        mainTitle: "Main Menu",
+        mainTitle: "main menu",
         mainId: 2,
         subTitle: "French Fries",
         subId: 1,
@@ -280,7 +280,7 @@ function Menu() {
     {
       name: "Boring Drink one",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Tea",
         subId: 3,
@@ -289,7 +289,7 @@ function Menu() {
     {
       name: "CowBell",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Milk",
         subId: 5,
@@ -298,7 +298,7 @@ function Menu() {
     {
       name: "Dano",
       cat: {
-        mainTitle: "Drinks",
+        mainTitle: "drinks",
         mainId: 1,
         subTitle: "Milk",
         subId: 5,
@@ -337,7 +337,8 @@ function Menu() {
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon"
+      className="svg-icon-lg"
+      style={{ verticalAlign: "middle" }}
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -416,7 +417,7 @@ function Menu() {
   };*/
 
   return (
-    <div className="container-fluid pt-5">
+    <div className="container-fluid pt-5 big-bg-theme">
       <div className="row pt-5">
         <div className="col-12">
           {/** head button part */}
@@ -436,7 +437,7 @@ function Menu() {
 
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`svg-icon ${
+                      className={`svg-icon-lg ${
                         subBut === cat.id
                           ? "rotate-icon"
                           : "counter-rotate-icon"
@@ -460,7 +461,7 @@ function Menu() {
                   {cat.data.map((dat, index) => (
                     <span
                       id={dat.title}
-                      className={`mx-2 my-auto fw-bold ${
+                      className={`mx-2 my-auto fs-14 ${
                         lock === dat.title ? "border-bottom-drk" : ""
                       } min-width-maxcon`}
                       onClick={() => highLightCat(dat.title)}
@@ -494,9 +495,9 @@ function Menu() {
                     } row justify-content-center mb-5`}
                   >
                     <div className="pb-2 ps-3 text-start">
-                      <span>{returnMainTitle(key)}</span>
+                      <span className="fs-13">{returnMainTitle(key)}</span>
                       <span>{chevNxt}</span>
-                      <span>{key}</span>
+                      <span className="fs-13">{key}</span>
                     </div>{" "}
                     <>
                       {value.map((item, index) => (

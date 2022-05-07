@@ -112,14 +112,17 @@ function EditResturantDetails() {
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <div className="container-fluid pt-5">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
           <span className="p">
             <textarea
               value={summary}
               onChange={(e) => setSsummary(e.target.value)}
-              className="my-4 py-5 form-control text-center border border-dark"
+              className="my-4 py-5 form-control text-center border big-bg-theme border-dark"
               type="text"
               placeholder={`${
                 rest?.summary
@@ -150,7 +153,7 @@ function EditResturantDetails() {
             </button>
           )}
           <ul className="navbar-nav mt-5 fs-14">
-            <li className="pb-2">
+            <li className="pb-3">
               <span>
                 <svg
                   className="svg-icon me-2"
@@ -164,10 +167,10 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{rest.phone ? rest.phone : "phone number"}</span>
+                <span className="fs-12">{rest.phone ? rest.phone : ""}</span>
               </span>
             </li>
-            <li className="pb-2">
+            <li className="pb-3">
               <span>
                 <svg
                   className="svg-icon me-2"
@@ -181,10 +184,10 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{rest.email ? rest.email : "email"}</span>
+                <span className="fs-12">{rest.email ? rest.email : ""}</span>
               </span>
             </li>
-            <li className="pb-2">
+            <li className="pb-3">
               <span>
                 <svg
                   className="svg-icon me-2"
@@ -198,10 +201,12 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{rest.website ? rest.website : "website"}</span>
+                <span className="fs-12">
+                  {rest.website ? rest.website : ""}
+                </span>
               </span>
             </li>
-            <li className="pb-2">
+            <li className="pb-3">
               <span>
                 <svg
                   className="svg-icon me-2"
@@ -215,16 +220,18 @@ function EditResturantDetails() {
                   />
                 </svg>
 
-                <span>{rest.address ? rest.address : "address"}</span>
+                <span className="fs-12">
+                  {rest.address ? rest.address : ""}
+                </span>
               </span>
             </li>
           </ul>
 
           {/** the little icons */}
-          <div className="row mt-4">
+          <div className="row mt-4 pb-5">
             <div className="col-1">
               <svg
-                className="svg-icon me-2"
+                className="svg-icon-lg me-2"
                 viewBox="0 0 19 19"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -239,7 +246,7 @@ function EditResturantDetails() {
             </div>
             <div className="col-1 px-4">
               <svg
-                className="svg-icon me-2"
+                className="svg-icon-lg me-2"
                 viewBox="0 0 18 18"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -252,7 +259,7 @@ function EditResturantDetails() {
             </div>
             <div className="col-1 px-4">
               <svg
-                className="svg-icon me-2"
+                className="svg-icon-lg me-2"
                 viewBox="0 0 22 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +272,7 @@ function EditResturantDetails() {
             </div>
             <div className="col-3">
               <svg
-                className="svg-icon me-2"
+                className="svg-icon-lg me-2"
                 viewBox="0 0 16 21"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -278,6 +285,47 @@ function EditResturantDetails() {
             </div>
           </div>
           {/** little icons end */}
+
+          <div className="covers-list-wrapper">
+            <ul className="covers-list">
+              <li>
+                <label className="cover-item" htmlFor="coverbg">
+                  <input type="file" id="coverbg" />
+                  <img src="/ang/round-add.svg" alt="" />
+                </label>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery001.jpg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery002.jpg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery003.jpg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery004.jpg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery001.jpg" alt="" />
+                </a>
+              </li>
+              <li>
+                <a href="#!" className="cover-item">
+                  <img src="/ang/gallery002.jpg" alt="" />
+                </a>
+              </li>
+            </ul>
+          </div>
 
           <ImageUploading
             multiple

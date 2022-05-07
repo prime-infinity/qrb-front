@@ -59,28 +59,28 @@ function EditRestProTwo() {
             onChange={(e) => setFrom({ ...formData, phone: e.target.value })}
             type="text"
             placeholder={formData.phone ? formData.phone : "phone number"}
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.email}
             onChange={(e) => setFrom({ ...formData, email: e.target.value })}
             type="text"
             placeholder={formData.email ? formData.email : "email"}
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.website}
             onChange={(e) => setFrom({ ...formData, website: e.target.value })}
             type="text"
             placeholder={formData.website ? formData.website : "website"}
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.address}
             onChange={(e) => setFrom({ ...formData, address: e.target.value })}
             placeholder={formData.address ? formData.address : "address"}
             type="text"
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>

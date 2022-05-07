@@ -20,7 +20,7 @@ function AddMenuItem() {
           <Overlay closeOverlay={addCustomiz} width={`100%`} />
         </>
       )}
-      <div className="container-fluid pt-5 px-3">
+      <div className="container-fluid pt-5 px-3 big-bg-theme">
         <div className="row pt-5">
           <div className="col-12">
             {/** image selection */}
@@ -46,7 +46,7 @@ function AddMenuItem() {
                   </div>
                 </div>
               </div>
-              <div className="col-12">
+              <div className="col-12 fs-14">
                 add images of videos to display the item to your customer
               </div>
             </div>
@@ -54,7 +54,7 @@ function AddMenuItem() {
 
             {/**active or not */}
             <div className="row mt-4">
-              <div className="col-6">
+              <div className="col-6 fs-14">
                 <input
                   className="form-check-input me-2"
                   type="radio"
@@ -69,7 +69,7 @@ function AddMenuItem() {
                 <br />
                 <div className="ps-4">item will be available on the menu</div>
               </div>
-              <div className="col-6">
+              <div className="col-6 fs-14">
                 <input
                   className="form-check-input me-2"
                   type="radio"
@@ -93,21 +93,21 @@ function AddMenuItem() {
                 <input
                   type="text"
                   placeholder="name"
-                  className="form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
               <div className="col-12 py-5">
                 <input
                   type="text"
                   placeholder="price($)"
-                  className="form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
               <div className="col-12">
                 <input
                   type="text"
                   placeholder="description"
-                  className="form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
             </div>

@@ -15,7 +15,7 @@ function ResOwnerMobMenu({ closeMenu }) {
 
   const editIcon = (
     <svg
-      className="svg-icon"
+      className="svg-icon-lg"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -54,40 +54,48 @@ function ResOwnerMobMenu({ closeMenu }) {
       {authState?.isRestOwner ? (
         <ul className="navbar-nav ml-auto">
           <li className="" onClick={goHome}>
-            <span>home</span>
+            <span className="fs-14">home</span>
 
             <span className="btn pe-0">
               <svg
-                className="svg-icon"
-                viewBox="0 0 20 20"
-                fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
+                className=""
+                style={{ width: "28px", verticalAlign: "sub" }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
               >
-                <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
               </svg>
             </span>
           </li>
           <li className="" onClick={editMyInfo}>
-            <span>edit my info</span>
+            <span className="fs-14">edit my info</span>
 
             <span className="btn pe-0">{editIcon}</span>
           </li>
           <li className="" onClick={editMyMenu}>
-            <span>edit my menu</span>
+            <span className="fs-14">edit my menu</span>
 
             <span className="btn pe-0">{editIcon}</span>
           </li>
         </ul>
       ) : (
         <div>
-          <span className="fw-bold">
-            manage your resturant with qrb mobile menu
+          <span className="">
+            manage your resturant with{" "}
+            <span className="text-decoration-underline">qrb mobile menu</span>{" "}
           </span>
           <div className="row mt-3">
             <div className="col-12 text-start">
-              <span className="btn ps-0">
+              <span className="btn ps-0 d-none">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -95,14 +103,14 @@ function ResOwnerMobMenu({ closeMenu }) {
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
             </svg>*/}
               </span>
-              <span>
+              <span className="fs-12 text-secondary">
                 we will help you set up your digital menu for your customers
               </span>
             </div>
             <div className="col-12 text-start my-3">
-              <span className="btn ps-0">
+              <span className="btn ps-0 d-none">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -110,14 +118,14 @@ function ResOwnerMobMenu({ closeMenu }) {
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
             </svg>*/}
               </span>
-              <span>
+              <span className="fs-12 text-secondary">
                 we will deliver high quality qr code signs for your menu
               </span>
             </div>
             <div className="col-12 text-start">
-              <span className="btn ps-0">
+              <span className="btn ps-0 d-none">
                 {/*<svg
-              className="svg-icon"
+              className="svg-icon-lg"
               viewBox="0 0 20 20"
               fill="currentColor"
               xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +133,9 @@ function ResOwnerMobMenu({ closeMenu }) {
               <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
             </svg>*/}
               </span>
-              <span>we will arrange photograph for all your menu items</span>
+              <span className="fs-12 text-secondary">
+                we will arrange photograph for all your menu items
+              </span>
             </div>
 
             <div className="col-12 my-4">
@@ -136,7 +146,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 get started
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="svg-icon"
+                  className="svg-icon-lg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

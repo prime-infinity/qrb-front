@@ -46,6 +46,7 @@ function LoginSecond({ resend, field }) {
   };
 
   const erresend = () => {
+    setErrors(null);
     resend();
     sss(false);
     setDoneC(false);
@@ -56,8 +57,10 @@ function LoginSecond({ resend, field }) {
   const errorDiv = <small className="text-danger">{error}</small>;
   return (
     <div className="col-12 mt-5 mb-5">
-      <span className="fw-bold h1">verfication code</span> <br />
-      <span>enter the 4 digit number that we sent to {field}.</span>
+      <span className=" h1">verfication code</span> <br />
+      <span className="fs-14">
+        enter the 4 digit number that we sent to {field}.
+      </span>
       <div className="row mt-3 mb-5">
         <div className="col-12">
           {ss && (
@@ -69,7 +72,7 @@ function LoginSecond({ resend, field }) {
                 OTPLength={4}
                 otpType="number"
                 disabled={false}
-                inputClassName="ww-25 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                inputClassName="ww-25 form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
 
               <ResendOTP

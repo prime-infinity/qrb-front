@@ -49,9 +49,10 @@ function CreateResturantYear() {
 
   return (
     <div className="container-fluid pt-5">
-      <div className="row justify-content-center pt-5">
+      <div className="row pt-5">
+        <div className="col-1 pt-1">3</div>
         <div className="col-10">
-          <span className="fw-bold h2">established since</span>
+          <span className=" h2">established since</span>
           <input
             type="text"
             value={name}

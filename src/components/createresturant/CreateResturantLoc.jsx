@@ -49,9 +49,10 @@ function CreateResturantLoc() {
 
   return (
     <div className="container-fluid pt-5">
-      <div className="row justify-content-center pt-5">
+      <div className="row pt-5">
+        <div className="col-1 pt-1">2</div>
         <div className="col-10">
-          <span className="fw-bold h2">business location</span>
+          <span className=" h2">business location</span>
           <input
             type="text"
             value={name}
