@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector /*, useDispatch */ } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 /*import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";*/
@@ -9,6 +9,7 @@ import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
+  const location = useLocation();
   let navigate = useNavigate();
   //const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
@@ -73,7 +74,12 @@ function MobileMenu({ goMenu, closeMenu }) {
             ) : (
               <ul className="navbar-nav ml-auto">
                 <li className="" onClick={goHome}>
-                  <span className="fs-14">home</span>
+                  <span
+                    className={` ${location.pathname === "/" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    home
+                  </span>
 
                   <span className="btn pe-0">
                     <svg
@@ -95,7 +101,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                 </li>
 
                 <li className="py-3" onClick={toAbout}>
-                  <span className="fs-14">info</span>
+                  <span
+                    className={` ${location.pathname === "/about" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    info
+                  </span>
                   <span className="btn pe-0">
                     <svg
                       viewBox="0 0 20 21"
@@ -132,7 +143,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </li>
                 )}
                 <li className="" onClick={goMenu}>
-                  <span className="fs-14">menu</span>
+                  <span
+                    className={` ${location.pathname === "/menu" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    menu
+                  </span>
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon-menu"
