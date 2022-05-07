@@ -60,6 +60,12 @@ body {
   height: 20px;
   vertical-align: sub;
 }
+
+.svg-icon-menu {
+  width: 25px;
+  height: 25px;
+  vertical-align: sub;
+}
 .mm-db {
   position: absolute;
   width: inherit;
@@ -390,4 +396,10 @@ span.cat-icon img {
   flex: 1 1 auto;
   align-items: flex-end;
   padding-bottom: 5px;
+}
+.PhoneInputInput {
+  background-color: #f6f4f2;
+}
+.box-shadow {
+  box-shadow: -1px 3px #ddd8d8;
 }

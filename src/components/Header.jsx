@@ -83,7 +83,7 @@ function Header() {
         id="myHeader"
         className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
       >
-        <Container fluid className="mx-md-5">
+        <Container fluid className="mx-md-5 pt-2">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${schBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />
@@ -163,7 +163,7 @@ function Header() {
                       kalua pig meat
                     </span>
                   ) : location.pathname === "/login" ? (
-                    <span className="ms-3 h6">menu platform</span>
+                    <span className="ms-2 h6">menu platform</span>
                   ) : location.pathname === "/edit-rest-profile" ? (
                     <span className="ms-3 q-font-weight-bold">
                       {"edit resturant"}
@@ -192,10 +192,10 @@ function Header() {
               </span>
             )}
             {location.pathname === "/menu" && (
-              <span onClick={showSearch} className="px-4">
+              <span onClick={showSearch} className="px-3">
                 <svg
-                  width="23"
-                  height="23"
+                  width="18"
+                  height="18"
                   viewBox="0 0 18 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +254,9 @@ function Header() {
               <svg
                 onClick={addMenuItem}
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "30px" }}
+                width="18"
+                height="18"
+                className="d-none"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -302,7 +304,7 @@ function Header() {
               <svg
                 onClick={showMobileMenu}
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "30px" }}
+                style={{ width: "27px" }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

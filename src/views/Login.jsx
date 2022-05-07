@@ -43,14 +43,17 @@ function Login() {
   };
   const errorDiv = <small className="text-danger">{error}</small>;
   return (
-    <div className="container-fluid pt-5 px-3">
+    <div
+      className="container-fluid pt-5 px-4 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row pt-5">
         <div className="col-12 mb-3">
           <PhoneInput
             placeholder="enter mobile no"
             defaultCountry="IN"
             readOnly={secondStage}
-            className="form-control mb-2 border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="form-control big-bg-theme mb-2 border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
             value={field}
             onChange={setField}
           />

@@ -53,15 +53,15 @@ function MobileMenu({ goMenu, closeMenu }) {
       >
         <div className="pt-4 mt-4">
           <div className="col-10 offset-1 text-end">
-            <div className="row mx-auto">
+            <div className="row justify-content-between mx-auto">
               <div className="col-4 fs-14 my-auto">customer</div>
-              <div className="col-3 ">
+              <div className="col-3 text-center">
                 <Form.Check
                   type="switch"
                   defaultChecked={isResOwner}
                   onClick={toggleIsUser}
                   id="custom-switch"
-                  style={{ transform: "scale(1.3)" }}
+                  style={{ transform: "scale(1.2)" }}
                 />
               </div>
               <div className="col-4 fs-14 my-auto">business</div>
@@ -74,27 +74,34 @@ function MobileMenu({ goMenu, closeMenu }) {
             ) : (
               <ul className="navbar-nav ml-auto">
                 <li className="" onClick={goHome}>
-                  <span>home</span>
+                  <span className="fs-14">home</span>
 
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon-lg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg"
+                      className=""
+                      style={{ width: "28px", verticalAlign: "sub" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                      <path d="M1 8.5L10 1.5L19 8.5V19.5C19 20.0304 18.7893 20.5391 18.4142 20.9142C18.0391 21.2893 17.5304 21.5 17 21.5H3C2.46957 21.5 1.96086 21.2893 1.58579 20.9142C1.21071 20.5391 1 20.0304 1 19.5V8.5Z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
                     </svg>
                   </span>
                 </li>
 
                 <li className="" onClick={toAbout}>
-                  <span>info</span>
+                  <span className="fs-14">info</span>
                   <span className="btn pe-0">
                     <svg
                       viewBox="0 0 20 21"
                       fill="currentColor"
-                      className="svg-icon-lg"
+                      className="svg-icon-menu"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -126,10 +133,10 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </li>
                 )}
                 <li className="" onClick={goMenu}>
-                  <span>Menu</span>
+                  <span className="fs-14">Menu</span>
                   <span className="btn pe-0">
                     <svg
-                      className="svg-icon-lg"
+                      className="svg-icon-menu"
                       viewBox="0 0 14 19"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +177,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   {authState ? (
                     <span>{authState.field}</span>
                   ) : (
-                    <span>login</span>
+                    <span className="fs-14">login</span>
                   )}
                   <span className="btn pe-0">
                     <svg
@@ -203,7 +210,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </span>
                 </li>
                 <li className="">
-                  <span className="text-secondary">powered by </span>
+                  <span className="text-secondary fs-14">powered by </span>
                   <span className="fw-bold"> qrb.ee</span>
                 </li>
               </ul>

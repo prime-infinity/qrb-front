@@ -28,10 +28,17 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
         <span>or continue with</span>
 
         <div className="row justify-content-center mt-5">
-          <div className="col-2 border border-dark py-2">G</div>
           <div
-            className="col-10 border border-dark py-2 text-white fw-bold"
-            style={{ backgroundColor: "#5290f4" }}
+            className="col-2 border box-shadow"
+            style={{ position: "relative" }}
+          >
+            <div className="">
+              <img src="icons/google.png" className="to-center" alt="" />
+            </div>
+          </div>
+          <div
+            className="col-8 border fs-14 border-dark py-2 text-white"
+            style={{ backgroundColor: "#4285f4" }}
           >
             Log in with Google
           </div>
