@@ -26,7 +26,7 @@ function About() {
       style={{ minHeight: "100vh" }}
     >
       <div className="row pt-5">
-        <div className="col-12 col-md-6 offset-md-3 px-3">
+        <div className="col-12 col-md-6 offset-md-3 px-4">
           {/*rest.time.length > 0 &&
             rest.time.map((date, index) => (
               <div key={index} className="mb-2">
@@ -50,7 +50,7 @@ function About() {
                   ))}
               </div>
                       ))*/}
-          <div className="fs-12 pb-2">
+          {/*<div className="fs-12 pb-2">
             <span className="pe-2">mon - fri</span>
             <span className="pe-2">|</span>
             <span>2:00 am - 8:00 pm</span>
@@ -62,10 +62,9 @@ function About() {
             <span className="pe-2">&</span>
             <span>9:00 am - 1:00 pm</span>
           </div>
-          <br />
-          <span className="p fs-14">{rest.summary ? rest.summary : " "}</span>
+                    <br />*/}
 
-          <ul className="navbar-nav mt-5 fs-14">
+          <ul className="navbar-nav fs-14">
             <li className="pb-3">
               <span>
                 <svg
@@ -139,9 +138,9 @@ function About() {
               </span>
             </li>
           </ul>
-
+          <hr />
           {/** the little icons */}
-          <div className="row mt-4 pb-5">
+          <div className="row py-2">
             <div className="col-1">
               <svg
                 className="svg-icon-lg me-2"
@@ -199,7 +198,35 @@ function About() {
           </div>
           {/** little icons end */}
 
-          <div className="covers-list-wrapper">
+          <hr />
+          <div className="px-2">
+            <span className="p fs-14">
+              {rest.summary
+                ? rest.summary +
+                  "dio venenatis ut nibh integer tortor, gravida augue euismod faucibus. Aliquet elementum arcu leo rhoncus tortor, lorem et purus, neque. Tellus cursus nec quis ullamcorper molestie risus elit lectus sit. Tortor interdum sagittis ultrices diam. Pharetra mauris cursus etiam nibh diam. "
+                : " "}
+            </span>
+          </div>
+
+          <div
+            className="row g-0 mt-4"
+            style={{ position: "absolute", width: "100%", left: "0" }}
+          >
+            <div className="col-6">
+              <img src="/ang/profile-cover.jpg" className="img-fluid" alt="" />
+            </div>
+            <div className="col-6">
+              <img src="/ang/profile-cover.jpg" className="img-fluid" alt="" />
+            </div>
+            <div className="col-6">
+              <img src="/ang/profile-cover.jpg" className="img-fluid" alt="" />
+            </div>
+            <div className="col-6">
+              <img src="/ang/profile-cover.jpg" className="img-fluid" alt="" />
+            </div>
+          </div>
+
+          {/*<div className="covers-list-wrapper">
             <ul className="covers-list">
               <li>
                 <label className="cover-item" htmlFor="coverbg">
@@ -238,24 +265,7 @@ function About() {
                 </a>
               </li>
             </ul>
-          </div>
-          {/*<div className="row justify-content-center pb-5 mt-5">
-            <div className="col-12">
-              <div
-                className="row flex-nowrap"
-                style={{ overflowX: "scroll", position: "fixed", bottom: "3%" }}
-              >
-                <div className="col-5">
-                  <img src={rest.welcomescreen} className="img-fluid" alt="" />
-                </div>
-
-                {rest.images.length > 0 &&
-                  rest.images.map((item, index) => (
-                    <AboutCardPics key={index} item={item} />
-                  ))}
-              </div>
-            </div>
-          </div>*/}
+            </div>*/}
         </div>
       </div>
     </div>

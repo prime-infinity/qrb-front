@@ -84,7 +84,7 @@ function Header() {
         className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
       >
         <Container fluid className="mx-md-5 pt-3">
-          <Navbar.Brand className="cur-pointer">
+          <Navbar.Brand className="cur-pointer py-0">
             <div className={`search-box ${schBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />
               <button className="btn-clear">
@@ -105,8 +105,17 @@ function Header() {
                 </svg>
               </button>
             </div>
+            <span>
+              <span
+                className="ms-1 fw-bold"
+                style={{ fontSize: "22px" }}
+                onClick={goMenu}
+              >
+                {location.pathname !== "/" && rest?.name && rest.name}
+              </span>
+            </span>
             {location.pathname !== "/" && (
-              <span>
+              <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
                 location.pathname === "/view-item" ? (
                   <svg
@@ -144,15 +153,7 @@ function Header() {
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                ) : (
-                  <span
-                    className="ms-1 fw-bold"
-                    style={{ fontSize: "22px" }}
-                    onClick={goMenu}
-                  >
-                    {rest?.name && rest.name}
-                  </span>
-                )}
+                ) : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
                     <span className="ms-3 q-font-weight-bold" onClick={goMenu}>
