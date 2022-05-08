@@ -236,6 +236,12 @@ select {
 .animate__animated.animate__slideOutLeft {
   --animate-duration: 0.1s;
 }
+.animate__animated.animate__slideInUp {
+  --animate-duration: 0.3s;
+}
+.animate__animated.animate__slideOutDown {
+  --animate-duration: 0.3s;
+}
 .sp-title {
   font-style: normal;
   font-weight: 600;
