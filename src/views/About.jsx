@@ -301,6 +301,48 @@ function About() {
                   alt=""
                 />
               </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div className="col-6">
+                <img
+                  src="/ang/profile-cover.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
             </div>
 
             {/*<div className="covers-list-wrapper">
