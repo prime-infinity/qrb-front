@@ -121,8 +121,12 @@ function Header() {
                 {location.pathname !== "/" &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"
-                    ? rest?.name && rest.name
-                    : null)}
+                    ? null
+                    : location.pathname === "/login"
+                    ? null
+                    : location.pathname === "/edit-rest-profile"
+                    ? null
+                    : rest?.name && rest.name)}
               </span>
             </span>
             {location.pathname !== "/" && (

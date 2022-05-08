@@ -88,16 +88,29 @@ function ResOwnerMobMenu({ closeMenu }) {
         </ul>
       ) : (
         <div>
-          <div style={{ position: "absolute" }}>
+          <div style={{ position: "absolute", top: "13%" }}>
             <img src="/icons/peoplesitin.png" className="img-fluid" alt="" />
           </div>
-          <div className="" style={{ position: "absolute", top: "40%" }}>
+          <div
+            className=""
+            style={{
+              position: "absolute",
+              top: "50%",
+              width: "90%",
+              left: "5%",
+            }}
+          >
             <LongTextSvg />
           </div>
 
           <div
             className=""
-            style={{ position: "absolute", top: "75%", width: "81%" }}
+            style={{
+              position: "absolute",
+              bottom: "8%",
+              width: "90%",
+              left: "5%",
+            }}
           >
             <button
               onClick={resOwnerGetStarted}

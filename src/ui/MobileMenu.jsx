@@ -1,8 +1,9 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import { useSelector /*, useDispatch */ } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
+import { toggleMenu } from "../redux/slices/menuSlice";
 /*import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";*/
 import "animate.css";
@@ -11,7 +12,7 @@ import "animate.css";
 function MobileMenu({ goMenu, closeMenu }) {
   const location = useLocation();
   let navigate = useNavigate();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
   const [isResOwner, setIsUser] = useState(false);
@@ -42,6 +43,10 @@ function MobileMenu({ goMenu, closeMenu }) {
     navigate("/");
   };
 
+  const cancelBt = () => {
+    isResOwner ? setIsUser(false) : dispatch(toggleMenu());
+  };
+
   return (
     <>
       <div
@@ -52,7 +57,7 @@ function MobileMenu({ goMenu, closeMenu }) {
         } mobile-menu`}
       >
         <div className="pt-4 mt-4">
-          <div className="col-10 offset-1 text-end">
+          <div className="col-10 offset-1 mt-4 text-end">
             {!isResOwner && (
               <>
                 {" "}
@@ -61,12 +66,47 @@ function MobileMenu({ goMenu, closeMenu }) {
               </>
             )}
 
-            {isResOwner && (
-              <div style={{ position: "absolute", top: "2%" }}>
-                <span className="fw-bold fs-23 pe-3">qrb</span>
-                <span className="text-secondary fs-14">digital menu</span>
-              </div>
-            )}
+            <div
+              className="text-start"
+              style={{
+                position: "absolute",
+                top: "2%",
+                width: "90%",
+                left: "5%",
+              }}
+            >
+              <>
+                <span className="fw-bold fs-23 pe-2">
+                  {isResOwner ? "qrb" : ""}
+                </span>
+                <span className="text-secondary fs-14">
+                  {isResOwner ? "digital menu" : ""}
+                </span>
+              </>
+
+              <span onClick={cancelBt} className="">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{
+                    width: "27px",
+                    height: "25px",
+                    position: "absolute",
+                    right: "0%",
+                    top: "25%",
+                  }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </span>
+            </div>
 
             {isResOwner ? (
               <ResOwnerMobMenu closeMenu={closeMenu} />
@@ -165,12 +205,12 @@ function MobileMenu({ goMenu, closeMenu }) {
               </ul>
             )}
 
-            <div className="mm-db">
-              <ul
-                className="navbar-nav ml-auto"
-                style={{ position: "relative" }}
-              >
-                {!isResOwner && (
+            {!isResOwner && (
+              <div className="mm-db">
+                <ul
+                  className="navbar-nav ml-auto"
+                  style={{ position: "relative" }}
+                >
                   <>
                     <li className="" onClick={goLogin}>
                       {authState ? (
@@ -195,33 +235,36 @@ function MobileMenu({ goMenu, closeMenu }) {
 
                     <hr />
                   </>
-                )}
 
-                <li style={{ paddingTop: "5%", paddingBottom: "23%" }}>
-                  <div className="text-start" style={{ position: "relative" }}>
-                    <div style={{ position: "absolute", left: "0%" }}>
-                      <span className="fs-14">owner mode</span>
+                  <li style={{ paddingTop: "5%", paddingBottom: "23%" }}>
+                    <div
+                      className="text-start"
+                      style={{ position: "relative" }}
+                    >
+                      <div style={{ position: "absolute", left: "0%" }}>
+                        <span className="fs-14">owner mode</span>
+                      </div>
+                      <div style={{ position: "absolute", left: "43%" }}>
+                        <Form.Check
+                          type="switch"
+                          defaultChecked={isResOwner}
+                          onClick={toggleIsUser}
+                          id="custom-switch"
+                          style={{ transform: "scale(1.2)" }}
+                        />
+                      </div>
                     </div>
-                    <div style={{ position: "absolute", left: "43%" }}>
-                      <Form.Check
-                        type="switch"
-                        defaultChecked={isResOwner}
-                        onClick={toggleIsUser}
-                        id="custom-switch"
-                        style={{ transform: "scale(1.2)" }}
-                      />
-                    </div>
-                  </div>
-                </li>
+                  </li>
 
-                <li className="">
-                  <span className="text-secondary px-2 fs-12 text-decoration-underline">
-                    powered by{" "}
-                  </span>
-                  <span className="fw-bold"> qrb</span>
-                </li>
-              </ul>
-            </div>
+                  <li className="">
+                    <span className="text-secondary px-2 fs-12 text-decoration-underline">
+                      powered by{" "}
+                    </span>
+                    <span className="fw-bold"> qrb</span>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
