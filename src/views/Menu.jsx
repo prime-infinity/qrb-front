@@ -474,7 +474,7 @@ function Menu() {
               </>
             ))}
           </div>
-
+          <hr style={{ borderTop: "2px solid black" }} />
           {/** menu part */}
           <div className="row  mt-4">
             {/** the menuss */}
