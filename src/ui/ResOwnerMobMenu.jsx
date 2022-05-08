@@ -101,7 +101,7 @@ function ResOwnerMobMenu({ closeMenu }) {
           >
             <button
               onClick={resOwnerGetStarted}
-              className="btn py-2 w-100 bg-them text-white q-font-weight-bold"
+              className="btn py-2 w-100 bg-them text-white  fw-bold"
             >
               start now
               <svg

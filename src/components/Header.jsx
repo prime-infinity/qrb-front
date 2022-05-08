@@ -118,7 +118,11 @@ function Header() {
                 style={{ fontSize: "22px" }}
                 onClick={goMenu}
               >
-                {location.pathname !== "/" && rest?.name && rest.name}
+                {location.pathname !== "/" &&
+                  (location.pathname === "/add-item" ||
+                  location.pathname === "/view-item"
+                    ? rest?.name && rest.name
+                    : null)}
               </span>
             </span>
             {location.pathname !== "/" && (
