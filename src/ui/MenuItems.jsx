@@ -6,8 +6,10 @@ import { useContext } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from "react-redux";
 
 function MenuItems({ item }) {
+  const viewMode = useSelector((state) => state.menu.view);
   const settings = {
     dots: true,
     slidesToShow: 1,
@@ -30,22 +32,31 @@ function MenuItems({ item }) {
         <div className="m-cat ps-0 pe-0">
           <div className="m-cat-head">
             <div
-              className={` ${isCurrentEventKey ? "max-w-zero " : ""} cat-left`}
+              className={` ${viewMode && "cat-left-view"} ${isCurrentEventKey &&
+                "max-w-zero "} cat-left`}
             >
               <span className="cat-icon">
-                <img src="/ang/gallery004.jpg" alt="" />
+                <img
+                  style={{ objectFit: viewMode ? "fill" : "cover" }}
+                  src="/ang/gallery004.jpg"
+                  alt=""
+                />
               </span>
             </div>
             <div className="cat-right">
               <div className="cat-head">
-                <h4>lox & bagel</h4>
+                <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
+                  lox & bagel
+                </h4>
                 <span className="price">$8.49</span>
               </div>
-              <p>
-                Viverra nisl, parturient felis vel eget adipiscing felis erat
-                condimentum. Arcu ornare se parturient felis vel eget adipiscing
-                felis erat condimentum.
-              </p>
+              {!viewMode && (
+                <p>
+                  Viverra nisl, parturient felis vel eget adipiscing felis erat
+                  condimentum. Arcu ornare se parturient felis vel eget
+                  adipiscing felis erat condimentum.
+                </p>
+              )}
             </div>
           </div>
         </div>

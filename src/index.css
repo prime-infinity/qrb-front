@@ -340,6 +340,10 @@ select {
   min-height: 120px;
   transition: all 0.2s ease;
 }
+.cat-left-view {
+  flex: 0 0 40px !important;
+  min-height: 0px !important;
+}
 
 span.cat-icon {
   display: flex;
@@ -355,7 +359,7 @@ span.cat-icon {
 span.cat-icon img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  /*object-fit: cover;*/
 }
 
 .cat-right {
@@ -375,7 +379,7 @@ span.cat-icon img {
   line-height: 20px;
   margin: 0;
   color: #000000;
-  margin-bottom: 5px;
+  /*margin-bottom: 5px;*/
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;

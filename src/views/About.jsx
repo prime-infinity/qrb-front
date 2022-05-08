@@ -10,6 +10,7 @@ import RedirModal from "../ui/RedirModal";
 function About() {
   const rest = useSelector((state) => state.rest.rest);
   const [redrng, setRedrng] = useState(false);
+  const [ani, setAni] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +22,8 @@ function About() {
 
   const redirect = (x) => {
     setRedrng(true);
-    console.log(x);
+    setAni(true);
+    //console.log(x);
   };
 
   const closeOverlay = () => {
@@ -44,11 +46,13 @@ function About() {
         className="container-fluid pt-5 big-bg-theme"
         style={{ minHeight: "100vh" }}
       >
-        <PureOverlay
-          redrng={redrng}
-          closeOverlay={closeOverlay}
-          width={`100%`}
-        />
+        {ani && (
+          <PureOverlay
+            redrng={redrng}
+            closeOverlay={closeOverlay}
+            width={`100%`}
+          />
+        )}
         <div className="row pt-5">
           <div className="col-12 col-md-6 offset-md-3 px-4">
             {/*rest.time.length > 0 &&
