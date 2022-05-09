@@ -460,3 +460,15 @@ span.cat-icon img {
     transform: translate(-50%);
   }
 }
+.br-lf-r {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.br-rf-r {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.option-selected {
+  color: white;
+  background-color: black;
+}

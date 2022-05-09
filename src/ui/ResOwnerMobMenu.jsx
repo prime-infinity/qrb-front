@@ -21,7 +21,9 @@ function ResOwnerMobMenu({ closeMenu }) {
   };
 
   const editMyMenu = () => {
-    console.log("is editing menu");
+    //console.log("is editing menu");
+    closeMenu();
+    navigate("/menu");
   };
   const goHome = () => {
     closeMenu();
@@ -80,7 +82,12 @@ function ResOwnerMobMenu({ closeMenu }) {
             </span>
           </li>
           <li className="" onClick={editMyMenu}>
-            <span className="fs-14">edit my menu</span>
+            <span
+              className={` ${location.pathname === "/menu" &&
+                "text-decoration-underline"} fs-14`}
+            >
+              edit my menu
+            </span>
 
             <span className="btn pe-0">
               <svg

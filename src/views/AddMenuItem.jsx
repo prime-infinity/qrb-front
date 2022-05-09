@@ -23,13 +23,16 @@ function AddMenuItem() {
         className="container-fluid pt-5 px-4 big-bg-theme"
         style={{ minHeight: "100vh" }}
       >
-        <div className="row pt-5">
+        <div className="row pt-4">
           <div className="col-12">
             {/** image selection */}
             <div className="row justify-content-center">
               <div className="col-11 mb-2">
                 <div className="row">
-                  <div className="col-4 text-center py-4 border border-dark">
+                  <div
+                    className="col-4 text-center py-4"
+                    style={{ border: "1px dashed black" }}
+                  >
                     <div className="my-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,11 +51,36 @@ function AddMenuItem() {
                   </div>
                 </div>
               </div>
-              <div className="col-12 fs-14">
+              <div className="col-12 text-secondary fs-14">
                 add images of videos to display the item to your customer
               </div>
             </div>
             {/** end of image selection */}
+
+            {/** status */}
+
+            <div className="row mt-4">
+              <span className="fs-14 fw-bold mb-3">Status</span>
+
+              <div className="col-12 px-3">
+                <div className="row">
+                  <div className="col-3 fs-12 option-selected text-center  border border-dark py-2 br-lf-r">
+                    available
+                  </div>
+                  <div className="col-3 fs-12 text-center  border border-dark py-2">
+                    sold out
+                  </div>
+                  <div className="col-3 fs-12  text-center border border-dark py-2">
+                    unavailable
+                  </div>
+                  <div className="col-3 fs-12 text-center  border border-dark py-2 br-rf-r">
+                    hidden
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/** end of status */}
 
             {/** input */}
             <div className="row mt-4">
@@ -60,30 +88,30 @@ function AddMenuItem() {
                 <input
                   type="text"
                   placeholder="name"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
-              <div className="col-12 py-5">
+              <div className="col-12 py-4">
                 <input
                   type="text"
                   placeholder="price($)"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
               <div className="col-12">
                 <input
                   type="text"
                   placeholder="description"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
             </div>
             {/** end of input */}
 
             {/** choose cate */}
-            <div className="row mt-5">
+            <div className="row g-0 mt-5">
               <span className="fw-bold mb-3">choose category</span>
-              <div className="col-6">
+              <div className="col-6 pe-1">
                 <select className="form-select border border-dark">
                   <option defaultValue={null}>main category</option>
                   <option value="1">One</option>
@@ -91,7 +119,7 @@ function AddMenuItem() {
                   <option value="3">Three</option>
                 </select>
               </div>
-              <div className="col-6">
+              <div className="col-6 ps-1">
                 <select className="form-select border border-dark">
                   <option defaultValue={null}>sub category</option>
                   <option value="1">One</option>

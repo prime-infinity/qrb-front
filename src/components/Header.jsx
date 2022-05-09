@@ -302,9 +302,8 @@ function Header() {
               <svg
                 onClick={addMenuItem}
                 xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                className="d-none"
+                style={{ width: "30px" }}
+                className="text-secondary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
