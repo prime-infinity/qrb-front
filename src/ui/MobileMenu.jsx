@@ -15,10 +15,19 @@ function MobileMenu({ goMenu, closeMenu }) {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
-  const [isResOwner, setIsUser] = useState(false);
+  const [isResOwner, setIsUser] = useState(
+    authState?.isRestOwner ? true : false
+  );
 
   const toggleIsUser = () => {
+    /*if (authState?.isRestOwner) {
+      console.log(true);
+      setIsUser(false);
+    } else {
+      console.log(false);*/
     setIsUser(!isResOwner);
+    //}
+    //authState?.isRestOwner ? setIsUser(false) : setIsUser(!isResOwner);
   };
 
   const goLogin = () => {
@@ -58,13 +67,13 @@ function MobileMenu({ goMenu, closeMenu }) {
       >
         <div className="pt-4 mt-4">
           <div className="col-10 offset-1 mt-4 text-end">
-            {!isResOwner && (
+            {!isResOwner ? (
               <>
                 {" "}
                 <span className="fs-18">yogurstory</span>
                 <hr />
               </>
-            )}
+            ) : null}
 
             <div
               className="text-start"
@@ -77,7 +86,7 @@ function MobileMenu({ goMenu, closeMenu }) {
             >
               <>
                 <span className="fw-bold fs-23 pe-2">
-                  {isResOwner ? "qrb" : ""}
+                  {isResOwner && !authState?.isRestOwner ? "qrb" : ""}
                 </span>
                 <span className="text-secondary fs-14">
                   {isResOwner ? "digital menu" : ""}
@@ -205,7 +214,7 @@ function MobileMenu({ goMenu, closeMenu }) {
               </ul>
             )}
 
-            {!isResOwner && (
+            {!isResOwner || authState?.isRestOwner ? (
               <div className="mm-db">
                 <ul
                   className="navbar-nav ml-auto"
@@ -243,6 +252,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     >
                       <div style={{ position: "absolute", left: "0%" }}>
                         <span className="fs-14">owner mode</span>
+                        {authState?.isRestOwner ? "true" : "false"}
                       </div>
                       <div style={{ position: "absolute", left: "43%" }}>
                         <Form.Check
@@ -264,7 +274,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </li>
                 </ul>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

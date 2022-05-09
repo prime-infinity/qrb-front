@@ -149,7 +149,7 @@ function Header() {
                     />
                   </svg>
                 ) : location.pathname === "/login" ? (
-                  <span onClick={goHome} className="ps-2 fw-bold">
+                  <span onClick={goHome} className="ps-2 fs-23 fw-bold">
                     qrb
                   </span>
                 ) : location.pathname === "/edit-rest-profile" ? (
@@ -179,7 +179,9 @@ function Header() {
                       kalua pig meat
                     </span>
                   ) : location.pathname === "/login" ? (
-                    <span className="ms-2 h6">menu platform</span>
+                    <span className="ms-2 text-secondary fs-14">
+                      digital menu
+                    </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
                     <span className="ms-3 q-font-weight-bold">
                       {"edit resturant"}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createRestDesc } from "../../helpers/web";
@@ -21,8 +21,11 @@ function CreateResturantDesc() {
     e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
   };
 
+  useEffect(() => {
+    dispatch(incrementCreationState(4));
+  }, [dispatch]);
+
   const handleSuccess = (e) => {
-    dispatch(incrementCreationState());
     dispatch(setResDesc(e));
     navigate("/create-resturant/welcome");
   };
@@ -52,15 +55,16 @@ function CreateResturantDesc() {
 
   return (
     <div className="container-fluid pt-5">
-      <div className="row pt-5">
-        <div className="col-1 pt-1">4</div>
+      <div className="row px-2 pt-5">
+        <div className="col-1 pt-1">4.</div>
         <div className="col-10">
-          <span className="h2">brief definition</span>
+          <span className="h2">it is</span>
           <textarea
             type="text"
             value={name}
+            placeholder="e.g fusion asian bistro"
             onChange={(e) => setName(e.target.value)}
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 pb-0 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>
@@ -104,7 +108,7 @@ function CreateResturantDesc() {
               />
             </svg>
           </span>
-          <span>
+          <span className="fs-14 text-secondary">
             provide a short description about your business, what you do, what
             you are known for
           </span>

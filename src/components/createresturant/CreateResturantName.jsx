@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createRestName } from "../../helpers/web";
@@ -21,8 +21,11 @@ function CreateResturantName() {
     e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
   };
 
+  useEffect(() => {
+    dispatch(incrementCreationState(1));
+  }, [dispatch]);
+
   const handleSuccess = (e) => {
-    dispatch(incrementCreationState());
     dispatch(setResName(e));
     navigate("/create-resturant/location");
   };
@@ -50,8 +53,8 @@ function CreateResturantName() {
 
   return (
     <div className="container-fluid pt-5">
-      <div className="row  pt-5">
-        <div className="col-1 pt-1">1</div>
+      <div className="row px-2 pt-5">
+        <div className="col-1 pt-1">1.</div>
         <div className="col-10">
           <span className=" h2">business name</span>
           <input

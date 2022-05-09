@@ -11,7 +11,7 @@ export const createRestSlice = createSlice({
   },
   reducers: {
     incrementCreationState: (state, action) => {
-      state.creationState++;
+      state.creationState = action.payload;
     },
     setResName: (state, action) => {
       state.restName = action.payload;

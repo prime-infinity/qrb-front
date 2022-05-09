@@ -6,7 +6,7 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
 
   return (
     <>
-      <div className="col-12 mt-5 mb-5">
+      <div className="col-12 mt-4 mb-5">
         <button
           disabled={disableButton || firstPending}
           onClick={login}
@@ -25,7 +25,7 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
 
       <div className="col-8 offset-2 mt-5 text-center">
         <hr />
-        <span>or continue with</span>
+        <span className="text-secondary fs-14">or continue with</span>
 
         <div className="row justify-content-center mt-5">
           <div

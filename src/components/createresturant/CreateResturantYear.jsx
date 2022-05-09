@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRestYear } from "../../helpers/web";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +21,11 @@ function CreateResturantYear() {
     e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
   };
 
+  useEffect(() => {
+    dispatch(incrementCreationState(3));
+  }, [dispatch]);
+
   const handleSuccess = (e) => {
-    dispatch(incrementCreationState());
     dispatch(setResYear(e));
     navigate("/create-resturant/description");
   };
@@ -49,10 +52,10 @@ function CreateResturantYear() {
 
   return (
     <div className="container-fluid pt-5">
-      <div className="row pt-5">
-        <div className="col-1 pt-1">3</div>
+      <div className="row px-2 pt-5">
+        <div className="col-1 pt-1">3.</div>
         <div className="col-10">
-          <span className=" h2">established since</span>
+          <span className=" h2">since</span>
           <input
             type="text"
             value={name}
