@@ -21,6 +21,10 @@ function EditRestProTwo() {
         email: rest.email,
         website: rest.website,
         address: rest.address,
+        hours: rest.hours,
+        ig: rest.ig,
+        fb: rest.fb,
+        ylp: rest.ylp,
       });
     }
   }, [rest]);
@@ -59,28 +63,56 @@ function EditRestProTwo() {
             onChange={(e) => setFrom({ ...formData, phone: e.target.value })}
             type="text"
             placeholder={formData.phone ? formData.phone : "phone number"}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.email}
             onChange={(e) => setFrom({ ...formData, email: e.target.value })}
             type="text"
             placeholder={formData.email ? formData.email : "email"}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.website}
             onChange={(e) => setFrom({ ...formData, website: e.target.value })}
             type="text"
             placeholder={formData.website ? formData.website : "website"}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.address}
             onChange={(e) => setFrom({ ...formData, address: e.target.value })}
             placeholder={formData.address ? formData.address : "address"}
             type="text"
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
+          <input
+            value={formData.hours}
+            onChange={(e) => setFrom({ ...formData, hours: e.target.value })}
+            placeholder={formData.hours ? formData.hours : "hours"}
+            type="text"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
+          <input
+            value={formData.ig}
+            onChange={(e) => setFrom({ ...formData, ig: e.target.value })}
+            placeholder={formData.ig ? formData.ig : "instagram"}
+            type="text"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
+          <input
+            value={formData.fb}
+            onChange={(e) => setFrom({ ...formData, fb: e.target.value })}
+            placeholder={formData.fb ? formData.fb : "facebook"}
+            type="text"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
+          <input
+            value={formData.ylp}
+            onChange={(e) => setFrom({ ...formData, ylp: e.target.value })}
+            placeholder={formData.ylp ? formData.ylp : "yelp"}
+            type="text"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>

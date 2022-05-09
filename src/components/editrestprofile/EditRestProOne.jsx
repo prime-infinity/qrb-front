@@ -55,7 +55,7 @@ function EditRestProOne() {
         <div className="col-12">
           <span
             style={{ backgroundColor: "#eee" }}
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           >
             {rest?.name}
           </span>
@@ -65,14 +65,14 @@ function EditRestProOne() {
             onChange={(e) => setFrom({ ...formData, location: e.target.value })}
             type="text"
             placeholder={formData.location}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.year}
             onChange={(e) => setFrom({ ...formData, year: e.target.value })}
             type="text"
             placeholder={formData.year}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.description}
@@ -83,11 +83,12 @@ function EditRestProOne() {
             placeholder={
               formData.description ? formData.description : "brief description"
             }
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
         </div>
 
-        <div className="covers-list-wrapper">
+        <div className="covers-list-wrapper mt-3">
+          <span className="fs-14 text-secondary">background video</span>
           <ul className="covers-list ps-0">
             <li>
               <label className="cover-item" style={{}}>
@@ -96,17 +97,62 @@ function EditRestProOne() {
             </li>
             <li>
               <a href="#!" className="cover-item">
-                <img src="/ang/gallery002.jpg" alt="" />
+                <div id="videowrapper">
+                  <div id="fullScreenDiv">
+                    <video
+                      id="video"
+                      role="presentation"
+                      preload="auto"
+                      playsInline=""
+                      crossOrigin="anonymous"
+                      loop
+                      muted
+                      autoPlay
+                    >
+                      <source src={`/videos/vdd.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
               </a>
             </li>
             <li>
               <a href="#!" className="cover-item">
-                <img src="/ang/gallery002.jpg" alt="" />
+                <div id="videowrapper">
+                  <div id="fullScreenDiv">
+                    <video
+                      id="video"
+                      role="presentation"
+                      preload="auto"
+                      playsInline=""
+                      crossOrigin="anonymous"
+                      loop
+                      muted
+                      autoPlay
+                    >
+                      <source src={`/videos/vdd.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
               </a>
             </li>
             <li>
               <a href="#!" className="cover-item">
-                <img src="/ang/gallery002.jpg" alt="" />
+                <div id="videowrapper">
+                  <div id="fullScreenDiv">
+                    <video
+                      id="video"
+                      role="presentation"
+                      preload="auto"
+                      playsInline=""
+                      crossOrigin="anonymous"
+                      loop
+                      muted
+                      autoPlay
+                    >
+                      <source src={`/videos/vdd.mp4`} type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
               </a>
             </li>
           </ul>
