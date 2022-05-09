@@ -1,25 +1,115 @@
-//import AboutCardPics from "../ui/AboutCardPics";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setRestSummary, setRestImages } from "../redux/slices/restSlice";
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
+import ImageUploading from "react-images-uploading";
+import { submitRestSumm, uploadRestDetailImages } from "../helpers/web";
 import PureOverlay from "../ui/PureOverlay";
 import RedirModal from "../ui/RedirModal";
 
-function About() {
+function EditResturantDetailsFake() {
+  const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
+  const authState = useSelector((state) => state.auth.auth);
+  let navigate = useNavigate();
+  const [summary, setSummary] = useState(rest?.summary ? rest.summary : "");
+  const [isEditingSum, setIsEdSum] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setErrors] = useState(null);
+  const [imageUpPending, setImageUpPending] = useState(false);
+  const [imaUpLdErr, setImgErr] = useState(null);
   const [redrng, setRedrng] = useState(false);
   const [ani, setAni] = useState(false);
-  let navigate = useNavigate();
+
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 6;
+
+  const uploadImages = () => {
+    setImageUpPending(true);
+    setImgErr(null);
+    const imageAsArray = images.map((img) => img.file);
+
+    const formData = new FormData();
+
+    for (let i = 0; i < imageAsArray.length; i++) {
+      formData.append("rest-images", imageAsArray[i], imageAsArray[i].name);
+    }
+
+    formData.append("restid", rest._id);
+
+    uploadRestDetailImages(formData, authState.token)
+      .then((res) => {
+        //set details image to array
+        console.log(res.images);
+        dispatch(setRestImages(res.images));
+        //console.log(imageAsArray)
+        setImageUpPending(false);
+        alert("updated");
+      })
+      .catch((err) => {
+        setImageUpPending(false);
+        err.response?.data
+          ? setImgErr(err.response.data)
+          : setImgErr(err.message);
+      });
+  };
+
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    //console.log(imageList/*, addUpdateIndex*/);
+    setImages(imageList);
+  };
+
+  const errorDiv = <small className="text-danger">{error}</small>;
+  const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
+
+  const handleErrors = (e) => {
+    setPending(false);
+    e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
+  };
+
+  const handleSuccess = (e) => {
+    setPending(false);
+    dispatch(setRestSummary(summary));
+    alert("updated");
+  };
 
   useEffect(() => {
     if (rest === null) {
       navigate("/");
     }
-    //console.log(rest);
   }, [rest, navigate]);
 
+  const setSsummary = (e) => {
+    setSummary(e);
+    setIsEdSum(true);
+  };
+
+  const disabled = () => {
+    if (summary === "") {
+      return true;
+    }
+    return false;
+  };
+
+  const submitSum = () => {
+    setPending(true);
+    setErrors(null);
+    let data = { summ: summary, restid: rest._id };
+    submitRestSumm(data, authState.token)
+      .then((res) => {
+        console.log(res);
+        handleSuccess(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleErrors(err);
+      });
+  };
   const redirect = (x) => {
     setRedrng(true);
     setAni(true);
@@ -36,7 +126,6 @@ function About() {
     <NetworkErr />
   ) : (
     <>
-      {" "}
       {redrng && (
         <>
           <RedirModal close={closeOverlay} />
@@ -159,6 +248,7 @@ function About() {
               </li>
             </ul>
             <hr />
+
             {/** the little icons */}
             <div className="row py-2">
               <div className="col-1">
@@ -223,131 +313,245 @@ function About() {
             {/** little icons end */}
 
             <hr />
+
             <div className="px-2">
-              <span className="p fs-14">
-                {rest.summary
-                  ? rest.summary +
-                    "dio venenatis ut nibh integer tortor, gravida augue euismod faucibus. Aliquet elementum arcu leo rhoncus tortor, lorem et purus, neque. Tellus cursus nec quis ullamcorper molestie risus elit lectus sit. Tortor interdum sagittis ultrices diam. Pharetra mauris cursus etiam nibh diam. "
-                  : " "}
-              </span>
+              <textarea
+                style={{ border: "0" }}
+                value={summary}
+                onChange={(e) => setSsummary(e.target.value)}
+                className="my-4 fs-14 py-5 form-control text-center big-bg-theme"
+                type="text"
+                placeholder={`${
+                  rest?.summary
+                    ? rest?.summary
+                    : "enter short summary for your business"
+                }`}
+              />
             </div>
 
-            <div
-              className="row g-0 mt-4"
-              style={{ position: "absolute", width: "100%", left: "0" }}
+            <div className="row text-center">
+              <div className="col-12">{error ? errorDiv : null}</div>
+            </div>
+
+            {isEditingSum && (
+              <button
+                onClick={submitSum}
+                disabled={pending || disabled()}
+                className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+              >
+                {pending && (
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                )}
+                {!pending && <span>update summary</span>}
+              </button>
+            )}
+
+            <div className="covers-list-wrapper">
+              <ul className="covers-list">
+                <li>
+                  <label className="cover-item" htmlFor="coverbg">
+                    <input type="file" id="coverbg" />
+                    <img src="/ang/round-add.svg" alt="" />
+                  </label>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery001.jpg" alt="" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery002.jpg" alt="" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery003.jpg" alt="" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery004.jpg" alt="" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery001.jpg" alt="" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" className="cover-item">
+                    <img src="/ang/gallery002.jpg" alt="" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={onChange}
+              maxNumber={maxNumber}
+              acceptType={["jpg", "jpeg"]}
+              dataURLKey="data_url"
             >
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-            </div>
+              {({
+                imageList,
+                onImageUpload,
+                onImageUpdate,
+                onImageRemove,
+                errors,
+              }) => (
+                // write your building UI
+                <div className="row justify-content-center pb-5 mt-5">
+                  <div className="col-12">
+                    {/*<span className="h6">Upload new Images</span>*/}
 
-            {/*<div className="covers-list-wrapper">
-            <ul className="covers-list">
-              <li>
-                <label className="cover-item" htmlFor="coverbg">
-                  <input type="file" id="coverbg" />
-                  <img src="/ang/round-add.svg" alt="" />
-                </label>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery003.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery004.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
-                </a>
-              </li>
-            </ul>
-            </div>*/}
+                    <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
+
+                    {errors && (
+                      <div className="text-danger">
+                        {errors.maxNumber && (
+                          <span className="row">
+                            Number of selected images exceed {maxNumber}
+                          </span>
+                        )}
+                        {errors.acceptType && (
+                          <span className="row">
+                            Your selected file type is not allow
+                          </span>
+                        )}
+                        {errors.maxFileSize && (
+                          <span className="row">
+                            Selected file size exceed maxFileSize
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    <div
+                      className="row flex-nowrap"
+                      style={{ overflowX: "scroll" }}
+                    >
+                      {images.length > 0 &&
+                        (imageUpPending ? (
+                          <div className="col-3 text-center my-auto">
+                            {" "}
+                            <span
+                              className="spinner-border spinner-border-sm"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                          </div>
+                        ) : (
+                          <div className="col-3 text-center my-auto">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              onClick={uploadImages}
+                              width="30"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>{" "}
+                            <br />
+                            upload
+                          </div>
+                        ))}
+
+                      <div
+                        className="col-5 text-center"
+                        style={{
+                          position: "relative",
+                          backgroundColor: "#eee",
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          onClick={onImageUpload}
+                          width="50"
+                          height="50"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          className="to-center"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="col-5">
+                        <img
+                          src={rest.welcomescreen}
+                          className="img-fluid"
+                          alt=""
+                        />
+                      </div>
+
+                      {imageList.map((image, index) => (
+                        <div key={index} className="col-5">
+                          <img
+                            src={image["data_url"]}
+                            alt=""
+                            className="img-fluid"
+                          />
+
+                          <div className="row pt-2">
+                            <div className="col-6 text-center">
+                              <svg
+                                onClick={() => onImageUpdate(index)}
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="svg-icon"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            <div className="col-6 text-center">
+                              <span>
+                                <svg
+                                  onClick={() => onImageRemove(index)}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="svg-icon"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </ImageUploading>
           </div>
         </div>
       </div>
@@ -355,4 +559,4 @@ function About() {
   );
 }
 
-export default About;
+export default EditResturantDetailsFake;

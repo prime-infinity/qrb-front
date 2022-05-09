@@ -32,6 +32,7 @@ function Header() {
 
   const goMenu = () => {
     //setMmenu(!mMenu);
+    showMobileMenu();
     navigate("/menu");
   };
 
@@ -47,9 +48,9 @@ function Header() {
     console.log("Is adding menu item,");
   };
 
-  const toEditRestProfile = () => {
+  /*const toEditRestProfile = () => {
     navigate("/edit-rest-profile");
-  };
+  };*/
 
   const goDetails = () => {
     navigate("/edit-resturant-details");
@@ -237,7 +238,7 @@ function Header() {
                 </svg>
               </span>
             )}
-            {location.pathname === "/edit-resturant-details" && (
+            {/*location.pathname === "/edit-resturant-details" && (
               <span onClick={toEditRestProfile} className="px-3">
                 <svg
                   width="23"
@@ -262,7 +263,7 @@ function Header() {
                   />
                 </svg>
               </span>
-            )}
+            )*/}
             {location.pathname === "/login" && (
               <span className="px-2">
                 <svg

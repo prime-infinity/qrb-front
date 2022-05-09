@@ -40,6 +40,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   };
 
   const toAbout = () => {
+    closeMenu();
     navigate("/about");
   };
 
@@ -56,6 +57,11 @@ function MobileMenu({ goMenu, closeMenu }) {
     isResOwner ? setIsUser(false) : dispatch(toggleMenu());
   };
 
+  const toEditRestProfile = () => {
+    closeMenu();
+    navigate("/edit-rest-profile");
+  };
+
   return (
     <>
       <div
@@ -67,7 +73,7 @@ function MobileMenu({ goMenu, closeMenu }) {
       >
         <div className="pt-4 mt-4">
           <div className="col-10 offset-1 mt-4 text-end">
-            {!isResOwner ? (
+            {!isResOwner || authState?.isRestOwner ? (
               <>
                 {" "}
                 <span className="fs-18">yogurstory</span>
@@ -89,10 +95,43 @@ function MobileMenu({ goMenu, closeMenu }) {
                   {isResOwner && !authState?.isRestOwner ? "qrb" : ""}
                 </span>
                 <span className="text-secondary fs-14">
-                  {isResOwner ? "digital menu" : ""}
+                  {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}
                 </span>
               </>
-
+              {authState?.isRestOwner && isResOwner && (
+                <span>
+                  <svg
+                    onClick={toEditRestProfile}
+                    width="23"
+                    height="23"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      width: "27px",
+                      height: "25px",
+                      position: "absolute",
+                      right: "15%",
+                      top: "25%",
+                    }}
+                  >
+                    <path
+                      d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13"
+                      stroke="#252525"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M18.5 2.50023C18.8978 2.1024 19.4374 1.87891 20 1.87891C20.5626 1.87891 21.1022 2.1024 21.5 2.50023C21.8978 2.89805 22.1213 3.43762 22.1213 4.00023C22.1213 4.56284 21.8978 5.1024 21.5 5.50023L12 15.0002L8 16.0002L9 12.0002L18.5 2.50023Z"
+                      stroke="#252525"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              )}
               <span onClick={cancelBt} className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,27 +208,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     </svg>
                   </span>
                 </li>
-                {false && (
-                  <li className="">
-                    <span>Covid pass</span>
-                    <span className="btn pe-0">
-                      <svg
-                        className="svg-icon-lg"
-                        viewBox="0 0 16 19"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5 1.5H3C2.46957 1.5 1.96086 1.71071 1.58579 2.08579C1.21071 2.46086 1 2.96957 1 3.5V15.5C1 16.0304 1.21071 16.5391 1.58579 16.9142C1.96086 17.2893 2.46957 17.5 3 17.5H13C13.5304 17.5 14.0391 17.2893 14.4142 16.9142C14.7893 16.5391 15 16.0304 15 15.5V3.5C15 2.96957 14.7893 2.46086 14.4142 2.08579C14.0391 1.71071 13.5304 1.5 13 1.5H11"
-                          stroke="#252525"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </li>
-                )}
+
                 <li className="" onClick={goMenu}>
                   <span
                     className={` ${location.pathname === "/menu" &&
@@ -252,7 +271,6 @@ function MobileMenu({ goMenu, closeMenu }) {
                     >
                       <div style={{ position: "absolute", left: "0%" }}>
                         <span className="fs-14">owner mode</span>
-                        {authState?.isRestOwner ? "true" : "false"}
                       </div>
                       <div style={{ position: "absolute", left: "43%" }}>
                         <Form.Check
@@ -270,7 +288,13 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <span className="text-secondary px-2 fs-12 text-decoration-underline">
                       powered by{" "}
                     </span>
-                    <span className="fw-bold"> qrb</span>
+                    <span className="fw-bold"> qrb</span> <br />
+                    <span>
+                      autState.isRest ={" "}
+                      {authState?.isRestOwner ? "true" : "false"}
+                    </span>{" "}
+                    <br />
+                    <span>normal.isre = {isResOwner ? "true" : "false"}</span>
                   </li>
                 </ul>
               </div>
