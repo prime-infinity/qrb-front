@@ -17,6 +17,7 @@ function Header() {
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
   const viewMode = useSelector((state) => state.menu.view);
+  const authState = useSelector((state) => state.auth.auth);
 
   /*const [mMenu, setMmenu] = useState(false);*/
   const [schBar, setSchBar] = useState(false);
@@ -173,7 +174,7 @@ function Header() {
                 ) : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
-                    <span className="ms-3 q-font-weight-bold" onClick={goMenu}>
+                    <span className="ms-3 fs-18" onClick={goMenu}>
                       add item
                     </span>
                   ) : location.pathname === "/view-item" ? (
@@ -195,20 +196,22 @@ function Header() {
           <span className="" style={{ zIndex: "3" }}>
             {location.pathname === "/menu" && (
               <>
-                <span onClick={goToAddMenu} className="">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ width: "26px" }}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                {authState?.isRestOwner && (
+                  <span onClick={goToAddMenu} className="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "26px" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                )}
                 <span onClick={changeView} className="ps-3">
                   {viewMode ? (
                     <svg
