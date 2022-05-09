@@ -64,16 +64,16 @@ function AddMenuItem() {
 
               <div className="col-12 px-3">
                 <div className="row">
-                  <div className="col-3 fs-12 option-selected text-center  border border-dark py-2 br-lf-r">
+                  <div className="col-4 fs-12 option-selected text-center  border border-dark py-2 br-lf-r">
                     available
                   </div>
-                  <div className="col-3 fs-12 text-center  border border-dark py-2">
+                  <div className="col-4 fs-12 text-center  border border-dark py-2">
                     sold out
                   </div>
-                  <div className="col-3 fs-12  text-center border border-dark py-2">
+                  {/*<div className="col-3 fs-12  text-center border border-dark py-2">
                     unavailable
-                  </div>
-                  <div className="col-3 fs-12 text-center  border border-dark py-2 br-rf-r">
+                  </div>*/}
+                  <div className="col-4 fs-12 text-center  border border-dark py-2 br-rf-r">
                     hidden
                   </div>
                 </div>

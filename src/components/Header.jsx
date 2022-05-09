@@ -46,7 +46,7 @@ function Header() {
   };
 
   const addMenuItem = () => {
-    console.log("Is adding menu item,");
+    navigate("/menu");
   };
 
   /*const toEditRestProfile = () => {
@@ -77,6 +77,16 @@ function Header() {
   const changeView = () => {
     //setVie(!vie);
     dispatch(toggleView());
+  };
+
+  const cancelUserEdition = () => {
+    navigate("/");
+    console.log("has canecled");
+  };
+
+  const approveUserEdition = () => {
+    navigate("/");
+    console.log("user is approved");
   };
 
   return !inRestCreation() ? (
@@ -128,6 +138,8 @@ function Header() {
                     ? null
                     : location.pathname === "/edit-rest-profile"
                     ? null
+                    : location.pathname === "/edit-user-profile"
+                    ? null
                     : rest?.name && rest.name)}
               </span>
             </span>
@@ -171,6 +183,23 @@ function Header() {
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
+                ) : location.pathname === "/edit-user-profile" ? (
+                  <svg
+                    onClick={cancelUserEdition}
+                    className="text-secondary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ width: "25px", verticalAlign: "text-bottom" }}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 ) : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
@@ -186,6 +215,8 @@ function Header() {
                       digital menu
                     </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
+                    <span className="ms-3 fs-18">{"edit my resturant"}</span>
+                  ) : location.pathname === "/edit-user-profile" ? (
                     <span className="ms-3 fs-18">{"edit my profile"}</span>
                   ) : (
                     <span className="ms-3 fw-bold"></span>
@@ -318,6 +349,23 @@ function Header() {
             ) : location.pathname === "/edit-rest-profile" ? (
               <svg
                 onClick={goToAbout}
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: "30px" }}
+                className="text-secondary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            ) : location.pathname === "/edit-user-profile" ? (
+              <svg
+                onClick={approveUserEdition}
                 xmlns="http://www.w3.org/2000/svg"
                 style={{ width: "30px" }}
                 className="text-secondary"

@@ -14,6 +14,7 @@ import EditResturantDetails from "./views/EditResturantDetails";
 import EditResturantProfile from "./views/EditResturantProfile";
 import Login from "./views/Login";
 import CreateResturant from "./views/CreateResturant";
+import EditUserProfile from "./views/EditUserProfile";
 import CreateResturantName from "./components/createresturant/CreateResturantName";
 import CreateResturantLoc from "./components/createresturant/CreateResturantLoc";
 import CreateResturantYear from "./components/createresturant/CreateResturantYear";
@@ -51,6 +52,15 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/add-item" element={<AddMenuItem />} />
         <Route path="/view-item" element={<ViewMenuItem />} />
+        <Route
+          path="/edit-user-profile"
+          element={
+            <ProtectedRouteRestOwner auth={authState}>
+              {" "}
+              <EditUserProfile />
+            </ProtectedRouteRestOwner>
+          }
+        />
         <Route
           path="/edit-resturant-details"
           element={<EditResturantDetails />}

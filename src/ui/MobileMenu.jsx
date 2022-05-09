@@ -32,7 +32,8 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const goLogin = () => {
     if (authState) {
-      //showLogoutMenu(!logoutMenu);
+      closeMenu();
+      navigate("/edit-user-profile");
     } else {
       closeMenu();
       navigate("/login");
@@ -242,7 +243,13 @@ function MobileMenu({ goMenu, closeMenu }) {
                   <>
                     <li className="" onClick={goLogin}>
                       {authState ? (
-                        <span>{authState.field}</span>
+                        <span
+                          className={` ${location.pathname ===
+                            "/edit-user-profile" &&
+                            "text-decoration-underline"} fs-14`}
+                        >
+                          {authState.field}
+                        </span>
                       ) : (
                         <span className="fs-14">login</span>
                       )}
