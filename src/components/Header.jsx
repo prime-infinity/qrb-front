@@ -156,6 +156,7 @@ function Header() {
                 ) : location.pathname === "/edit-rest-profile" ? (
                   <svg
                     onClick={goDetails}
+                    className="text-secondary"
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ width: "25px", verticalAlign: "text-bottom" }}
                     fill="none"
@@ -184,9 +185,7 @@ function Header() {
                       digital menu
                     </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
-                    <span className="ms-3 q-font-weight-bold">
-                      {"edit resturant"}
-                    </span>
+                    <span className="ms-3 fs-18">{"edit my profile"}</span>
                   ) : (
                     <span className="ms-3 fw-bold"></span>
                   ))}
@@ -304,6 +303,7 @@ function Header() {
                 onClick={goToAbout}
                 xmlns="http://www.w3.org/2000/svg"
                 style={{ width: "30px" }}
+                className="text-secondary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

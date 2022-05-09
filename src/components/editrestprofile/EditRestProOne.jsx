@@ -85,6 +85,33 @@ function EditRestProOne() {
             }
             className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
+        </div>
+
+        <div className="covers-list-wrapper">
+          <ul className="covers-list ps-0">
+            <li>
+              <label className="cover-item" style={{}}>
+                <img src="/ang/round-add.svg" alt="" />
+              </label>
+            </li>
+            <li>
+              <a href="#!" className="cover-item">
+                <img src="/ang/gallery002.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#!" className="cover-item">
+                <img src="/ang/gallery002.jpg" alt="" />
+              </a>
+            </li>
+            <li>
+              <a href="#!" className="cover-item">
+                <img src="/ang/gallery002.jpg" alt="" />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="col-12">
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>
           </div>
