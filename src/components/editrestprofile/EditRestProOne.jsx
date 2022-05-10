@@ -103,7 +103,7 @@ function EditRestProOne() {
                       id="video"
                       role="presentation"
                       preload="auto"
-                      playsInline=""
+                      playsInline
                       crossOrigin="anonymous"
                       loop
                       muted
@@ -123,7 +123,7 @@ function EditRestProOne() {
                       id="video"
                       role="presentation"
                       preload="auto"
-                      playsInline=""
+                      playsInline
                       crossOrigin="anonymous"
                       loop
                       muted
@@ -143,7 +143,7 @@ function EditRestProOne() {
                       id="video"
                       role="presentation"
                       preload="auto"
-                      playsInline=""
+                      playsInline
                       crossOrigin="anonymous"
                       loop
                       muted

@@ -132,7 +132,7 @@ body {
   top: -5%;
 }
 .bg-highlight {
-  animation: toColor 2s;
+  /*animation: toColor 2s;*/
 }
 @keyframes toColor {
   0% {
