@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { toggleMenu } from "../redux/slices/menuSlice";
-/*import { removeFromLocal } from "../helpers/storage";
-import { setAuth } from "../redux/slices/authSlice";*/
 import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -15,9 +13,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
-  const [isResOwner, setIsUser] = useState(
-    authState?.isRestOwner ? true : false
-  );
+  const [isResOwner, setIsUser] = useState(false);
 
   const toggleIsUser = () => {
     /*if (authState?.isRestOwner) {
@@ -45,17 +41,42 @@ function MobileMenu({ goMenu, closeMenu }) {
     navigate("/about");
   };
 
-  /*const logout = () => {
-    dispatch(setAuth(null));
-    removeFromLocal();
-  };*/
   const goHome = () => {
     closeMenu();
     navigate("/");
   };
 
   const cancelBt = () => {
-    isResOwner ? setIsUser(false) : dispatch(toggleMenu());
+    if (!isResOwner && authState?.isRestOwner) {
+      dispatch(toggleMenu());
+    }
+    if (isResOwner && authState?.isRestOwner) {
+      dispatch(toggleMenu());
+    }
+    if (isResOwner && !authState?.isRestOwner) {
+      setIsUser(false);
+    }
+    if (!isResOwner && !authState?.isRestOwner) {
+      dispatch(toggleMenu());
+    }
+    //isResOwner ? setIsUser(false) : dispatch(toggleMenu());
+  };
+
+  const ifShowBottom = () => {
+    if (!authState?.isRestOwner && isResOwner) {
+      return false;
+    }
+    return true;
+  };
+
+  const ifShowOther = () => {
+    if (isResOwner && authState?.isRestOwner) {
+      return false;
+    }
+    if (isResOwner || authState?.isRestOwner) {
+      return true;
+    }
+    return false;
   };
 
   const toEditRestProfile = () => {
@@ -99,7 +120,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}
                 </span>
               </>
-              {authState?.isRestOwner && isResOwner && (
+              {authState?.isRestOwner && !isResOwner && (
                 <span>
                   <svg
                     onClick={toEditRestProfile}
@@ -157,7 +178,7 @@ function MobileMenu({ goMenu, closeMenu }) {
               </span>
             </div>
 
-            {isResOwner ? (
+            {ifShowOther() ? (
               <ResOwnerMobMenu closeMenu={closeMenu} />
             ) : (
               <ul className="navbar-nav ml-auto">
@@ -234,7 +255,7 @@ function MobileMenu({ goMenu, closeMenu }) {
               </ul>
             )}
 
-            {!isResOwner || authState?.isRestOwner ? (
+            {ifShowBottom() ? (
               <div className="mm-db">
                 <ul
                   className="navbar-nav ml-auto"
@@ -282,7 +303,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                       <div style={{ position: "absolute", left: "43%" }}>
                         <Form.Check
                           type="switch"
-                          defaultChecked={isResOwner}
+                          defaultChecked={authState?.isRestOwner}
                           onClick={toggleIsUser}
                           id="custom-switch"
                           style={{ transform: "scale(1.2)" }}
@@ -296,12 +317,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                       powered by{" "}
                     </span>
                     <span className="fw-bold"> qrb</span> <br />
-                    <span>
+                    {/*<span>
                       autState.isRest ={" "}
                       {authState?.isRestOwner ? "true" : "false"}
                     </span>{" "}
                     <br />
-                    <span>normal.isre = {isResOwner ? "true" : "false"}</span>
+                    <span>normal.isre = {isResOwner ? "true" : "false"}</span>*/}
                   </li>
                 </ul>
               </div>
