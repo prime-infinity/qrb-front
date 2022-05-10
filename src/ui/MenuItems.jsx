@@ -116,6 +116,33 @@ function MenuItems({ item }) {
                 <Accordion.Collapse eventKey="0">
                   <Slider {...settings}>
                     <div className="slide">
+                      <div className="sl-img">
+                        <img
+                          src="/ang/gallery001.jpg"
+                          style={{ width: "100%" }}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="slide">
+                      <div className="sl-img">
+                        <img
+                          src="/ang/gallery002.jpg"
+                          style={{ width: "100%" }}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="slide">
+                      <div className="sl-img">
+                        <img
+                          src="/ang/gallery003.jpg"
+                          style={{ width: "100%" }}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div className="slide">
                       <div className="sl-table-group">
                         <div className="sl-table-wrap">
                           <div className="sl-table-header">
@@ -156,33 +183,6 @@ function MenuItems({ item }) {
                             </table>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className="slide">
-                      <div className="sl-img">
-                        <img
-                          src="/ang/gallery001.jpg"
-                          style={{ width: "100%" }}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="slide">
-                      <div className="sl-img">
-                        <img
-                          src="/ang/gallery002.jpg"
-                          style={{ width: "100%" }}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="slide">
-                      <div className="sl-img">
-                        <img
-                          src="/ang/gallery003.jpg"
-                          style={{ width: "100%" }}
-                          alt=""
-                        />
                       </div>
                     </div>
                   </Slider>

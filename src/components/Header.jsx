@@ -16,6 +16,7 @@ function Header() {
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
 
@@ -100,7 +101,8 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
+        className={`${location.pathname !== "/" && "big-bg-theme"} ${pad &&
+          "pb-5"} `}
       >
         <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer py-0">

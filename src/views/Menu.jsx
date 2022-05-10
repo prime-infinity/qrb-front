@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
+import { pbFalse, pbTrue } from "../redux/slices/menuSlice";
+import { useDispatch } from "react-redux";
 
 function Menu() {
   let navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const CAT = [
     {
       id: 1,
@@ -317,11 +319,13 @@ function Menu() {
     function myFunction() {
       if (window.pageYOffset > sticky) {
         header.classList.add("sticky");
+        dispatch(pbTrue());
       } else {
         header.classList.remove("sticky");
+        dispatch(pbFalse());
       }
     }
-  }, []);
+  }, [dispatch]);
 
   const [subBut, showSubB] = useState(null);
   const newArr = _.groupBy(MENUITEMS, "cat.subTitle");
@@ -422,26 +426,31 @@ function Menu() {
         <div className="col-12">
           {/** head button part */}
           <div
-            className="row flex-nowrap scroll-div"
+            className="row g-0 flex-nowrap scroll-div"
             id="sticky"
             style={{ overflowX: "scroll" }}
           >
             {CAT.map((cat, index) => (
               <>
-                <div className="col-5" key={index}>
+                <div
+                  className="pe-3"
+                  style={{ width: "max-content" }}
+                  key={index}
+                >
                   <button
                     onClick={() => showMenuBut(cat.id)}
-                    className="btn bg-them w-100 text-white q-font-weight-bold"
+                    className="btn fs-14 bg-them text-white "
                   >
                     {cat.title}
 
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`svg-icon-lg ${
+                      className={` ${
                         subBut === cat.id
                           ? "rotate-icon"
                           : "counter-rotate-icon"
                       }`}
+                      style={{ width: "20px", height: "20px" }}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
