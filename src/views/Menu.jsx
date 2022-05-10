@@ -334,6 +334,10 @@ function Menu() {
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
 
+  /*useEffect(() => {
+    console.log(newArr);
+  }, []);*/
+
   const viewMenuItem = () => {
     navigate("/view-item");
   };

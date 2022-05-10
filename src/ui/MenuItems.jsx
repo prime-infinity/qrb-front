@@ -25,10 +25,18 @@ function MenuItems({ item }) {
       () => callback && callback(eventKey)
     );
 
+    /*const decoratedOnClick = useAccordionButton(eventKey, (e) => {
+      console.log("sometinbg",e);
+      callback && callback(eventKey);
+    });*/
+
     const isCurrentEventKey = activeEventKey === eventKey;
 
     return (
-      <div className={`row border-left-right`} onClick={decoratedOnClick}>
+      <div
+        className={`row border-left-right`}
+        onClick={() => decoratedOnClick(item.name)}
+      >
         <div className="m-cat ps-0 pe-0">
           <div className="m-cat-head">
             <div
@@ -47,7 +55,7 @@ function MenuItems({ item }) {
             <div className="cat-right">
               <div className="cat-head">
                 <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
-                  lox & bagel
+                  {item.name}
                 </h4>
                 <span className="price">$8.49</span>
               </div>
