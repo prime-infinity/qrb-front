@@ -65,14 +65,14 @@ function EditRestProOne() {
             onChange={(e) => setFrom({ ...formData, location: e.target.value })}
             type="text"
             placeholder={formData.location}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.year}
             onChange={(e) => setFrom({ ...formData, year: e.target.value })}
             type="text"
             placeholder={formData.year}
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.description}
@@ -83,7 +83,7 @@ function EditRestProOne() {
             placeholder={
               formData.description ? formData.description : "brief description"
             }
-            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>

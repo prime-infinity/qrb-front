@@ -20,14 +20,14 @@ function AddMenuItem() {
           <Overlay closeOverlay={addCustomiz} width={`100%`} />
         </>
       )}
-      <div className="container-fluid pt-5 px-3 big-bg-theme">
+      <div className="container-fluid pt-5 pb-5 px-3 big-bg-theme">
         <div className="row pt-5">
           <div className="col-12">
             {/** image selection */}
             <div className="row justify-content-center">
               <div className="col-11 mb-2">
                 <div className="row">
-                  <div className="col-4 text-center py-4 border border-dark">
+                  <div className="col-4 text-center py-4 border-dashed">
                     <div className="my-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ function AddMenuItem() {
                   </div>
                 </div>
               </div>
-              <div className="col-12 fs-14">
+              <div className="col-12 fs-14 text-secondary">
                 add images of videos to display the item to your customer
               </div>
             </div>
@@ -63,11 +63,16 @@ function AddMenuItem() {
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
                 />
-                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                <label
+                  className="form-check-label fw-bold"
+                  htmlFor="flexRadioDefault1"
+                >
                   active
                 </label>{" "}
                 <br />
-                <div className="ps-4">item will be available on the menu</div>
+                <div className="ps-4 fs-14 text-secondary">
+                  item will be available on the menu
+                </div>
               </div>
               <div className="col-6 fs-14">
                 <input
@@ -78,11 +83,16 @@ function AddMenuItem() {
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
                 />
-                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                <label
+                  className="form-check-label fw-bold"
+                  htmlFor="flexRadioDefault1"
+                >
                   inactive
                 </label>{" "}
                 <br />
-                <div className="ps-4">item will be hidden from the menu</div>
+                <div className="ps-4 fs-14 text-secondary">
+                  item will be hidden from the menu
+                </div>
               </div>
             </div>
             {/** end of active or not */}
@@ -93,28 +103,28 @@ function AddMenuItem() {
                 <input
                   type="text"
                   placeholder="name"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
-              <div className="col-12 py-5">
+              <div className="col-12 py-4">
                 <input
                   type="text"
                   placeholder="price($)"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
               <div className="col-12">
                 <input
                   type="text"
                   placeholder="description"
-                  className="form-control big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+                  className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                 />
               </div>
             </div>
             {/** end of input */}
 
             {/** choose cate */}
-            <div className="row mt-5">
+            <div className="row mt-4">
               <span className="fw-bold mb-3">choose category</span>
               <div className="col-6">
                 <select className="form-select border border-dark">

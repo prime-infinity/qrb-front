@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function ResOwnerMobMenu({ closeMenu }) {
   const authState = useSelector((state) => state.auth.auth);
+  const location = useLocation();
   let navigate = useNavigate();
   const resOwnerGetStarted = () => {
     closeMenu();
@@ -43,6 +44,8 @@ function ResOwnerMobMenu({ closeMenu }) {
   };
 
   const editMyMenu = () => {
+    closeMenu();
+    navigate("/menu");
     console.log("is editing menu");
   };
   const goHome = () => {
@@ -54,13 +57,18 @@ function ResOwnerMobMenu({ closeMenu }) {
       {authState?.isRestOwner ? (
         <ul className="navbar-nav ml-auto">
           <li className="" onClick={goHome}>
-            <span className="fs-14">home</span>
+            <span
+              className={` ${location.pathname === "/" &&
+                "text-decoration-underline"} fs-14`}
+            >
+              home
+            </span>
 
             <span className="btn pe-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className=""
-                style={{ width: "28px", verticalAlign: "sub" }}
+                style={{ width: "25px", verticalAlign: "sub" }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -75,12 +83,22 @@ function ResOwnerMobMenu({ closeMenu }) {
             </span>
           </li>
           <li className="" onClick={editMyInfo}>
-            <span className="fs-14">edit my info</span>
+            <span
+              className={` ${location.pathname === "/edit-resturant-details" &&
+                "text-decoration-underline"} fs-14`}
+            >
+              edit my info
+            </span>
 
             <span className="btn pe-0">{editIcon}</span>
           </li>
           <li className="" onClick={editMyMenu}>
-            <span className="fs-14">edit my menu</span>
+            <span
+              className={` ${location.pathname === "/menu" &&
+                "text-decoration-underline"} fs-14`}
+            >
+              edit my menu
+            </span>
 
             <span className="btn pe-0">{editIcon}</span>
           </li>
