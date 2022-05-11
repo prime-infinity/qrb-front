@@ -219,7 +219,7 @@ select {
 .bg-wrapper {
   position: fixed;
   width: 100%;
-  bottom: 7%;
+  bottom: 5%;
 }
 .animate__animated.animate__slideInRight {
   --animate-duration: 0.2s;
