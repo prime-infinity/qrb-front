@@ -200,8 +200,8 @@ function About() {
           {/** little icons end */}
 
           <div className="covers-list-wrapper">
-            <ul className="covers-list">
-              <li>
+            <ul className="covers-list ps-0">
+              <li className="d-none">
                 <label className="cover-item" htmlFor="coverbg">
                   <input type="file" id="coverbg" />
                   <img src="/ang/round-add.svg" alt="" />
@@ -209,32 +209,32 @@ function About() {
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery003.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery004.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
+                  <img src="/ang/profile-cover.jpg" alt="" />
                 </a>
               </li>
             </ul>

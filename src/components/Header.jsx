@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMenu } from "../redux/slices/menuSlice";
+import { toggleView } from "../redux/slices/menuSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -15,6 +16,9 @@ function Header() {
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const pad = useSelector((state) => state.menu.pb);
+  const viewMode = useSelector((state) => state.menu.view);
+  const authState = useSelector((state) => state.auth.auth);
 
   /*const [mMenu, setMmenu] = useState(false);*/
   const [schBar, setSchBar] = useState(false);
@@ -70,6 +74,11 @@ function Header() {
     return false;
   };
 
+  const changeView = () => {
+    //setVie(!vie);
+    dispatch(toggleView());
+  };
+
   return !inRestCreation() ? (
     <>
       <>
@@ -81,9 +90,10 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${location.pathname !== "/" ? "big-bg-theme" : ""}`}
+        className={`${location.pathname !== "/" && "big-bg-theme"} ${pad &&
+          "pb-5"} `}
       >
-        <Container fluid className="mx-md-5 pt-2">
+        <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${schBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />
@@ -105,8 +115,27 @@ function Header() {
                 </svg>
               </button>
             </div>
+            <span>
+              <span
+                className="ms-1 fw-bold"
+                style={{ fontSize: "22px" }}
+                onClick={goMenu}
+              >
+                {location.pathname !== "/" &&
+                  (location.pathname === "/add-item" ||
+                  location.pathname === "/view-item"
+                    ? null
+                    : location.pathname === "/login"
+                    ? null
+                    : location.pathname === "/edit-rest-profile"
+                    ? null
+                    : location.pathname === "/edit-user-profile"
+                    ? null
+                    : rest?.name && rest.name)}
+              </span>
+            </span>
             {location.pathname !== "/" && (
-              <span>
+              <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
                 location.pathname === "/view-item" ? (
                   <svg
@@ -144,18 +173,10 @@ function Header() {
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                ) : (
-                  <span
-                    className="ms-1 fw-bold"
-                    style={{ fontSize: "22px" }}
-                    onClick={goMenu}
-                  >
-                    {rest?.name && rest.name}
-                  </span>
-                )}
+                ) : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
-                    <span className="ms-3 q-font-weight-bold" onClick={goMenu}>
+                    <span className="ms-3 fs-18" onClick={goMenu}>
                       add item
                     </span>
                   ) : location.pathname === "/view-item" ? (
@@ -163,11 +184,11 @@ function Header() {
                       kalua pig meat
                     </span>
                   ) : location.pathname === "/login" ? (
-                    <span className="ms-2 h6">menu platform</span>
-                  ) : location.pathname === "/edit-rest-profile" ? (
-                    <span className="ms-3 q-font-weight-bold">
-                      {"edit resturant"}
+                    <span className="ms-2 text-secondary fs-14">
+                      menu platform
                     </span>
+                  ) : location.pathname === "/edit-rest-profile" ? (
+                    <span className="ms-3 fs-18">{"edit resturant"}</span>
                   ) : (
                     <span className="ms-3 fw-bold"></span>
                   ))}
@@ -176,20 +197,49 @@ function Header() {
           </Navbar.Brand>
           <span className="" style={{ zIndex: "3" }}>
             {location.pathname === "/menu" && (
-              <span onClick={goToAddMenu} className="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ width: "30px" }}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
+              <>
+                {authState?.isRestOwner && (
+                  <span onClick={goToAddMenu} className="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "26px" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                )}
+                <span onClick={changeView} className="ps-3">
+                  {viewMode ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "26px" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "26px" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </span>
+              </>
             )}
             {location.pathname === "/menu" && (
               <span onClick={showSearch} className="px-3">
@@ -206,7 +256,8 @@ function Header() {
                   />
                 </svg>
               </span>
-            )}
+            )}{" "}
+            {/** note */}
             {location.pathname === "/edit-resturant-details" && (
               <span onClick={toEditRestProfile} className="px-3">
                 <svg
@@ -254,9 +305,8 @@ function Header() {
               <svg
                 onClick={addMenuItem}
                 xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                className="d-none"
+                style={{ width: "30px" }}
+                className="text-secondary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -304,7 +354,7 @@ function Header() {
               <svg
                 onClick={showMobileMenu}
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "27px" }}
+                style={{ width: "27px", height: "25px" }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

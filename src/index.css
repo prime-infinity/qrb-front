@@ -62,8 +62,8 @@ body {
 }
 
 .svg-icon-menu {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   vertical-align: sub;
 }
 .mm-db {
@@ -127,9 +127,9 @@ body {
   height: 0%;
   top: -5%;
 }
-.bg-highlight {
+/*.bg-highlight {
   animation: toColor 2s;
-}
+}*/
 @keyframes toColor {
   0% {
     background-color: white;
@@ -156,7 +156,7 @@ body {
 .sticky {
   transition: 0.5s ease;
   position: fixed;
-  top: 0;
+  top: 9;
   width: 100%;
   z-index: 3;
   background-color: #f6f4f2;
@@ -195,6 +195,12 @@ select {
 }
 .fs-13 {
   font-size: 13px;
+}
+.fs-18 {
+  font-size: 18px;
+}
+.fs-23 {
+  font-size: 23px;
 }
 .py-bt {
   padding-top: 0.7rem !important;
@@ -402,4 +408,8 @@ span.cat-icon img {
 }
 .box-shadow {
   box-shadow: -1px 3px #ddd8d8;
+}
+.cat-left-view {
+  flex: 0 0 40px !important;
+  min-height: 0px !important;
 }

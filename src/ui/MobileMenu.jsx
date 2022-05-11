@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -10,6 +10,7 @@ import "animate.css";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
@@ -74,13 +75,18 @@ function MobileMenu({ goMenu, closeMenu }) {
             ) : (
               <ul className="navbar-nav ml-auto">
                 <li className="" onClick={goHome}>
-                  <span className="fs-14">home</span>
+                  <span
+                    className={` ${location.pathname === "/" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    home
+                  </span>
 
                   <span className="btn pe-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className=""
-                      style={{ width: "28px", verticalAlign: "sub" }}
+                      style={{ width: "25px", verticalAlign: "sub" }}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -96,7 +102,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                 </li>
 
                 <li className="" onClick={toAbout}>
-                  <span className="fs-14">info</span>
+                  <span
+                    className={` ${location.pathname === "/about" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    info
+                  </span>
                   <span className="btn pe-0">
                     <svg
                       viewBox="0 0 20 21"
@@ -133,7 +144,12 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </li>
                 )}
                 <li className="" onClick={goMenu}>
-                  <span className="fs-14">Menu</span>
+                  <span
+                    className={` ${location.pathname === "/menu" &&
+                      "text-decoration-underline"} fs-14`}
+                  >
+                    menu
+                  </span>
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon-menu"
@@ -194,7 +210,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </span>
                 </li>
                 <li className="">
-                  <span className="fw-bold">tech support</span>
+                  <span className="">tech support</span>
                   <span className="btn pe-0">
                     <svg
                       className="svg-icon-lg"
@@ -210,7 +226,9 @@ function MobileMenu({ goMenu, closeMenu }) {
                   </span>
                 </li>
                 <li className="">
-                  <span className="text-secondary fs-14">powered by </span>
+                  <span className="text-secondary px-2 fs-12 text-decoration-underline">
+                    powered by{" "}
+                  </span>
                   <span className="fw-bold"> qrb.ee</span>
                 </li>
               </ul>
