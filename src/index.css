@@ -413,3 +413,6 @@ span.cat-icon img {
   flex: 0 0 40px !important;
   min-height: 0px !important;
 }
+.border-dashed {
+  border: 1px dashed black;
+}

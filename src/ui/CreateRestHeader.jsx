@@ -6,7 +6,7 @@ function CreateRestHeader() {
   );
   return (
     <div className="container-fluid pt-3">
-      <div className="row g-0 justify-content-between">
+      <div className="row px-2 g-0 justify-content-between">
         <div className="col-2">
           <hr
             className={`${

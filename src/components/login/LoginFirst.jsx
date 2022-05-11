@@ -19,13 +19,13 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
               aria-hidden="true"
             ></span>
           )}
-          {!firstPending && <span>continue</span>}
+          {!firstPending && <span className="">continue</span>}
         </button>
       </div>
 
       <div className="col-8 offset-2 mt-5 text-center">
         <hr />
-        <span>or continue with</span>
+        <span className="fs-14 text-secondary">or continue with</span>
 
         <div className="row justify-content-center mt-5">
           <div

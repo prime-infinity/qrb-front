@@ -57,8 +57,8 @@ function LoginSecond({ resend, field }) {
   const errorDiv = <small className="text-danger">{error}</small>;
   return (
     <div className="col-12 mt-5 mb-5">
-      <span className=" h1">verfication code</span> <br />
-      <span className="fs-14">
+      <span className=" h3">verfication code</span> <br />
+      <span className="fs-14 text-secondary">
         enter the 4 digit number that we sent to {field}.
       </span>
       <div className="row mt-3 mb-5">
