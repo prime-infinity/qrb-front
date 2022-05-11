@@ -26,7 +26,7 @@ function Wrapper() {
 
   return (
     <>
-      <video className="videoBg " autoPlay loop muted>
+      <video className="videoBg " autoPlay playsInline loop muted>
         <source src={`/videos/vdd.mp4`} type="video/mp4" />
       </video>
       <div className="bg-wrapper">
