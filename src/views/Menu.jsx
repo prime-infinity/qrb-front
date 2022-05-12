@@ -1,5 +1,3 @@
-import MenuItems from "../ui/MenuItems";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
@@ -7,14 +5,12 @@ import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue } from "../redux/slices/menuSlice";
 import { useDispatch } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
-import AccordionContext from "react-bootstrap/AccordionContext";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import { useContext /*, useState */ } from "react";
+
+import ItemsBottom from "../ui/ItemsBottom";
 
 function Menu() {
-  let navigate = useNavigate();
   const dispatch = useDispatch();
+
   const CAT = [
     {
       id: 1,
@@ -336,16 +332,9 @@ function Menu() {
   const newArr = _.groupBy(MENUITEMS, "cat.subTitle");
   const [highLi, setHigLi] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
+  // eslint-disable-next-line
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
-
-  useEffect(() => {
-    console.log(newArr);
-  }, []);
-
-  const viewMenuItem = () => {
-    navigate("/view-item");
-  };
 
   const chevNxt = (
     <svg
@@ -396,27 +385,6 @@ function Menu() {
   };
 
   const lockOnTarget = (inv, key) => {};
-
-  function ContextAwareToggle({ children, eventKey, callback }) {
-    const { activeEventKey } = useContext(AccordionContext);
-
-    const decoratedOnClick = useAccordionButton(
-      eventKey,
-      () => callback && callback(eventKey)
-    );
-
-    const isCurrentEventKey = activeEventKey === eventKey;
-
-    return (
-      <button
-        type="button"
-        style={{ backgroundColor: isCurrentEventKey ? "pink" : "lavender" }}
-        onClick={decoratedOnClick}
-      >
-        {children}
-      </button>
-    );
-  }
 
   return (
     <div className="container-fluid pt-5 big-bg-theme">
@@ -487,37 +455,31 @@ function Menu() {
             {/** the menuss */}
             <div className="col-12 mb-2">
               <Accordion>
-                {Object.entries(newArr).map(([key, value], index) => (
+                {Object.entries(newArr).map(([key, value], ind) => (
                   <InView
                     as="div"
                     onChange={(inView) => lockOnTarget(inView, key)}
                     threshold={1}
                   >
                     <div
-                      key={key}
+                      key={ind}
                       id={key}
                       ref={setRef(key)}
                       className={`${
                         highLi === key ? "bg-highlight" : ""
-                      } row justify-content-center mb-2`}
+                      }  mb-2`}
                     >
-                      <div className="pb-2 ps-3 text-start">
-                        <span className="fs-13">{returnMainTitle(key)}</span>
-                        <span>{chevNxt}</span>
-                        <span className="fs-13">{key}</span>
-                      </div>{" "}
+                      <div className="row px-0 justify-content-center">
+                        <div className="col-11 px-0">
+                          <span className="fs-13">{returnMainTitle(key)}</span>
+                          <span>{chevNxt}</span>
+                          <span className="fs-13">{key}</span>
+                        </div>
+                      </div>
+
                       {value.map((item, index) => (
                         <>
-                          <Card>
-                            <Card.Header>
-                              <ContextAwareToggle eventKey={item.name}>
-                                Click me!
-                              </ContextAwareToggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey={item.name}>
-                              <Card.Body>Hello! I'm the body</Card.Body>
-                            </Accordion.Collapse>
-                          </Card>
+                          <ItemsBottom item={item} />
                         </>
                       ))}
                     </div>
