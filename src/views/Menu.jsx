@@ -310,22 +310,10 @@ function Menu() {
   ];
 
   useEffect(() => {
-    window.onscroll = function() {
-      myFunction();
+    dispatch(pbTrue());
+    return () => {
+      dispatch(pbFalse());
     };
-    var header = document.getElementById("sticky");
-
-    var sticky = header.offsetTop;
-
-    function myFunction() {
-      if (window.pageYOffset > sticky) {
-        header.classList.add("sticky");
-        dispatch(pbTrue());
-      } else {
-        header.classList.remove("sticky");
-        dispatch(pbFalse());
-      }
-    }
   }, [dispatch]);
 
   const [subBut, showSubB] = useState(null);
@@ -391,67 +379,73 @@ function Menu() {
       <div className="row pt-5">
         <div className="col-12">
           {/** head button part */}
-          <div
-            className="row g-0 flex-nowrap scroll-div"
-            id="sticky"
-            style={{ overflowX: "scroll" }}
-          >
-            {CAT.map((cat, index) => (
-              <>
-                <div
-                  className="pe-3"
-                  style={{ width: "max-content" }}
-                  key={index}
-                >
-                  <button
-                    onClick={() => showMenuBut(cat.id)}
-                    className="btn fs-14 bg-them text-white "
-                  >
-                    {cat.title}
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={` ${
-                        subBut === cat.id
-                          ? "rotate-icon"
-                          : "counter-rotate-icon"
-                      }`}
-                      style={{ width: "20px", height: "20px" }}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div
-                  className={`${subBut === cat.id ? "d-contents" : "d-none"}`}
-                >
-                  {cat.data.map((dat, index) => (
-                    <span
-                      id={dat.title}
-                      className={`mx-2 my-auto fs-14 ${
-                        lock === dat.title ? "border-bottom-drk" : ""
-                      } min-width-maxcon`}
-                      onClick={() => highLightCat(dat.title)}
+          <div className="row " id="sticky">
+            <div className="col-12">
+              <div
+                className="row g-0 flex-nowrap scroll-div sticky"
+                style={{ overflowX: "scroll", borderBottom: "2px solid black" }}
+              >
+                {CAT.map((cat, index) => (
+                  <>
+                    <div
+                      className="pe-3"
+                      style={{ width: "max-content" }}
                       key={index}
                     >
-                      {dat.title}
-                    </span>
-                  ))}
-                </div>
-              </>
-            ))}
+                      <button
+                        onClick={() => showMenuBut(cat.id)}
+                        className="btn fs-14 bg-them text-white cat-button"
+                        style={{ borderRadius: "0" }}
+                      >
+                        {cat.title}
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={` ${
+                            subBut === cat.id
+                              ? "rotate-icon"
+                              : "counter-rotate-icon"
+                          }`}
+                          style={{ width: "20px", height: "20px" }}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div
+                      className={`${
+                        subBut === cat.id ? "d-contents" : "d-none"
+                      }`}
+                    >
+                      {cat.data.map((dat, index) => (
+                        <span
+                          id={dat.title}
+                          className={`mx-2 my-auto fs-14 ${
+                            lock === dat.title ? "border-bottom-drk" : ""
+                          } min-width-maxcon`}
+                          onClick={() => highLightCat(dat.title)}
+                          key={index}
+                        >
+                          {dat.title}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                ))}
+              </div>
+            </div>
           </div>
-          <hr style={{ borderTop: "2px solid black" }} />
+
           {/** menu part */}
-          <div className="row  mt-4">
+          <div className="row  mt-5">
             {/** the menuss */}
             <div className="col-12 mb-2">
               <Accordion>

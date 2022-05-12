@@ -161,7 +161,7 @@ body {
 .sticky {
   transition: 0.5s ease;
   position: fixed;
-  top: 9%;
+  top: 8%;
   width: 100%;
   z-index: 3;
   background-color: #f6f4f2;
@@ -472,4 +472,13 @@ span.cat-icon img {
 .option-selected {
   color: white;
   background-color: black;
+}
+.cat-button {
+  padding: 0.2rem 0.75rem !important;
+}
+.hr-bottom {
+  position: absolute;
+  bottom: 0%;
+  width: 93%;
+  border-bottom: 2px solid black;
 }
