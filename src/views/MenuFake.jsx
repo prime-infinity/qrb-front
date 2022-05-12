@@ -6,11 +6,6 @@ import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue } from "../redux/slices/menuSlice";
 import { useDispatch } from "react-redux";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
-import AccordionContext from "react-bootstrap/AccordionContext";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import { useContext /*, useState */ } from "react";
 
 function Menu() {
   let navigate = useNavigate();
@@ -395,28 +390,40 @@ function Menu() {
     }
   };
 
-  const lockOnTarget = (inv, key) => {};
+  const fakeHigh = (e) => {
+    if (highLi === e) {
+      setHigLi(null);
+      setTimeout(() => {
+        setHigLi(e);
+      }, 1);
+    } else {
+      setHigLi(e);
+    }
+  };
 
-  function ContextAwareToggle({ children, eventKey, callback }) {
-    const { activeEventKey } = useContext(AccordionContext);
+  const lockOnTarget = (inv, key) => {
+    /*
+    if (inv === true) {
+      setLock(key);
 
-    const decoratedOnClick = useAccordionButton(
-      eventKey,
-      () => callback && callback(eventKey)
-    );
+      let menuId = CAT.find((cat) => cat.title === returnMainTitle(key)).id;
+      showSubB(menuId);
 
-    const isCurrentEventKey = activeEventKey === eventKey;
+      var htmlElement = document.getElementById(key);
+      var elementPosition = htmlElement.getBoundingClientRect();
+      var outsider = document.getElementById("sticky");
+      outsider.scrollTo({
+        left: elementPosition.x + 200,
+        behavior: "smooth",
+      });
+      //console.log(key);
+      fakeHigh(key);
+    }*/
+  };
 
-    return (
-      <button
-        type="button"
-        style={{ backgroundColor: isCurrentEventKey ? "pink" : "lavender" }}
-        onClick={decoratedOnClick}
-      >
-        {children}
-      </button>
-    );
-  }
+  /*const toAddItem = () => {
+    navigate("/add-item");
+  };*/
 
   return (
     <div className="container-fluid pt-5 big-bg-theme">
@@ -485,45 +492,41 @@ function Menu() {
           {/** menu part */}
           <div className="row  mt-4">
             {/** the menuss */}
+
             <div className="col-12 mb-2">
-              <Accordion>
-                {Object.entries(newArr).map(([key, value], index) => (
-                  <InView
-                    as="div"
-                    onChange={(inView) => lockOnTarget(inView, key)}
-                    threshold={1}
+              {Object.entries(newArr).map(([key, value]) => (
+                <InView
+                  as="div"
+                  onChange={(inView) => lockOnTarget(inView, key)}
+                  threshold={1}
+                >
+                  <div
+                    key={key}
+                    id={key}
+                    ref={setRef(key)}
+                    className={`${
+                      highLi === key ? "bg-highlight" : ""
+                    } row justify-content-center mb-2`}
                   >
-                    <div
-                      key={key}
-                      id={key}
-                      ref={setRef(key)}
-                      className={`${
-                        highLi === key ? "bg-highlight" : ""
-                      } row justify-content-center mb-2`}
-                    >
-                      <div className="pb-2 ps-3 text-start">
-                        <span className="fs-13">{returnMainTitle(key)}</span>
-                        <span>{chevNxt}</span>
-                        <span className="fs-13">{key}</span>
-                      </div>{" "}
+                    <div className="pb-2 ps-3 text-start">
+                      <span className="fs-13">{returnMainTitle(key)}</span>
+                      <span>{chevNxt}</span>
+                      <span className="fs-13">{key}</span>
+                    </div>{" "}
+                    <>
                       {value.map((item, index) => (
                         <>
-                          <Card>
-                            <Card.Header>
-                              <ContextAwareToggle eventKey={item.name}>
-                                Click me!
-                              </ContextAwareToggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey={item.name}>
-                              <Card.Body>Hello! I'm the body</Card.Body>
-                            </Accordion.Collapse>
-                          </Card>
+                          <MenuItems
+                            key={index}
+                            viewMenuItem={viewMenuItem}
+                            item={item}
+                          />
                         </>
                       ))}
-                    </div>
-                  </InView>
-                ))}
-              </Accordion>
+                    </>
+                  </div>
+                </InView>
+              ))}
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ function MenuItems({ item }) {
     arrows: false,
   };
 
-  function CustomToggle({ eventKey, callback }) {
+  function CustomToggle({ eventKey, callback, item }) {
     const { activeEventKey } = useContext(AccordionContext);
     //const [sldOpen, setSldOpe] = useState(null);
     const decoratedOnClick = useAccordionButton(
@@ -75,13 +75,13 @@ function MenuItems({ item }) {
   return (
     <>
       <Accordion>
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" id={item.name}>
           <div className="col-11 menu-border mb-3">
-            <CustomToggle eventKey="0" />
+            <CustomToggle item={item} eventKey={item.name} />
 
             <div className="row">
               <div className="col-12 p-0 bottom-acc">
-                <Accordion.Collapse eventKey="0">
+                <Accordion.Collapse eventKey={item.name}>
                   <Slider {...settings}>
                     <div className="slide">
                       <div className="sl-img">
