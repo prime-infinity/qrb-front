@@ -207,55 +207,16 @@ function About() {
                   <img src="/ang/round-add.svg" alt="" />
                 </label>
               </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/profile-cover.jpg" alt="" />
-                </a>
-              </li>
+
+              {rest.images.map((img, index) => (
+                <li>
+                  <a href="#!" key={index} className="cover-item">
+                    <img src={img} alt="" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-          {/*<div className="row justify-content-center pb-5 mt-5">
-            <div className="col-12">
-              <div
-                className="row flex-nowrap"
-                style={{ overflowX: "scroll", position: "fixed", bottom: "3%" }}
-              >
-                <div className="col-5">
-                  <img src={rest.welcomescreen} className="img-fluid" alt="" />
-                </div>
-
-                {rest.images.length > 0 &&
-                  rest.images.map((item, index) => (
-                    <AboutCardPics key={index} item={item} />
-                  ))}
-              </div>
-            </div>
-          </div>*/}
         </div>
       </div>
     </div>

@@ -1,6 +1,17 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+}
+
+input,
+textarea,
+select {
+  outline: none !important;
+}
 .wrapper {
   background-size: cover;
   background-repeat: no-repeat;
@@ -156,9 +167,9 @@ body {
 .sticky {
   transition: 0.5s ease;
   position: fixed;
-  top: 9;
-  width: 100%;
-  z-index: 3;
+  top: 8%;
+  width: 93%;
+  z-index: 1;
   background-color: #f6f4f2;
   padding-top: 2%;
   padding-bottom: 2%;
@@ -415,4 +426,7 @@ span.cat-icon img {
 }
 .border-dashed {
   border: 1px dashed black;
+}
+.fw-500 {
+  font-weight: 500;
 }

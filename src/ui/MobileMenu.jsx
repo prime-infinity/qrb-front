@@ -31,6 +31,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   };
 
   const toAbout = () => {
+    closeMenu();
     navigate("/about");
   };
 

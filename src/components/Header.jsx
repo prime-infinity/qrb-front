@@ -34,6 +34,7 @@ function Header() {
 
   const goMenu = () => {
     //setMmenu(!mMenu);
+    dispatch(toggleMenu());
     navigate("/menu");
   };
 
@@ -117,7 +118,7 @@ function Header() {
             </div>
             <span>
               <span
-                className="ms-1 fw-bold"
+                className="ms-1 fw-500"
                 style={{ fontSize: "22px" }}
                 onClick={goMenu}
               >
