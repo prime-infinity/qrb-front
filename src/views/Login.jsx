@@ -51,9 +51,9 @@ function Login() {
         <div className="col-12 mb-3">
           <PhoneInput
             placeholder="enter mobile no"
-            defaultCountry="IN"
+            defaultCountry="US"
             readOnly={secondStage}
-            className="form-control big-bg-theme mb-2 border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="form-control pb-0 big-bg-theme mb-2 border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
             value={field}
             onChange={setField}
           />

@@ -1,6 +1,17 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+}
+
+input,
+textarea,
+select {
+  outline: none !important;
+}
 .wrapper {
   background-size: cover;
   background-repeat: no-repeat;
@@ -475,4 +486,7 @@ span.cat-icon img {
 }
 .cat-button {
   padding: 0.2rem 0.75rem !important;
+}
+.PhoneInputCountry {
+  margin-right: 16px !important;
 }
