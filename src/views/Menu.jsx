@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 
 import ItemsBottom from "../ui/ItemsBottom";
+import Shrudding from "../ui/Shrudding";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
@@ -189,7 +190,25 @@ function Menu() {
             {/** the menuss */}
 
             {rest.menu.length === 0 ? (
-              <div className="col-12"></div>
+              <>
+                <div className="col-12">
+                  <div className="to-center">
+                    <span>
+                      <Shrudding />
+                    </span>{" "}
+                  </div>
+                </div>
+                <div className="col-12">
+                  <div
+                    className="to-center"
+                    style={{ top: "60%", width: "70%" }}
+                  >
+                    <button className="btn btn-solid w-100 bg-them text-white">
+                      add items
+                    </button>
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="col-12 mb-2">
                 <Accordion>

@@ -29,16 +29,14 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (authState?.isRestOwner === true) {
-      if (!hasInited) {
-        dispatch(getRestOwnerRest(authState.token));
-      }
-    }
-  }, [dispatch, rest, authState]);
-
-  useEffect(() => {
     dispatch(getAuth());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (rest === null) {
+      dispatch(getBaseRest());
+    }
+  }, [rest, dispatch]);
 
   return (
     <BrowserRouter>
