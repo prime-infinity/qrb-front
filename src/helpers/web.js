@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://qrbback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://qrbback.herokuapp.com/api/";
 
 export function loginFirst(data) {
   return new Promise((res, rej) => {

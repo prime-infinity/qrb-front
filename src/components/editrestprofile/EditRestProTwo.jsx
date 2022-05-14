@@ -21,7 +21,6 @@ function EditRestProTwo() {
         email: rest.email,
         website: rest.website,
         address: rest.address,
-        desc: "",
       });
     }
   }, [rest]);
@@ -83,13 +82,7 @@ function EditRestProTwo() {
             type="text"
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
-          <input
-            value={formData.desc}
-            onChange={(e) => setFrom({ ...formData, desc: e.target.value })}
-            placeholder={"short description"}
-            type="text"
-            className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
-          />
+
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>
           </div>

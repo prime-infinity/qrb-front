@@ -112,7 +112,10 @@ function Menu() {
   const lockOnTarget = (inv, key) => {};
 
   return (
-    <div className="container-fluid pt-5 big-bg-theme">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row pt-5">
         <div className="col-12">
           {/** head button part */}
@@ -184,40 +187,47 @@ function Menu() {
           {/** menu part */}
           <div className="row  mt-5">
             {/** the menuss */}
-            <div className="col-12 mb-2">
-              <Accordion>
-                {Object.entries(newArr).map(([key, value], ind) => (
-                  <InView
-                    as="div"
-                    onChange={(inView) => lockOnTarget(inView, key)}
-                    threshold={1}
-                  >
-                    <div
-                      key={ind}
-                      id={key}
-                      ref={setRef(key)}
-                      className={`${
-                        highLi === key ? "bg-highlight" : ""
-                      }  mb-2`}
-                    >
-                      <div className="row px-0 justify-content-center">
-                        <div className="col-11 px-0">
-                          <span className="fs-13">{returnMainTitle(key)}</span>
-                          <span>{chevNxt}</span>
-                          <span className="fs-13">{key}</span>
-                        </div>
-                      </div>
 
-                      {value.map((item, index) => (
-                        <>
-                          <ItemsBottom item={item} />
-                        </>
-                      ))}
-                    </div>
-                  </InView>
-                ))}
-              </Accordion>
-            </div>
+            {rest.menu.length === 0 ? (
+              <div className="col-12"></div>
+            ) : (
+              <div className="col-12 mb-2">
+                <Accordion>
+                  {Object.entries(newArr).map(([key, value], ind) => (
+                    <InView
+                      as="div"
+                      onChange={(inView) => lockOnTarget(inView, key)}
+                      threshold={1}
+                    >
+                      <div
+                        key={ind}
+                        id={key}
+                        ref={setRef(key)}
+                        className={`${
+                          highLi === key ? "bg-highlight" : ""
+                        }  mb-2`}
+                      >
+                        <div className="row px-0 justify-content-center">
+                          <div className="col-11 px-0">
+                            <span className="fs-13">
+                              {returnMainTitle(key)}
+                            </span>
+                            <span>{chevNxt}</span>
+                            <span className="fs-13">{key}</span>
+                          </div>
+                        </div>
+
+                        {value.map((item, index) => (
+                          <>
+                            <ItemsBottom item={item} />
+                          </>
+                        ))}
+                      </div>
+                    </InView>
+                  ))}
+                </Accordion>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -5,10 +5,8 @@ import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
 import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
-import {
-  incrementCreationState,
-  setResDesc,
-} from "../../redux/slices/createRestSlice";
+import { incrementCreationState } from "../../redux/slices/createRestSlice";
+import { setRest } from "../../redux/slices/restSlice";
 
 function CreateResturantWel() {
   let navigate = useNavigate();
@@ -33,7 +31,7 @@ function CreateResturantWel() {
 
   const handleSuccess = (e) => {
     //set resturnat in state
-    dispatch(setResDesc(e));
+    dispatch(setRest(e));
     setDone(true);
     //change the isRstOwner of user to true
     dispatch(setIsResOwner(true));
@@ -82,7 +80,10 @@ function CreateResturantWel() {
   return done ? (
     <DoneCreatRest />
   ) : (
-    <div className="container-fluid pt-5">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row px-2 pt-5">
         <div className="col-1 pt-1">5.</div>
         <div className="col-10">

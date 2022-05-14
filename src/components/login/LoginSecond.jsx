@@ -27,8 +27,11 @@ function LoginSecond({ resend, field }) {
         dispatch(setAuth(res));
         dispatch(saveAuthToLocal());
         console.log(res);
-
-        navigate("/");
+        if (res.isRestOwner === true) {
+          navigate("/");
+        } else {
+          navigate("/create-resturant/name");
+        }
       })
       .catch((err) => {
         setPending(false);
