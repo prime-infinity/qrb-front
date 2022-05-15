@@ -25,6 +25,7 @@ import { getBaseRest } from "./redux/slices/restSlice";
 function App() {
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
+  // eslint-disable-next-line
   const hasInited = useSelector((state) => state.rest.hasInited);
   const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ function App() {
      
       setTimeout(() => {
         dispatch(getBaseRest());
-      }, 2000);
+      }, 1000);
         
      
     }
@@ -43,17 +44,13 @@ function App() {
     dispatch(getAuth());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (rest === null) {
-      dispatch(getBaseRest());
-    }
-  }, [rest, dispatch]);
 
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/:resturant" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />

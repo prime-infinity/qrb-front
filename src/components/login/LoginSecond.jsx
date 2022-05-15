@@ -41,6 +41,7 @@ function LoginSecond({ resend, field }) {
             getRestOfOwner(res.token).then((ree)=>{
               console.log("users resturant is",ree)
               dispatch(setRest(ree));
+              navigate(`/${ree.name}`)
             }).catch((eer)=>{
               console.log(eer);
             })
