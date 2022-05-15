@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
 import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
 import {
-  incrementCreationState,
-  setResDesc,
+  incrementCreationState
 } from "../../redux/slices/createRestSlice";
+import { setRest } from "../../redux/slices/restSlice"
 
 function CreateResturantWel() {
   let navigate = useNavigate();
@@ -33,7 +33,7 @@ function CreateResturantWel() {
 
   const handleSuccess = (e) => {
     //set resturnat in state
-    dispatch(setResDesc(e));
+    dispatch(setRest(e));
     setDone(true);
     //change the isRstOwner of user to true
     dispatch(setIsResOwner(true));

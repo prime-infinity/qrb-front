@@ -29,6 +29,7 @@ export function loginSecond(data) {
   });
 }
 
+
 //the process of resturant creation
 export function createRestName(data, token) {
   return new Promise((res, rej) => {

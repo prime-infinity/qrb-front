@@ -20,7 +20,7 @@ import CreateResturantYear from "./components/createresturant/CreateResturantYea
 import CreateResturantDesc from "./components/createresturant/CreateResturantDesc";
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
 
-import { getRestOwnerRest, getBaseRest } from "./redux/slices/restSlice";
+import { getBaseRest } from "./redux/slices/restSlice";
 
 function App() {
   const authState = useSelector((state) => state.auth.auth);
@@ -29,11 +29,12 @@ function App() {
 
   useEffect(() => {
     if (rest === null) {
-      if (authState?.isRestOwner === true) {
-        dispatch(getRestOwnerRest(authState.token));
-      } else {
+     
+      setTimeout(() => {
         dispatch(getBaseRest());
-      }
+      }, 2000);
+        
+     
     }
   }, [dispatch, rest, authState]);
 
