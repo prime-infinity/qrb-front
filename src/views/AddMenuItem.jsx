@@ -20,7 +20,7 @@ function AddMenuItem() {
           <Overlay closeOverlay={addCustomiz} width={`100%`} />
         </>
       )}
-      <div className="container-fluid pt-5 pb-5 px-3 big-bg-theme">
+      <div className="container-fluid pt-5 pb-5 px-3 big-bg-theme" style={{minHeight:"100vh"}}>
         <div className="row pt-5">
           <div className="col-12">
             {/** image selection */}
@@ -146,24 +146,7 @@ function AddMenuItem() {
             {/** end of choose cate */}
 
             {/** custimization */}
-            <div className="row mt-5">
-              <span className="fw-bold mb-3">customizations</span>
-              <div className="col-12" onClick={addCustomiz}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ width: "20px" }}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                add customization
-              </div>
-            </div>
+            
             {/** end custimization */}
 
             {/**delete item */}
