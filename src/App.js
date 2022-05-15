@@ -25,6 +25,7 @@ import { getBaseRest } from "./redux/slices/restSlice";
 function App() {
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
+  const hasInited = useSelector((state) => state.rest.hasInited);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,6 +42,12 @@ function App() {
   useEffect(() => {
     dispatch(getAuth());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (rest === null) {
+      dispatch(getBaseRest());
+    }
+  }, [rest, dispatch]);
 
   return (
     <BrowserRouter>

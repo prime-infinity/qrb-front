@@ -5,7 +5,7 @@ function CreateRestHeader() {
     (state) => state.createrest.creationState
   );
   return (
-    <div className="container-fluid pt-3">
+    <div className="container-fluid pt-3 big-bg-theme">
       <div className="row px-2 g-0 justify-content-between">
         <div className="col-2">
           <hr

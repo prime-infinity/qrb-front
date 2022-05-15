@@ -4,11 +4,15 @@ import { getRestOfOwner /*getRandomRest*/ } from "../../helpers/web";
 export const restSlice = createSlice({
   name: "rest",
   initialState: {
+    hasInited: false,
     rest: null,
   },
   reducers: {
     setRest: (state, action) => {
       state.rest = action.payload;
+    },
+    setInited: (state, action) => {
+      state.hasInited = action.payload;
     },
     setRestSummary: (state, action) => {
       state.rest = { ...state.rest, summary: action.payload };
@@ -26,13 +30,15 @@ export const { setRest } = restSlice.actions;
 export const { setRestSummary } = restSlice.actions;
 export const { setRestImages } = restSlice.actions;
 export const { setRestTimes } = restSlice.actions;
+export const { setInited } = restSlice.actions;
 
 export const getRestOwnerRest = (token) => async (dispatch) => {
   const dataFromGet = await getRestOfOwner(token);
   dispatch(setRest(dataFromGet));
-  console.log("rest owner");
+  dispatch(setInited(true));
+  console.log("owner rest dispatched");
 };
-export const getBaseRest = () => async (dispatch) => {
+export const getBaseRest = () => (dispatch) => {
   let baseRest = {
     name: "yogurstory",
     location: "honolulu",
@@ -317,6 +323,7 @@ export const getBaseRest = () => async (dispatch) => {
   };
 
   dispatch(setRest(baseRest));
+  dispatch(setInited(true));
   console.log("base rest dispatched");
 };
 

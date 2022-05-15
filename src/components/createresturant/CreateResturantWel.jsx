@@ -82,7 +82,10 @@ function CreateResturantWel() {
   return done ? (
     <DoneCreatRest />
   ) : (
-    <div className="container-fluid pt-5">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row px-2 pt-5">
         <div className="col-1 pt-1">5.</div>
         <div className="col-10">

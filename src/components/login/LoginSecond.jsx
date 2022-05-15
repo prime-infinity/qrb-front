@@ -36,7 +36,7 @@ function LoginSecond({ resend, field }) {
          * navigate to the point of resturant creation
          */
 
-          if(res.isRestOwner){
+          if(res.isRestOwner===true){
             console.log("user has resutnat")
             getRestOfOwner(res.token).then((ree)=>{
               console.log("users resturant is",ree)

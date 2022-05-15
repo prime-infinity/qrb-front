@@ -51,7 +51,10 @@ function CreateResturantYear() {
   };
 
   return (
-    <div className="container-fluid pt-5">
+    <div
+      className="container-fluid pt-5 big-bg-theme"
+      style={{ minHeight: "100vh" }}
+    >
       <div className="row px-2 pt-5">
         <div className="col-1 pt-1">3.</div>
         <div className="col-10">
@@ -61,7 +64,7 @@ function CreateResturantYear() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="year"
-            className="my-4 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+            className="my-4 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>

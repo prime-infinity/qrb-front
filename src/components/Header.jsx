@@ -94,7 +94,7 @@ function Header() {
         className={`${location.pathname !== "/" && "big-bg-theme"} ${pad &&
           "pb-5"} `}
       >
-        <Container fluid className="mx-md-5 pt-3">
+        <Container fluid className="mx-md-5 pt-2">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${schBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />
