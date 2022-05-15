@@ -5,6 +5,7 @@ import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue } from "../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
+import {  useNavigate } from "react-router-dom";
 
 import ItemsBottom from "../ui/ItemsBottom";
 import Shrudding from "../ui/Shrudding";
@@ -12,6 +13,7 @@ import Shrudding from "../ui/Shrudding";
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const CAT = [
     {
@@ -112,6 +114,10 @@ function Menu() {
 
   const lockOnTarget = (inv, key) => {};
 
+  const addMeniItem = ()=>{
+    navigate("/add-item");
+  }
+
   return (
     <div
       className="container-fluid pt-5 big-bg-theme"
@@ -200,10 +206,13 @@ function Menu() {
                 </div>
                 <div className="col-12">
                   <div
-                    className="to-center"
-                    style={{ top: "60%", width: "70%" }}
+                    className="to-center text-center"
+                    style={{ top: "70%", width: "90%" }}
                   >
-                    <button className="btn btn-solid w-100 bg-them text-white">
+                    <span className="fs-14 text-secondary">
+                      your menu is empty
+                    </span>
+                    <button onClick={addMeniItem}  className="btn mt-4 btn-solid w-100 bg-them text-white">
                       add items
                     </button>
                   </div>

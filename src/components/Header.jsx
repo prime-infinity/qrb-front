@@ -1,6 +1,6 @@
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileMenu from "../ui/MobileMenu";
 import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ import { toggleView } from "../redux/slices/menuSlice";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
   const location = useLocation();
+  // eslint-disable-next-line
+  
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
@@ -28,6 +30,8 @@ function Header() {
     dispatch(toggleMenu());
   };
 
+  useEffect(()=>{},[])
+  
   const goHome = () => {
     navigate("/");
   };
@@ -76,9 +80,17 @@ function Header() {
   };
 
   const changeView = () => {
-    //setVie(!vie);
     dispatch(toggleView());
   };
+
+  const shldHdrBg = ()=>{
+    if(location.pathname === "/menu" 
+    || location.pathname === "/about"
+    || location.pathname === "/login"){
+     return true
+    }
+    return false
+  }
 
   return !inRestCreation() ? (
     <>
@@ -91,7 +103,7 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${location.pathname !== "/" && "big-bg-theme"} ${pad &&
+        className={`${shldHdrBg() &&  "big-bg-theme"} ${pad &&
           "pb-5"} `}
       >
         <Container fluid className="mx-md-5 pt-2">
@@ -120,7 +132,7 @@ function Header() {
               <span
                 className="ms-1 fw-500"
                 style={{ fontSize: "22px" }}
-                onClick={goMenu}
+                
               >
                 {location.pathname !== "/" &&
                   (location.pathname === "/add-item" ||

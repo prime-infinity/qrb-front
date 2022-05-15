@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuth } from "./redux/slices/authSlice";
+import { getAuth,setHasIntited } from "./redux/slices/authSlice";
 import ProtectedRouteRestOwner from "./helpers/ProtectedRouteRestOwner";
 
 import Index from "./views/Index";
@@ -19,34 +19,62 @@ import CreateResturantLoc from "./components/createresturant/CreateResturantLoc"
 import CreateResturantYear from "./components/createresturant/CreateResturantYear";
 import CreateResturantDesc from "./components/createresturant/CreateResturantDesc";
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
-
-import { getBaseRest } from "./redux/slices/restSlice";
+import { useNavigate } from "react-router-dom";
+import { getRestOfOwner } from "./helpers/web"
+import { getBaseRest,setRest } from "./redux/slices/restSlice";
 
 function App() {
   const authState = useSelector((state) => state.auth.auth);
-  const rest = useSelector((state) => state.rest.rest);
+  let navigate = useNavigate();
+  //const rest = useSelector((state) => state.rest.rest);
   // eslint-disable-next-line
-  const hasInited = useSelector((state) => state.rest.hasInited);
+  const hasInited = useSelector((state) => state.auth.hasInited);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (rest === null) {
-     
-      setTimeout(() => {
-        dispatch(getBaseRest());
-      }, 1000);
-        
-     
-    }
-  }, [dispatch, rest, authState]);
 
   useEffect(() => {
     dispatch(getAuth());
   }, [dispatch]);
 
+  useEffect(()=>{
+    if(hasInited){
+      //at this very point
+      //it is certain that
+      //auth status has been resolved
+       //console.log("has inited");
+      if(!authState){
+        setTimeout(() => {
+          dispatch(getBaseRest());
+        }, 500);
+        console.log("no auth 1")
+      }
+      if(authState){
+        if(authState.isRestOwner){
+
+          //get the infomation about the resturant
+          //of the owner, and redirect there
+          getRestOfOwner(authState.token).then((res)=>{
+            //console.log(res)
+            dispatch(setRest(res))
+            //lock back this useeffect
+            dispatch(setHasIntited(false))
+            navigate(`/${res.name}`)
+          }).catch((err)=>{
+            console.log(err)
+          })
+
+        }if(!authState.isRestOwner){
+          //here, redirect to resturant
+          //creation
+          console.log("is not rest owner 2");
+          navigate("/create-resturant/name")
+        }
+      }
+     
+    }
+  },[hasInited,authState,dispatch,navigate])
 
   return (
-    <BrowserRouter>
+      <>
       <Header />
       <Routes>
         <Route path="/" element={<Index />} />
@@ -83,7 +111,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </>
   );
 }
 

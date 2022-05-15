@@ -1,7 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate/*,useParams*/ } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Wrapper() {
+  //let params = useParams()
   const rest = useSelector((state) => state.rest.rest);
   //console.log(rest)
   let navigate = useNavigate();
@@ -14,6 +16,10 @@ function Wrapper() {
   const stripTease = (e) => {
     return e.slice(0, 9).concat("...");
   };
+
+  useEffect(()=>{
+    //console.log(params);
+  },[])
 
   return (
     <>

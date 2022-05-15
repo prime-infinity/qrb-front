@@ -170,7 +170,7 @@ function MobileMenu({ goMenu, closeMenu }) {
 
             <div className="mm-db">
               <hr />
-              {logoutMenu && (
+              {logoutMenu && authState && (
                 <div
                   className="sm-me border py-2 px-2"
                   style={{
