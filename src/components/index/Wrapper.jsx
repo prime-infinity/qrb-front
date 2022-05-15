@@ -1,9 +1,9 @@
-import { Link, useNavigate/*,useParams*/ } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 function Wrapper() {
-  //let params = useParams()
+  let params = useParams()
   const rest = useSelector((state) => state.rest.rest);
   //console.log(rest)
   let navigate = useNavigate();
@@ -18,7 +18,7 @@ function Wrapper() {
   };
 
   useEffect(()=>{
-    //console.log(params);
+    console.log(params);
   },[])
 
   return (

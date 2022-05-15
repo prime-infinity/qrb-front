@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate,useParams } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -10,6 +10,7 @@ import "animate.css";
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
   let navigate = useNavigate();
+  let params = useParams()
   const location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
@@ -20,6 +21,8 @@ function MobileMenu({ goMenu, closeMenu }) {
   const toggleIsUser = () => {
     setIsUser(!isResOwner);
   };
+
+  console.log(params);
 
   const goLogin = () => {
     if (authState) {
