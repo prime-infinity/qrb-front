@@ -27,29 +27,6 @@ function About() {
     >
       <div className="row pt-5">
         <div className="col-12 col-md-6 offset-md-3 px-3">
-          {/*rest.time.length > 0 &&
-            rest.time.map((date, index) => (
-              <div key={index} className="mb-2">
-                {date.selectedDays.length > 0 && (
-                  <span key={index} className="pe-2">
-                    {date.selectedDays[0].s} <span>-</span>{" "}
-                    {date.selectedDays[date.selectedDays.length - 1].s}
-                  </span>
-                )}
-
-                <span className="pe-2">|</span>
-
-                {date.times.length > 0 &&
-                  date.times.map((time, index) => (
-                    <span key={index}>
-                      {time.openingTime} - {time.closingTime}{" "}
-                      {index !== date.times.length - 1 && (
-                        <span className="px-2">&</span>
-                      )}
-                    </span>
-                  ))}
-              </div>
-                      ))*/}
           <div className="fs-12 pb-2">
             <span className="pe-2">mon - fri</span>
             <span className="pe-2">|</span>
@@ -209,8 +186,8 @@ function About() {
               </li>
 
               {rest.images.map((img, index) => (
-                <li>
-                  <a href="#!" key={index} className="cover-item">
+                <li key={index}>
+                  <a href="#!"  className="cover-item">
                     <img src={img} alt="" />
                   </a>
                 </li>

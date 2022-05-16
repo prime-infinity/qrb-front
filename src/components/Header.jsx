@@ -33,13 +33,13 @@ function Header() {
   useEffect(()=>{},[])
   
   const goHome = () => {
-    navigate("/");
+    navigate(`/${rest.name}`);
   };
 
   const goMenu = () => {
     //setMmenu(!mMenu);
     dispatch(toggleMenu());
-    navigate("/menu");
+    navigate(`/${rest.name}/menu`);
   };
 
   const showSearch = () => {

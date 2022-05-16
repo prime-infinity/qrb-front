@@ -15,6 +15,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const mMenu = useSelector((state) => state.menu.menu);
+  const rest = useSelector((state) => state.rest.rest);
   const [isResOwner, setIsUser] = useState(false);
   const [logoutMenu, showLogoutMenu] = useState(false);
 
@@ -22,7 +23,7 @@ function MobileMenu({ goMenu, closeMenu }) {
     setIsUser(!isResOwner);
   };
 
-  console.log(params);
+  //console.log(params);
 
   const goLogin = () => {
     if (authState) {
@@ -35,7 +36,7 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const toAbout = () => {
     closeMenu();
-    navigate("/about");
+    navigate(`/${rest.name}/about`)
   };
 
   const logout = () => {
@@ -44,7 +45,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   };
   const goHome = () => {
     closeMenu();
-    navigate("/");
+    navigate(`/${rest.name}`);
   };
 
   return (

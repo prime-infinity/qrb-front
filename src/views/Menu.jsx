@@ -172,14 +172,14 @@ function Menu() {
                         subBut === cat.id ? "d-contents" : "d-none"
                       }`}
                     >
-                      {cat.data.map((dat, index) => (
+                      {cat.data.map((dat, indexx) => (
                         <span
                           id={dat.title}
                           className={`mx-2 my-auto fs-14 ${
                             lock === dat.title ? "border-bottom-drk" : ""
                           } min-width-maxcon`}
                           onClick={() => highLightCat(dat.title)}
-                          key={index}
+                          key={indexx}
                         >
                           {dat.title}
                         </span>
@@ -226,9 +226,10 @@ function Menu() {
                       as="div"
                       onChange={(inView) => lockOnTarget(inView, key)}
                       threshold={1}
+                      key={ind}
                     >
                       <div
-                        key={ind}
+                        
                         id={key}
                         ref={setRef(key)}
                         className={`${
@@ -245,9 +246,9 @@ function Menu() {
                           </div>
                         </div>
 
-                        {value.map((item, index) => (
+                        {value.map((item, indexx) => (
                           <>
-                            <ItemsBottom item={item} />
+                            <ItemsBottom key={indexx} item={item} />
                           </>
                         ))}
                       </div>

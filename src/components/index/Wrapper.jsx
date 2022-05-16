@@ -1,25 +1,19 @@
-import { Link, useNavigate,useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 function Wrapper() {
-  let params = useParams()
+  //let params = useParams()
   const rest = useSelector((state) => state.rest.rest);
-  //console.log(rest)
   let navigate = useNavigate();
 
   const toAbout = () => {
-    navigate("/about");
+    navigate(`/${rest.name}/about`)
   };
 
   // eslint-disable-next-line
   const stripTease = (e) => {
     return e.slice(0, 9).concat("...");
   };
-
-  useEffect(()=>{
-    console.log(params);
-  },[])
 
   return (
     <>
@@ -61,7 +55,7 @@ function Wrapper() {
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">
-                <Link to="/menu">
+                <Link to={`/${rest.name}/menu`}>
                   <button className="btn btn-solid w-100 bg-white fw-bold">
                     menu
                   </button>{" "}
