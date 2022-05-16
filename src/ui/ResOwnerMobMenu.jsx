@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 function ResOwnerMobMenu({ closeMenu }) {
   const authState = useSelector((state) => state.auth.auth);
+  const rest = useSelector((state) => state.rest.rest);
   const location = useLocation();
   let navigate = useNavigate();
   const resOwnerGetStarted = () => {
@@ -45,12 +46,12 @@ function ResOwnerMobMenu({ closeMenu }) {
 
   const editMyMenu = () => {
     closeMenu();
-    navigate("/menu");
+    navigate(`/${rest.name}/menu`);
     console.log("is editing menu");
   };
   const goHome = () => {
     closeMenu();
-    navigate("/");
+    navigate(`/${rest.name}`);
   };
   return (
     <>

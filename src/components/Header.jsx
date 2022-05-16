@@ -86,7 +86,9 @@ function Header() {
   const shldHdrBg = ()=>{
     if(location.pathname === `/${rest.name}/menu` 
     || location.pathname === `/${rest.name}/about`
-    || location.pathname === "/login"){
+    || location.pathname === "/login"
+    || location.pathname === "/edit-resturant-details"
+    || location.pathname === "/edit-rest-profile"){
      return true
     }
     return false

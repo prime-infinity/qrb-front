@@ -50,7 +50,6 @@ function App() {
             dispatch(setRest(res))
             //lock back this useeffect
             dispatch(setHasIntited(false))
-            dispatch(getBaseRest());
             navigate(`/${res.name}`)
           }).catch((err)=>{
             console.log(err)

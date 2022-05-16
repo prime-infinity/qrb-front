@@ -19,7 +19,7 @@ function EditResturantProfile() {
               onClick={() => setState(0)}
               className={`${
                 actionState === 0 ? "bor-btm-black" : ""
-              } col-4 text-center pb-1 border-bottom`}
+              } col-6 text-center pb-1 border-bottom`}
             >
               <span className="fs-14 ">active</span>
             </div>
@@ -27,18 +27,11 @@ function EditResturantProfile() {
               onClick={() => setState(1)}
               className={`${
                 actionState === 1 ? "bor-btm-black" : ""
-              } col-4 text-center pb-1 border-bottom`}
+              } col-6 text-center pb-1 border-bottom`}
             >
               <span className="fs-14 ">inactive</span>
             </div>
-            <div
-              onClick={() => setState(2)}
-              className={`${
-                actionState === 2 ? "bor-btm-black" : ""
-              } col-4 text-center pb-1 border-bottom`}
-            >
-              <span className="fs-14 ">deleted</span>
-            </div>
+            
           </div>
         </div>
         {/**state buttons */}
