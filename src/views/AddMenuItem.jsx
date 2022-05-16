@@ -1,14 +1,78 @@
 import { useState } from "react";
 import AddCustomiModal from "../ui/AddCustomiModal";
 import Overlay from "../ui/Overlay";
+import Select from 'react-select';
+
+const menuOptions = [
+  { value: 'drinks',
+   label: 'drinks', 
+   id:1,
+    data: [
+      { id: 1,value:"coffee",label:"coffee", title: "coffee" },
+      { id: 2,value:"Juice",label:"Juice", title: "Juice" },
+      { id: 3,value:"Tea",label:"Tea", title: "Tea" },
+      { id: 4,value:"Soda",label:"Soda", title: "Soda" },
+      { id: 5,value:"Milk",label:"Milk", title: "Milk" },
+      { id: 6,value:"Lemonade",label:"Lemonade", title: "Lemonade" },
+    ],
+   },
+  { value: 'main menu',
+   label: 'main menu', id:2,
+    data: [
+      { id: 1,value:"French Fries",label:"French Fries", title: "French Fries" },
+      { id: 2,value:"Onion Rings",label:"Onion Rings", title: "Onion Rings" },
+      { id: 3,value:"Fried Shrimps",label:"Fried Shrimps", title: "Fried Shrimps" },
+      { id: 4,value:"Chicked",label:"Chicked", title: "Chicked" },
+    ],
+   },
+  { value: 'lunch',
+   label: 'lunch', 
+   id:3,
+   data: [
+    { id: 1,value:"Donuts",label:"Donuts", title: "Donuts" },
+    { id: 2,value:"Coke",label:"Coke", title: "Coke" },
+    { id: 3,value:"Chips",label:"Chips", title: "Chips" },
+  ],
+   },
+];
+
 
 function AddMenuItem() {
   const [active, setActive] = useState(true);
   const [isAddingCusto, setIsAdd] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [subOptions,setSubOptions] = useState(null)
+  const [formData,setForm] = useState({
+    active:true,
+    name:"",
+    price:"",
+    description:"",
+    images:[]
+  })
 
   const addCustomiz = () => {
     setIsAdd(!isAddingCusto);
   };
+
+  const mainCatSelected = (e)=>{
+    //console.log(e)
+    setSelectedOption(e)
+    setSubOptions(e.data)
+  }
+
+  const subCatSelected = (e)=>{
+    console.log(e)
+    console.log(selectedOption);
+  }
+
+  const setSetActive = (e)=>{
+    setActive(e)
+    setForm({...formData,active:e})
+  }
+
+  const submit = ()=>{
+    console.log(formData);
+  }
 
   return (
     <>
@@ -59,7 +123,7 @@ function AddMenuItem() {
                   className="form-check-input me-2"
                   type="radio"
                   checked={active}
-                  onChange={() => setActive(true)}
+                  onChange={() => setSetActive(true)}
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
                 />
@@ -79,7 +143,7 @@ function AddMenuItem() {
                   className="form-check-input me-2"
                   type="radio"
                   checked={!active}
-                  onChange={() => setActive(false)}
+                  onChange={() => setSetActive(false)}
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
                 />
@@ -101,6 +165,8 @@ function AddMenuItem() {
             <div className="row mt-4">
               <div className="col-12">
                 <input
+                  value={formData.name}
+                  onChange={(e)=>setForm({...formData,name:e.target.value})}
                   type="text"
                   placeholder="name"
                   className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -108,6 +174,8 @@ function AddMenuItem() {
               </div>
               <div className="col-12 py-4">
                 <input
+                value={formData.price}
+                onChange={(e)=>setForm({...formData,price:e.target.value})}
                   type="text"
                   placeholder="price($)"
                   className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -115,6 +183,8 @@ function AddMenuItem() {
               </div>
               <div className="col-12">
                 <input
+                value={formData.description}
+                onChange={(e)=>setForm({...formData,description:e.target.value})}
                   type="text"
                   placeholder="description"
                   className="form-control fs-14 text-secondary big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -126,23 +196,30 @@ function AddMenuItem() {
             {/** choose cate */}
             <div className="row mt-4">
               <span className="fw-bold mb-3">choose category</span>
+
               <div className="col-6">
-                <select className="form-select border border-dark">
-                  <option defaultValue={null}>main category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <span className="fs-14 text-secondary">main category</span>
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={(e)=>mainCatSelected(e)}
+                  options={menuOptions}
+                />
               </div>
+
               <div className="col-6">
-                <select className="form-select border border-dark">
-                  <option defaultValue={null}>sub category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <span className="fs-14 text-secondary">sub category</span>
+                {subOptions !== null && (<Select
+                  defaultValue={subOptions}
+                  onChange={(e)=>subCatSelected(e)}
+                  options={subOptions}
+                />)}
               </div>
+              
+              
             </div>
+
+            <button className="btn" onClick={submit}>Click</button>
+
             {/** end of choose cate */}
 
             {/** custimization */}
@@ -150,7 +227,7 @@ function AddMenuItem() {
             {/** end custimization */}
 
             {/**delete item */}
-            <div className="row mt-5">
+            {/*<div className="row mt-5">
               <div className="col-12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +243,7 @@ function AddMenuItem() {
                 </svg>
                 delete item
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </div>
