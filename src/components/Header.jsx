@@ -22,7 +22,7 @@ function Header() {
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
 
-  /*const [mMenu, setMmenu] = useState(false);*/
+
   const [schBar, setSchBar] = useState(false);
 
   const showMobileMenu = () => {
@@ -84,8 +84,8 @@ function Header() {
   };
 
   const shldHdrBg = ()=>{
-    if(location.pathname === "/menu" 
-    || location.pathname === "/about"
+    if(location.pathname === `/${rest.name}/menu` 
+    || location.pathname === `/${rest.name}/about`
     || location.pathname === "/login"){
      return true
     }
@@ -134,7 +134,7 @@ function Header() {
                 style={{ fontSize: "22px" }}
                 
               >
-                {location.pathname !== "/" &&
+                {location.pathname !== `/${rest.name}` &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"
                     ? null
@@ -147,7 +147,7 @@ function Header() {
                     : rest?.name && rest.name)}
               </span>
             </span>
-            {location.pathname !== "/" && (
+            {location.pathname !== `/${rest.name}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
                 location.pathname === "/view-item" ? (
@@ -209,7 +209,7 @@ function Header() {
             )}
           </Navbar.Brand>
           <span className="" style={{ zIndex: "3" }}>
-            {location.pathname === "/menu" && (
+            {location.pathname === `/${rest.name}/menu` && (
               <>
                 {authState?.isRestOwner && (
                   <span onClick={goToAddMenu} className="">
@@ -254,7 +254,7 @@ function Header() {
                 </span>
               </>
             )}
-            {location.pathname === "/menu" && (
+            {location.pathname === `/${rest.name}/menu` && (
               <span onClick={showSearch} className="px-3">
                 <svg
                   width="18"
