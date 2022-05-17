@@ -236,3 +236,20 @@ export function editRestProTwo(data, token) {
       });
   });
 }
+
+export function deleteMenuItemBack(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/delete-menu-item", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
