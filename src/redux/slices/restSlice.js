@@ -67,6 +67,10 @@ export const getBaseRest = () => (dispatch) => {
     menu: [
       {
         name: "flavored cafe late",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -76,6 +80,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "flavored cafe late2",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -85,6 +93,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "flavored cafe late3",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -94,6 +106,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "flavored Milk",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -103,6 +119,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "flaMilk 2",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -112,6 +132,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Lemonade",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -121,6 +145,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Boring Tea",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -130,6 +158,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Exciting Fries",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -139,6 +171,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "More Exciting Fries",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -148,6 +184,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Most Exciting Fries",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -157,6 +197,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Standup Chicken",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -166,6 +210,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "surrendered Chicken",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -175,6 +223,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Mr Crabs",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -184,6 +236,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "LOrd of the RIngs?",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -193,6 +249,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "LIght Snack 1",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -202,6 +262,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "LIght Snack 2",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -211,6 +275,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Coke",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -220,6 +288,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Chipanzees",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -229,6 +301,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Chipmunks",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -238,6 +314,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Literal Soda",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -247,6 +327,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Fizzy Soda",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -256,6 +340,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "HollanDia Yoghurt",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -265,6 +353,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Bread",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -274,6 +366,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Diet Coke",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "lunch",
           mainId: 3,
@@ -283,6 +379,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "LobStery",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -292,6 +392,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Literal french Fries",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "main menu",
           mainId: 2,
@@ -301,6 +405,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Boring Drink one",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -310,6 +418,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "CowBell",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
@@ -319,6 +431,10 @@ export const getBaseRest = () => (dispatch) => {
       },
       {
         name: "Dano",
+        price:"2000",
+        active:"true",
+        description:"this is the description of the item",
+        files:["/ang/gallery003.jpg"],
         cat: {
           mainTitle: "drinks",
           mainId: 1,
