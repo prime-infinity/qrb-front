@@ -29,7 +29,7 @@ function CustomToggle({ eventKey, callback, item }) {
             <span className="cat-icon">
               <img
                 style={{ objectFit: viewMode ? "fill" : "cover" }}
-                src="/ang/gallery004.jpg"
+                src={item.files[0]}
                 alt=""
               />
             </span>
@@ -39,13 +39,11 @@ function CustomToggle({ eventKey, callback, item }) {
               <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
                 {item.name}
               </h4>
-              <span className="price">$8.49</span>
+              <span className="price">${item.price}</span>
             </div>
             {!viewMode && (
               <p>
-                Viverra nisl, parturient felis vel eget adipiscing felis erat
-                condimentum. Arcu ornare se parturient felis vel eget adipiscing
-                felis erat condimentum.
+               {item.description}
               </p>
             )}
           </div>

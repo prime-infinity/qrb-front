@@ -80,6 +80,8 @@ function Menu() {
     </svg>
   );
 
+  //console.log(rest.menu);
+
   const showMenuBut = (id) => {
     subBut === id ? showSubB(null) : showSubB(id);
     setViewEm(!viewEmp);

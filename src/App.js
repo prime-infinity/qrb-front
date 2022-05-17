@@ -58,8 +58,10 @@ function App() {
         }if(!authState.isRestOwner){
           //here, redirect to resturant
           //creation
+          dispatch(setHasIntited(false))
+          navigate(`/${rest?.name}`)
           console.log("is not rest owner 2");
-          navigate("/create-resturant/name")
+          //navigate("/create-resturant/name")
         }
       }
      

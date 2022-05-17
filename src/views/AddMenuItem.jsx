@@ -1,7 +1,15 @@
+import React, { useEffect } from "react";
 import { useState } from "react";
 import AddCustomiModal from "../ui/AddCustomiModal";
 import Overlay from "../ui/Overlay";
 import Select from 'react-select';
+import ImageUploading from "react-images-uploading";
+import { useSelector, useDispatch } from "react-redux";
+import { addMenuItem } from "../helpers/web";
+import { toggleUploading } from "../redux/slices/menuSlice";
+import { setRest } from "../redux/slices/restSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const menuOptions = [
   { value: 'drinks',
@@ -38,17 +46,36 @@ const menuOptions = [
 
 
 function AddMenuItem() {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const rest = useSelector((state) => state.rest.rest);
+  const needToUpload = useSelector((state) => state.menu.uploadingMenu);
   const [active, setActive] = useState(true);
   const [isAddingCusto, setIsAdd] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [subOptions,setSubOptions] = useState(null)
+  const [imageUpPending, setImageUpPending] = useState(false);
+  const [imaUpLdErr, setImgErr] = useState(null);
+  const authState = useSelector((state) => state.auth.auth);
+
+
   const [formData,setForm] = useState({
     active:true,
     name:"",
     price:"",
     description:"",
-    images:[]
+    cat:{}
   })
+
+  const [images, setImages] = React.useState([]);
+  
+  const maxNumber = 6;
+
+  const onChange = (imageList, addUpdateIndex) => {
+    
+    setImages(imageList);
+  };
+  const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
 
   const addCustomiz = () => {
     setIsAdd(!isAddingCusto);
@@ -57,12 +84,19 @@ function AddMenuItem() {
   const mainCatSelected = (e)=>{
     //console.log(e)
     setSelectedOption(e)
-    setSubOptions(e.data)
+    setSubOptions(null)
+    setTimeout(() => {
+      setSubOptions(e.data)
+    }, 100);
+    
+    setForm({...formData,cat:{...formData.cat,mainId:e.id,mainTitle:e.value}})
   }
 
   const subCatSelected = (e)=>{
-    console.log(e)
-    console.log(selectedOption);
+    //console.log(e)
+    //console.log(selectedOption);
+    setForm({...formData,cat:{...formData.cat,subId:e.id,subTitle:e.value}})
+
   }
 
   const setSetActive = (e)=>{
@@ -70,9 +104,54 @@ function AddMenuItem() {
     setForm({...formData,active:e})
   }
 
-  const submit = ()=>{
-    console.log(formData);
-  }
+  
+  useEffect(()=>{
+    if(needToUpload){
+      uploadImages()
+    }
+     // eslint-disable-next-line
+  },[needToUpload])
+
+  const uploadImages = () => {
+    setImageUpPending(true);
+    setImgErr(null);
+    const imageAsArray = images.map((img) => img.file);
+
+    const formData2 = new FormData();
+
+    for (let i = 0; i < imageAsArray.length; i++) {
+      formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+    }
+
+    formData2.append("restid", rest._id);
+    formData2.append("name",formData.name)
+    formData2.append("active",formData.active)
+    formData2.append("price",formData.price)
+    formData2.append("description",formData.description)
+    formData2.append("mainId",formData.cat.mainId)
+    formData2.append("mainTitle",formData.cat.mainTitle)
+    formData2.append("subId",formData.cat.subId)
+    formData2.append("subTitle",formData.cat.subTitle)
+
+
+      addMenuItem(formData2, authState.token)
+      .then((res) => {
+
+        //console.log(res);
+        setImageUpPending(false);
+        dispatch(setRest(res))
+        dispatch(toggleUploading(false))
+        navigate(`/${rest.name}/menu`);
+
+      })
+      .catch((err) => {
+        setImageUpPending(false);
+        dispatch(toggleUploading(false))
+        err.response?.data
+          ? setImgErr(err.response.data)
+          : setImgErr(err.message);
+      });
+  };
 
   return (
     <>
@@ -88,27 +167,114 @@ function AddMenuItem() {
         <div className="row pt-5">
           <div className="col-12">
             {/** image selection */}
-            <div className="row justify-content-center">
+            <div className="row justify-content-center ">
               <div className="col-11 mb-2">
-                <div className="row">
-                  <div className="col-4 text-center py-4 border-dashed">
-                    <div className="my-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        style={{ width: "40px" }}
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="my-auto"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+
+                
+                <ImageUploading
+                  multiple
+                  value={images}
+                  onChange={onChange}
+                  maxNumber={maxNumber}
+                  acceptType={["jpg", "jpeg"]}
+                  dataURLKey="data_url"
+                >
+
+                  {({
+                    imageList,
+                    onImageUpload,
+                    onImageUpdate,
+                    onImageRemove,
+                    errors,
+                  }) => (
+                    
+                    <div className="covers-list-wrapper">
+
+                      <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
+
+                      {errors && (
+                        <div className="text-danger">
+                          {errors.maxNumber && (
+                            <span className="row">
+                              Number of selected images exceed {maxNumber}
+                            </span>
+                          )}
+                          {errors.acceptType && (
+                            <span className="row">
+                              Your selected file type is not allow
+                            </span>
+                          )}
+                          {errors.maxFileSize && (
+                            <span className="row">
+                              Selected file size exceed maxFileSize
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      <ul className="covers-list ps-0">
+                      {imageUpPending ? (
+                        <li>
+                         <a href="#!" className="cover-item" style={{height:"136px"}}>
+                         <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                         </a>
+                          
+                        </li>
+                      ) : (  
+                        <li>
+
+                          <label onClick={onImageUpload} className="cover-item" style={{height:"136px"}} htmlFor="coverbg">
+                            <img src="/ang/round-add.svg" alt="" />
+                          </label>
+                          
+                        </li>)}
+
+                        {imageList.map((image, index) => (
+                          <li key={index} className="col-5">
+
+                            <a href="#!" className="cover-item" style={{height:"136px"}}>
+                              <img src={image["data_url"]} alt="" />
+                            </a>
+
+                            <div className="row pt-2">
+                          
+                              <div className="col-12 text-center">
+                                <span>
+                                  <svg
+                                    onClick={() => onImageRemove(index)}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="svg-icon"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M6 18L18 6M6 6l12 12"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+
+                          </li>
+                        ))}
+
+                      </ul>
+
                     </div>
-                  </div>
-                </div>
+
+                  )}
+
+
+                </ImageUploading>
+                
               </div>
               <div className="col-12 fs-14 text-secondary">
                 add images of videos to display the item to your customer
@@ -209,7 +375,7 @@ function AddMenuItem() {
               <div className="col-6">
                 <span className="fs-14 text-secondary">sub category</span>
                 {subOptions !== null && (<Select
-                  defaultValue={subOptions}
+                  
                   onChange={(e)=>subCatSelected(e)}
                   options={subOptions}
                 />)}
@@ -218,7 +384,6 @@ function AddMenuItem() {
               
             </div>
 
-            <button className="btn" onClick={submit}>Click</button>
 
             {/** end of choose cate */}
 

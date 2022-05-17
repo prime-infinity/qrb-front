@@ -6,8 +6,7 @@ import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu } from "../redux/slices/menuSlice";
-import { toggleView } from "../redux/slices/menuSlice";
+import { toggleMenu,toggleUploading,toggleView } from "../redux/slices/menuSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -52,6 +51,7 @@ function Header() {
 
   const addMenuItem = () => {
     console.log("Is adding menu item,");
+    dispatch(toggleUploading(true))
   };
 
   const toEditRestProfile = () => {

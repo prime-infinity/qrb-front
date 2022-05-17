@@ -183,6 +183,25 @@ export function uploadRestDetailImages(deta, token) {
       });
   });
 }
+
+export function addMenuItem(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/addmenu", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
 //edit rest details by owner
 export function editRestProOne(data, token) {
   return new Promise((res, rej) => {
