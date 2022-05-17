@@ -21,7 +21,7 @@ function ItemsBottom({ item }) {
             <Accordion.Collapse eventKey={item.name}>
               <Slider {...settings}>
 
-                {item.files.map((file,index)=> (
+                {item && item.files.map((file,index)=> (
                   <div className="slide" key={index}>
                   <div className="sl-img">
                     <img

@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleMenu,toggleUploading,toggleView } from "../redux/slices/menuSlice";
+import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -23,11 +24,17 @@ function Header() {
 
 
   const [schBar, setSchBar] = useState(false);
+  const [searchTerm,setSearchTerm] = useState("")
 
   const showMobileMenu = () => {
     //show mobile menu
     dispatch(toggleMenu());
   };
+
+  const searching = (e)=>{
+    setSearchTerm(e)
+    dispatch(searchRestMenu(e))
+  }
 
   useEffect(()=>{},[])
   
@@ -43,6 +50,10 @@ function Header() {
 
   const showSearch = () => {
     setSchBar(!schBar);
+    if(schBar){
+      console.log("search dissapted");
+      dispatch(searchDiscarded())
+    }
   };
 
   const goToAddMenu = () => {
@@ -111,7 +122,7 @@ function Header() {
         <Container fluid className="mx-md-5 pt-2">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${schBar && "active-search"} `}>
-              <input type="text" name="search" id="searchId" />
+              <input type="text" value={searchTerm} onChange={(e)=>searching(e.target.value)}  id="searchId" />
               <button className="btn-clear">
                 <svg
                   onClick={showSearch}

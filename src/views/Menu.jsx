@@ -12,8 +12,10 @@ import Shrudding from "../ui/Shrudding";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
+  const restMenu = useSelector((state) => state.rest.restMenu);
   const dispatch = useDispatch();
   let navigate = useNavigate();
+
 
   const CAT = [
     {
@@ -57,13 +59,12 @@ function Menu() {
   }, [dispatch]);
 
   const [subBut, showSubB] = useState(null);
-  const newArr = _.groupBy(rest.menu, "cat.subTitle");
+  const newArr = _.groupBy(restMenu, "cat.subTitle");
   const [highLi, setHigLi] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
   // eslint-disable-next-line
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
-
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +224,7 @@ function Menu() {
             ) : (
               <div className="col-12 mb-2">
                 <Accordion>
-                  {Object.entries(newArr).map(([key, value], ind) => (
+                  {newArr && Object.entries(newArr).map(([key, value], ind) => (
                     <InView
                       as="div"
                       onChange={(inView) => lockOnTarget(inView, key)}
@@ -248,7 +249,7 @@ function Menu() {
                           </div>
                         </div>
 
-                        {value.map((item, indexx) => (
+                        {value.length > 0 && value.map((item, indexx) => (
                           <>
                             <ItemsBottom key={indexx} item={item} />
                           </>

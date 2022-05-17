@@ -5,10 +5,12 @@ export const restSlice = createSlice({
   name: "rest",
   initialState: {
     rest: null,
+    restMenu:null,
   },
   reducers: {
     setRest: (state, action) => {
       state.rest = action.payload;
+      state.restMenu = state.rest.menu
     },
 
     setRestSummary: (state, action) => {
@@ -20,6 +22,14 @@ export const restSlice = createSlice({
     setRestTimes: (state, action) => {
       state.rest = { ...state.rest, time: action.payload };
     },
+    searchRestMenu:(state,action)=>{
+      //console.log(action.payload);
+      //console.log(state.rest.menu)
+      state.restMenu = state.rest.menu.filter((men)=>men.name === action.payload)
+    },
+    searchDiscarded:(state,action)=>{
+      state.restMenu = state.rest.menu
+    }
   },
 });
 
@@ -27,6 +37,8 @@ export const { setRest } = restSlice.actions;
 export const { setRestSummary } = restSlice.actions;
 export const { setRestImages } = restSlice.actions;
 export const { setRestTimes } = restSlice.actions;
+export const { searchRestMenu } = restSlice.actions;
+export const { searchDiscarded } =  restSlice.actions;
 
 /*export const getRestOwnerRest = (token) => async (dispatch) => {
   const dataFromGet = await getRestOfOwner(token);
