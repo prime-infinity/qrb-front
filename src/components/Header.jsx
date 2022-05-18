@@ -6,7 +6,7 @@ import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu,toggleUploading,toggleView } from "../redux/slices/menuSlice";
+import { toggleMenu,toggleSearchBar,toggleUploading,toggleView } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -23,7 +23,8 @@ function Header() {
   const authState = useSelector((state) => state.auth.auth);
 
 
-  const [schBar, setSchBar] = useState(false);
+  const searchBar = useSelector((state) => state.menu.searchBar);
+
   const [searchTerm,setSearchTerm] = useState("")
 
   const showMobileMenu = () => {
@@ -49,8 +50,9 @@ function Header() {
   };
 
   const showSearch = () => {
-    setSchBar(!schBar);
-    if(schBar){
+    //setSchBar(!schBar);
+    dispatch(toggleSearchBar())
+    if(searchBar){
       console.log("search dissapted");
       dispatch(searchDiscarded())
     }
@@ -121,7 +123,7 @@ function Header() {
       >
         <Container fluid className="mx-md-5 pt-2">
           <Navbar.Brand className="cur-pointer">
-            <div className={`search-box ${schBar && "active-search"} `}>
+            <div className={`search-box ${searchBar && "active-search"} `}>
               <input type="text" value={searchTerm} onChange={(e)=>searching(e.target.value)}  id="searchId" />
               <button className="btn-clear">
                 <svg

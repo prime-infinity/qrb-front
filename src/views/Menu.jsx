@@ -13,6 +13,7 @@ import Shrudding from "../ui/Shrudding";
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const restMenu = useSelector((state) => state.rest.restMenu);
+  const searchBar = useSelector((state) => state.menu.searchBar);
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -131,7 +132,7 @@ function Menu() {
           {/** head button part */}
           <div className="row " id="sticky">
             <div className="col-12">
-              <div
+              {!searchBar && (<div
                 className="row g-0 flex-nowrap scroll-div sticky"
                 style={{ overflowX: "scroll", borderBottom: "2px solid black" }}
               >
@@ -190,7 +191,7 @@ function Menu() {
                     </div>
                   </>
                 ))}
-              </div>
+              </div>)}
             </div>
           </div>
 

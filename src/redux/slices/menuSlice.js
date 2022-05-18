@@ -7,6 +7,7 @@ export const menuSlice = createSlice({
     view: false,
     pb: false,
     uploadingMenu:false,
+    searchBar:false,
   },
   reducers: {
     toggleMenu: (state, action) => {
@@ -23,6 +24,9 @@ export const menuSlice = createSlice({
     },
     toggleUploading:(state,action)=>{
       state.uploadingMenu = action.payload
+    },
+    toggleSearchBar:(state,action)=>{
+      state.searchBar = !state.searchBar
     }
   },
 });
@@ -32,6 +36,6 @@ export const { toggleView } = menuSlice.actions;
 export const { pbFalse } = menuSlice.actions;
 export const { pbTrue } = menuSlice.actions;
 export const { toggleUploading } = menuSlice.actions;
-
+export const { toggleSearchBar } = menuSlice.actions;
 
 export default menuSlice.reducer;
