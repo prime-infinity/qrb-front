@@ -7,7 +7,7 @@ function Wrapper() {
   let navigate = useNavigate();
 
   const toAbout = () => {
-    navigate("/about");
+    navigate(`${rest.name}/about`);
   };
 
   // eslint-disable-next-line
@@ -71,7 +71,7 @@ function Wrapper() {
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">
-                <Link to="/menu">
+                <Link to={`/${rest.name}/menu`}>
                   <button className="btn btn-solid w-100 bg-white">menu</button>{" "}
                 </Link>
               </div>

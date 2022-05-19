@@ -1,24 +1,15 @@
 //import AboutCardPics from "../ui/AboutCardPics";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import LoadingScreen from "../ui/LoadingScreen";
-import NetworkErr from "../ui/NetworkErr";
-import { useNavigate } from "react-router-dom";
-import PureOverlay from "../ui/PureOverlay";
-import RedirModal from "../ui/RedirModal";
+import { useState } from "react";
+import LoadingScreen from "../../ui/LoadingScreen";
+import NetworkErr from "../../ui/NetworkErr";
+import PureOverlay from "../../ui/PureOverlay";
+import RedirModal from "../../ui/RedirModal";
 
 function About() {
   const rest = useSelector((state) => state.rest.rest);
   const [redrng, setRedrng] = useState(false);
   const [ani, setAni] = useState(false);
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    if (rest === null) {
-      navigate("/");
-    }
-    //console.log(rest);
-  }, [rest, navigate]);
 
   const redirect = (x) => {
     setRedrng(true);

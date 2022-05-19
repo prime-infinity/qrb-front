@@ -6,12 +6,36 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import { BrowserRouter,Routes, Route  } from "react-router-dom";
+import Index from "./views/Index";
+import About from "./components/index/About";
+import Menu from "./components/index/About";
+import Wrapper from "./components/index/About";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route  path="/" element={<App />}>
+
+            <Route path=":resturant" element={<Index />} >
+
+              <Route index element={<Wrapper />} />
+              <Route path="about" element={<About />} />
+              <Route path="menu" element={<Menu />} />
+
+            </Route>
+
+          </Route>
+          <Route
+            path="*"
+            element={<p className="to-center text-center">There's nothing here</p>}
+          />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
