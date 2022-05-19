@@ -1,7 +1,18 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://qrbback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://qrbback.herokuapp.com/api/";
+
+
+export async function getIndexRest() {
+  try {
+    const { data } = await axios.get(backendHost + "resturant/index");
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}
+
 
 export function loginFirst(data) {
   return new Promise((res, rej) => {
@@ -127,24 +138,8 @@ export async function getRestOfOwner(token) {
     return e.message;
   }
 }
-export async function getRandomRest() {
-  try {
-    const { data } = await axios.get(backendHost + "resturant/random");
-    return data;
-  } catch (e) {
-    return e.message;
-  }
-}
-export async function getDetailsOfRest(id) {
-  try {
-    const { data } = await axios.get(backendHost + "resturant/details", {
-      params: { id: id },
-    });
-    return data;
-  } catch (e) {
-    return e.message;
-  }
-}
+
+
 
 //rest owner editing resturant
 

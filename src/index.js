@@ -24,8 +24,8 @@ root.render(
             <Route path=":resturant" element={<Index />} >
 
               <Route index element={<Wrapper />} />
-              <Route path="about" element={<About />} />
-              <Route path="menu" element={<Menu />} />
+              {/*<Route path="about" element={<About />} />
+              <Route path="menu" element={<Menu />} />*/}
 
             </Route>
 

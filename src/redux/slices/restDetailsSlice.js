@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDetailsOfRest } from "../../helpers/web";
+//import { getDetailsOfRest } from "../../helpers/web";
 
 export const restDetailsSlice = createSlice({
   name: "restdetails",
@@ -23,10 +23,10 @@ export const { setRestDetails } = restDetailsSlice.actions;
 export const { setRestDetailSummary } = restDetailsSlice.actions;
 export const { setRestDetailsImages } = restDetailsSlice.actions;
 
-export const getRestDetails = (id) => async (dispatch) => {
+/*export const getRestDetails = (id) => async (dispatch) => {
   const dataFromGet = await getDetailsOfRest(id);
   dispatch(setRestDetails(dataFromGet));
   console.log("rest details");
-};
+};*/
 
 export default restDetailsSlice.reducer;

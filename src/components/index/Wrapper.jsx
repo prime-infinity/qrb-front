@@ -7,7 +7,7 @@ function Wrapper() {
   let navigate = useNavigate();
 
   const toAbout = () => {
-    navigate(`${rest.name}/about`);
+    //navigate(`${rest.name}/about`);
   };
 
   // eslint-disable-next-line
