@@ -13,6 +13,14 @@ export async function getIndexRest() {
   }
 }
 
+export async function getUrlRest(restUrl) {
+  try {
+    const { data } = await axios.get(backendHost + `resturant/${restUrl}`);
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}
 
 export function loginFirst(data) {
   return new Promise((res, rej) => {

@@ -5,7 +5,7 @@ import Header from "./components/Header"
 import { Outlet,useNavigate,useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { initIndexRest, setRestInited } from "./redux/slices/restSlice";
+import { initIndexRest, initUrlRest, setRestInited } from "./redux/slices/restSlice";
 import { getAuth } from "./redux/slices/authSlice";
 
 
@@ -38,6 +38,14 @@ function App() {
           //get from database and set
     
           console.log("is in header",resturant);
+          if(rest===null){
+            dispatch(initUrlRest(resturant))
+          }
+          if(rest !== "Network Error" && rest !== null){
+            navigate(`/${rest?.name}`)
+            dispatch(setRestInited(true))
+            console.log("rest is ",rest);
+          }
     
         }else{
           console.log("is not in header");

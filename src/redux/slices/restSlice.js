@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIndexRest } from "../../helpers/web";
+import { getIndexRest,getUrlRest } from "../../helpers/web";
 
 export const restSlice = createSlice({
   name: "rest",
@@ -38,6 +38,12 @@ export const initIndexRest = () => async (dispatch) => {
   const dataFromGet = await getIndexRest();
   dispatch(setRest(dataFromGet));
   console.log("index rest gotten");
+};
+
+export const initUrlRest = (restUrl) => async (dispatch) => {
+  const dataFromGet = await getUrlRest(restUrl)
+  dispatch(setRest(dataFromGet))
+  console.log("url rest gotten");
 };
 
 export default restSlice.reducer;
