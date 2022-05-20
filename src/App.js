@@ -5,7 +5,7 @@ import Header from "./components/Header"
 import { Outlet,useNavigate,useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { initIndexRest } from "./redux/slices/restSlice";
+import { initIndexRest, setRestInited } from "./redux/slices/restSlice";
 import { getAuth } from "./redux/slices/authSlice";
 
 
@@ -52,6 +52,7 @@ function App() {
             
             if(rest !== "Network Error" && rest !== null){
               navigate(`/${rest?.name}`)
+              dispatch(setRestInited(true))
               console.log("rest is ",rest);
             }
             

@@ -99,7 +99,7 @@ function MobileMenu({ goMenu, closeMenu }) {
             {!isResOwner || authState?.isRestOwner ? (
               <>
                 {" "}
-                <span className="fs-18">yogurstory</span>
+                <span className="fs-18">{rest.name}</span>
                 <hr />
               </>
             ) : null}
