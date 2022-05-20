@@ -7,7 +7,7 @@ function Wrapper() {
   let navigate = useNavigate();
 
   const toAbout = () => {
-    //navigate(`${rest.name}/about`);
+    navigate(`/${rest.name}/about`);
   };
 
   // eslint-disable-next-line
@@ -27,30 +27,24 @@ function Wrapper() {
   return (
     <>
       <video className="videoBg" autoPlay loop playsInline muted>
-        <source src={`/videos/vdd.mp4`} type="video/mp4" />
+        <source src={rest.welcomescreen} type="video/mp4" />
       </video>
       <div className="bg-wrapper">
         <div className="row justify-content-center justify-content-md-start">
           <div className="col-11 col-md-6 text-white">
             <div className="px-3">
               <span className="sp-title" style={{ fontSize: "40px" }}>
-                {/*rest.name*/ "yogurstory"}
+                {rest.name}
               </span>{" "}
               <ul className="sp-details ps-0 pt-4 mb-0">
                 <li>
-                  <h6>honolulu</h6>
+                  <h6>{rest.location}</h6>
                 </li>
                 <li>
-                  <h6>since 2010</h6>
+                  <h6>{rest.year}</h6>
                 </li>
               </ul>
-              {/*<div className="row pt-2">
-                <div className="col-3 ">
-                  {rest?.location && stripTease(rest.location)}
-                </div>
-                <div className="col-1 ">|</div>
-                <div className="col-4 ">{"since " + rest.year}</div>
-              </div>{" "}*/}
+             
               <div className="row">
                 <div className="col-12">
                   <span className="fs-14" style={{ fontWeight: "500" }}>

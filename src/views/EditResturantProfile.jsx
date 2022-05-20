@@ -1,7 +1,6 @@
 import { useState } from "react";
 import EditRestProOne from "../components/editrestprofile/EditRestProOne";
 import EditRestProTwo from "../components/editrestprofile/EditRestProTwo";
-import EditRestProThr from "../components/editrestprofile/EditRestProThr";
 
 function EditResturantProfile() {
   const [actionState, setState] = useState(0);
@@ -39,8 +38,6 @@ function EditResturantProfile() {
           <EditRestProOne />
         ) : actionState === 1 ? (
           <EditRestProTwo />
-        ) : actionState === 2 ? (
-          <EditRestProThr />
         ) : null}
       </div>
     </div>

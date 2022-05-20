@@ -29,13 +29,13 @@ function Header() {
   };
 
   const goHome = () => {
-    navigate("/");
+    navigate(`/${rest.name}`);
   };
 
   const goMenu = () => {
     //setMmenu(!mMenu);
     showMobileMenu();
-    navigate("/menu");
+    navigate(`${rest.name}/menu`);
   };
 
   const showSearch = () => {
@@ -47,7 +47,8 @@ function Header() {
   };
 
   const addMenuItem = () => {
-    navigate("/menu");
+    //navigate("/menu");
+    console.log("adding menu item");
   };
 
   /*const toEditRestProfile = () => {
@@ -90,6 +91,17 @@ function Header() {
     console.log("user is approved");
   };
 
+  const shldHdrBg = ()=>{
+    if(location.pathname === `/${rest.name}/menu` 
+    || location.pathname === `/${rest.name}/about`
+    || location.pathname === "/login"
+    || location.pathname === "/edit-resturant-details"
+    || location.pathname === "/edit-rest-profile"){
+     return true
+    }
+    return false
+  }
+
   return !inRestCreation() ? (
     <>
       <>
@@ -101,7 +113,7 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${location.pathname !== "/" && "big-bg-theme"} ${pad &&
+        className={`${shldHdrBg() && "big-bg-theme"} ${pad &&
           "pb-5"} `}
       >
         <Container fluid className="mx-md-5 pt-3">
@@ -132,7 +144,7 @@ function Header() {
                 style={{ fontSize: "22px" }}
                 onClick={goMenu}
               >
-                {location.pathname !== "/" &&
+                {location.pathname !== `/${rest.name}` &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"
                     ? null
@@ -145,7 +157,7 @@ function Header() {
                     : rest?.name && rest.name)}
               </span>
             </span>
-            {location.pathname !== "/" && (
+            {location.pathname !== `/${rest.name}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
                 location.pathname === "/view-item" ? (
@@ -227,7 +239,7 @@ function Header() {
             )}
           </Navbar.Brand>
           <span className="" style={{ zIndex: "3" }}>
-            {location.pathname === "/menu" && (
+            {location.pathname === `/${rest.name}/menu` && (
               <>
                 {authState?.isRestOwner && (
                   <span onClick={goToAddMenu} className="">
@@ -272,7 +284,7 @@ function Header() {
                 </span>
               </>
             )}
-            {location.pathname === "/menu" && (
+            {location.pathname === `/${rest.name}/menu` && (
               <span onClick={showSearch} className="px-3">
                 <svg
                   width="18"

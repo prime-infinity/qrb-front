@@ -65,8 +65,8 @@ function App() {
 
       }
 
-
-  },[resturant,restInited,authState,dispatch,rest,navigate])
+      // eslint-disable-next-line
+  },[resturant,restInited,authState,dispatch,rest])
   
   return rest === null ? (
     <LoadingScreen />

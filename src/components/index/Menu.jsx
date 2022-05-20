@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
-import { pbFalse, pbTrue } from "../redux/slices/menuSlice";
+import { pbFalse, pbTrue } from "../../redux/slices/menuSlice";
 import { useDispatch } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 
-import ItemsBottom from "../ui/ItemsBottom";
+import ItemsBottom from "../../ui/ItemsBottom";
 
 function Menu() {
   const dispatch = useDispatch();
