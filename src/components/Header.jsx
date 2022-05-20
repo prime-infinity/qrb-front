@@ -142,7 +142,7 @@ function Header() {
               <span
                 className="ms-1 fw-500"
                 style={{ fontSize: "22px" }}
-                onClick={goMenu}
+                onClick={goHome}
               >
                 {location.pathname !== `/${rest.name}` &&
                   (location.pathname === "/add-item" ||
