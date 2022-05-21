@@ -227,118 +227,23 @@ function About() {
               className="row g-0 mt-4"
               style={{ position: "absolute", width: "100%", left: "0" }}
             >
-              <div className="col-6">
+
+              {rest.images && rest.images.map((img,index) =>(
+
+                <div key={index} className="col-6">
                 <img
-                  src="/ang/profile-cover.jpg"
+                  src={img}
                   className="img-fluid"
                   alt=""
                 />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
+                </div>
+
+              ) ) }
+              
+              
             </div>
 
-            {/*<div className="covers-list-wrapper">
-            <ul className="covers-list">
-              <li>
-                <label className="cover-item" htmlFor="coverbg">
-                  <input type="file" id="coverbg" />
-                  <img src="/ang/round-add.svg" alt="" />
-                </label>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery003.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery004.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery001.jpg" alt="" />
-                </a>
-              </li>
-              <li>
-                <a href="#!" className="cover-item">
-                  <img src="/ang/gallery002.jpg" alt="" />
-                </a>
-              </li>
-            </ul>
-            </div>*/}
+            
           </div>
         </div>
       </div>

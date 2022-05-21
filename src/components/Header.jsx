@@ -19,6 +19,7 @@ function Header() {
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
+  const restInited = useSelector((state) => state.rest.restInited);
 
   /*const [mMenu, setMmenu] = useState(false);*/
   const [schBar, setSchBar] = useState(false);
@@ -60,7 +61,7 @@ function Header() {
   };
 
   const goToAbout = () => {
-    navigate("/about");
+    navigate(`/${rest.name}/about`);
   };
 
   const inRestCreation = () => {
@@ -82,12 +83,12 @@ function Header() {
   };
 
   const cancelUserEdition = () => {
-    navigate("/");
+    navigate(`/${rest.name}`);
     console.log("has canecled");
   };
 
   const approveUserEdition = () => {
-    navigate("/");
+    navigate(`/${rest.name}`);
     console.log("user is approved");
   };
 
@@ -105,8 +106,8 @@ function Header() {
   return !inRestCreation() ? (
     <>
       <>
-        <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />{" "}
-        <Overlay width={`25%`} closeOverlay={showMobileMenu} />
+        {restInited && (<MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />)}{" "}
+        {restInited && (<Overlay width={`25%`} closeOverlay={showMobileMenu} />)}
       </>
 
       <Navbar

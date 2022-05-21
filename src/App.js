@@ -5,8 +5,9 @@ import Header from "./components/Header"
 import { Outlet,useNavigate,useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { initIndexRest, initUrlRest, setRestInited } from "./redux/slices/restSlice";
+import { initIndexRest, initUrlRest, setRest, setRestInited } from "./redux/slices/restSlice";
 import { getAuth } from "./redux/slices/authSlice";
+import { getRestOfOwner } from "./helpers/web";
 
 
 function App() {
@@ -16,6 +17,18 @@ function App() {
   const rest = useSelector((state) => state.rest.rest);
   const restInited = useSelector((state) => state.rest.restInited);
   const authState = useSelector((state) => state.auth.auth);
+  const authConfam = useSelector((state) => state.auth.authConfam);
+
+  const getIndex = ()=>{
+    if(rest===null){
+      dispatch(initUrlRest(resturant))
+    }
+    if(rest !== "Network Error" && rest !== null){
+      navigate(`/${rest?.name}`)
+      dispatch(setRestInited(true))
+      console.log("rest is ",rest);
+    }
+  }
 
   useEffect(()=>{
     dispatch(getAuth());
@@ -38,44 +51,61 @@ function App() {
           //get from database and set
     
           console.log("is in header",resturant);
-          if(rest===null){
-            dispatch(initUrlRest(resturant))
-          }
-          if(rest !== "Network Error" && rest !== null){
-            navigate(`/${rest?.name}`)
-            dispatch(setRestInited(true))
-            console.log("rest is ",rest);
-          }
+
+          getIndex()
     
         }else{
           console.log("is not in header");
-    
-          if(!authState){
-            //get base resturant,
-            //and redirect url there
-            console.log("is not authstate");
-            if(rest === null){
-              dispatch(initIndexRest())
+
+          if(authConfam===true){
+            if(!authState){
+              //get base resturant,
+              //and redirect url there
+              console.log("is not authstate");
+              if(rest === null){
+                dispatch(initIndexRest())
+              }
+              
+              if(rest !== "Network Error" && rest !== null){
+                navigate(`/${rest?.name}`)
+                dispatch(setRestInited(true))
+                console.log("rest is ",rest);
+              }
+              
+      
+            }if(authState){
+              console.log("is in authstate");
+              if(authState.isRestOwner){
+                console.log("is a rest owner");
+                //thisuserhasaresturnat,
+                //get it for him
+                if(rest === null){
+                  getRestOfOwner(authState.token).then((ree)=>{
+                    console.log("users resturant is",ree)
+                    dispatch(setRest(ree));
+                    navigate(`/${ree.name}`)
+                    dispatch(setRestInited(true))
+                  }).catch((eer)=>{
+                    console.log(eer);
+                  })
+                }
+              }
+              if(!authState.isRestOwner){
+                console.log("is an auth, but not a rest owner");
+                //thisdoesnothavres
+                //get the index for him
+                getIndex()
+
+              }
             }
-            
-            if(rest !== "Network Error" && rest !== null){
-              navigate(`/${rest?.name}`)
-              dispatch(setRestInited(true))
-              console.log("rest is ",rest);
-            }
-            
-    
-          }if(authState){
-            if(authState.isRestOwner){}
-            if(!authState.isRestOwner){}
           }
-    
+
         }
 
       }
 
       // eslint-disable-next-line
-  },[resturant,restInited,authState,dispatch,rest])
+  },[resturant,restInited,authState,dispatch,rest,authConfam])
   
   return rest === null ? (
     <LoadingScreen />

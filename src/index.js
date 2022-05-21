@@ -21,6 +21,7 @@ import CreateResturantLoc from "./components/createresturant/CreateResturantLoc"
 import CreateResturantYear from "./components/createresturant/CreateResturantYear";
 import CreateResturantDesc from "./components/createresturant/CreateResturantDesc";
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
+import EditUserProfile from "./views/EditUserProfile";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -47,16 +48,24 @@ root.render(
             />
 
             <Route path="/edit-rest-profile" element={<EditResturantProfile />} />
-
             <Route
-          path="/create-resturant"
-          element={
-            //<ProtectedRouteRestOwner auth={authState}>
-              //{" "}
-              <CreateResturant />
-            //</ProtectedRouteRestOwner>
-          }
-        >
+                path="/edit-user-profile"
+                element={
+                  //<ProtectedRouteRestOwner auth={authState}>
+                    //{" "}
+                    <EditUserProfile />
+                  //</ProtectedRouteRestOwner>
+                }
+              />
+            <Route
+              path="/create-resturant"
+              element={
+                //<ProtectedRouteRestOwner auth={authState}>
+                  //{" "}
+                  <CreateResturant />
+                //</ProtectedRouteRestOwner>
+              }
+            >
           <Route index element={<CreateResturant />} />
           <Route path="name" element={<CreateResturantName />} />
           <Route path="location" element={<CreateResturantLoc />} />
