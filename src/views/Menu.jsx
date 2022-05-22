@@ -237,7 +237,7 @@ function Menu() {
                         id={key}
                         ref={setRef(key)}
                         className={`${
-                          highLi === key ? "bg-highlight" : ""
+                          highLi === key && "bg-highlight" 
                         }  mb-2`}
                       >
                         <div className="row px-0 justify-content-center">
