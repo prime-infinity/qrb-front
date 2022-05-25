@@ -56,11 +56,12 @@ function ResOwnerMobMenu({ closeMenu }) {
   return (
     <>
       {authState?.isRestOwner ? (
-        <ul className="navbar-nav ml-auto">
+        <ul className="navbar-nav ml-auto" id="rest-owned">
           <li className="" onClick={goHome}>
             <span
-              className={` ${location.pathname === "/" &&
-                "text-decoration-underline"} fs-14`}
+              className={` ${
+                location.pathname === "/" && "text-decoration-underline"
+              } fs-14`}
             >
               home
             </span>
@@ -85,8 +86,11 @@ function ResOwnerMobMenu({ closeMenu }) {
           </li>
           <li className="" onClick={editMyInfo}>
             <span
-              className={` ${location.pathname === "/edit-resturant-details" &&
-                "text-decoration-underline"} fs-14`}
+              id="edit-info"
+              className={` ${
+                location.pathname === "/edit-resturant-details" &&
+                "text-decoration-underline"
+              } fs-14`}
             >
               edit my info
             </span>
@@ -95,8 +99,9 @@ function ResOwnerMobMenu({ closeMenu }) {
           </li>
           <li className="" onClick={editMyMenu}>
             <span
-              className={` ${location.pathname === "/menu" &&
-                "text-decoration-underline"} fs-14`}
+              className={` ${
+                location.pathname === "/menu" && "text-decoration-underline"
+              } fs-14`}
             >
               edit my menu
             </span>
@@ -105,7 +110,7 @@ function ResOwnerMobMenu({ closeMenu }) {
           </li>
         </ul>
       ) : (
-        <div>
+        <div id="rest-owner">
           <span className="">
             manage your resturant with{" "}
             <span className="text-decoration-underline">qrb mobile menu</span>{" "}

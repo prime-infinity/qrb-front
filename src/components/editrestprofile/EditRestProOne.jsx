@@ -64,6 +64,7 @@ function EditRestProOne() {
             value={formData.location}
             onChange={(e) => setFrom({ ...formData, location: e.target.value })}
             type="text"
+            id="rest-loc"
             placeholder={formData.location}
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
@@ -71,6 +72,7 @@ function EditRestProOne() {
             value={formData.year}
             onChange={(e) => setFrom({ ...formData, year: e.target.value })}
             type="text"
+            id="rest-yer"
             placeholder={formData.year}
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
@@ -80,6 +82,7 @@ function EditRestProOne() {
               setFrom({ ...formData, description: e.target.value })
             }
             type="text"
+            id="rest-desc"
             placeholder={
               formData.description ? formData.description : "brief description"
             }

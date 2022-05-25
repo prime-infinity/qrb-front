@@ -24,10 +24,9 @@ function EditResturantDetails() {
   const [imaUpLdErr, setImgErr] = useState(null);
 
   const [images, setImages] = React.useState([]);
-  
+
   const maxNumber = 6;
 
- 
   const uploadImages = () => {
     setImageUpPending(true);
     setImgErr(null);
@@ -58,7 +57,6 @@ function EditResturantDetails() {
       });
   };
 
-
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     //console.log(imageList/*, addUpdateIndex*/);
@@ -66,7 +64,7 @@ function EditResturantDetails() {
   };
 
   const errorDiv = <small className="text-danger">{error}</small>;
- 
+
   const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
 
   const handleErrors = (e) => {
@@ -126,6 +124,7 @@ function EditResturantDetails() {
         <div className="col-12 col-md-6 offset-md-3 px-3">
           <span className="p">
             <textarea
+              id="text-summary"
               value={summary}
               onChange={(e) => setSsummary(e.target.value)}
               className="my-4 fs-14 text-secondary py-5 form-control text-center border-dashed big-bg-theme"
@@ -144,6 +143,7 @@ function EditResturantDetails() {
 
           {isEditingSum && (
             <button
+              id="summary-update"
               onClick={submitSum}
               disabled={pending || disabled()}
               className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
@@ -309,49 +309,48 @@ function EditResturantDetails() {
             }) => (
               // write your building UI
               <div className="covers-list-wrapper">
-                
+                <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
 
-                  <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
+                {errors && (
+                  <div className="text-danger">
+                    {errors.maxNumber && (
+                      <span className="row">
+                        Number of selected images exceed {maxNumber}
+                      </span>
+                    )}
+                    {errors.acceptType && (
+                      <span className="row">
+                        Your selected file type is not allow
+                      </span>
+                    )}
+                    {errors.maxFileSize && (
+                      <span className="row">
+                        Selected file size exceed maxFileSize
+                      </span>
+                    )}
+                  </div>
+                )}
 
-                  {errors && (
-                    <div className="text-danger">
-                      {errors.maxNumber && (
-                        <span className="row">
-                          Number of selected images exceed {maxNumber}
-                        </span>
-                      )}
-                      {errors.acceptType && (
-                        <span className="row">
-                          Your selected file type is not allow
-                        </span>
-                      )}
-                      {errors.maxFileSize && (
-                        <span className="row">
-                          Selected file size exceed maxFileSize
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-
-                  <ul
-                    className="covers-list ps-0"
-                  >
-                    {images.length > 0 &&
-                      (imageUpPending ? (
-                        <li>
-                         <a href="#!" className="cover-item">
-                         <span
+                <ul className="covers-list ps-0">
+                  {images.length > 0 &&
+                    (imageUpPending ? (
+                      <li>
+                        <a href="#!" className="cover-item">
+                          <span
                             className="spinner-border spinner-border-sm"
                             role="status"
                             aria-hidden="true"
                           ></span>
-                         </a>
-                          
-                        </li>
-                      ) : (
-                        <li>
-                          <label onClick={uploadImages} className="cover-item" htmlFor="coverbg">
+                        </a>
+                      </li>
+                    ) : (
+                      <li>
+                        <label
+                          id="upload-images"
+                          onClick={uploadImages}
+                          className="cover-item"
+                          htmlFor="coverbg"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             onClick={uploadImages}
@@ -365,75 +364,71 @@ function EditResturantDetails() {
                               clipRule="evenodd"
                             />
                           </svg>{" "}
-                       
-                          </label>
-                          
-                        </li>
-                      ))}
-
-                    <li>
-
-                      <label onClick={onImageUpload} className="cover-item" htmlFor="coverbg">
-                        <img src="/ang/round-add.svg" alt="" />
-                      </label>
-                      
-                    </li>
-
-         
-                    <li>
-                      <a href="#!" className="cover-item">
-                        <img src={rest.welcomescreen} alt="" />
-                      </a>
-                    </li>
-
-                    {imageList.map((image, index) => (
-                      <li key={index} className="col-5">
-
-                        <a href="#!" className="cover-item">
-                          <img src={image["data_url"]} alt="" />
-                        </a>
-
-                        
-                        <div className="row pt-2">
-                          <div className="col-6 text-center">
-                            <svg
-                              onClick={() => onImageUpdate(index)}
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="svg-icon"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                          <div className="col-6 text-center">
-                            <span>
-                              <svg
-                                onClick={() => onImageRemove(index)}
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="svg-icon"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
+                        </label>
                       </li>
                     ))}
-                  </ul>
-                
+
+                  <li>
+                    <label
+                      onClick={onImageUpload}
+                      className="cover-item"
+                      htmlFor="coverbg"
+                    >
+                      <img src="/ang/round-add.svg" alt="" />
+                    </label>
+                  </li>
+
+                  <li>
+                    <a href="#!" className="cover-item">
+                      <img src={rest.welcomescreen} alt="" />
+                    </a>
+                  </li>
+
+                  {imageList.map((image, index) => (
+                    <li key={index} className="col-5">
+                      <a href="#!" className="cover-item">
+                        <img src={image["data_url"]} alt="" />
+                      </a>
+
+                      <div className="row pt-2">
+                        <div className="col-6 text-center">
+                          <svg
+                            onClick={() => onImageUpdate(index)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="svg-icon"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="col-6 text-center">
+                          <span>
+                            <svg
+                              onClick={() => onImageRemove(index)}
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="svg-icon"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </ImageUploading>

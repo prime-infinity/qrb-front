@@ -58,6 +58,7 @@ function EditRestProTwo() {
             value={formData.phone}
             onChange={(e) => setFrom({ ...formData, phone: e.target.value })}
             type="text"
+            id="add-phone"
             placeholder={formData.phone ? formData.phone : "phone number"}
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
@@ -65,6 +66,7 @@ function EditRestProTwo() {
             value={formData.email}
             onChange={(e) => setFrom({ ...formData, email: e.target.value })}
             type="text"
+            id="add-email"
             placeholder={formData.email ? formData.email : "email"}
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
@@ -72,6 +74,7 @@ function EditRestProTwo() {
             value={formData.website}
             onChange={(e) => setFrom({ ...formData, website: e.target.value })}
             type="text"
+            id="add-web"
             placeholder={formData.website ? formData.website : "website"}
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
@@ -80,6 +83,7 @@ function EditRestProTwo() {
             onChange={(e) => setFrom({ ...formData, address: e.target.value })}
             placeholder={formData.address ? formData.address : "address"}
             type="text"
+            id="add-addrr"
             className="my-4 fs-14 text-secondary big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
 

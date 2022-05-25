@@ -6,39 +6,46 @@ import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu,toggleSearchBar,toggleUploading,toggleView } from "../redux/slices/menuSlice";
+import {
+  toggleMenu,
+  toggleSearchBar,
+  toggleUploading,
+  toggleView,
+  initMenuSlide,
+} from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
   const location = useLocation();
   // eslint-disable-next-line
-  
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
 
-
   const searchBar = useSelector((state) => state.menu.searchBar);
 
-  const [searchTerm,setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const showMobileMenu = () => {
     //show mobile menu
     dispatch(toggleMenu());
+    !menuSlideInited && dispatch(initMenuSlide(true));
   };
 
-  const searching = (e)=>{
-    setSearchTerm(e)
-    dispatch(searchRestMenu(e))
-  }
+  const searching = (e) => {
+    setSearchTerm(e);
+    dispatch(searchRestMenu(e));
+  };
 
-  useEffect(()=>{},[])
-  
+  useEffect(() => {}, []);
+
   const goHome = () => {
     navigate(`/${rest.name}`);
   };
@@ -51,10 +58,10 @@ function Header() {
 
   const showSearch = () => {
     //setSchBar(!schBar);
-    dispatch(toggleSearchBar())
-    if(searchBar){
+    dispatch(toggleSearchBar());
+    if (searchBar) {
       console.log("search dissapted");
-      dispatch(searchDiscarded())
+      dispatch(searchDiscarded());
     }
   };
 
@@ -64,7 +71,7 @@ function Header() {
 
   const addMenuItem = () => {
     console.log("Is adding menu item,");
-    dispatch(toggleUploading(true))
+    dispatch(toggleUploading(true));
   };
 
   const toEditRestProfile = () => {
@@ -96,35 +103,45 @@ function Header() {
     dispatch(toggleView());
   };
 
-  const shldHdrBg = ()=>{
-    if(location.pathname === `/${rest.name}/menu` 
-    || location.pathname === `/${rest.name}/about`
-    || location.pathname === "/login"
-    || location.pathname === "/edit-resturant-details"
-    || location.pathname === "/edit-rest-profile"){
-     return true
+  const shldHdrBg = () => {
+    if (
+      location.pathname === `/${rest.name}/menu` ||
+      location.pathname === `/${rest.name}/about` ||
+      location.pathname === "/login" ||
+      location.pathname === "/edit-resturant-details" ||
+      location.pathname === "/edit-rest-profile"
+    ) {
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 
   return !inRestCreation() ? (
     <>
       <>
-        <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />{" "}
-        <Overlay width={`25%`} closeOverlay={showMobileMenu} />
+        {menuSlideInited && (
+          <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />
+        )}{" "}
+        {menuSlideInited && (
+          <Overlay width={`25%`} closeOverlay={showMobileMenu} />
+        )}
       </>
 
       <Navbar
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${shldHdrBg() &&  "big-bg-theme"} ${pad &&
-          "pb-5"} `}
+        className={`${shldHdrBg() && "big-bg-theme"} ${pad && "pb-5"} `}
       >
         <Container fluid className="mx-md-5 pt-2">
           <Navbar.Brand className="cur-pointer">
             <div className={`search-box ${searchBar && "active-search"} `}>
-              <input type="text" value={searchTerm} onChange={(e)=>searching(e.target.value)}  id="searchId" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => searching(e.target.value)}
+                id="searchId"
+              />
               <button className="btn-clear">
                 <svg
                   onClick={showSearch}
@@ -144,11 +161,7 @@ function Header() {
               </button>
             </div>
             <span>
-              <span
-                className="ms-1 fw-500"
-                style={{ fontSize: "22px" }}
-                
-              >
+              <span className="ms-1 fw-500" style={{ fontSize: "22px" }}>
                 {location.pathname !== `/${rest.name}` &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"
@@ -287,7 +300,11 @@ function Header() {
             )}{" "}
             {/** note */}
             {location.pathname === "/edit-resturant-details" && (
-              <span onClick={toEditRestProfile} className="px-3">
+              <span
+                onClick={toEditRestProfile}
+                id="to-edit-profile"
+                className="px-3"
+              >
                 <svg
                   width="23"
                   height="23"
@@ -387,6 +404,7 @@ function Header() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={2}
+                id="show-mobile-menu"
               >
                 <path
                   strokeLinecap="round"

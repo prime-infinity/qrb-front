@@ -4,6 +4,7 @@ export const menuSlice = createSlice({
   name: "menu",
   initialState: {
     menu: false,
+    menuSlideInited:false,
     view: false,
     pb: false,
     uploadingMenu:false,
@@ -27,6 +28,9 @@ export const menuSlice = createSlice({
     },
     toggleSearchBar:(state,action)=>{
       state.searchBar = !state.searchBar
+    },
+    initMenuSlide:(state,action)=>{
+      state.menuSlideInited = action.payload
     }
   },
 });
@@ -37,5 +41,6 @@ export const { pbFalse } = menuSlice.actions;
 export const { pbTrue } = menuSlice.actions;
 export const { toggleUploading } = menuSlice.actions;
 export const { toggleSearchBar } = menuSlice.actions;
+export const { initMenuSlide } = menuSlice.actions;
 
 export default menuSlice.reducer;

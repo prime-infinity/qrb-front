@@ -7,7 +7,7 @@ function Wrapper() {
   let navigate = useNavigate();
 
   const toAbout = () => {
-    navigate(`/${rest.name}/about`)
+    navigate(`/${rest.name}/about`);
   };
 
   // eslint-disable-next-line
@@ -17,7 +17,7 @@ function Wrapper() {
 
   return (
     <>
-      <video className="videoBg " autoPlay playsInline loop muted>
+      <video className="videoBg" autoPlay playsInline loop muted>
         <source src={`/videos/vdd.mp4`} type="video/mp4" />
       </video>
       <div className="bg-wrapper">
@@ -49,6 +49,7 @@ function Wrapper() {
               <div className="col-6 ps-3 pe-bt">
                 <button
                   onClick={toAbout}
+                  id="to-about"
                   className="btn btn-solid w-100 bg-them text-white fw-bold"
                 >
                   info
@@ -56,7 +57,10 @@ function Wrapper() {
               </div>
               <div className="col-6 pe-3 ps-bt">
                 <Link to={`/${rest.name}/menu`}>
-                  <button className="btn btn-solid w-100 bg-white fw-bold">
+                  <button
+                    id="to-menu"
+                    className="btn btn-solid w-100 bg-white fw-bold"
+                  >
                     menu
                   </button>{" "}
                 </Link>

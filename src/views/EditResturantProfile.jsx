@@ -24,6 +24,7 @@ function EditResturantProfile() {
               <span className="fs-14 ">active</span>
             </div>
             <div
+              id="second-set"
               onClick={() => setState(1)}
               className={`${
                 actionState === 1 ? "bor-btm-black" : ""
@@ -31,7 +32,6 @@ function EditResturantProfile() {
             >
               <span className="fs-14 ">inactive</span>
             </div>
-            
           </div>
         </div>
         {/**state buttons */}

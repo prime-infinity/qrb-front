@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate/*,useParams*/ } from "react-router-dom";
+import { useLocation, useNavigate /*,useParams*/ } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
@@ -36,7 +36,7 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const toAbout = () => {
     closeMenu();
-    navigate(`/${rest.name}/about`)
+    navigate(`/${rest.name}/about`);
   };
 
   const logout = () => {
@@ -81,8 +81,9 @@ function MobileMenu({ goMenu, closeMenu }) {
               <ul className="navbar-nav ml-auto">
                 <li className="" onClick={goHome}>
                   <span
-                    className={` ${location.pathname === "/" &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === "/" && "text-decoration-underline"
+                    } fs-14`}
                   >
                     home
                   </span>
@@ -108,8 +109,10 @@ function MobileMenu({ goMenu, closeMenu }) {
 
                 <li className="" onClick={toAbout}>
                   <span
-                    className={` ${location.pathname === "/about" &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === "/about" &&
+                      "text-decoration-underline"
+                    } fs-14`}
                   >
                     info
                   </span>
@@ -150,8 +153,10 @@ function MobileMenu({ goMenu, closeMenu }) {
                 )}
                 <li className="" onClick={goMenu}>
                   <span
-                    className={` ${location.pathname === "/menu" &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === "/menu" &&
+                      "text-decoration-underline"
+                    } fs-14`}
                   >
                     menu
                   </span>
@@ -194,7 +199,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 className="navbar-nav ml-auto"
                 style={{ position: "relative" }}
               >
-                <li className="" onClick={goLogin}>
+                <li id="to-login" onClick={goLogin}>
                   {authState ? (
                     <span>{authState.field}</span>
                   ) : (
