@@ -164,7 +164,7 @@ function Header() {
                     ? null
                     : location.pathname === "/edit-user-profile"
                     ? null
-                    : rest?.name && rest.name)}
+                    : null)}
               </span>
             </span>
             {location.pathname !== `/${rest.name}` && (

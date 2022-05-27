@@ -115,46 +115,6 @@ function EditRestProOne() {
                 </div>
               </a>
             </li>
-            <li>
-              <a href="#!" className="cover-item">
-                <div id="videowrapper">
-                  <div id="fullScreenDiv">
-                    <video
-                      id="video"
-                      role="presentation"
-                      preload="auto"
-                      playsInline
-                      crossOrigin="anonymous"
-                      loop
-                      muted
-                      autoPlay
-                    >
-                      <source src={`/videos/vdd.mp4`} type="video/mp4" />
-                    </video>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#!" className="cover-item">
-                <div id="videowrapper">
-                  <div id="fullScreenDiv">
-                    <video
-                      id="video"
-                      role="presentation"
-                      preload="auto"
-                      playsInline
-                      crossOrigin="anonymous"
-                      loop
-                      muted
-                      autoPlay
-                    >
-                      <source src={`/videos/vdd.mp4`} type="video/mp4" />
-                    </video>
-                  </div>
-                </div>
-              </a>
-            </li>
           </ul>
         </div>
         <div className="col-12">
