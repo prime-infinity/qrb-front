@@ -5,10 +5,8 @@ import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
 import { createRestFinal } from "../../helpers/web";
 import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
-import {
-  incrementCreationState
-} from "../../redux/slices/createRestSlice";
-import { setRest } from "../../redux/slices/restSlice"
+import { incrementCreationState } from "../../redux/slices/createRestSlice";
+import { setRest } from "../../redux/slices/restSlice";
 
 function CreateResturantWel() {
   let navigate = useNavigate();
@@ -39,7 +37,7 @@ function CreateResturantWel() {
     dispatch(setIsResOwner(true));
     dispatch(saveAuthToLocal());
     setTimeout(() => {
-      navigate("/");
+      navigate(`/${e.name}`);
     }, 2000);
   };
 
