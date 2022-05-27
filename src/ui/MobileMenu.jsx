@@ -39,12 +39,12 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const toAbout = () => {
     closeMenu();
-    navigate(`/${rest.name}/about`);
+    navigate(`/${rest.url}/about`);
   };
 
   const goHome = () => {
     closeMenu();
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
   };
 
   const cancelBt = () => {
@@ -185,8 +185,10 @@ function MobileMenu({ goMenu, closeMenu }) {
               <ul className="navbar-nav ml-auto">
                 <li className="" onClick={goHome}>
                   <span
-                    className={` ${location.pathname === `/${rest.name}` &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === `/${rest.name}` &&
+                      "text-decoration-underline"
+                    } fs-14`}
                   >
                     home
                   </span>
@@ -212,8 +214,10 @@ function MobileMenu({ goMenu, closeMenu }) {
 
                 <li className="py-3" onClick={toAbout}>
                   <span
-                    className={` ${location.pathname === `/${rest.name}/about` &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === `/${rest.name}/about` &&
+                      "text-decoration-underline"
+                    } fs-14`}
                   >
                     info
                   </span>
@@ -234,8 +238,10 @@ function MobileMenu({ goMenu, closeMenu }) {
 
                 <li className="" onClick={goMenu}>
                   <span
-                    className={` ${location.pathname === `/${rest.name}/menu` &&
-                      "text-decoration-underline"} fs-14`}
+                    className={` ${
+                      location.pathname === `/${rest.name}/menu` &&
+                      "text-decoration-underline"
+                    } fs-14`}
                   >
                     menu
                   </span>
@@ -266,9 +272,10 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <li className="" onClick={goLogin}>
                       {authState ? (
                         <span
-                          className={` ${location.pathname ===
-                            "/edit-user-profile" &&
-                            "text-decoration-underline"} fs-14`}
+                          className={` ${
+                            location.pathname === "/edit-user-profile" &&
+                            "text-decoration-underline"
+                          } fs-14`}
                         >
                           {authState.field}
                         </span>

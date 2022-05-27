@@ -5,6 +5,7 @@ import LongTextSvg from "./LongTextSvg";
 function ResOwnerMobMenu({ closeMenu }) {
   const location = useLocation();
   const authState = useSelector((state) => state.auth.auth);
+  const rest = useSelector((state) => state.rest.rest);
   let navigate = useNavigate();
   const resOwnerGetStarted = () => {
     closeMenu();
@@ -23,11 +24,11 @@ function ResOwnerMobMenu({ closeMenu }) {
   const editMyMenu = () => {
     //console.log("is editing menu");
     closeMenu();
-    navigate("/menu");
+    navigate(`/${rest.url}/menu`);
   };
   const goHome = () => {
     closeMenu();
-    navigate("/");
+    navigate(`/${rest.url}/`);
   };
   return (
     <>
@@ -35,8 +36,9 @@ function ResOwnerMobMenu({ closeMenu }) {
         <ul className="navbar-nav ml-auto">
           <li className="" onClick={goHome}>
             <span
-              className={` ${location.pathname === "/" &&
-                "text-decoration-underline"} fs-14`}
+              className={` ${
+                location.pathname === "/" && "text-decoration-underline"
+              } fs-14`}
             >
               home
             </span>
@@ -61,8 +63,10 @@ function ResOwnerMobMenu({ closeMenu }) {
           </li>
           <li className="py-3" onClick={editMyInfo}>
             <span
-              className={` ${location.pathname === "/edit-resturant-details" &&
-                "text-decoration-underline"} fs-14`}
+              className={` ${
+                location.pathname === "/edit-resturant-details" &&
+                "text-decoration-underline"
+              } fs-14`}
             >
               edit my info
             </span>
@@ -83,8 +87,9 @@ function ResOwnerMobMenu({ closeMenu }) {
           </li>
           <li className="" onClick={editMyMenu}>
             <span
-              className={` ${location.pathname === "/menu" &&
-                "text-decoration-underline"} fs-14`}
+              className={` ${
+                location.pathname === "/menu" && "text-decoration-underline"
+              } fs-14`}
             >
               edit my menu
             </span>

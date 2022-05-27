@@ -1,15 +1,16 @@
 import { removeFromLocal } from "../helpers/storage";
 import { setAuth } from "../redux/slices/authSlice";
-import { /*useSelector, */ useDispatch } from "react-redux";
-//import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function EditUserProfile() {
+  const rest = useSelector((state) => state.rest.rest);
   const dispatch = useDispatch();
-  //const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
     dispatch(setAuth(null));
     removeFromLocal();
-    //navigate("/")
+    navigate(`/${rest.name}`);
   };
 
   return (

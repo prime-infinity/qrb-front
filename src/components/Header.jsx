@@ -6,8 +6,11 @@ import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleMenu } from "../redux/slices/menuSlice";
-import { toggleView } from "../redux/slices/menuSlice";
+import {
+  toggleMenu,
+  toggleView,
+  initMenuSlide,
+} from "../redux/slices/menuSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -16,10 +19,10 @@ function Header() {
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
-  const restInited = useSelector((state) => state.rest.restInited);
 
   /*const [mMenu, setMmenu] = useState(false);*/
   const [schBar, setSchBar] = useState(false);
@@ -27,16 +30,17 @@ function Header() {
   const showMobileMenu = () => {
     //show mobile menu
     dispatch(toggleMenu());
+    !menuSlideInited && dispatch(initMenuSlide(true));
   };
 
   const goHome = () => {
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
   };
 
   const goMenu = () => {
     //setMmenu(!mMenu);
     showMobileMenu();
-    navigate(`${rest.name}/menu`);
+    navigate(`${rest.url}/menu`);
   };
 
   const showSearch = () => {
@@ -61,7 +65,7 @@ function Header() {
   };
 
   const goToAbout = () => {
-    navigate(`/${rest.name}/about`);
+    navigate(`/${rest.url}/about`);
   };
 
   const inRestCreation = () => {
@@ -83,39 +87,44 @@ function Header() {
   };
 
   const cancelUserEdition = () => {
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
     console.log("has canecled");
   };
 
   const approveUserEdition = () => {
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
     console.log("user is approved");
   };
 
-  const shldHdrBg = ()=>{
-    if(location.pathname === `/${rest.name}/menu` 
-    || location.pathname === `/${rest.name}/about`
-    || location.pathname === "/login"
-    || location.pathname === "/edit-resturant-details"
-    || location.pathname === "/edit-rest-profile"){
-     return true
+  const shldHdrBg = () => {
+    if (
+      location.pathname === `/${rest.name}/menu` ||
+      location.pathname === `/${rest.name}/about` ||
+      location.pathname === "/login" ||
+      location.pathname === "/edit-resturant-details" ||
+      location.pathname === "/edit-rest-profile"
+    ) {
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 
   return !inRestCreation() ? (
     <>
       <>
-        {restInited && (<MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />)}{" "}
-        {restInited && (<Overlay width={`25%`} closeOverlay={showMobileMenu} />)}
+        {menuSlideInited && (
+          <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />
+        )}{" "}
+        {menuSlideInited && (
+          <Overlay width={`25%`} closeOverlay={showMobileMenu} />
+        )}
       </>
 
       <Navbar
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${shldHdrBg() && "big-bg-theme"} ${pad &&
-          "pb-5"} `}
+        className={`${shldHdrBg() && "big-bg-theme"} ${pad && "pb-5"} `}
       >
         <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer py-0">

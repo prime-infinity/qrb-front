@@ -4,6 +4,7 @@ export const menuSlice = createSlice({
   name: "menu",
   initialState: {
     menu: false,
+    menuSlideInited: false,
     view: false,
     pb: false,
   },
@@ -20,6 +21,9 @@ export const menuSlice = createSlice({
     pbTrue: (state, action) => {
       state.pb = true;
     },
+    initMenuSlide: (state, action) => {
+      state.menuSlideInited = action.payload;
+    },
   },
 });
 
@@ -27,6 +31,7 @@ export const { toggleMenu } = menuSlice.actions;
 export const { toggleView } = menuSlice.actions;
 export const { pbFalse } = menuSlice.actions;
 export const { pbTrue } = menuSlice.actions;
+export const { initMenuSlide } = menuSlice.actions;
 
 export default menuSlice.reducer;
 

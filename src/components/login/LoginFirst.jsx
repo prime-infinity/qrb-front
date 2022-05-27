@@ -22,33 +22,6 @@ function LoginFirst({ firstPending, disableButton, procedToSecond }) {
           {!firstPending && <span>continue</span>}
         </button>
       </div>
-
-      <div className="col-8 offset-2 mt-5 text-center">
-        <hr />
-        <span className="text-secondary fs-14">or continue with</span>
-
-        <div className="row justify-content-center mt-5">
-          <div
-            className="col-2 border box-shadow"
-            style={{ position: "relative" }}
-          >
-            <div className="">
-              <img src="icons/google.png" className="to-center" alt="" />
-            </div>
-          </div>
-          <div
-            className="col-8 border fs-14 border-dark py-2 text-white"
-            style={{ backgroundColor: "#4285f4" }}
-          >
-            Log in with Google
-          </div>
-
-          {/**facebook icon */}
-          <div className="col-12 mt-4">
-            <img src="icons/facebooksign.png" alt="" />
-          </div>
-        </div>
-      </div>
     </>
   );
 }

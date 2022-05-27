@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://youngback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://youngback.herokuapp.com/api/";
 
 
 export async function getIndexRest() {
