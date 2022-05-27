@@ -46,12 +46,12 @@ function ResOwnerMobMenu({ closeMenu }) {
 
   const editMyMenu = () => {
     closeMenu();
-    navigate(`/${rest.name}/menu`);
+    navigate(`/${rest.url}/menu`);
     console.log("is editing menu");
   };
   const goHome = () => {
     closeMenu();
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
   };
   return (
     <>
@@ -60,7 +60,8 @@ function ResOwnerMobMenu({ closeMenu }) {
           <li className="" onClick={goHome}>
             <span
               className={` ${
-                location.pathname === "/" && "text-decoration-underline"
+                location.pathname === `/${rest.url}` &&
+                "text-decoration-underline"
               } fs-14`}
             >
               home

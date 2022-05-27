@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginSecond,getRestOfOwner } from "../../helpers/web";
+import { loginSecond, getRestOfOwner } from "../../helpers/web";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import { setAuth, saveAuthToLocal } from "../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
-import { setRest } from "../../redux/slices/restSlice"
+import { setRest } from "../../redux/slices/restSlice";
 
 function LoginSecond({ resend, field }) {
   let navigate = useNavigate();
@@ -31,26 +31,26 @@ function LoginSecond({ resend, field }) {
 
         /**
          * here, if user.isRestOwner,
-         * get the resturant, set the resturant 
+         * get the resturant, set the resturant
          * state to the gotten one of the user. else,
          * navigate to the point of resturant creation
          */
 
-          if(res.isRestOwner===true){
-            console.log("user has resutnat")
-            getRestOfOwner(res.token).then((ree)=>{
-              console.log("users resturant is",ree)
+        if (res.isRestOwner === true) {
+          console.log("user has resutnat");
+          getRestOfOwner(res.token)
+            .then((ree) => {
+              console.log("users resturant is", ree);
               dispatch(setRest(ree));
-              navigate(`/${ree.name}`)
-            }).catch((eer)=>{
-              console.log(eer);
+              navigate(`/${ree.url}`);
             })
-
-          }else{
-            console.log("user not resturant")
-            navigate("/create-resturant/name")
-          }
-
+            .catch((eer) => {
+              console.log(eer);
+            });
+        } else {
+          console.log("user not resturant");
+          navigate("/create-resturant/name");
+        }
       })
       .catch((err) => {
         setPending(false);

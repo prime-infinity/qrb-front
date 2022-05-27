@@ -47,13 +47,13 @@ function Header() {
   useEffect(() => {}, []);
 
   const goHome = () => {
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
   };
 
   const goMenu = () => {
     //setMmenu(!mMenu);
     dispatch(toggleMenu());
-    navigate(`/${rest.name}/menu`);
+    navigate(`/${rest.url}/menu`);
   };
 
   const showSearch = () => {
@@ -83,7 +83,7 @@ function Header() {
   };
 
   const goToAbout = () => {
-    navigate("/about");
+    navigate(`/${rest.url}/about`);
   };
 
   const inRestCreation = () => {
@@ -161,7 +161,11 @@ function Header() {
               </button>
             </div>
             <span>
-              <span className="ms-1 fw-500" style={{ fontSize: "22px" }}>
+              <span
+                onClick={goHome}
+                className="ms-1 fw-500"
+                style={{ fontSize: "22px" }}
+              >
                 {location.pathname !== `/${rest.name}` &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"

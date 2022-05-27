@@ -36,16 +36,17 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const toAbout = () => {
     closeMenu();
-    navigate(`/${rest.name}/about`);
+    navigate(`/${rest.url}/about`);
   };
 
   const logout = () => {
     dispatch(setAuth(null));
     removeFromLocal();
+    window.location.reload();
   };
   const goHome = () => {
     closeMenu();
-    navigate(`/${rest.name}`);
+    navigate(`/${rest.url}`);
   };
 
   return (
@@ -82,7 +83,8 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goHome}>
                   <span
                     className={` ${
-                      location.pathname === "/" && "text-decoration-underline"
+                      location.pathname === `/${rest.url}` &&
+                      "text-decoration-underline"
                     } fs-14`}
                   >
                     home
@@ -110,7 +112,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={toAbout}>
                   <span
                     className={` ${
-                      location.pathname === "/about" &&
+                      location.pathname === `/${rest.url}/about` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >
@@ -154,7 +156,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goMenu}>
                   <span
                     className={` ${
-                      location.pathname === "/menu" &&
+                      location.pathname === `/${rest.url}/menu` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >

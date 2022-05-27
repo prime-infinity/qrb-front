@@ -37,7 +37,7 @@ function CreateResturantWel() {
     dispatch(setIsResOwner(true));
     dispatch(saveAuthToLocal());
     setTimeout(() => {
-      navigate(`/${e.name}`);
+      navigate(`/${e.url}`);
     }, 2000);
   };
 
@@ -80,10 +80,7 @@ function CreateResturantWel() {
   return done ? (
     <DoneCreatRest />
   ) : (
-    <div
-      className="container-fluid pt-5 big-bg-theme"
-      style={{ minHeight: "100vh" }}
-    >
+    <div className="container-fluid pt-5 big-bg-theme mw-100">
       <div className="row px-2 pt-5">
         <div className="col-1 pt-1">5.</div>
         <div className="col-10">
@@ -95,7 +92,7 @@ function CreateResturantWel() {
                 className="col-6 offset-3 text-center border-dashed my-5"
                 style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
                 onClick={() => {
-                  selectFile({ accept: ".jpg, .jpeg" });
+                  selectFile({ accept: "video/mp4" });
                 }}
               >
                 <span>
@@ -117,15 +114,38 @@ function CreateResturantWel() {
               </div>
             )}
             {file && (
-              <div className="col-6 offset-3 my-4">
-                <img
-                  onClick={() => {
-                    selectFile({ accept: ".jpg, .jpeg" });
-                  }}
-                  src={file.source}
-                  alt={file.name}
-                  className="img-fluid"
-                />
+              <div className="col-10 offset-1 my-4">
+                <div className="covers-list-wrapper">
+                  <ul
+                    className="covers-list"
+                    style={{ justifyContent: "space-evenly" }}
+                  >
+                    <li
+                      onClick={() => {
+                        selectFile({ accept: "video/mp4" });
+                      }}
+                    >
+                      <a href="#!" className="cover-item">
+                        <div id="videowrapper">
+                          <div id="fullScreenDiv">
+                            <video
+                              id="video"
+                              role="presentation"
+                              preload="auto"
+                              playsInline
+                              crossOrigin="anonymous"
+                              loop
+                              muted
+                              autoPlay
+                            >
+                              <source src={file.source} type="video/mp4" />
+                            </video>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             )}
           </div>
@@ -146,12 +166,14 @@ function CreateResturantWel() {
             )}
             {!pending && <span>next</span>}
           </button>
-          <button
-            onClick={skip}
-            className="btn py-3 my-3 w-100 text-decoration-underline q-font-weight-bold"
-          >
-            skip
-          </button>
+          {!file && (
+            <button
+              onClick={skip}
+              className="btn py-3 my-3 w-100 text-decoration-underline q-font-weight-bold"
+            >
+              skip
+            </button>
+          )}
         </div>
         <div className="col-11" style={{ position: "absolute", bottom: "3%" }}>
           <span>

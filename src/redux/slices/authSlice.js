@@ -5,14 +5,14 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     auth: null,
-    hasInited:false,
+    authConfam: false,
   },
   reducers: {
     setAuth: (state, action) => {
       state.auth = action.payload;
     },
-    setHasIntited:(state,action)=>{
-      state.hasInited = action.payload
+    setAuthConfam: (state, action) => {
+      state.authConfam = action.payload;
     },
     setIsResOwner: (state, action) => {
       state.auth = { ...state.auth, isRestOwner: action.payload };
@@ -22,13 +22,12 @@ export const authSlice = createSlice({
 
 export const { setAuth } = authSlice.actions;
 export const { setIsResOwner } = authSlice.actions;
-export const { setHasIntited } = authSlice.actions;
-
+export const { setAuthConfam } = authSlice.actions;
 
 export const getAuth = () => async (dispatch) => {
   const dataFromGet = await loadFromLocal();
   dispatch(setAuth(dataFromGet));
-  dispatch(setHasIntited(true))
+  dispatch(setAuthConfam(true));
   console.log("is getting auth");
 };
 

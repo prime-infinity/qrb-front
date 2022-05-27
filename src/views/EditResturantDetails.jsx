@@ -380,7 +380,21 @@ function EditResturantDetails() {
 
                   <li>
                     <a href="#!" className="cover-item">
-                      <img src={rest.welcomescreen} alt="" />
+                      <div id="videowrapper">
+                        <div id="fullScreenDiv">
+                          <video
+                            id="video"
+                            role="presentation"
+                            preload="auto"
+                            playsInline
+                            loop
+                            muted
+                            autoPlay
+                          >
+                            <source src={rest.welcomescreen} type="video/mp4" />
+                          </video>
+                        </div>
+                      </div>
                     </a>
                   </li>
 

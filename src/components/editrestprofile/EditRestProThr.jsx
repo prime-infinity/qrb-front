@@ -1,10 +1,10 @@
 import { useState } from "react";
 import TimePicker from "react-time-picker";
-import { useDispatch } from "react-redux";
-import { setRestTimes } from "../../redux/slices/restSlice";
+//import { useDispatch } from "react-redux";
+//import { setRestTimes } from "../../redux/slices/restSlice";
 
 function EditRestProThr() {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const days = [
     { s: "M", h: "mon", o: 1 },
     { s: "T", h: "tue", o: 2 },
@@ -172,7 +172,7 @@ function EditRestProThr() {
     setDates(newDate);
   };
   const update = () => {
-    dispatch(setRestTimes(dates));
+    //dispatch(setRestTimes(dates));
     setIsUpdated(true);
   };
   return (
@@ -266,11 +266,10 @@ function EditRestProThr() {
                           onClick={() =>
                             selectDay(dates.indexOf(date), day.h, day.o)
                           }
-                          className={`${isDaySelectd(
-                            date.selectedDays,
-                            day.o
-                          ) &&
-                            "date-selected"} fw-bold border rounded-circle py-2`}
+                          className={`${
+                            isDaySelectd(date.selectedDays, day.o) &&
+                            "date-selected"
+                          } fw-bold border rounded-circle py-2`}
                         >
                           {day.s}
                         </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://qrbback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://qrbback.herokuapp.com/api/";
 
 export function loginFirst(data) {
   return new Promise((res, rej) => {
@@ -28,7 +28,6 @@ export function loginSecond(data) {
       });
   });
 }
-
 
 //the process of resturant creation
 export function createRestName(data, token) {
@@ -252,4 +251,22 @@ export function deleteMenuItemBack(data, token) {
         rej(err);
       });
   });
+}
+
+export async function getUrlRest(restUrl) {
+  try {
+    const { data } = await axios.get(backendHost + `resturant/${restUrl}`);
+    return data;
+  } catch (e) {
+    return e.message;
+  }
+}
+
+export async function getIndexRest() {
+  try {
+    const { data } = await axios.get(backendHost + "resturant/index");
+    return data;
+  } catch (e) {
+    return e.message;
+  }
 }

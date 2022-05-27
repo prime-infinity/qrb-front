@@ -18,7 +18,7 @@ function Wrapper() {
   return (
     <>
       <video className="videoBg" autoPlay playsInline loop muted>
-        <source src={`/videos/vdd.mp4`} type="video/mp4" />
+        <source src={rest.welcomescreen} type="video/mp4" />
       </video>
       <div className="bg-wrapper">
         <div className="row justify-content-center justify-content-md-start">
