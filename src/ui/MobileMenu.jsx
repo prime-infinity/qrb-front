@@ -186,7 +186,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goHome}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.name}` &&
+                      location.pathname === `/${rest.url}` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >
@@ -215,7 +215,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="py-3" onClick={toAbout}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.name}/about` &&
+                      location.pathname === `/${rest.url}/about` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >
@@ -239,7 +239,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goMenu}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.name}/menu` &&
+                      location.pathname === `/${rest.url}/menu` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >

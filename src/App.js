@@ -27,7 +27,7 @@ function App() {
       dispatch(initUrlRest(resturant));
     }
     if (rest !== "Network Error" && rest !== null) {
-      navigate(`/${rest?.name}`);
+      navigate(`/${rest?.url}`);
       dispatch(setRestInited(true));
       console.log("rest is ", rest);
     }
@@ -39,7 +39,7 @@ function App() {
     }
 
     if (rest !== "Network Error" && rest !== null) {
-      navigate(`/${rest?.name}`);
+      navigate(`/${rest?.url}`);
       dispatch(setRestInited(true));
       console.log("rest is ", rest);
     }
@@ -88,7 +88,7 @@ function App() {
                   .then((ree) => {
                     console.log("users resturant is", ree);
                     dispatch(setRest(ree));
-                    navigate(`/${ree.name}`);
+                    navigate(`/${ree.url}`);
                     dispatch(setRestInited(true));
                   })
                   .catch((eer) => {
