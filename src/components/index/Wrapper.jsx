@@ -7,7 +7,7 @@ function Wrapper() {
   let navigate = useNavigate();
 
   const toAbout = () => {
-    navigate(`/${rest.name}/about`);
+    navigate(`/${rest.url}/about`);
   };
 
   // eslint-disable-next-line
@@ -29,7 +29,15 @@ function Wrapper() {
       <video className="videoBg" autoPlay loop playsInline muted>
         <source src={rest.welcomescreen} type="video/mp4" />
       </video>
-      <div className="bg-wrapper" style={{backgroundColor:!rest.welcomescreen && "#979191",height:!rest.welcomescreen &&"100vh",bottom:!rest.welcomescreen &&"0",paddingTop:!rest.welcomescreen &&"70vh"}}>
+      <div
+        className="bg-wrapper"
+        style={{
+          backgroundColor: !rest.welcomescreen && "#979191",
+          height: !rest.welcomescreen && "100vh",
+          bottom: !rest.welcomescreen && "0",
+          paddingTop: !rest.welcomescreen && "70vh",
+        }}
+      >
         <div className="row justify-content-center justify-content-md-start">
           <div className="col-11 col-md-6 text-white">
             <div className="px-3">
@@ -44,7 +52,6 @@ function Wrapper() {
                   <h6>{rest.year}</h6>
                 </li>
               </ul>
-             
               <div className="row">
                 <div className="col-12">
                   <span className="fs-14" style={{ fontWeight: "500" }}>
@@ -65,7 +72,7 @@ function Wrapper() {
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">
-                <Link to={`/${rest.name}/menu`}>
+                <Link to={`/${rest.url}/menu`}>
                   <button className="btn btn-solid w-100 bg-white">menu</button>{" "}
                 </Link>
               </div>

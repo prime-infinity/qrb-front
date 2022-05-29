@@ -84,6 +84,9 @@ function MobileMenu({ goMenu, closeMenu }) {
     closeMenu();
     navigate("/edit-rest-profile");
   };
+  const properUrl = (url) => {
+    return url.replace("%20", " ");
+  };
 
   return (
     <>
@@ -186,7 +189,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goHome}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.url}` &&
+                      properUrl(location.pathname) === `/${rest.url}` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >
@@ -215,7 +218,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="py-3" onClick={toAbout}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.url}/about` &&
+                      properUrl(location.pathname) === `/${rest.url}/about` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >
@@ -239,7 +242,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goMenu}>
                   <span
                     className={` ${
-                      location.pathname === `/${rest.url}/menu` &&
+                      properUrl(location.pathname) === `/${rest.url}/menu` &&
                       "text-decoration-underline"
                     } fs-14`}
                   >

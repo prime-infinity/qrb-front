@@ -1,6 +1,5 @@
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { useState } from "react";
 import MobileMenu from "../ui/MobileMenu";
 import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +9,12 @@ import {
   toggleMenu,
   toggleView,
   initMenuSlide,
+  toggleSearchBar,
+  // eslint-disable-next-line
+  toggleUploading,
 } from "../redux/slices/menuSlice";
+// eslint-disable-next-line
+import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -23,9 +27,7 @@ function Header() {
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
-
-  /*const [mMenu, setMmenu] = useState(false);*/
-  const [schBar, setSchBar] = useState(false);
+  const searchBar = useSelector((state) => state.menu.searchBar);
 
   const showMobileMenu = () => {
     //show mobile menu
@@ -39,12 +41,15 @@ function Header() {
 
   const goMenu = () => {
     //setMmenu(!mMenu);
-    showMobileMenu();
+    //showMobileMenu();
     navigate(`${rest.url}/menu`);
   };
 
   const showSearch = () => {
-    setSchBar(!schBar);
+    dispatch(toggleSearchBar());
+    if (searchBar) {
+      dispatch(searchDiscarded());
+    }
   };
 
   const goToAddMenu = () => {
@@ -96,10 +101,14 @@ function Header() {
     console.log("user is approved");
   };
 
+  const properUrl = (url) => {
+    return url.replace("%20", " ");
+  };
+
   const shldHdrBg = () => {
     if (
-      location.pathname === `/${rest.name}/menu` ||
-      location.pathname === `/${rest.name}/about` ||
+      properUrl(location.pathname) === `/${rest.url}/menu` ||
+      properUrl(location.pathname) === `/${rest.url}/about` ||
       location.pathname === "/login" ||
       location.pathname === "/edit-resturant-details" ||
       location.pathname === "/edit-rest-profile"
@@ -128,7 +137,7 @@ function Header() {
       >
         <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer py-0">
-            <div className={`search-box ${schBar && "active-search"} `}>
+            <div className={`search-box ${searchBar && "active-search"} `}>
               <input type="text" name="search" id="searchId" />
               <button className="btn-clear">
                 <svg
@@ -154,7 +163,7 @@ function Header() {
                 style={{ fontSize: "22px" }}
                 onClick={goHome}
               >
-                {location.pathname !== `/${rest.name}` &&
+                {properUrl(location.pathname) !== `/${rest.url}` &&
                   (location.pathname === "/add-item" ||
                   location.pathname === "/view-item"
                     ? null
@@ -164,10 +173,10 @@ function Header() {
                     ? null
                     : location.pathname === "/edit-user-profile"
                     ? null
-                    : null)}
+                    : rest?.name && rest.name)}
               </span>
             </span>
-            {location.pathname !== `/${rest.name}` && (
+            {properUrl(location.pathname) !== `/${rest.url}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
                 location.pathname === "/view-item" ? (
@@ -227,11 +236,9 @@ function Header() {
                 ) : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
-                    <span className="ms-3 fs-18" onClick={goMenu}>
-                      add item
-                    </span>
+                    <span className="ms-3 fs-18">add item</span>
                   ) : location.pathname === "/view-item" ? (
-                    <span className="ms-3 q-font-weight-bold" onClick={goMenu}>
+                    <span className="ms-3 q-font-weight-bold">
                       kalua pig meat
                     </span>
                   ) : location.pathname === "/login" ? (
@@ -249,9 +256,9 @@ function Header() {
             )}
           </Navbar.Brand>
           <span className="" style={{ zIndex: "3" }}>
-            {location.pathname === `/${rest.name}/menu` && (
+            {properUrl(location.pathname) === `/${rest.url}/menu` && (
               <>
-                {authState?.isRestOwner && (
+                {authState && authState?._id === rest.user && (
                   <span onClick={goToAddMenu} className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -267,34 +274,36 @@ function Header() {
                     </svg>
                   </span>
                 )}
-                <span onClick={changeView} className="ps-3">
-                  {viewMode ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: "26px" }}
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: "26px" }}
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
-                </span>
+                {rest.menu.length > 0 && (
+                  <span onClick={changeView} className="ps-3">
+                    {viewMode ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ width: "26px" }}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ width: "26px" }}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </span>
+                )}
               </>
             )}
-            {location.pathname === `/${rest.name}/menu` && (
+            {properUrl(location.pathname) === `/${rest.url}/menu` && (
               <span onClick={showSearch} className="px-3">
                 <svg
                   width="18"

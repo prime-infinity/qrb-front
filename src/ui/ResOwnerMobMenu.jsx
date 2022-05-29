@@ -28,7 +28,10 @@ function ResOwnerMobMenu({ closeMenu }) {
   };
   const goHome = () => {
     closeMenu();
-    navigate(`/${rest.url}/`);
+    navigate(`/${rest.url}`);
+  };
+  const properUrl = (url) => {
+    return url.replace("%20", " ");
   };
   return (
     <>
@@ -37,7 +40,8 @@ function ResOwnerMobMenu({ closeMenu }) {
           <li className="" onClick={goHome}>
             <span
               className={` ${
-                location.pathname === "/" && "text-decoration-underline"
+                properUrl(location.pathname) === `/${rest.url}` &&
+                "text-decoration-underline"
               } fs-14`}
             >
               home
@@ -88,7 +92,8 @@ function ResOwnerMobMenu({ closeMenu }) {
           <li className="" onClick={editMyMenu}>
             <span
               className={` ${
-                location.pathname === "/menu" && "text-decoration-underline"
+                properUrl(location.pathname) === `/${rest.url}/menu` &&
+                "text-decoration-underline"
               } fs-14`}
             >
               edit my menu
