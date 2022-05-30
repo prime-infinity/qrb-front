@@ -59,7 +59,7 @@ function CustomToggle({ eventKey, callback, item }) {
               </h4>
 
               <span className="price">
-                {viewMode && (
+                {viewMode && item?.status === "1" && (
                   <span className="me-2">
                     <svg
                       className=""
@@ -74,7 +74,9 @@ function CustomToggle({ eventKey, callback, item }) {
                         clipRule="evenodd"
                       />
                     </svg>{" "}
-                    <span className="fs-14">soldout</span>
+                    <span className="fs-14">
+                      {item?.status === "1" && "sold out"}
+                    </span>
                   </span>
                 )}
                 ${item.price}
