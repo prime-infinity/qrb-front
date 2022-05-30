@@ -1,24 +1,160 @@
+import React, { useEffect } from "react";
 import { useState } from "react";
-import AddCustomiModal from "../ui/AddCustomiModal";
-import Overlay from "../ui/Overlay";
+import Select from "react-select";
+import ImageUploading from "react-images-uploading";
+import { useSelector, useDispatch } from "react-redux";
+import { addMenuItem } from "../helpers/web";
+import { toggleUploading } from "../redux/slices/menuSlice";
+import { setRest } from "../redux/slices/restSlice";
+import { useNavigate } from "react-router-dom";
+
+const menuOptions = [
+  {
+    value: "drinks",
+    label: "drinks",
+    id: 1,
+    data: [
+      { id: 1, value: "coffee", label: "coffee", title: "coffee" },
+      { id: 2, value: "Juice", label: "Juice", title: "Juice" },
+      { id: 3, value: "Tea", label: "Tea", title: "Tea" },
+      { id: 4, value: "Soda", label: "Soda", title: "Soda" },
+      { id: 5, value: "Milk", label: "Milk", title: "Milk" },
+      { id: 6, value: "Lemonade", label: "Lemonade", title: "Lemonade" },
+    ],
+  },
+  {
+    value: "main menu",
+    label: "main menu",
+    id: 2,
+    data: [
+      {
+        id: 1,
+        value: "French Fries",
+        label: "French Fries",
+        title: "French Fries",
+      },
+      {
+        id: 2,
+        value: "Onion Rings",
+        label: "Onion Rings",
+        title: "Onion Rings",
+      },
+      {
+        id: 3,
+        value: "Fried Shrimps",
+        label: "Fried Shrimps",
+        title: "Fried Shrimps",
+      },
+      { id: 4, value: "Chicked", label: "Chicked", title: "Chicked" },
+    ],
+  },
+  {
+    value: "lunch",
+    label: "lunch",
+    id: 3,
+    data: [
+      { id: 1, value: "Donuts", label: "Donuts", title: "Donuts" },
+      { id: 2, value: "Coke", label: "Coke", title: "Coke" },
+      { id: 3, value: "Chips", label: "Chips", title: "Chips" },
+    ],
+  },
+];
 
 function AddMenuItem() {
-  const [isAddingCusto, setIsAdd] = useState(false);
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const rest = useSelector((state) => state.rest.rest);
+  const needToUpload = useSelector((state) => state.menu.uploadingMenu);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [subOptions, setSubOptions] = useState(null);
+  const [imageUpPending, setImageUpPending] = useState(false);
+  const [imaUpLdErr, setImgErr] = useState(null);
+  const authState = useSelector((state) => state.auth.auth);
 
-  const addCustomiz = () => {
-    setIsAdd(!isAddingCusto);
+  const [formData, setForm] = useState({
+    status: 0,
+    name: "",
+    price: "",
+    description: "",
+    cat: {},
+  });
+
+  const [images, setImages] = React.useState([]);
+
+  const maxNumber = 6;
+
+  const onChange = (imageList, addUpdateIndex) => {
+    setImages(imageList);
+  };
+  const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
+
+  const mainCatSelected = (e) => {
+    setSelectedOption(e);
+    setSubOptions(null);
+    setTimeout(() => {
+      setSubOptions(e.data);
+    }, 100);
+
+    setForm({
+      ...formData,
+      cat: { ...formData.cat, mainId: e.id, mainTitle: e.value },
+    });
+  };
+
+  const subCatSelected = (e) => {
+    setForm({
+      ...formData,
+      cat: { ...formData.cat, subId: e.id, subTitle: e.value },
+    });
+  };
+
+  useEffect(() => {
+    if (needToUpload) {
+      uploadImages();
+    }
+    // eslint-disable-next-line
+  }, [needToUpload]);
+
+  const uploadImages = () => {
+    setImageUpPending(true);
+    setImgErr(null);
+    const imageAsArray = images.map((img) => img.file);
+
+    const formData2 = new FormData();
+
+    for (let i = 0; i < imageAsArray.length; i++) {
+      formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+    }
+
+    formData2.append("restid", rest._id);
+    formData2.append("name", formData.name);
+    formData2.append("status", formData.status);
+    formData2.append("price", formData.price);
+    formData2.append("description", formData.description);
+    formData2.append("mainId", formData.cat.mainId);
+    formData2.append("mainTitle", formData.cat.mainTitle);
+    formData2.append("subId", formData.cat.subId);
+    formData2.append("subTitle", formData.cat.subTitle);
+    console.log(formData2);
+    addMenuItem(formData2, authState.token)
+      .then((res) => {
+        //console.log(res);
+        setImageUpPending(false);
+        dispatch(setRest(res));
+        dispatch(toggleUploading(false));
+        navigate(`/${rest.url}/menu`);
+      })
+      .catch((err) => {
+        setImageUpPending(false);
+        dispatch(toggleUploading(false));
+        err.response?.data
+          ? setImgErr(err.response.data)
+          : setImgErr(err.message);
+      });
   };
 
   return (
     <>
-      {" "}
-      {isAddingCusto && (
-        <>
-          {" "}
-          <AddCustomiModal />{" "}
-          <Overlay closeOverlay={addCustomiz} width={`100%`} />
-        </>
-      )}
       <div
         className="container-fluid pt-5 px-4 big-bg-theme"
         style={{ minHeight: "100vh" }}
@@ -27,32 +163,129 @@ function AddMenuItem() {
           <div className="col-12">
             {/** image selection */}
             <div className="row justify-content-center">
-              <div className="col-11 mb-2">
-                <div className="row">
-                  <div
-                    className="col-4 text-center py-4"
-                    style={{ border: "1px dashed black" }}
-                  >
-                    <div className="my-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        style={{ width: "40px" }}
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="my-auto"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+              <div className="col-11 ps-0">
+                <ImageUploading
+                  multiple
+                  value={images}
+                  onChange={onChange}
+                  maxNumber={maxNumber}
+                  acceptType={["jpg", "jpeg"]}
+                  dataURLKey="data_url"
+                >
+                  {({
+                    imageList,
+                    onImageUpload,
+                    /*onImageUpdate,*/
+                    onImageRemove,
+                    errors,
+                  }) => (
+                    <div className="covers-list-wrapper">
+                      <div className="">{imaUpLdErr ? imgErrorDiv : null}</div>
+
+                      {errors && (
+                        <div className="text-danger">
+                          {errors.maxNumber && (
+                            <span className="row">
+                              Number of selected images exceed {maxNumber}
+                            </span>
+                          )}
+                          {errors.acceptType && (
+                            <span className="row">
+                              Your selected file type is not allow
+                            </span>
+                          )}
+                          {errors.maxFileSize && (
+                            <span className="row">
+                              Selected file size exceed maxFileSize
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      <ul className="covers-list ps-0">
+                        {imageUpPending ? (
+                          <li>
+                            <a
+                              href="#!"
+                              className="cover-item"
+                              style={{ height: "136px" }}
+                            >
+                              <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                            </a>
+                          </li>
+                        ) : (
+                          <li>
+                            <label
+                              onClick={onImageUpload}
+                              className="cover-item"
+                              style={{
+                                height: "136px",
+                                border: "1px dashed black",
+                                backgroundColor: "#f6f4f2",
+                              }}
+                              htmlFor="coverbg"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                style={{ width: "40px" }}
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="my-auto"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </label>
+                          </li>
+                        )}
+
+                        {imageList.map((image, index) => (
+                          <li key={index} className="col-5">
+                            <a
+                              href="#!"
+                              className="cover-item"
+                              style={{ height: "136px" }}
+                            >
+                              <img src={image["data_url"]} alt="" />
+                            </a>
+
+                            <div className="row pt-2">
+                              <div className="col-12 text-center">
+                                <span>
+                                  <svg
+                                    onClick={() => onImageRemove(index)}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="svg-icon"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M6 18L18 6M6 6l12 12"
+                                    />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                </div>
+                  )}
+                </ImageUploading>
               </div>
               <div className="col-12 text-secondary fs-14">
-                add images of videos to display the item to your customer
+                add images to display the item to your customers
               </div>
             </div>
             {/** end of image selection */}
@@ -64,16 +297,29 @@ function AddMenuItem() {
 
               <div className="col-12 px-3">
                 <div className="row">
-                  <div className="col-4 fs-12 option-selected text-center  border border-dark py-2 br-lf-r">
+                  <div
+                    onClick={() => setForm({ ...formData, status: 0 })}
+                    className={`col-4 fs-12 ${
+                      formData.status === 0 && "option-selected"
+                    } text-center  border border-dark py-2 br-lf-r`}
+                  >
                     available
                   </div>
-                  <div className="col-4 fs-12 text-center  border border-dark py-2">
+                  <div
+                    onClick={() => setForm({ ...formData, status: 1 })}
+                    className={`col-4 fs-12 ${
+                      formData.status === 1 && "option-selected"
+                    } text-center  border border-dark py-2`}
+                  >
                     sold out
                   </div>
-                  {/*<div className="col-3 fs-12  text-center border border-dark py-2">
-                    unavailable
-                  </div>*/}
-                  <div className="col-4 fs-12 text-center  border border-dark py-2 br-rf-r">
+
+                  <div
+                    onClick={() => setForm({ ...formData, status: 2 })}
+                    className={`col-4 fs-12 ${
+                      formData.status === 2 && "option-selected"
+                    } text-center  border border-dark py-2 br-rf-r`}
+                  >
                     hidden
                   </div>
                 </div>
@@ -86,6 +332,10 @@ function AddMenuItem() {
             <div className="row mt-4">
               <div className="col-12">
                 <input
+                  value={formData.name}
+                  onChange={(e) =>
+                    setForm({ ...formData, name: e.target.value })
+                  }
                   type="text"
                   placeholder="name"
                   className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -93,6 +343,10 @@ function AddMenuItem() {
               </div>
               <div className="col-12 py-4">
                 <input
+                  value={formData.price}
+                  onChange={(e) =>
+                    setForm({ ...formData, price: e.target.value })
+                  }
                   type="text"
                   placeholder="price($)"
                   className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -100,6 +354,10 @@ function AddMenuItem() {
               </div>
               <div className="col-12">
                 <input
+                  value={formData.description}
+                  onChange={(e) =>
+                    setForm({ ...formData, description: e.target.value })
+                  }
                   type="text"
                   placeholder="description"
                   className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -109,29 +367,33 @@ function AddMenuItem() {
             {/** end of input */}
 
             {/** choose cate */}
-            <div className="row g-0 mt-5">
+            <div className="row mt-4">
               <span className="fw-bold mb-3">choose category</span>
-              <div className="col-6 pe-1">
-                <select className="form-select border border-dark">
-                  <option defaultValue={null}>main category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+
+              <div className="col-6">
+                <span className="fs-14 text-secondary">main category</span>
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={(e) => mainCatSelected(e)}
+                  options={menuOptions}
+                />
               </div>
-              <div className="col-6 ps-1">
-                <select className="form-select border border-dark">
-                  <option defaultValue={null}>sub category</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+
+              <div className="col-6">
+                <span className="fs-14 text-secondary">sub category</span>
+                {subOptions !== null && (
+                  <Select
+                    onChange={(e) => subCatSelected(e)}
+                    options={subOptions}
+                  />
+                )}
               </div>
             </div>
+
             {/** end of choose cate */}
 
             {/**delete item */}
-            <div className="row mt-5">
+            {/*<div className="row mt-5">
               <div className="col-12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +409,7 @@ function AddMenuItem() {
                 </svg>
                 delete item
               </div>
-            </div>
+                </div>*/}
           </div>
         </div>
       </div>

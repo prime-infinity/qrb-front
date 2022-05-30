@@ -10,11 +10,10 @@ import {
   toggleView,
   initMenuSlide,
   toggleSearchBar,
-  // eslint-disable-next-line
   toggleUploading,
 } from "../redux/slices/menuSlice";
-// eslint-disable-next-line
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
+import { useState } from "react";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function Header() {
@@ -28,11 +27,17 @@ function Header() {
   const viewMode = useSelector((state) => state.menu.view);
   const authState = useSelector((state) => state.auth.auth);
   const searchBar = useSelector((state) => state.menu.searchBar);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const showMobileMenu = () => {
     //show mobile menu
     dispatch(toggleMenu());
     !menuSlideInited && dispatch(initMenuSlide(true));
+  };
+
+  const searching = (e) => {
+    setSearchTerm(e);
+    dispatch(searchRestMenu(e));
   };
 
   const goHome = () => {
@@ -59,6 +64,7 @@ function Header() {
   const addMenuItem = () => {
     //navigate("/menu");
     console.log("adding menu item");
+    dispatch(toggleUploading(true));
   };
 
   /*const toEditRestProfile = () => {
@@ -138,7 +144,13 @@ function Header() {
         <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer py-0">
             <div className={`search-box ${searchBar && "active-search"} `}>
-              <input type="text" name="search" id="searchId" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => searching(e.target.value)}
+                name="search"
+                id="searchId"
+              />
               <button className="btn-clear">
                 <svg
                   onClick={showSearch}

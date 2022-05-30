@@ -216,3 +216,38 @@ export function editRestProTwo(data, token) {
       });
   });
 }
+
+export function addMenuItem(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/addmenu", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function deleteMenuItemBack(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/delete-menu-item", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}

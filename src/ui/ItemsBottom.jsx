@@ -20,34 +20,16 @@ function ItemsBottom({ item }) {
           <div className="col-12 p-0 bottom-acc">
             <Accordion.Collapse eventKey={item.name}>
               <Slider {...settings}>
-                <div className="slide">
-                  <div className="sl-img">
-                    <img
-                      src="/ang/gallery001.jpg"
-                      style={{ width: "100%" }}
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="slide">
-                  <div className="sl-img">
-                    <img
-                      src="/ang/gallery002.jpg"
-                      style={{ width: "100%" }}
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="slide">
-                  <div className="sl-img">
-                    <img
-                      src="/ang/gallery003.jpg"
-                      style={{ width: "100%" }}
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="slide">
+                {item &&
+                  item.files.map((file, index) => (
+                    <div className="slide" key={index}>
+                      <div className="sl-img">
+                        <img src={file} style={{ width: "100%" }} alt="" />
+                      </div>
+                    </div>
+                  ))}
+
+                {/*<div className="slide">
                   <div className="sl-table-group">
                     <div className="sl-table-wrap">
                       <div className="sl-table-header">
@@ -89,7 +71,7 @@ function ItemsBottom({ item }) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>*/}
               </Slider>
             </Accordion.Collapse>
           </div>

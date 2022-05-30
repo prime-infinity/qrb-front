@@ -176,14 +176,14 @@ function Menu() {
                           subBut === cat.id ? "d-contents" : "d-none"
                         }`}
                       >
-                        {cat.data.map((dat, index) => (
+                        {cat.data.map((dat, ind) => (
                           <span
                             id={dat.title}
                             className={`mx-2 my-auto fs-14 ${
                               lock === dat.title ? "border-bottom-drk" : ""
                             } min-width-maxcon`}
                             onClick={() => highLightCat(dat.title)}
-                            key={index}
+                            key={ind}
                           >
                             {dat.title}
                           </span>
@@ -226,7 +226,7 @@ function Menu() {
                 </div>
               </div>
             ) : (
-              <div className="col-12 mb-2">
+              <div className="col-12 mb-2 mw-100">
                 <Accordion>
                   {Object.entries(newArr).map(([key, value], ind) => (
                     <InView
@@ -252,9 +252,9 @@ function Menu() {
                           </div>
                         </div>
 
-                        {value.map((item, index) => (
+                        {value.map((item, indexxx) => (
                           <>
-                            <ItemsBottom item={item} />
+                            <ItemsBottom key={indexxx} item={item} />
                           </>
                         ))}
                       </div>
