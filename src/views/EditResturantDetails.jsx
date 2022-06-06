@@ -52,6 +52,7 @@ function EditResturantDetails() {
         dispatch(setRestImages(res.images));
         //console.log(imageAsArray)
         setImageUpPending(false);
+
         alert("updated");
       })
       .catch((err) => {
@@ -82,6 +83,7 @@ function EditResturantDetails() {
   const handleSuccess = (e) => {
     setPending(false);
     dispatch(setRestSummary(summary));
+    setIsEdSum(false);
     alert("updated");
   };
 

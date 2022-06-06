@@ -22,9 +22,9 @@ function EditRestProTwo() {
         website: rest.website,
         address: rest.address,
         hours: rest.hours,
-        ig: rest.ig,
-        fb: rest.fb,
-        ylp: rest.ylp,
+        ig: rest.insta,
+        fb: rest.facebook,
+        ylp: rest.yelp,
       });
     }
   }, [rest]);
@@ -40,6 +40,9 @@ function EditRestProTwo() {
     setIsUpdated(true);
     setPending(false);
     dispatch(setRest(e));
+    setTimeout(() => {
+      setIsUpdated(false);
+    }, 2000);
   };
 
   const update = () => {
@@ -62,7 +65,7 @@ function EditRestProTwo() {
             value={formData.phone}
             onChange={(e) => setFrom({ ...formData, phone: e.target.value })}
             type="text"
-            placeholder={formData.phone ? formData.phone : "phone number"}
+            placeholder={formData.phone ? formData.phone : "phone"}
             className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
