@@ -250,9 +250,7 @@ function EditResturantDetails() {
                     />
                   </svg>
 
-                  <span className="fs-12">
-                    {"mon - fri  |  9:00 am - 6:00 pm"}
-                  </span>
+                  <span className="fs-12">{rest.hours ? rest.hours : ""}</span>
                 </span>
               </li>
             </ul>

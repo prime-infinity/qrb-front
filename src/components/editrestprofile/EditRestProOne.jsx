@@ -17,6 +17,7 @@ function EditRestProOne() {
     if (rest !== null) {
       setFrom({
         id: rest._id,
+        name: rest.name,
         location: rest.location,
         year: rest.year,
         description: rest.description,
@@ -35,6 +36,9 @@ function EditRestProOne() {
     setIsUpdated(true);
     setPending(false);
     dispatch(setRest(e));
+    setTimeout(() => {
+      setIsUpdated(false);
+    }, 2000);
   };
 
   const update = () => {
@@ -53,13 +57,19 @@ function EditRestProOne() {
     <div className="col-12">
       <div className="row mx-1">
         <div className="col-12">
-          <span
+          {/*<span
             style={{ backgroundColor: "#eee" }}
             className="my-4 fs-14 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           >
             {rest?.name}
-          </span>
-
+          </span>*/}
+          <input
+            value={formData.name}
+            onChange={(e) => setFrom({ ...formData, name: e.target.value })}
+            type="text"
+            placeholder={formData.name}
+            className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
           <input
             value={formData.location}
             onChange={(e) => setFrom({ ...formData, location: e.target.value })}
@@ -85,6 +95,36 @@ function EditRestProOne() {
             }
             className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
+        </div>
+
+        <div className="col-12">
+          <div className="row text-center">
+            <div className="col-12">{error ? errorDiv : null}</div>
+          </div>
+          {isUpdated ? (
+            <button
+              className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
+              type="button"
+            >
+              {" "}
+              Updated
+            </button>
+          ) : (
+            <button
+              onClick={update}
+              disabled={pending}
+              className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+            >
+              {pending && (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {!pending && <span>update</span>}
+            </button>
+          )}
         </div>
 
         <div className="covers-list-wrapper mt-3">
@@ -116,35 +156,6 @@ function EditRestProOne() {
               </a>
             </li>
           </ul>
-        </div>
-        <div className="col-12">
-          <div className="row text-center">
-            <div className="col-12">{error ? errorDiv : null}</div>
-          </div>
-          {isUpdated ? (
-            <button
-              className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
-              type="button"
-            >
-              {" "}
-              Updated
-            </button>
-          ) : (
-            <button
-              onClick={update}
-              disabled={pending}
-              className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
-            >
-              {pending && (
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-              )}
-              {!pending && <span>update</span>}
-            </button>
-          )}
         </div>
       </div>
     </div>

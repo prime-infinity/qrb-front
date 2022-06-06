@@ -143,9 +143,7 @@ function About() {
                     />
                   </svg>
 
-                  <span className="fs-12">
-                    {"mon - fri  |  9:00 am - 6:00 pm"}
-                  </span>
+                  <span className="fs-12">{rest.hours ? rest.hours : ""}</span>
                 </span>
               </li>
             </ul>
@@ -216,10 +214,7 @@ function About() {
             <hr />
             <div className="px-2">
               <span className="p fs-14">
-                {rest.summary
-                  ? rest.summary +
-                    "dio venenatis ut nibh integer tortor, gravida augue euismod faucibus. Aliquet elementum arcu leo rhoncus tortor, lorem et purus, neque. Tellus cursus nec quis ullamcorper molestie risus elit lectus sit. Tortor interdum sagittis ultrices diam. Pharetra mauris cursus etiam nibh diam. "
-                  : " "}
+                {rest.summary ? rest.summary : " "}
               </span>
             </div>
 
@@ -227,23 +222,13 @@ function About() {
               className="row g-0 mt-4"
               style={{ position: "absolute", width: "100%", left: "0" }}
             >
-
-              {rest.images && rest.images.map((img,index) =>(
-
-                <div key={index} className="col-6">
-                <img
-                  src={img}
-                  className="img-fluid"
-                  alt=""
-                />
-                </div>
-
-              ) ) }
-              
-              
+              {rest.images &&
+                rest.images.map((img, index) => (
+                  <div key={index} className="col-6">
+                    <img src={img} className="img-fluid" alt="" />
+                  </div>
+                ))}
             </div>
-
-            
           </div>
         </div>
       </div>
