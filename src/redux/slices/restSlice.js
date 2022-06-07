@@ -22,6 +22,9 @@ export const restSlice = createSlice({
     setRestImages: (state, action) => {
       state.rest = { ...state.rest, images: action.payload };
     },
+    setRestWelcomScreen: (state, action) => {
+      state.rest = { ...state.rest, setRestWelcomScreen: action.payload };
+    },
     searchRestMenu: (state, action) => {
       state.restMenu = state.rest.menu.filter(
         (men) => men.name === action.payload
@@ -36,6 +39,7 @@ export const restSlice = createSlice({
 export const { setRest } = restSlice.actions;
 export const { setRestSummary } = restSlice.actions;
 export const { setRestImages } = restSlice.actions;
+export const { setRestWelcomScreen } = restSlice.actions;
 export const { setRestInited } = restSlice.actions;
 export const { searchRestMenu } = restSlice.actions;
 export const { searchDiscarded } = restSlice.actions;

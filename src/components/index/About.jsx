@@ -225,7 +225,12 @@ function About() {
               {rest.images &&
                 rest.images.map((img, index) => (
                   <div key={index} className="col-6">
-                    <img src={img} className="img-fluid" alt="" />
+                    <img
+                      src={img}
+                      className="img-fluid"
+                      style={{ height: "200px", width: "100%" }}
+                      alt=""
+                    />
                   </div>
                 ))}
             </div>

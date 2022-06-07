@@ -1,16 +1,66 @@
 import { removeFromLocal } from "../helpers/storage";
-import { setAuth } from "../redux/slices/authSlice";
+import {
+  saveAuthToLocal,
+  setAuth,
+  setAuthDetails,
+} from "../redux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { editUserProfile } from "../helpers/web";
 
 function EditUserProfile() {
   const rest = useSelector((state) => state.rest.rest);
+  const authState = useSelector((state) => state.auth.auth);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setErrors] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
     dispatch(setAuth(null));
     removeFromLocal();
     navigate(`/${rest.name}`);
+  };
+
+  const errorDiv = <small className="text-danger">{error}</small>;
+
+  const [formData, setFrom] = useState({});
+
+  useEffect(() => {
+    if (authState !== null) {
+      setFrom({
+        fullname: authState.fullname,
+        phone: authState.phone,
+        email: authState.email,
+      });
+    }
+  }, [authState]);
+
+  const handleErrors = (e) => {
+    setPending(false);
+    e.response?.data ? setErrors(e.response.data) : setErrors(e.message);
+  };
+
+  const handleSuccess = (e) => {
+    //console.log(e);
+    setIsUpdated(true);
+    setPending(false);
+    dispatch(setAuthDetails(e));
+    dispatch(saveAuthToLocal());
+  };
+
+  const update = () => {
+    setPending(true);
+    setErrors(null);
+
+    editUserProfile(formData, authState.token)
+      .then((res) => {
+        handleSuccess(res);
+      })
+      .catch((err) => {
+        handleErrors(err);
+      });
   };
 
   return (
@@ -23,20 +73,62 @@ function EditUserProfile() {
           <div className="row mx-1">
             <div className="col-12">
               <input
+                value={formData.fullname}
+                onChange={(e) =>
+                  setFrom({ ...formData, fullname: e.target.value })
+                }
                 type="text"
                 placeholder={"full name*"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
               <input
+                value={formData.phone}
+                onChange={(e) =>
+                  setFrom({ ...formData, phone: e.target.value })
+                }
                 type="text"
                 placeholder={"phone*"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
               <input
-                type="text"
+                value={formData.email}
+                onChange={(e) =>
+                  setFrom({ ...formData, email: e.target.value })
+                }
+                type="email"
                 placeholder={"email*"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
+            </div>
+
+            <div className="col-12">
+              <div className="row text-center">
+                <div className="col-12">{error ? errorDiv : null}</div>
+              </div>
+              {isUpdated ? (
+                <button
+                  className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
+                  type="button"
+                >
+                  {" "}
+                  Updated
+                </button>
+              ) : (
+                <button
+                  onClick={update}
+                  disabled={pending}
+                  className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+                >
+                  {pending && (
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  )}
+                  {!pending && <span>update</span>}
+                </button>
+              )}
             </div>
 
             {/*<div className="col-12">

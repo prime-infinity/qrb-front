@@ -182,6 +182,24 @@ export function uploadRestDetailImages(deta, token) {
       });
   });
 }
+
+export function updateRestWelcomeVideo(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/welcom-screen", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
 //edit rest details by owner
 export function editRestProOne(data, token) {
   return new Promise((res, rej) => {
@@ -204,6 +222,23 @@ export function editRestProTwo(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/prop-two", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function editUserProfile(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-user/profile", data, {
         headers: {
           "x-auth-token": token,
         },

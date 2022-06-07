@@ -6,7 +6,6 @@ import { setRestSummary, setRestImages } from "../redux/slices/restSlice";
 import LoadingScreen from "../ui/LoadingScreen";
 import NetworkErr from "../ui/NetworkErr";
 import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line
 import ImageUploading from "react-images-uploading";
 import { submitRestSumm, uploadRestDetailImages } from "../helpers/web";
 import PureOverlay from "../ui/PureOverlay";
@@ -21,19 +20,18 @@ function EditResturantDetails() {
   const [isEditingSum, setIsEdSum] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setErrors] = useState(null);
-  // eslint-disable-next-line
   const [imageUpPending, setImageUpPending] = useState(false);
   const [imaUpLdErr, setImgErr] = useState(null);
   const [redrng, setRedrng] = useState(false);
   const [ani, setAni] = useState(false);
+  const [hasSetImages, setHasSetImages] = useState(false);
 
   const [images, setImages] = React.useState([]);
-  // eslint-disable-next-line
   const maxNumber = 6;
 
-  // eslint-disable-next-line
   const uploadImages = () => {
     setImageUpPending(true);
+    setHasSetImages(true);
     setImgErr(null);
     const imageAsArray = images.map((img) => img.file);
 
@@ -52,27 +50,29 @@ function EditResturantDetails() {
         dispatch(setRestImages(res.images));
         //console.log(imageAsArray)
         setImageUpPending(false);
+        setHasSetImages(false);
 
         alert("updated");
       })
       .catch((err) => {
         setImageUpPending(false);
+        setHasSetImages(false);
         err.response?.data
           ? setImgErr(err.response.data)
           : setImgErr(err.message);
       });
   };
 
-  // eslint-disable-next-line
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     //console.log(imageList/*, addUpdateIndex*/);
+    setHasSetImages(true);
+    //console.log(imageList);
     setImages(imageList);
   };
 
-  // eslint-disable-next-line
   const errorDiv = <small className="text-danger">{error}</small>;
-  // eslint-disable-next-line
+
   const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
 
   const handleErrors = (e) => {
@@ -142,7 +142,7 @@ function EditResturantDetails() {
       )}
       <div
         className="container-fluid pt-5 big-bg-theme"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: "110vh" }}
       >
         {ani && (
           <PureOverlay
@@ -357,33 +357,117 @@ function EditResturantDetails() {
               </button>
             )}
 
-            <div
-              className="row g-0 mt-4"
-              style={{ position: "absolute", width: "100%", left: "0" }}
+            <ImageUploading
+              value={images}
+              onChange={onChange}
+              maxNumber={maxNumber}
+              dataURLKey="data_url"
+              multiple
+              acceptType={["jpg", "jpeg"]}
             >
-              <div className="col-6">
-                <label
-                  className="cover-item"
-                  style={{ width: "100%", height: "100%" }}
+              {({ imageList, onImageUpload, errors }) => (
+                <div
+                  className="row g-0 mt-4"
+                  style={{ position: "absolute", width: "100%", left: "0" }}
                 >
-                  <img src="/ang/round-add.svg" alt="" />
-                </label>
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div className="col-6">
-                <img
-                  src="/ang/profile-cover.jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-            </div>
+                  <div className="col-12 text-center">
+                    <h4>upload new images</h4>
+                    {imaUpLdErr ? imgErrorDiv : null}
+
+                    {errors && (
+                      <>
+                        {errors.maxNumber && (
+                          <span className="text-danger">
+                            Number of selected images exceed {maxNumber}
+                          </span>
+                        )}
+                        {errors.acceptType && (
+                          <span className="text-danger">
+                            Your selected file type is not allow
+                          </span>
+                        )}
+                        {errors.maxFileSize && (
+                          <span className="text-danger">
+                            Selected file size exceed maxFileSize
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  {!hasSetImages && (
+                    <div className="col-6">
+                      <label
+                        onClick={onImageUpload}
+                        className="cover-item"
+                        style={{ width: "100%", height: "200px" }}
+                      >
+                        <img src="/ang/round-add.svg" alt="" />
+                      </label>
+                    </div>
+                  )}
+
+                  {hasSetImages && (
+                    <>
+                      <div
+                        className="col-6 text-center"
+                        style={{ backgroundColor: "#dadada" }}
+                      >
+                        {!imageUpPending && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{ width: "50px", height: "200px" }}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            onClick={uploadImages}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                            />
+                          </svg>
+                        )}
+                        {imageUpPending && (
+                          <div
+                            style={{
+                              width: "50px",
+                              height: "200px",
+                              position: "relative",
+                            }}
+                          >
+                            <div
+                              className="spinner-border"
+                              style={{
+                                position: "absolute",
+                                top: "45%",
+                                left: "160%",
+                              }}
+                              role="status"
+                            >
+                              <span className="sr-only">Loading...</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+
+                  {imageList.map((image, index) => (
+                    <div className="col-6" key={index}>
+                      <img
+                        alt="..."
+                        className="img-fluid"
+                        src={image["data_url"]}
+                        style={{ height: "200px", width: "100%" }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </ImageUploading>
           </div>
         </div>
       </div>
