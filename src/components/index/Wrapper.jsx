@@ -29,6 +29,7 @@ function Wrapper() {
       <video className="videoBg" autoPlay loop playsInline muted>
         <source src={rest.welcomescreen} type="video/mp4" />
       </video>
+      <div className="bottom-ovelay"></div>
       <div
         className="bg-wrapper"
         style={{
