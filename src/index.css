@@ -392,6 +392,10 @@ span.cat-icon img {
   /*object-fit: cover;*/
 }
 
+.stubburn-height{
+  height: 128px !important;
+}
+
 .cat-right {
   text-align: left;
   padding: 12px;
