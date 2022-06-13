@@ -383,7 +383,9 @@ span.cat-icon {
   right: 0;
   
 }
-
+.border-right-theme{
+  border-right: 2px solid black;
+}
 span.cat-icon img {
   height: 100%;
   width: 100%;

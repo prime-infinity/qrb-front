@@ -41,8 +41,8 @@ function CustomToggle({ eventKey, callback, item }) {
           <div
             id={item.name}
             className={` ${viewMode && "cat-left-view"} ${
-              isCurrentEventKey && "max-w-zero "
-            } cat-left`}
+              !isCurrentEventKey && "border-right-theme"
+            } ${isCurrentEventKey && "max-w-zero "} cat-left`}
             style={{ height: "128px" }}
           >
             <span className="cat-icon">

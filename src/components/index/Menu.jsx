@@ -156,7 +156,7 @@ function Menu() {
             <div className="col-12">
               {!searchBar && (
                 <div
-                  className="row pb-3 g-0 flex-nowrap scroll-div sticky"
+                  className="row mx-1 pb-3 g-0 flex-nowrap scroll-div sticky"
                   style={{
                     overflowX: "scroll",
                     borderBottom: "1px solid black",
@@ -251,45 +251,47 @@ function Menu() {
               </div>
             ) : (
               <div className="col-12 mb-2 mw-100">
-                <Accordion>
-                  {Object.entries(newArr).map(([key, value], ind) => (
-                    <InView
-                      as="div"
-                      onChange={(inView) => lockOnTarget(inView, key)}
-                      threshold={1}
-                    >
-                      <div
-                        key={ind}
-                        id={key}
-                        ref={setRef(key)}
-                        className={`${
-                          highLi === key ? "bg-highlight" : ""
-                        }  mb-2`}
+                <div className="row">
+                  <Accordion>
+                    {Object.entries(newArr).map(([key, value], ind) => (
+                      <InView
+                        as="div"
+                        onChange={(inView) => lockOnTarget(inView, key)}
+                        threshold={1}
                       >
-                        <div className="row px-0 justify-content-center">
-                          <div className="col-11 px-0 pb-2">
-                            <span className="fs-13">
-                              {returnMainTitle(key)}
-                            </span>
-                            <span>{chevNxt}</span>
-                            <span className="fs-13">{key}</span>
+                        <div
+                          key={ind}
+                          id={key}
+                          ref={setRef(key)}
+                          className={`${
+                            highLi === key ? "bg-highlight" : ""
+                          }  mb-2`}
+                        >
+                          <div className="row px-0 justify-content-center">
+                            <div className="col-11 px-0 pb-2">
+                              <span className="fs-13">
+                                {returnMainTitle(key)}
+                              </span>
+                              <span>{chevNxt}</span>
+                              <span className="fs-13">{key}</span>
+                            </div>
                           </div>
-                        </div>
 
-                        {value.map((item, indexxx) => (
-                          <>
-                            <ItemsBottom
-                              key={indexxx}
-                              place={indexxx}
-                              length={value.length}
-                              item={item}
-                            />
-                          </>
-                        ))}
-                      </div>
-                    </InView>
-                  ))}
-                </Accordion>
+                          {value.map((item, indexxx) => (
+                            <>
+                              <ItemsBottom
+                                key={indexxx}
+                                place={indexxx}
+                                length={value.length}
+                                item={item}
+                              />
+                            </>
+                          ))}
+                        </div>
+                      </InView>
+                    ))}
+                  </Accordion>
+                </div>
               </div>
             )}
           </div>
