@@ -50,6 +50,33 @@ function Menu() {
         { id: 3, title: "Chips" },
       ],
     },
+    {
+      id: 4,
+      title: "breakfast",
+      data: [
+        { id: 1, title: "rice" },
+        { id: 2, title: "popcorn" },
+        { id: 3, title: "chips" },
+      ],
+    },
+    {
+      id: 5,
+      title: "sides",
+      data: [
+        { id: 1, title: "hamburgers" },
+        { id: 2, title: "chicken" },
+        { id: 3, title: "turtle" },
+        { id: 4, title: "rabbit" },
+      ],
+    },
+    {
+      id: 6,
+      title: "brunch",
+      data: [
+        { id: 1, title: "lemonde" },
+        { id: 2, title: "Coke" },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -146,18 +173,16 @@ function Menu() {
                         <button
                           onClick={() => showMenuBut(cat.id)}
                           className="btn fs-14 bg-them text-white cat-button"
-                          style={{ borderRadius: "0" }}
                         >
-                          {cat.title}
+                          <span className="cat-btn-txt">{cat.title}</span>
 
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className={` ${
+                            className={`cat-btn-arr ${
                               subBut === cat.id
                                 ? "rotate-icon"
                                 : "counter-rotate-icon"
                             }`}
-                            style={{ width: "20px", height: "20px" }}
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
