@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Accordion from "react-bootstrap/Accordion";
 
-function ItemsBottom({ item }) {
+function ItemsBottom({ item, place, length }) {
   const settings = {
     dots: true,
     slidesToShow: 1,
@@ -13,7 +13,10 @@ function ItemsBottom({ item }) {
   };
   return (
     <div className="row px-0 justify-content-center">
-      <div className="col-11 menu-border mb-3">
+      <div
+        id={place}
+        className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}
+      >
         <CustomToggle eventKey={item.name} item={item} />
 
         <div className="row">

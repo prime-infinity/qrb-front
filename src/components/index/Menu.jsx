@@ -97,8 +97,7 @@ function Menu() {
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="svg-icon-lg"
-      style={{ verticalAlign: "middle" }}
+      style={{ verticalAlign: "middle", width: "14px" }}
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -157,10 +156,10 @@ function Menu() {
             <div className="col-12">
               {!searchBar && (
                 <div
-                  className="row g-0 flex-nowrap scroll-div sticky"
+                  className="row pb-3 g-0 flex-nowrap scroll-div sticky"
                   style={{
                     overflowX: "scroll",
-                    borderBottom: "2px solid black",
+                    borderBottom: "1px solid black",
                   }}
                 >
                   {CAT.map((cat, index) => (
@@ -268,7 +267,7 @@ function Menu() {
                         }  mb-2`}
                       >
                         <div className="row px-0 justify-content-center">
-                          <div className="col-11 px-0">
+                          <div className="col-11 px-0 pb-2">
                             <span className="fs-13">
                               {returnMainTitle(key)}
                             </span>
@@ -279,7 +278,12 @@ function Menu() {
 
                         {value.map((item, indexxx) => (
                           <>
-                            <ItemsBottom key={indexxx} item={item} />
+                            <ItemsBottom
+                              key={indexxx}
+                              place={indexxx}
+                              length={value.length}
+                              item={item}
+                            />
                           </>
                         ))}
                       </div>

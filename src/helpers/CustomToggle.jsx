@@ -43,6 +43,7 @@ function CustomToggle({ eventKey, callback, item }) {
             className={` ${viewMode && "cat-left-view"} ${
               isCurrentEventKey && "max-w-zero "
             } cat-left`}
+            style={{ height: "128px" }}
           >
             <span className="cat-icon">
               <img

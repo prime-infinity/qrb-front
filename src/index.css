@@ -173,7 +173,7 @@ select {
 .sticky {
   transition: 0.5s ease;
   position: fixed;
-  top: 8%;
+  top: 9%;
   width: 93%;
   z-index: 1;
   background-color: #f6f4f2;
@@ -381,6 +381,7 @@ span.cat-icon {
   bottom: 0;
   left: 0;
   right: 0;
+  
 }
 
 span.cat-icon img {
@@ -502,12 +503,15 @@ span.cat-icon img {
 }
 .cat-btn-arr{
   width: 16px;
-height: 16px;
+  height: 16px;
 }
 .cat-btn-txt{
   height: 16px;
   font-size: 14px;
 line-height: 16px;
+}
+.mb-08{
+  margin-bottom: 0.8rem !important;
 }
 .PhoneInputCountry {
   margin-right: 16px !important;
