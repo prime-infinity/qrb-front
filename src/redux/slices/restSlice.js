@@ -23,7 +23,7 @@ export const restSlice = createSlice({
       state.rest = { ...state.rest, images: action.payload };
     },
     setRestWelcomScreen: (state, action) => {
-      state.rest = { ...state.rest, setRestWelcomScreen: action.payload };
+      state.rest = { ...state.rest, welcomescreen: action.payload };
     },
     searchRestMenu: (state, action) => {
       state.restMenu = state.rest.menu.filter(
