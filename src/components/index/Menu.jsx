@@ -93,7 +93,7 @@ function Menu() {
   // eslint-disable-next-line
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
-
+  //console.log(newArr);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"

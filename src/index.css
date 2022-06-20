@@ -528,3 +528,7 @@ line-height: 16px;
 .mw-100{
   min-height: 100vh;
 }
+.float-add-cat-button{
+  position: absolute;
+  width: 40%;
+}

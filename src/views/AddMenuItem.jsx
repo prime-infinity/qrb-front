@@ -153,6 +153,10 @@ function AddMenuItem() {
       });
   };
 
+  const addCat = () => {
+    console.log("is adding cat");
+  };
+
   return (
     <>
       <div
@@ -393,23 +397,20 @@ function AddMenuItem() {
             {/** end of choose cate */}
 
             {/**delete item */}
-            {/*<div className="row mt-5">
-              <div className="col-12">
+            <div className="row mt-5 pb-5 mb-3">
+              <div className="col-12 float-add-cat-button" onClick={addCat}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   style={{ width: "20px" }}
+                  className="me-1"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                    clipRule="evenodd"
-                  />
+                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                 </svg>
-                delete item
+                add category
               </div>
-                </div>*/}
+            </div>
           </div>
         </div>
       </div>
