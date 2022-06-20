@@ -177,7 +177,7 @@ function Header() {
               >
                 {properUrl(location.pathname) !== `/${rest.url}` &&
                   (location.pathname === "/add-item" ||
-                  location.pathname === "/view-item"
+                  location.pathname === "/add-category"
                     ? null
                     : location.pathname === "/login"
                     ? null
@@ -191,7 +191,7 @@ function Header() {
             {properUrl(location.pathname) !== `/${rest.url}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
-                location.pathname === "/view-item" ? (
+                location.pathname === "/add-category" ? (
                   <svg
                     onClick={goMenu}
                     xmlns="http://www.w3.org/2000/svg"
@@ -249,10 +249,8 @@ function Header() {
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
                     <span className="ms-3 fs-18">add item</span>
-                  ) : location.pathname === "/view-item" ? (
-                    <span className="ms-3 q-font-weight-bold">
-                      kalua pig meat
-                    </span>
+                  ) : location.pathname === "/add-category" ? (
+                    <span className="ms-3 fs-18">add category</span>
                   ) : location.pathname === "/login" ? (
                     <span className="ms-2 text-secondary fs-14">
                       digital menu
@@ -373,8 +371,7 @@ function Header() {
                 </svg>
               </span>
             )}
-            {location.pathname === "/add-item" ||
-            location.pathname === "/view-item" ? (
+            {location.pathname === "/add-item" ? (
               <svg
                 onClick={addMenuItem}
                 xmlns="http://www.w3.org/2000/svg"
@@ -391,7 +388,9 @@ function Header() {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-            ) : location.pathname === "/edit-rest-profile" ? (
+            ) : location.pathname ===
+              "/add-category" ? null : location.pathname ===
+              "/edit-rest-profile" ? (
               <svg
                 onClick={goToAbout}
                 xmlns="http://www.w3.org/2000/svg"

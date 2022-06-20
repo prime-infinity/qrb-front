@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import { BrowserRouter,Routes, Route  } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./views/Index";
 import Login from "./views/Login";
 import About from "./components/index/About";
@@ -23,65 +23,70 @@ import CreateResturantDesc from "./components/createresturant/CreateResturantDes
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
 import EditUserProfile from "./views/EditUserProfile";
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route  path="/" element={<App />}>
-
-            <Route path=":resturant" element={<Index />} >
-
+          <Route path="/" element={<App />}>
+            <Route path=":resturant" element={<Index />}>
               <Route index element={<Wrapper />} />
               <Route path="about" element={<About />} />
               <Route path="menu" element={<Menu />} />
-
             </Route>
-            
+
             <Route path="/login" element={<Login />} />
             <Route path="/add-item" element={<AddMenuItem />} />
+            <Route path="/add-category" element={<AddMenuItem />} />
             <Route
-            path="/edit-resturant-details"
-            element={<EditResturantDetails />}
+              path="/edit-resturant-details"
+              element={<EditResturantDetails />}
             />
 
-            <Route path="/edit-rest-profile" element={<EditResturantProfile />} />
             <Route
-                path="/edit-user-profile"
-                element={
-                  //<ProtectedRouteRestOwner auth={authState}>
-                    //{" "}
-                    <EditUserProfile />
-                  //</ProtectedRouteRestOwner>
-                }
-              />
+              path="/edit-rest-profile"
+              element={<EditResturantProfile />}
+            />
+            <Route
+              path="/edit-user-profile"
+              element={
+                //<ProtectedRouteRestOwner auth={authState}>
+                //{" "}
+                <EditUserProfile />
+                //</ProtectedRouteRestOwner>
+              }
+            />
             <Route
               path="/create-resturant"
               element={
                 //<ProtectedRouteRestOwner auth={authState}>
-                  //{" "}
-                  <CreateResturant />
+                //{" "}
+                <CreateResturant />
                 //</ProtectedRouteRestOwner>
               }
             >
-          <Route index element={<CreateResturant />} />
-          <Route path="name" element={<CreateResturantName />} />
-          <Route path="location" element={<CreateResturantLoc />} />
-          <Route path="year" element={<CreateResturantYear />} />
-          <Route path="description" element={<CreateResturantDesc />} />
-          <Route path="welcome" element={<CreateResturantWel />} />
-          <Route
-            path="*"
-            element={<p className="to-center text-center">There's nothing here: 404!</p>}
-          />
-        </Route>
-
+              <Route index element={<CreateResturant />} />
+              <Route path="name" element={<CreateResturantName />} />
+              <Route path="location" element={<CreateResturantLoc />} />
+              <Route path="year" element={<CreateResturantYear />} />
+              <Route path="description" element={<CreateResturantDesc />} />
+              <Route path="welcome" element={<CreateResturantWel />} />
+              <Route
+                path="*"
+                element={
+                  <p className="to-center text-center">
+                    There's nothing here: 404!
+                  </p>
+                }
+              />
+            </Route>
           </Route>
           <Route
             path="*"
-            element={<p className="to-center text-center">There's nothing here</p>}
+            element={
+              <p className="to-center text-center">There's nothing here</p>
+            }
           />
         </Routes>
       </BrowserRouter>
