@@ -107,8 +107,8 @@ function AddCategory() {
                 expand === item.id ? "d-block" : "d-none"
               }`}
             >
-              {item.sub.map((subb, index) => (
-                <div key={index} className="col-12 py-1 my-2 border">
+              {item.sub.map((subb, indexx) => (
+                <div key={indexx} className="col-12 py-1 my-2 border">
                   {subb.title}
                   <span>
                     <svg
