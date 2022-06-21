@@ -1,10 +1,42 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import Select from "react-select";
+import { addMainCateogory } from "../../helpers/web";
 
 function AddCategory() {
   const [expand, setExpand] = useState(null);
+  const [mainCat, setMainCat] = useState("");
+  const [error, setErrors] = useState({ main: null, sub: null });
+  const [mainCatAdded, setMainCatAdded] = useState(null);
+  const [pending, setPending] = useState({ main: false, sub: false });
+  const authState = useSelector((state) => state.auth.auth);
+  const rest = useSelector((state) => state.rest.rest);
+  const errorDiv = <small className="text-danger">{error.main}</small>;
 
-  const mainCat = [
+  const handleErrors = (e) => {
+    setPending({ ...pending, main: false });
+    e.response?.data
+      ? setErrors({ ...error, main: e.response.data })
+      : setErrors({ ...error, main: e.message });
+  };
+
+  const handleSuccess = (e) => {
+    setMainCatAdded(true);
+    setPending({ ...pending, main: false });
+    setTimeout(() => {
+      setMainCatAdded(false);
+    }, 2000);
+  };
+
+  const addMainCat = () => {
+    console.log(mainCat);
+    setPending({ ...pending, main: true });
+    setErrors({ ...pending, main: null });
+
+    addMainCateogory({ name: mainCat, restid: rest._id }, authState.token);
+  };
+
+  const mainCatt = [
     { value: "drinks", label: "drinks" },
     { value: "main menu", label: "main menu" },
     { value: "lunch", label: "lunch" },
@@ -137,14 +169,40 @@ function AddCategory() {
             <div className="col-12">
               <input
                 type="test"
+                value={mainCat}
+                onChange={(e) => setMainCat(e.target.value)}
                 placeholder="category name"
                 className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
             </div>
           </div>
-          <button className="mt-3 btn btn-solid w-100 bg-them text-white">
-            add main category
-          </button>
+          <div className="row text-center">
+            <div className="col-12">{error.main ? errorDiv : null}</div>
+          </div>
+          {mainCatAdded ? (
+            <button
+              className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
+              type="button"
+            >
+              {" "}
+              added
+            </button>
+          ) : (
+            <button
+              onClick={addMainCat}
+              disabled={!mainCat || pending.main}
+              className="mt-3 btn btn-solid w-100 bg-them text-white"
+            >
+              {pending.main && (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {!pending.main && <span>add main category</span>}
+            </button>
+          )}
         </div>
 
         <div className="col-12 px-0 mt-5">
@@ -159,7 +217,7 @@ function AddCategory() {
               <span className="fs-14 text-secondary">
                 main category to insert in
               </span>
-              <Select options={mainCat} />
+              <Select options={mainCatt} />
             </div>
           </div>
           <button className="mt-3 btn btn-solid w-100 bg-them text-white">

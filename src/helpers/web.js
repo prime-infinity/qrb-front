@@ -286,3 +286,21 @@ export function deleteMenuItemBack(data, token) {
       });
   });
 }
+
+//add categories
+export function addMainCateogory(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/add-main-category", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
