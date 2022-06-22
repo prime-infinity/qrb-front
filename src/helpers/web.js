@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://youngback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://youngback.herokuapp.com/api/";
 
 export async function getIndexRest() {
   try {
@@ -292,6 +292,23 @@ export function addMainCateogory(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/add-main-category", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function addSubCateogory(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/add-sub-category", data, {
         headers: {
           "x-auth-token": token,
         },

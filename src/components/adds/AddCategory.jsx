@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
-import { addMainCateogory } from "../../helpers/web";
+import { addMainCateogory, addSubCateogory } from "../../helpers/web";
+import { setRest } from "../../redux/slices/restSlice";
 
 function AddCategory() {
+  const dispatch = useDispatch();
   const [expand, setExpand] = useState(null);
   const [mainCat, setMainCat] = useState("");
+  const [subCat, setSubCat] = useState({ name: "", main: "" });
   const [error, setErrors] = useState({ main: null, sub: null });
   const [mainCatAdded, setMainCatAdded] = useState(null);
+  const [subCatAdded, setSubCatAdded] = useState(null);
   const [pending, setPending] = useState({ main: false, sub: false });
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
@@ -21,10 +25,30 @@ function AddCategory() {
   };
 
   const handleSuccess = (e) => {
+    dispatch(setRest(e));
     setMainCatAdded(true);
     setPending({ ...pending, main: false });
+    setMainCat("");
     setTimeout(() => {
       setMainCatAdded(false);
+    }, 2000);
+  };
+
+  //for sub
+  const handleSubErrors = (e) => {
+    setPending({ ...pending, sub: false });
+    e.response?.data
+      ? setErrors({ ...error, sub: e.response.data })
+      : setErrors({ ...error, sub: e.message });
+  };
+
+  const handleSubSuccess = (e) => {
+    console.log(e);
+    setSubCatAdded(true);
+    setPending({ ...pending, sub: false });
+    setSubCat("");
+    setTimeout(() => {
+      setSubCatAdded(false);
     }, 2000);
   };
 
@@ -33,16 +57,34 @@ function AddCategory() {
     setPending({ ...pending, main: true });
     setErrors({ ...pending, main: null });
 
-    addMainCateogory({ name: mainCat, restid: rest._id }, authState.token);
+    addMainCateogory({ name: mainCat, restid: rest._id }, authState.token)
+      .then((res) => {
+        handleSuccess(res);
+      })
+      .catch((err) => {
+        handleErrors(err);
+      });
   };
 
-  const mainCatt = [
-    { value: "drinks", label: "drinks" },
-    { value: "main menu", label: "main menu" },
-    { value: "lunch", label: "lunch" },
-  ];
+  const addSubCat = () => {
+    console.log(subCat);
+    setPending({ ...pending, sub: true });
+    setErrors({ ...pending, sub: null });
 
-  const items = [
+    addSubCateogory(subCat, authState.token)
+      .then((res) => {
+        handleSubSuccess(res);
+      })
+      .catch((err) => {
+        handleSubErrors(err);
+      });
+  };
+
+  const subSelectItems = rest.categories.map((cat) => ({
+    label: cat.name,
+    value: cat._id,
+  }));
+  /*const items = [
     {
       id: 1,
       title: "drinks",
@@ -79,24 +121,29 @@ function AddCategory() {
         { id: 3, title: "chips" },
       ],
     },
-  ];
+  ];*/
 
   const expandCat = (id) => {
     expand === id ? setExpand(null) : setExpand(id);
+  };
+
+  const subCatSelected = (e) => {
+    console.log(e.value);
+    setSubCat({ ...subCat, main: e.value });
   };
 
   return (
     <div className="col-12">
       <div className="row justify-content-center pt-3">
         <span className="ps-0 fw-14 fw-bold">all categories</span>
-        {items.map((item, index) => (
+        {rest.categories.map((item, index) => (
           <div
             className="col-12 pos-rel border border-dark br-4 my-2 py-2 fs-14"
             key={index}
           >
             <div className="row">
               <div className="col-12">
-                {item.title}
+                {item.name}
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +215,7 @@ function AddCategory() {
           <div className="row">
             <div className="col-12">
               <input
-                type="test"
+                type="text"
                 value={mainCat}
                 onChange={(e) => setMainCat(e.target.value)}
                 placeholder="category name"
@@ -210,19 +257,45 @@ function AddCategory() {
           <div className="row">
             <div className="col-12">
               <input
-                type="test"
+                type="text"
+                value={subCat.name}
+                onChange={(e) => setSubCat({ ...subCat, name: e.target.value })}
                 placeholder="sub category name"
                 className="form-control mb-3 fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
               <span className="fs-14 text-secondary">
                 main category to insert in
               </span>
-              <Select options={mainCatt} />
+              <Select onChange={subCatSelected} options={subSelectItems} />
             </div>
           </div>
-          <button className="mt-3 btn btn-solid w-100 bg-them text-white">
-            add sub category
-          </button>
+          <div className="row text-center">
+            <div className="col-12">{error.sub ? errorDiv : null}</div>
+          </div>
+          {subCatAdded ? (
+            <button
+              className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
+              type="button"
+            >
+              {" "}
+              added
+            </button>
+          ) : (
+            <button
+              onClick={addSubCat}
+              disabled={!subCat.main || !subCat.name || pending.sub}
+              className="mt-3 btn btn-solid w-100 bg-them text-white"
+            >
+              {pending.sub && (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {!pending.sub && <span>add sub category</span>}
+            </button>
+          )}
         </div>
       </div>
     </div>
