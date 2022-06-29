@@ -9,58 +9,6 @@ import { setRest } from "../redux/slices/restSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddCategory from "../components/adds/AddCategory";
 
-const menuOptions = [
-  {
-    value: "drinks",
-    label: "drinks",
-    id: 1,
-    data: [
-      { id: 1, value: "coffee", label: "coffee", title: "coffee" },
-      { id: 2, value: "Juice", label: "Juice", title: "Juice" },
-      { id: 3, value: "Tea", label: "Tea", title: "Tea" },
-      { id: 4, value: "Soda", label: "Soda", title: "Soda" },
-      { id: 5, value: "Milk", label: "Milk", title: "Milk" },
-      { id: 6, value: "Lemonade", label: "Lemonade", title: "Lemonade" },
-    ],
-  },
-  {
-    value: "main menu",
-    label: "main menu",
-    id: 2,
-    data: [
-      {
-        id: 1,
-        value: "French Fries",
-        label: "French Fries",
-        title: "French Fries",
-      },
-      {
-        id: 2,
-        value: "Onion Rings",
-        label: "Onion Rings",
-        title: "Onion Rings",
-      },
-      {
-        id: 3,
-        value: "Fried Shrimps",
-        label: "Fried Shrimps",
-        title: "Fried Shrimps",
-      },
-      { id: 4, value: "Chicked", label: "Chicked", title: "Chicked" },
-    ],
-  },
-  {
-    value: "lunch",
-    label: "lunch",
-    id: 3,
-    data: [
-      { id: 1, value: "Donuts", label: "Donuts", title: "Donuts" },
-      { id: 2, value: "Coke", label: "Coke", title: "Coke" },
-      { id: 3, value: "Chips", label: "Chips", title: "Chips" },
-    ],
-  },
-];
-
 function AddMenuItem() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -72,6 +20,14 @@ function AddMenuItem() {
   const [imageUpPending, setImageUpPending] = useState(false);
   const [imaUpLdErr, setImgErr] = useState(null);
   const authState = useSelector((state) => state.auth.auth);
+
+  const menuMainOptions = rest.categories.map((cat, index) => ({
+    value: cat._id,
+    label: cat.name,
+    data: cat.sub.map((subs, index) => ({ value: subs._id, label: subs.name })),
+  }));
+
+  //console.log(menuMainOptions);
 
   const [formData, setForm] = useState({
     status: 0,
@@ -99,14 +55,14 @@ function AddMenuItem() {
 
     setForm({
       ...formData,
-      cat: { ...formData.cat, mainId: e.id, mainTitle: e.value },
+      cat: { ...formData.cat, mainId: e.value, mainTitle: e.label },
     });
   };
 
   const subCatSelected = (e) => {
     setForm({
       ...formData,
-      cat: { ...formData.cat, subId: e.id, subTitle: e.value },
+      cat: { ...formData.cat, subId: e.value, subTitle: e.label },
     });
   };
 
@@ -137,7 +93,7 @@ function AddMenuItem() {
     formData2.append("mainTitle", formData.cat.mainTitle);
     formData2.append("subId", formData.cat.subId);
     formData2.append("subTitle", formData.cat.subTitle);
-    console.log(formData2);
+    //console.log(formData2);
     addMenuItem(formData2, authState.token)
       .then((res) => {
         //console.log(res);
@@ -385,7 +341,7 @@ function AddMenuItem() {
                   <Select
                     defaultValue={selectedOption}
                     onChange={(e) => mainCatSelected(e)}
-                    options={menuOptions}
+                    options={menuMainOptions}
                   />
                 </div>
 
