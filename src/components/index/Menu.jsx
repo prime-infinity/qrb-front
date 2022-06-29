@@ -126,6 +126,7 @@ function Menu() {
   };
 
   const highLightCat = (e) => {
+    console.log(e);
     //scroll to position
     const toScrollTo = getRef(e);
 
@@ -162,7 +163,7 @@ function Menu() {
                     borderBottom: "1px solid black",
                   }}
                 >
-                  {CAT.map((cat, index) => (
+                  {rest.categories.map((cat, index) => (
                     <>
                       <div
                         className="pe-3"
@@ -170,15 +171,15 @@ function Menu() {
                         key={index}
                       >
                         <button
-                          onClick={() => showMenuBut(cat.id)}
+                          onClick={() => showMenuBut(cat._id)}
                           className="btn fs-14 bg-them text-white cat-button"
                         >
-                          <span className="cat-btn-txt">{cat.title}</span>
+                          <span className="cat-btn-txt">{cat.name}</span>
 
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className={`cat-btn-arr ${
-                              subBut === cat.id
+                              subBut === cat._id
                                 ? "rotate-icon"
                                 : "counter-rotate-icon"
                             }`}
@@ -197,19 +198,19 @@ function Menu() {
                       </div>
                       <div
                         className={`${
-                          subBut === cat.id ? "d-contents" : "d-none"
+                          subBut === cat._id ? "d-contents" : "d-none"
                         }`}
                       >
-                        {cat.data.map((dat, ind) => (
+                        {cat.sub.map((dat, ind) => (
                           <span
-                            id={dat.title}
+                            id={dat.name}
                             className={`mx-2 my-auto fs-14 ${
-                              lock === dat.title ? "border-bottom-drk" : ""
+                              lock === dat.name ? "border-bottom-drk" : ""
                             } min-width-maxcon`}
-                            onClick={() => highLightCat(dat.title)}
+                            onClick={() => highLightCat(dat.name)}
                             key={ind}
                           >
-                            {dat.title}
+                            {dat.name}
                           </span>
                         ))}
                       </div>

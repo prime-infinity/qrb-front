@@ -84,44 +84,6 @@ function AddCategory() {
     label: cat.name,
     value: cat._id,
   }));
-  /*const items = [
-    {
-      id: 1,
-      title: "drinks",
-      sub: [
-        {
-          id: 1,
-          title: "coffee",
-        },
-        {
-          id: 2,
-          title: "juice",
-        },
-        {
-          id: 3,
-          title: "tea",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "main menu",
-      sub: [
-        { id: 1, title: "french fries" },
-        { id: 2, title: "onion rings" },
-        { id: 3, title: "fried shirmps" },
-      ],
-    },
-    {
-      id: 3,
-      title: "lunch",
-      sub: [
-        { id: 1, title: "donuts" },
-        { id: 2, title: "coke" },
-        { id: 3, title: "chips" },
-      ],
-    },
-  ];*/
 
   const expandCat = (id) => {
     expand === id ? setExpand(null) : setExpand(id);
