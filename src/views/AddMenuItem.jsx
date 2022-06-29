@@ -27,8 +27,6 @@ function AddMenuItem() {
     data: cat.sub.map((subs, index) => ({ value: subs._id, label: subs.name })),
   }));
 
-  //console.log(menuMainOptions);
-
   const [formData, setForm] = useState({
     status: 0,
     name: "",
@@ -55,14 +53,14 @@ function AddMenuItem() {
 
     setForm({
       ...formData,
-      cat: { ...formData.cat, mainId: e.value, mainTitle: e.label },
+      cat: { ...formData.cat, mainId: e.value },
     });
   };
 
   const subCatSelected = (e) => {
     setForm({
       ...formData,
-      cat: { ...formData.cat, subId: e.value, subTitle: e.label },
+      cat: { ...formData.cat, subId: e.value },
     });
   };
 
@@ -90,13 +88,10 @@ function AddMenuItem() {
     formData2.append("price", formData.price);
     formData2.append("description", formData.description);
     formData2.append("mainId", formData.cat.mainId);
-    formData2.append("mainTitle", formData.cat.mainTitle);
     formData2.append("subId", formData.cat.subId);
-    formData2.append("subTitle", formData.cat.subTitle);
-    //console.log(formData2);
+
     addMenuItem(formData2, authState.token)
       .then((res) => {
-        //console.log(res);
         setImageUpPending(false);
         dispatch(setRest(res));
         dispatch(toggleUploading(false));
