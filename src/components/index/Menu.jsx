@@ -296,17 +296,39 @@ function Menu() {
                 <div className="row">
                   <Accordion>
                     {rest.categories.map((cat) =>
-                      cat.sub.map((subb) =>
-                        subb.menu.map((item, index) => (
-                          <InView
-                            as="div"
-                            onChange={(inView) =>
-                              lockOnTarget(inView, subb.name)
-                            }
-                            threshold={1}
-                          ></InView>
-                        ))
-                      )
+                      cat.sub.map((subb, index) => (
+                        <InView
+                          as="div"
+                          onChange={(inView) => lockOnTarget(inView, subb.name)}
+                          threshold={1}
+                        >
+                          <div
+                            key={index}
+                            id={subb.name}
+                            ref={setRef(subb.name)}
+                            className={`${
+                              highLi === subb.name ? "bg-highlight" : ""
+                            }  mb-2`}
+                          >
+                            <div className="row px-0 justify-content-center">
+                              <div className="col-11 px-0 pb-2">
+                                <span className="fs-13">{cat.name}</span>
+                                <span>{chevNxt}</span>
+                                <span className="fs-13">{subb.name}</span>
+                              </div>
+                            </div>
+                            {subb.menu.map((item, indexx) => (
+                              <>
+                                <ItemsBottom
+                                  key={indexx}
+                                  place={indexx}
+                                  item={item}
+                                />
+                              </>
+                            ))}
+                          </div>
+                        </InView>
+                      ))
                     )}
                   </Accordion>
                 </div>
