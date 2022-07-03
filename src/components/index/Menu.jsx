@@ -1,83 +1,21 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+//import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
 import ItemsBottom from "../../ui/ItemsBottom";
-import Shrudding from "../../ui/Shrudding";
+//import Shrudding from "../../ui/Shrudding";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
-  const restMenu = useSelector((state) => state.rest.restMenu);
   const searchBar = useSelector((state) => state.menu.searchBar);
-  const authState = useSelector((state) => state.auth.auth);
+  //const authState = useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
-
-  const CAT = [
-    {
-      id: 1,
-      title: "drinks",
-      data: [
-        { id: 1, title: "coffee" },
-        { id: 2, title: "Juice" },
-        { id: 3, title: "Tea" },
-        { id: 4, title: "Soda" },
-        { id: 5, title: "Milk" },
-        { id: 6, title: "Lemonade" },
-      ],
-    },
-    {
-      id: 2,
-      title: "main menu",
-      data: [
-        { id: 1, title: "French Fries" },
-        { id: 2, title: "Onion Rings" },
-        { id: 3, title: "Fried Shrimps" },
-        { id: 4, title: "Chicked" },
-      ],
-    },
-    {
-      id: 3,
-      title: "lunch",
-      data: [
-        { id: 1, title: "Donuts" },
-        { id: 2, title: "Coke" },
-        { id: 3, title: "Chips" },
-      ],
-    },
-    {
-      id: 4,
-      title: "breakfast",
-      data: [
-        { id: 1, title: "rice" },
-        { id: 2, title: "popcorn" },
-        { id: 3, title: "chips" },
-      ],
-    },
-    {
-      id: 5,
-      title: "sides",
-      data: [
-        { id: 1, title: "hamburgers" },
-        { id: 2, title: "chicken" },
-        { id: 3, title: "turtle" },
-        { id: 4, title: "rabbit" },
-      ],
-    },
-    {
-      id: 6,
-      title: "brunch",
-      data: [
-        { id: 1, title: "lemonde" },
-        { id: 2, title: "Coke" },
-      ],
-    },
-  ];
+  //let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(pbTrue());
@@ -87,13 +25,11 @@ function Menu() {
   }, [dispatch]);
 
   const [subBut, showSubB] = useState(null);
-  const newArr = _.groupBy(restMenu, "cat.subTitle");
   const [highLi, setHigLi] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
   // eslint-disable-next-line
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
-  //console.log(newArr);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -112,17 +48,6 @@ function Menu() {
   const showMenuBut = (id) => {
     subBut === id ? showSubB(null) : showSubB(id);
     setViewEm(!viewEmp);
-  };
-
-  const returnMainTitle = (e) => {
-    let findDeep = function (data, title) {
-      //eslint-disable-next-line
-      return data.find(function (e) {
-        if (e.title === title) return true;
-        else if (e.data) return findDeep(e.data, title);
-      });
-    };
-    return findDeep(CAT, e).title;
   };
 
   const highLightCat = (e) => {
@@ -144,9 +69,9 @@ function Menu() {
 
   const lockOnTarget = (inv, key) => {};
 
-  const addMeniItem = () => {
+  /*const addMeniItem = () => {
     navigate("/add-item");
-  };
+  };*/
 
   return (
     <div className="container-fluid pt-5 big-bg-theme">
@@ -224,7 +149,8 @@ function Menu() {
           {/** menu part */}
           <div className="row  mt-5">
             {/** the menuss */}
-            {rest.menu.length === 0 ? (
+            {
+              /*rest.menu.length === 0 ? (
               <div>
                 <div className="col-12">
                   <div className="to-center">
@@ -250,49 +176,8 @@ function Menu() {
                   </div>
                 </div>
               </div>
-            ) : (
+            */ //) : (
               <div className="col-12 mb-2 mw-100">
-                <div className="row">
-                  <Accordion>
-                    {Object.entries(newArr).map(([key, value], ind) => (
-                      <InView
-                        as="div"
-                        onChange={(inView) => lockOnTarget(inView, key)}
-                        threshold={1}
-                      >
-                        <div
-                          key={ind}
-                          id={key}
-                          ref={setRef(key)}
-                          className={`${
-                            highLi === key ? "bg-highlight" : ""
-                          }  mb-2`}
-                        >
-                          <div className="row px-0 justify-content-center">
-                            <div className="col-11 px-0 pb-2">
-                              <span className="fs-13">
-                                {returnMainTitle(key)}
-                              </span>
-                              <span>{chevNxt}</span>
-                              <span className="fs-13">{key}</span>
-                            </div>
-                          </div>
-
-                          {value.map((item, indexxx) => (
-                            <>
-                              <ItemsBottom
-                                key={indexxx}
-                                place={indexxx}
-                                length={value.length}
-                                item={item}
-                              />
-                            </>
-                          ))}
-                        </div>
-                      </InView>
-                    ))}
-                  </Accordion>
-                </div>
                 <div className="row">
                   <Accordion>
                     {rest.categories.map((cat) =>
@@ -310,19 +195,23 @@ function Menu() {
                               highLi === subb.name ? "bg-highlight" : ""
                             }  mb-2`}
                           >
-                            <div className="row px-0 justify-content-center">
-                              <div className="col-11 px-0 pb-2">
-                                <span className="fs-13">{cat.name}</span>
-                                <span>{chevNxt}</span>
-                                <span className="fs-13">{subb.name}</span>
+                            {subb.menu.length > 0 && (
+                              <div className="row px-0 justify-content-center">
+                                <div className="col-11 px-0 pb-2">
+                                  <span className="fs-13">{cat.name}</span>
+                                  <span>{chevNxt}</span>
+                                  <span className="fs-13">{subb.name}</span>
+                                </div>
                               </div>
-                            </div>
+                            )}
+
                             {subb.menu.map((item, indexx) => (
                               <>
                                 <ItemsBottom
                                   key={indexx}
                                   place={indexx}
                                   item={item}
+                                  length={subb.menu.length}
                                 />
                               </>
                             ))}
@@ -333,7 +222,8 @@ function Menu() {
                   </Accordion>
                 </div>
               </div>
-            )}
+              /*)*/
+            }
           </div>
         </div>
       </div>
