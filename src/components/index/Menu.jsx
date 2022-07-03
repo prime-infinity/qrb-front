@@ -293,6 +293,23 @@ function Menu() {
                     ))}
                   </Accordion>
                 </div>
+                <div className="row">
+                  <Accordion>
+                    {rest.categories.map((cat) =>
+                      cat.sub.map((subb) =>
+                        subb.menu.map((item, index) => (
+                          <InView
+                            as="div"
+                            onChange={(inView) =>
+                              lockOnTarget(inView, subb.name)
+                            }
+                            threshold={1}
+                          ></InView>
+                        ))
+                      )
+                    )}
+                  </Accordion>
+                </div>
               </div>
             )}
           </div>
