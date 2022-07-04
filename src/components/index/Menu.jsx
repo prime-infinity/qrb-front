@@ -88,7 +88,7 @@ function Menu() {
                     borderBottom: "1px solid black",
                   }}
                 >
-                  {rest.categories.map((cat, index) => (
+                  {rest.categories?.map((cat, index) => (
                     <>
                       <div
                         className="pe-3"
@@ -180,7 +180,7 @@ function Menu() {
               <div className="col-12 mb-2 mw-100">
                 <div className="row">
                   <Accordion>
-                    {rest.categories.map((cat) =>
+                    {rest.categories?.map((cat) =>
                       cat.sub.map((subb, index) => (
                         <InView
                           as="div"
