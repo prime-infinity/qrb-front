@@ -4,7 +4,7 @@ import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 
 import ItemsBottom from "../../ui/ItemsBottom";
@@ -15,7 +15,7 @@ function Menu() {
   const searchBar = useSelector((state) => state.menu.searchBar);
   //const authState = useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
-  //let navigate = useNavigate();
+  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(pbTrue());
@@ -73,6 +73,10 @@ function Menu() {
     navigate("/add-item");
   };*/
 
+  const toAddCat = () => {
+    navigate("/add-category");
+  };
+
   return (
     <div className="container-fluid pt-5 big-bg-theme">
       <div className="row pt-5">
@@ -88,6 +92,22 @@ function Menu() {
                     borderBottom: "1px solid black",
                   }}
                 >
+                  {" "}
+                  <div className="pe-3" style={{ width: "max-content" }}>
+                    <button
+                      onClick={toAddCat}
+                      className="btn fs-14 bg-them text-white cat-button"
+                    >
+                      <span className="cat-btn-txt pe-1">add category</span>
+                    </button>
+                  </div>
+                  {rest.categories?.length < 1 && (
+                    <div className="pe-3" style={{ width: "max-content" }}>
+                      <button className="btn fs-14 cat-button">
+                        <span className="cat-btn-txt">no categories</span>
+                      </button>
+                    </div>
+                  )}
                   {rest.categories?.map((cat, index) => (
                     <>
                       <div
