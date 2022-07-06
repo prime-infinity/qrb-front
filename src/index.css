@@ -94,8 +94,8 @@ select {
   position: fixed;
   top: 25%;
   height: 50%;
-  width: 90%;
-  left: 5%;
+  width: 95%;
+  left: 2.5%;
   background-color: white;
   z-index: 3;
 }

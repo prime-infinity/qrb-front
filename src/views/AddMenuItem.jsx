@@ -7,7 +7,6 @@ import { addMenuItem } from "../helpers/web";
 import { toggleUploading } from "../redux/slices/menuSlice";
 import { setRest } from "../redux/slices/restSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddCategory from "../components/adds/AddCategory";
 
 function AddMenuItem() {
   const dispatch = useDispatch();
@@ -117,7 +116,6 @@ function AddMenuItem() {
         style={{ minHeight: "100vh" }}
       >
         <div className="row pt-4">
-          {location.pathname === "/add-category" && <AddCategory />}
           {location.pathname === "/add-item" && (
             <div className="col-12">
               {/** image selection */}

@@ -10,12 +10,14 @@ import PureOverlay from "../../ui/PureOverlay";
 import ItemsBottom from "../../ui/ItemsBottom";
 //import Shrudding from "../../ui/Shrudding";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
+import AddCartModal from "../../ui/AddCartModal";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const searchBar = useSelector((state) => state.menu.searchBar);
   const isAddingCat = useSelector((state) => state.menu.isAddingCat);
   const overlay = useSelector((state) => state.menu.overlay);
+  const authState = useSelector((state) => state.auth.auth);
   const [redrng, setRedrng] = useState(false);
   const dispatch = useDispatch();
 
@@ -81,11 +83,13 @@ function Menu() {
     setRedrng(true);
   };
   const closeOverlay = () => {
+    dispatch(toggleAddingCat(false));
     setRedrng(false);
   };
 
   return (
     <>
+      {isAddingCat && <AddCartModal close={closeOverlay} />}
       <div className="container-fluid pt-5 big-bg-theme">
         {overlay && (
           <PureOverlay
@@ -108,14 +112,16 @@ function Menu() {
                     }}
                   >
                     {" "}
-                    <div className="pe-3" style={{ width: "max-content" }}>
-                      <button
-                        onClick={toAddCat}
-                        className="btn fs-14 bg-them text-white cat-button"
-                      >
-                        <span className="cat-btn-txt pe-1">add category</span>
-                      </button>
-                    </div>
+                    {authState && authState?._id === rest.user && (
+                      <div className="pe-3" style={{ width: "max-content" }}>
+                        <button
+                          onClick={toAddCat}
+                          className="btn fs-14 bg-them text-white cat-button"
+                        >
+                          <span className="cat-btn-txt pe-1">add category</span>
+                        </button>
+                      </div>
+                    )}
                     {rest.categories?.length < 1 && (
                       <div className="pe-3" style={{ width: "max-content" }}>
                         <button className="btn fs-14 cat-button">
