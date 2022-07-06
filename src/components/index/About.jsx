@@ -1,19 +1,21 @@
 //import AboutCardPics from "../ui/AboutCardPics";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import LoadingScreen from "../../ui/LoadingScreen";
 import NetworkErr from "../../ui/NetworkErr";
 import PureOverlay from "../../ui/PureOverlay";
 import RedirModal from "../../ui/RedirModal";
+import { toggleOverlay } from "../../redux/slices/menuSlice";
 
 function About() {
   const rest = useSelector((state) => state.rest.rest);
   const [redrng, setRedrng] = useState(false);
-  const [ani, setAni] = useState(false);
+  const overlay = useSelector((state) => state.menu.overlay);
+  const dispatch = useDispatch();
 
   const redirect = (x) => {
     setRedrng(true);
-    setAni(true);
+    dispatch(toggleOverlay(true));
     //console.log(x);
   };
 
@@ -37,7 +39,7 @@ function About() {
         className="container-fluid pt-5 big-bg-theme"
         style={{ minHeight: "100vh" }}
       >
-        {ani && (
+        {overlay && (
           <PureOverlay
             redrng={redrng}
             closeOverlay={closeOverlay}

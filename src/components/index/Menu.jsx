@@ -2,20 +2,22 @@ import { useEffect, useState } from "react";
 //import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
-import { pbFalse, pbTrue } from "../../redux/slices/menuSlice";
+import { pbFalse, pbTrue, toggleAddingCat } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
+import PureOverlay from "../../ui/PureOverlay";
 
 import ItemsBottom from "../../ui/ItemsBottom";
 //import Shrudding from "../../ui/Shrudding";
+import { toggleOverlay } from "../../redux/slices/menuSlice";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const searchBar = useSelector((state) => state.menu.searchBar);
-  //const authState = useSelector((state) => state.auth.auth);
+  const isAddingCat = useSelector((state) => state.menu.isAddingCat);
+  const overlay = useSelector((state) => state.menu.overlay);
+  const [redrng, setRedrng] = useState(false);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(pbTrue());
@@ -74,103 +76,116 @@ function Menu() {
   };*/
 
   const toAddCat = () => {
-    navigate("/add-category");
+    dispatch(toggleAddingCat(true));
+    dispatch(toggleOverlay(true));
+    setRedrng(true);
+  };
+  const closeOverlay = () => {
+    setRedrng(false);
   };
 
   return (
-    <div className="container-fluid pt-5 big-bg-theme">
-      <div className="row pt-5">
-        <div className="col-12">
-          {/** head button part */}
-          <div className="row " id="sticky">
-            <div className="col-12">
-              {!searchBar && (
-                <div
-                  className="row mx-1 pb-3 g-0 flex-nowrap scroll-div sticky"
-                  style={{
-                    overflowX: "scroll",
-                    borderBottom: "1px solid black",
-                  }}
-                >
-                  {" "}
-                  <div className="pe-3" style={{ width: "max-content" }}>
-                    <button
-                      onClick={toAddCat}
-                      className="btn fs-14 bg-them text-white cat-button"
-                    >
-                      <span className="cat-btn-txt pe-1">add category</span>
-                    </button>
-                  </div>
-                  {rest.categories?.length < 1 && (
+    <>
+      <div className="container-fluid pt-5 big-bg-theme">
+        {overlay && (
+          <PureOverlay
+            redrng={redrng}
+            closeOverlay={closeOverlay}
+            width={`100%`}
+          />
+        )}
+        <div className="row pt-5">
+          <div className="col-12">
+            {/** head button part */}
+            <div className="row " id="sticky">
+              <div className="col-12">
+                {!searchBar && (
+                  <div
+                    className="row mx-1 pb-3 g-0 flex-nowrap scroll-div sticky"
+                    style={{
+                      overflowX: "scroll",
+                      borderBottom: "1px solid black",
+                    }}
+                  >
+                    {" "}
                     <div className="pe-3" style={{ width: "max-content" }}>
-                      <button className="btn fs-14 cat-button">
-                        <span className="cat-btn-txt">no categories</span>
+                      <button
+                        onClick={toAddCat}
+                        className="btn fs-14 bg-them text-white cat-button"
+                      >
+                        <span className="cat-btn-txt pe-1">add category</span>
                       </button>
                     </div>
-                  )}
-                  {rest.categories?.map((cat, index) => (
-                    <>
-                      <div
-                        className="pe-3"
-                        style={{ width: "max-content" }}
-                        key={index}
-                      >
-                        <button
-                          onClick={() => showMenuBut(cat._id)}
-                          className="btn fs-14 bg-them text-white cat-button"
-                        >
-                          <span className="cat-btn-txt">{cat.name}</span>
-
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className={`cat-btn-arr ${
-                              subBut === cat._id
-                                ? "rotate-icon"
-                                : "counter-rotate-icon"
-                            }`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
+                    {rest.categories?.length < 1 && (
+                      <div className="pe-3" style={{ width: "max-content" }}>
+                        <button className="btn fs-14 cat-button">
+                          <span className="cat-btn-txt">no categories</span>
                         </button>
                       </div>
-                      <div
-                        className={`${
-                          subBut === cat._id ? "d-contents" : "d-none"
-                        }`}
-                      >
-                        {cat.sub.map((dat, ind) => (
-                          <span
-                            id={dat.name}
-                            className={`mx-2 my-auto fs-14 ${
-                              lock === dat.name ? "border-bottom-drk" : ""
-                            } min-width-maxcon`}
-                            onClick={() => highLightCat(dat.name)}
-                            key={ind}
+                    )}
+                    {rest.categories?.map((cat, index) => (
+                      <>
+                        <div
+                          className="pe-3"
+                          style={{ width: "max-content" }}
+                          key={index}
+                        >
+                          <button
+                            onClick={() => showMenuBut(cat._id)}
+                            className="btn fs-14 bg-them text-white cat-button"
                           >
-                            {dat.name}
-                          </span>
-                        ))}
-                      </div>
-                    </>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+                            <span className="cat-btn-txt">{cat.name}</span>
 
-          {/** menu part */}
-          <div className="row  mt-5">
-            {/** the menuss */}
-            {
-              /*rest.menu.length === 0 ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className={`cat-btn-arr ${
+                                subBut === cat._id
+                                  ? "rotate-icon"
+                                  : "counter-rotate-icon"
+                              }`}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        <div
+                          className={`${
+                            subBut === cat._id ? "d-contents" : "d-none"
+                          }`}
+                        >
+                          {cat.sub.map((dat, ind) => (
+                            <span
+                              id={dat.name}
+                              className={`mx-2 my-auto fs-14 ${
+                                lock === dat.name ? "border-bottom-drk" : ""
+                              } min-width-maxcon`}
+                              onClick={() => highLightCat(dat.name)}
+                              key={ind}
+                            >
+                              {dat.name}
+                            </span>
+                          ))}
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/** menu part */}
+            <div className="row  mt-5">
+              {/** the menuss */}
+              {
+                /*rest.menu.length === 0 ? (
               <div>
                 <div className="col-12">
                   <div className="to-center">
@@ -197,57 +212,60 @@ function Menu() {
                 </div>
               </div>
             */ //) : (
-              <div className="col-12 mb-2 mw-100">
-                <div className="row">
-                  <Accordion>
-                    {rest.categories?.map((cat) =>
-                      cat.sub.map((subb, index) => (
-                        <InView
-                          as="div"
-                          onChange={(inView) => lockOnTarget(inView, subb.name)}
-                          threshold={1}
-                        >
-                          <div
-                            key={index}
-                            id={subb.name}
-                            ref={setRef(subb.name)}
-                            className={`${
-                              highLi === subb.name ? "bg-highlight" : ""
-                            }  mb-2`}
+                <div className="col-12 mb-2 mw-100">
+                  <div className="row">
+                    <Accordion>
+                      {rest.categories?.map((cat) =>
+                        cat.sub.map((subb, index) => (
+                          <InView
+                            as="div"
+                            onChange={(inView) =>
+                              lockOnTarget(inView, subb.name)
+                            }
+                            threshold={1}
                           >
-                            {subb.menu.length > 0 && (
-                              <div className="row px-0 justify-content-center">
-                                <div className="col-11 px-0 pb-2">
-                                  <span className="fs-13">{cat.name}</span>
-                                  <span>{chevNxt}</span>
-                                  <span className="fs-13">{subb.name}</span>
+                            <div
+                              key={index}
+                              id={subb.name}
+                              ref={setRef(subb.name)}
+                              className={`${
+                                highLi === subb.name ? "bg-highlight" : ""
+                              }  mb-2`}
+                            >
+                              {subb.menu.length > 0 && (
+                                <div className="row px-0 justify-content-center">
+                                  <div className="col-11 px-0 pb-2">
+                                    <span className="fs-13">{cat.name}</span>
+                                    <span>{chevNxt}</span>
+                                    <span className="fs-13">{subb.name}</span>
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
-                            {subb.menu.map((item, indexx) => (
-                              <>
-                                <ItemsBottom
-                                  key={indexx}
-                                  place={indexx}
-                                  item={item}
-                                  length={subb.menu.length}
-                                />
-                              </>
-                            ))}
-                          </div>
-                        </InView>
-                      ))
-                    )}
-                  </Accordion>
+                              {subb.menu.map((item, indexx) => (
+                                <>
+                                  <ItemsBottom
+                                    key={indexx}
+                                    place={indexx}
+                                    item={item}
+                                    length={subb.menu.length}
+                                  />
+                                </>
+                              ))}
+                            </div>
+                          </InView>
+                        ))
+                      )}
+                    </Accordion>
+                  </div>
                 </div>
-              </div>
-              /*)*/
-            }
+                /*)*/
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

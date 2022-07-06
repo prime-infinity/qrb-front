@@ -106,9 +106,9 @@ function AddMenuItem() {
       });
   };
 
-  const addCat = () => {
-    navigate(`/add-category`);
-  };
+  /*const addCat = () => {
+    console.log("is adding category,add menu item");
+  };*/
 
   return (
     <>
@@ -354,7 +354,7 @@ function AddMenuItem() {
               {/** end of choose cate */}
 
               {/**delete item */}
-              <div className="row mt-5 pb-5 mb-3">
+              {/*<div className="row mt-5 pb-5 mb-3">
                 <div className="col-12 float-add-cat-button" onClick={addCat}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +367,7 @@ function AddMenuItem() {
                   </svg>
                   <span className="fw-bold fs-14">add category</span>
                 </div>
-              </div>
+                  </div>*/}
             </div>
           )}
         </div>

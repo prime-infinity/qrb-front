@@ -9,6 +9,8 @@ export const menuSlice = createSlice({
     pb: false,
     uploadingMenu: false,
     searchBar: false,
+    isAddingCat: false,
+    overlay: false,
   },
   reducers: {
     toggleMenu: (state, action) => {
@@ -32,6 +34,12 @@ export const menuSlice = createSlice({
     initMenuSlide: (state, action) => {
       state.menuSlideInited = action.payload;
     },
+    toggleAddingCat: (state, action) => {
+      state.isAddingCat = action.payload;
+    },
+    toggleOverlay: (state, action) => {
+      state.overlay = action.payload;
+    },
   },
 });
 
@@ -42,6 +50,8 @@ export const { pbTrue } = menuSlice.actions;
 export const { toggleUploading } = menuSlice.actions;
 export const { toggleSearchBar } = menuSlice.actions;
 export const { initMenuSlide } = menuSlice.actions;
+export const { toggleAddingCat } = menuSlice.actions;
+export const { toggleOverlay } = menuSlice.actions;
 
 export default menuSlice.reducer;
 
