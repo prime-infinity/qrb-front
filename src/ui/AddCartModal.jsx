@@ -6,7 +6,7 @@ function AddCartModal({ close }) {
       className="custom-modal"
       style={{
         top: "5%",
-        height: "80vh",
+        height: "75vh",
         overflowY: "scroll",
         border: "2px solid black",
       }}
