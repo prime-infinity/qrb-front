@@ -64,7 +64,7 @@ function Menu() {
 
   const lockOnTarget = (data) => {
     //console.log(data);
-    let { is, sub, main, mn, sn } = data;
+    let { is, sub, main /*, mn, sn*/ } = data;
     if (is) {
       showSubB(main);
       var htmlElement = document.getElementById(sub);
@@ -239,8 +239,8 @@ function Menu() {
                                     is: inView,
                                     sub: subb._id,
                                     main: cat._id,
-                                    mn: cat.name,
-                                    sn: subb.name,
+                                    /*mn: cat.name,
+                                    sn: subb.name,*/
                                   })
                                 }
                                 threshold={1}
