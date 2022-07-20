@@ -71,11 +71,11 @@ function Menu() {
       var elementPosition = htmlElement.getBoundingClientRect();
       var outsider = document.getElementById("sticky");
       outsider.scrollTo({
-        left: elementPosition.x /*+ 200,*/,
+        left: elementPosition.x + 250,
         behavior: "smooth",
       });
       setLock(sub);
-      console.log(mn, sn);
+      //console.log(mn, sn);
     }
   };
 
@@ -132,59 +132,63 @@ function Menu() {
                         </button>
                       </div>
                     )}
-                    {rest.categories?.map((cat, index) => (
-                      <>
-                        <div
-                          className="pe-3"
-                          style={{ width: "max-content" }}
-                          key={index}
-                        >
-                          <button
-                            onClick={() => showMenuBut(cat._id)}
-                            className="btn fs-14 bg-them text-white cat-button"
-                          >
-                            <span className="cat-btn-txt">{cat.name}</span>
+                    {rest.categories?.map(
+                      (cat, index) =>
+                        cat.sub.length > 0 && (
+                          <>
+                            <div
+                              className="pe-3"
+                              style={{ width: "max-content" }}
+                              key={index}
+                            >
+                              <button
+                                id={cat._id}
+                                onClick={() => showMenuBut(cat._id)}
+                                className="btn fs-14 bg-them text-white cat-button"
+                              >
+                                <span className="cat-btn-txt">{cat.name}</span>
 
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className={`cat-btn-arr ${
-                                subBut === cat._id
-                                  ? "rotate-icon"
-                                  : "counter-rotate-icon"
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className={`cat-btn-arr ${
+                                    subBut === cat._id
+                                      ? "rotate-icon"
+                                      : "counter-rotate-icon"
+                                  }`}
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 5l7 7-7 7"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                            <div
+                              className={`${
+                                subBut === cat._id ? "d-contents" : "d-none"
                               }`}
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth={2}
                             >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 5l7 7-7 7"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                        <div
-                          className={`${
-                            subBut === cat._id ? "d-contents" : "d-none"
-                          }`}
-                        >
-                          {cat.sub.map((dat, ind) => (
-                            <span
-                              id={dat._id}
-                              className={`mx-2 my-auto fs-14 ${
-                                lock === dat._id ? "bor-btm-black" : ""
-                              } min-width-maxcon`}
-                              onClick={() => highLightCat(dat.name)}
-                              key={ind}
-                            >
-                              {dat.name}
-                            </span>
-                          ))}
-                        </div>
-                      </>
-                    ))}
+                              {cat.sub.map((dat, ind) => (
+                                <span
+                                  id={dat._id}
+                                  className={`mx-2 my-auto fs-14 ${
+                                    lock === dat._id ? "bor-btm-black" : ""
+                                  } min-width-maxcon`}
+                                  onClick={() => highLightCat(dat.name)}
+                                  key={ind}
+                                >
+                                  {dat.name}
+                                </span>
+                              ))}
+                            </div>
+                          </>
+                        )
+                    )}
                   </div>
                 )}
               </div>
