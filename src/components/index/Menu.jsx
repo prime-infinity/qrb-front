@@ -28,10 +28,10 @@ function Menu() {
     };
   }, [dispatch]);
 
+  //console.log(rest.categories);
+
   const [subBut, showSubB] = useState(null);
-  const [highLi, setHigLi] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
-  // eslint-disable-next-line
   const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
   const chevNxt = (
@@ -55,27 +55,29 @@ function Menu() {
   };
 
   const highLightCat = (e) => {
-    console.log(e);
+    //console.log(e);
     //scroll to position
     const toScrollTo = getRef(e);
 
     toScrollTo.current.scrollIntoView(true);
-
-    if (highLi === e) {
-      setHigLi(null);
-      setTimeout(() => {
-        setHigLi(e);
-      }, 1);
-    } else {
-      setHigLi(e);
-    }
   };
 
-  const lockOnTarget = (inv, key) => {};
-
-  /*const addMeniItem = () => {
-    navigate("/add-item");
-  };*/
+  const lockOnTarget = (data) => {
+    //console.log(data);
+    let { is, sub, main, mn, sn } = data;
+    if (is) {
+      showSubB(main);
+      var htmlElement = document.getElementById(sub);
+      var elementPosition = htmlElement.getBoundingClientRect();
+      var outsider = document.getElementById("sticky");
+      outsider.scrollTo({
+        left: elementPosition.x /*+ 200,*/,
+        behavior: "smooth",
+      });
+      setLock(sub);
+      console.log(mn, sn);
+    }
+  };
 
   const toAddCat = () => {
     dispatch(toggleAddingCat(true));
@@ -101,10 +103,11 @@ function Menu() {
         <div className="row pt-5">
           <div className="col-12">
             {/** head button part */}
-            <div className="row " id="sticky">
+            <div className="row ">
               <div className="col-12">
                 {!searchBar && (
                   <div
+                    id="sticky"
                     className="row mx-1 pb-3 g-0 flex-nowrap scroll-div sticky"
                     style={{
                       overflowX: "scroll",
@@ -169,9 +172,9 @@ function Menu() {
                         >
                           {cat.sub.map((dat, ind) => (
                             <span
-                              id={dat.name}
+                              id={dat._id}
                               className={`mx-2 my-auto fs-14 ${
-                                lock === dat.name ? "border-bottom-drk" : ""
+                                lock === dat._id ? "bor-btm-black" : ""
                               } min-width-maxcon`}
                               onClick={() => highLightCat(dat.name)}
                               key={ind}
@@ -222,45 +225,56 @@ function Menu() {
                   <div className="row">
                     <Accordion>
                       {rest.categories?.map((cat) =>
-                        cat.sub.map((subb, index) => (
-                          <InView
-                            as="div"
-                            onChange={(inView) =>
-                              lockOnTarget(inView, subb.name)
-                            }
-                            threshold={1}
-                          >
-                            <div
-                              key={index}
-                              id={subb.name}
-                              ref={setRef(subb.name)}
-                              className={`${
-                                highLi === subb.name ? "bg-highlight" : ""
-                              }  mb-2`}
-                            >
-                              {subb.menu.length > 0 && (
-                                <div className="row px-0 justify-content-center">
-                                  <div className="col-11 px-0 pb-2">
-                                    <span className="fs-13">{cat.name}</span>
-                                    <span>{chevNxt}</span>
-                                    <span className="fs-13">{subb.name}</span>
-                                  </div>
-                                </div>
-                              )}
+                        cat.sub.map(
+                          (subb, index) =>
+                            subb.menu.length > 0 && (
+                              <InView
+                                as="div"
+                                onChange={(inView) =>
+                                  lockOnTarget({
+                                    is: inView,
+                                    sub: subb._id,
+                                    main: cat._id,
+                                    mn: cat.name,
+                                    sn: subb.name,
+                                  })
+                                }
+                                threshold={1}
+                              >
+                                <div
+                                  key={index}
+                                  id={subb.name}
+                                  ref={setRef(subb.name)}
+                                  className={` mb-2`}
+                                >
+                                  {subb.menu.length > 0 && (
+                                    <div className="row px-0 justify-content-center">
+                                      <div className="col-11 px-0 pb-2">
+                                        <span className="fs-13">
+                                          {cat.name}
+                                        </span>
+                                        <span>{chevNxt}</span>
+                                        <span className="fs-13">
+                                          {subb.name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  )}
 
-                              {subb.menu.map((item, indexx) => (
-                                <>
-                                  <ItemsBottom
-                                    key={indexx}
-                                    place={indexx}
-                                    item={item}
-                                    length={subb.menu.length}
-                                  />
-                                </>
-                              ))}
-                            </div>
-                          </InView>
-                        ))
+                                  {subb.menu.map((item, indexx) => (
+                                    <>
+                                      <ItemsBottom
+                                        key={indexx}
+                                        place={indexx}
+                                        item={item}
+                                        length={subb.menu.length}
+                                      />
+                                    </>
+                                  ))}
+                                </div>
+                              </InView>
+                            )
+                        )
                       )}
                     </Accordion>
                   </div>
