@@ -139,7 +139,7 @@ function Menu() {
                             <div
                               className="pe-3"
                               style={{ width: "max-content" }}
-                              key={index}
+                              key={cat._id}
                             >
                               <button
                                 id={cat._id}
@@ -180,7 +180,7 @@ function Menu() {
                                     lock === dat._id ? "bor-btm-black" : ""
                                   } min-width-maxcon`}
                                   onClick={() => highLightCat(dat.name)}
-                                  key={ind}
+                                  key={dat._id}
                                 >
                                   {dat.name}
                                 </span>
@@ -246,7 +246,7 @@ function Menu() {
                                 threshold={1}
                               >
                                 <div
-                                  key={index}
+                                  key={subb._id}
                                   id={subb.name}
                                   ref={setRef(subb.name)}
                                   className={` mb-2`}
@@ -268,7 +268,7 @@ function Menu() {
                                   {subb.menu.map((item, indexx) => (
                                     <>
                                       <ItemsBottom
-                                        key={indexx}
+                                        key={item._id}
                                         place={indexx}
                                         item={item}
                                         length={subb.menu.length}

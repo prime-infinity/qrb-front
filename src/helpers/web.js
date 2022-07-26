@@ -321,3 +321,20 @@ export function addSubCateogory(data, token) {
       });
   });
 }
+
+export function deleteSubCateogory(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/delete-sub-category", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
