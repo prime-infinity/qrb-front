@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteSubCateogory } from "../helpers/web";
+import { deleteMainCateogory, deleteSubCateogory } from "../helpers/web";
 import { useSelector, useDispatch } from "react-redux";
 import { setRest } from "../redux/slices/restSlice";
 
@@ -41,7 +41,15 @@ function WarnModal({ close, details }) {
     //console.log(e);
   };
   const deleteMainCat = (e) => {
-    console.log(e);
+    prep();
+    deleteMainCateogory({ ...e, restid: rest._id }, authState.token)
+      .then((res) => {
+        success(res);
+      })
+      .catch((err) => {
+        failed();
+        console.log(err);
+      });
   };
 
   const remove = (e) => {
