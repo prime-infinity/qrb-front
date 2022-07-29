@@ -1,6 +1,6 @@
 function RedirModal({ close, link }) {
   const redirect = (link) => {
-    window.open(`${link}`, "_blank");
+    window.open(`//${link}`, "_blank");
     //console.log(link);
   };
   return (
