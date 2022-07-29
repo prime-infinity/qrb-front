@@ -1,4 +1,8 @@
-function RedirModal({ close }) {
+function RedirModal({ close, link }) {
+  const redirect = (link) => {
+    window.open(`${link}`, "_blank");
+    //console.log(link);
+  };
   return (
     <div
       className="custom-modal "
@@ -13,7 +17,7 @@ function RedirModal({ close }) {
             <br />
             <div className="pt-3">
               <span className=" fs-14 text-decoration-underline text-secondary">
-                https://www.yelp.com
+                {link}
               </span>
             </div>
             <div className="row justify-content-end pt-5">
@@ -21,7 +25,10 @@ function RedirModal({ close }) {
               <div className="col-9">
                 <div className="row">
                   <div className="col-6">
-                    <button className="btn btn-solid w-100 bg-white">
+                    <button
+                      onClick={() => redirect(link)}
+                      className="btn btn-solid w-100 bg-white"
+                    >
                       yes
                     </button>
                   </div>
