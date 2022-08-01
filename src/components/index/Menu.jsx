@@ -64,8 +64,8 @@ function Menu() {
 
   const lockOnTarget = (data) => {
     //console.log(data);
-    let { is, sub, main /*, mn, sn*/ } = data;
-    if (is) {
+    //let { is, sub, main /*, mn, sn*/ } = data;
+    /*if (is) {
       showSubB(main);
       var htmlElement = document.getElementById(sub);
       var elementPosition = htmlElement.getBoundingClientRect();
@@ -76,7 +76,7 @@ function Menu() {
       });
       setLock(sub);
       //console.log(mn, sn);
-    }
+    }*/
   };
 
   const toAddCat = () => {
@@ -121,7 +121,22 @@ function Menu() {
                           onClick={toAddCat}
                           className="btn fs-14 bg-them text-white cat-button"
                         >
-                          <span className="cat-btn-txt pe-1">add category</span>
+                          <span style={{ display: "flex" }}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="svg-icon"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                              />
+                            </svg>
+                          </span>
                         </button>
                       </div>
                     )}
@@ -132,10 +147,11 @@ function Menu() {
                         </button>
                       </div>
                     )}
+                    {/* the actual buttons */}
                     {rest.categories?.map(
                       (cat, index) =>
                         cat.sub.length > 0 && (
-                          <>
+                          <span style={{ display: "contents" }}>
                             <div
                               className="pe-3"
                               style={{ width: "max-content" }}
@@ -186,7 +202,7 @@ function Menu() {
                                 </span>
                               ))}
                             </div>
-                          </>
+                          </span>
                         )
                     )}
                   </div>
