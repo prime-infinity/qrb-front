@@ -41,6 +41,7 @@ function Menu() {
       order: index + 1,
     }))
   );
+  const [subSelected, setSubSelected] = useState(null);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +97,7 @@ function Menu() {
 
   const highLightCat = (e) => {
     //console.log(e);
+    setSubSelected(e);
     //scroll to position
     const toScrollTo = getRef(e);
 
@@ -249,8 +251,12 @@ function Menu() {
                                       id={dat._id}
                                       className={`mx-2 my-auto fs-14 ${
                                         lock === dat._id ? "bor-btm-black" : ""
-                                      } min-width-maxcon`}
-                                      onClick={() => highLightCat(dat.name)}
+                                      } min-width-maxcon ${
+                                        subSelected === dat._id
+                                          ? "bor-btm-black"
+                                          : ""
+                                      } `}
+                                      onClick={() => highLightCat(dat._id)}
                                       key={dat._id}
                                     >
                                       {dat.name}
@@ -319,7 +325,7 @@ function Menu() {
                                 <div
                                   key={subb._id}
                                   id={subb.name}
-                                  ref={setRef(subb.name)}
+                                  ref={setRef(subb._id)}
                                   className={` mb-2`}
                                 >
                                   {subb.menu.length > 0 && (
