@@ -56,6 +56,16 @@ function Menu() {
     </svg>
   );
 
+  const scrollToMainCat = (id) => {
+    let htmlElement = document.getElementById(id);
+    let elementPosition = htmlElement.getBoundingClientRect();
+    let outsider = document.getElementById("sticky");
+    outsider.scrollTo({
+      left: elementPosition.x + 0,
+      behavior: "smooth",
+    });
+  };
+
   const reArrange = (id) => {
     //rearrange order of rest cats
     let original = rest.categories.map((cat, index) => ({
@@ -71,7 +81,11 @@ function Menu() {
       ? setFixLeft(false)
       : !subBut
       ? setFixLeft(true)
-      : setFixLeft(false);
+      : setFixLeft(true);
+
+    setTimeout(() => {
+      scrollToMainCat(id);
+    }, 200);
   };
 
   const showMenuBut = (id) => {
@@ -187,7 +201,10 @@ function Menu() {
                         .map(
                           (cat, index) =>
                             cat.sub.length > 0 && (
-                              <span style={{ display: "contents" }}>
+                              <span
+                                id={cat._id}
+                                style={{ display: "contents" }}
+                              >
                                 <div
                                   className="pe-3"
                                   style={{ width: "max-content" }}
