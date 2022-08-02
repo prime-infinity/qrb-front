@@ -42,6 +42,7 @@ function Menu() {
     }))
   );
   const [subSelected, setSubSelected] = useState(null);
+  const [mainCatDivSel, setMainCatDiv] = useState(null);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -84,6 +85,8 @@ function Menu() {
       ? setFixLeft(true)
       : setFixLeft(true);
 
+    //add inner sliding class
+    setMainCatDiv(id);
     setTimeout(() => {
       scrollToMainCat(id);
     }, 200);
@@ -106,7 +109,22 @@ function Menu() {
 
   const lockOnTarget = (data) => {
     //console.log(data);
-    //let { is, sub, main /*, mn, sn*/ } = data;
+    let { is, sub, main /*mn, sn*/ } = data;
+    if (is) {
+      //console.log(sub, main, mainCatDivSel);
+      if (main === mainCatDivSel) {
+        //scroll sub cat and highlight
+        //console.log(sn);
+        setLock(sub);
+        let subCat = document.getElementById(sub + "sub");
+        let subPosition = subCat.getBoundingClientRect();
+        let minCat = document.getElementById(main + "main");
+        minCat.scrollTo({
+          left: subPosition.x - 300,
+          behavior: "smooth",
+        });
+      }
+    }
     /*if (is) {
       showSubB(main);
       var htmlElement = document.getElementById(sub);
@@ -205,7 +223,9 @@ function Menu() {
                             cat.sub.length > 0 && (
                               <span
                                 id={cat._id}
-                                style={{ display: "contents" }}
+                                className={`d-contents ${
+                                  false && "cat-div-selec"
+                                }`}
                               >
                                 <div
                                   className="pe-3"
@@ -242,19 +262,25 @@ function Menu() {
                                   </button>
                                 </div>
                                 <div
-                                  className={`${
+                                  id={cat._id + "main"}
+                                  className={`scroll-div ${
                                     subBut === cat._id ? "d-contents" : "d-none"
+                                  } ${
+                                    mainCatDivSel === cat._id &&
+                                    subBut === cat._id &&
+                                    "d-sub-cat-slide"
                                   }`}
                                 >
                                   {cat.sub.map((dat, ind) => (
                                     <span
-                                      id={dat._id}
-                                      className={`mx-2 my-auto fs-14 ${
+                                      id={dat._id + "sub"}
+                                      className={` ${
+                                        ind === cat.sub.length - 1 && "pe-lg"
+                                      } mx-2 my-auto fs-14 ${
                                         lock === dat._id ? "bor-btm-black" : ""
                                       } min-width-maxcon ${
-                                        subSelected === dat._id
-                                          ? "bor-btm-black"
-                                          : ""
+                                        subSelected === dat._id &&
+                                        "bor-btm-black"
                                       } `}
                                       onClick={() => highLightCat(dat._id)}
                                       key={dat._id}

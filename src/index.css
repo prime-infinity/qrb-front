@@ -132,6 +132,19 @@ select {
   transition: 5.5s ease;
   display: contents;
 }
+.d-sub-cat-slide{
+  display: flex !important;
+  min-width: 100%;
+  overflow-x: scroll;
+}
+.d-flex{
+  transition: 5.5s ease;
+  display: flex;
+}
+.cat-div-selec{
+  display: flex !important;
+  position: fixed !important;
+}
 .showw {
   display: contents;
   position: static;
@@ -546,4 +559,7 @@ span.cat-icon img {
 }
 .pos-rel{
   position: relative;
+}
+.pe-lg{
+  margin-right: 15rem !important;
 }
