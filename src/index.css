@@ -561,5 +561,6 @@ span.cat-icon img {
   position: relative;
 }
 .pe-lg{
-  margin-right: 15rem !important;
+  cursor: pointer;
+  /*margin-right: 15rem !important;*/
 }

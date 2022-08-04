@@ -68,6 +68,7 @@ function Menu() {
     });
   };
 
+  //eslint-disable-next-line
   const reArrange = (id) => {
     //rearrange order of rest cats
     let original = rest.categories.map((cat, index) => ({
@@ -95,7 +96,7 @@ function Menu() {
   const showMenuBut = (id) => {
     subBut === id ? showSubB(null) : showSubB(id);
     setViewEm(!viewEmp);
-    reArrange(id);
+    //reArrange(id);
   };
 
   const highLightCat = (e) => {
