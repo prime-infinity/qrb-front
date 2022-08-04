@@ -32,7 +32,7 @@ function Menu() {
 
   const [subBut, showSubB] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
-  const [lock, setLock] = useState(null);
+  //const [lock, setLock] = useState(null);
   const [viewEmp, setViewEm] = useState(false);
   const [fixLeft, setFixLeft] = useState(false);
   const [catsMorphed, setCatsMor] = useState(
@@ -109,8 +109,8 @@ function Menu() {
 
   const lockOnTarget = (data) => {
     //console.log(data);
-    let { is, sub, main /*mn, sn*/ } = data;
-    if (is) {
+    //let { is, sub, main /*mn, sn*/ } = data;
+    /*if (is) {
       //console.log(sub, main, mainCatDivSel);
       if (main === mainCatDivSel) {
         //scroll sub cat and highlight
@@ -276,9 +276,7 @@ function Menu() {
                                       id={dat._id + "sub"}
                                       className={` ${
                                         ind === cat.sub.length - 1 && "pe-lg"
-                                      } mx-2 my-auto fs-14 ${
-                                        lock === dat._id ? "bor-btm-black" : ""
-                                      } min-width-maxcon ${
+                                      } mx-2 my-auto fs-14  min-width-maxcon ${
                                         subSelected === dat._id &&
                                         "bor-btm-black"
                                       } `}
