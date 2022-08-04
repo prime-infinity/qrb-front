@@ -93,10 +93,26 @@ function Menu() {
     }, 200);
   };
 
-  const showMenuBut = (id) => {
-    subBut === id ? showSubB(null) : showSubB(id);
+  const showMenuBut = (data) => {
+    //console.log(id);
+    const { mId, fSubCat } = data;
+    subBut === mId ? showSubB(null) : showSubB(mId);
     setViewEm(!viewEmp);
+
     //reArrange(id);
+
+    //get first menu itemid,so we can scroll to it
+    let firstMenuItemId = fSubCat?.menu[0]?._id;
+    if (firstMenuItemId) {
+      //console.log(firstMenuItemId);
+      /*
+        we have the id of the first item
+        of the first sub cat of this
+        main cat clicked, we now have to scroll toit
+      */
+      let scrollTo = getRef(firstMenuItemId);
+      scrollTo.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   };
 
   const highLightCat = (e) => {
@@ -104,8 +120,12 @@ function Menu() {
     setSubSelected(e);
     //scroll to position
     const toScrollTo = getRef(e);
-
-    toScrollTo.current.scrollIntoView(true);
+    if (toScrollTo) {
+      toScrollTo.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
   };
 
   const lockOnTarget = (data) => {
@@ -235,7 +255,12 @@ function Menu() {
                                 >
                                   <button
                                     id={cat._id}
-                                    onClick={() => showMenuBut(cat._id)}
+                                    onClick={() =>
+                                      showMenuBut({
+                                        mId: cat._id,
+                                        fSubCat: cat.sub[0],
+                                      })
+                                    }
                                     className="btn fs-14 bg-them text-white cat-button"
                                   >
                                     <span className="cat-btn-txt">

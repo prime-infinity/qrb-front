@@ -3,8 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Accordion from "react-bootstrap/Accordion";
+import useDynamicRefs from "use-dynamic-refs";
 
 function ItemsBottom({ item, place, length }) {
+  //eslint-disable-next-line
+  const [getRef, setRef] = useDynamicRefs();
+
   const settings = {
     dots: true,
     slidesToShow: 1,
@@ -12,7 +16,7 @@ function ItemsBottom({ item, place, length }) {
     arrows: false,
   };
   return (
-    <div className="row px-0 justify-content-center">
+    <div ref={setRef(item._id)} className="row px-0 justify-content-center">
       <div
         id={place}
         className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}
