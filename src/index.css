@@ -132,11 +132,7 @@ select {
   transition: 5.5s ease;
   display: contents;
 }
-.d-sub-cat-slide{
-  display: flex !important;
-  min-width: 100%;
-  overflow-x: scroll;
-}
+
 .d-flex{
   transition: 5.5s ease;
   display: flex;

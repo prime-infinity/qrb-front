@@ -32,9 +32,6 @@ function Menu() {
 
   const [subBut, showSubB] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
-  //const [lock, setLock] = useState(null);
-  const [viewEmp, setViewEm] = useState(false);
-  const [fixLeft, setFixLeft] = useState(false);
   const [catsMorphed, setCatsMor] = useState(
     rest.categories.map((cat, index) => ({
       ...cat,
@@ -42,7 +39,6 @@ function Menu() {
     }))
   );
   const [subSelected, setSubSelected] = useState(null);
-  const [mainCatDivSel, setMainCatDiv] = useState(null);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -58,65 +54,38 @@ function Menu() {
     </svg>
   );
 
-  const scrollToMainCat = (id) => {
-    let htmlElement = document.getElementById(id);
-    let elementPosition = htmlElement.getBoundingClientRect();
-    let outsider = document.getElementById("sticky");
-    outsider.scrollTo({
-      left: elementPosition.x + 0,
-      behavior: "smooth",
-    });
-  };
+  const [scrolledMain, setSm] = useState(null);
 
-  //eslint-disable-next-line
-  const reArrange = (id) => {
-    //rearrange order of rest cats
-    let original = rest.categories.map((cat, index) => ({
-      ...cat,
-      order: index + 1,
-    }));
-    let setted = original.map((cat) =>
-      cat._id === id ? { ...cat, order: 0 } : cat
-    );
-    setCatsMor(setted);
-
-    subBut === id
-      ? setFixLeft(false)
-      : !subBut
-      ? setFixLeft(true)
-      : setFixLeft(true);
-
-    //add inner sliding class
-    setMainCatDiv(id);
-    setTimeout(() => {
-      scrollToMainCat(id);
-    }, 200);
-  };
-
-  const showMenuBut = (data) => {
-    //console.log(id);
-    const { mId, fSubCat } = data;
-    subBut === mId ? showSubB(null) : showSubB(mId);
-    setViewEm(!viewEmp);
-
-    //reArrange(id);
-
+  //this below function scrolls vertically
+  //to the first menu item
+  const scrollToVerToFirsItem = (fSubCat) => {
     //get first menu itemid,so we can scroll to it
     let firstMenuItemId = fSubCat?.menu[0]?._id;
     if (firstMenuItemId) {
       //console.log(firstMenuItemId);
       /*
-        we have the id of the first item
-        of the first sub cat of this
-        main cat clicked, we now have to scroll toit
-      */
+    we have the id of the first item
+    of the first sub cat of this
+    main cat clicked, we now have to scroll toit
+  */
       let scrollTo = getRef(firstMenuItemId);
       scrollTo.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
+  //this below function opens up the main cats
+  //to reveal the subcats
+  const showMenuBut = (data) => {
+    const { mId, fSubCat } = data;
+    subBut === mId ? showSubB(null) : showSubB(mId);
+
+    //scrollToVerToFirsItem(fSubCat);
+  };
+
+  //this below function is called when a sub cat
+  //is clicked, it scrolls the menu list down to
+  //locate the menu items
   const highLightCat = (e) => {
-    //console.log(e);
     setSubSelected(e);
     //scroll to position
     const toScrollTo = getRef(e);
@@ -130,7 +99,46 @@ function Menu() {
 
   const lockOnTarget = (data) => {
     //console.log(data);
-    //let { is, sub, main /*mn, sn*/ } = data;
+    let { is, sub, main, mn, sn } = data;
+    if (is) {
+      //if already scolled to that
+      //main cat
+      if (scrolledMain === main) {
+        //you are already in the maain cat
+        //console.log("aler");
+      } else {
+        console.log(mn, sn);
+        //first, let us scroll to the main cat
+        let outsider = document.getElementById("sticky");
+        let ele = getRef(main + "main_span");
+        let aPositi = ele.current.getBoundingClientRect();
+        //console.log(aPositi);
+        outsider.scrollTo({
+          left: aPositi.x,
+          behavior: "smooth",
+        });
+        setSm(main);
+
+        //open up main cat to reveal sub
+        subBut === main ? showSubB(null) : showSubB(main);
+
+        /**
+          make the main cat the container and scroll
+          the sub cats inside it
+        */
+        setTimeout(() => {
+          let scrollIn = getRef(main + "sub_span");
+          let subEle = getRef(sub + "sub_div");
+          let sPosition = subEle.current.getBoundingClientRect();
+          scrollIn.current.scrollTo({
+            left: sPosition.x,
+            behavior: "smooth",
+          });
+          setSubSelected(sub);
+        }, 2000);
+      }
+    }
+
     /*if (is) {
       //console.log(sub, main, mainCatDivSel);
       if (main === mainCatDivSel) {
@@ -201,10 +209,7 @@ function Menu() {
                   >
                     {" "}
                     {authState && authState?._id === rest.user && (
-                      <div
-                        className={`pe-3 ${fixLeft ? "d-none" : ""}`}
-                        style={{ width: "max-content" }}
-                      >
+                      <div className={`pe-3`} style={{ width: "max-content" }}>
                         <button
                           onClick={toAddCat}
                           className="btn fs-14 bg-them text-white cat-button"
@@ -243,10 +248,12 @@ function Menu() {
                           (cat, index) =>
                             cat.sub.length > 0 && (
                               <span
-                                id={cat._id}
-                                className={`d-contents ${
-                                  false && "cat-div-selec"
-                                }`}
+                                className={`d-flex ${false && "cat-div-selec"}`}
+                                ref={setRef(cat._id + "main_span")}
+                                style={{
+                                  minWidth: "min-content",
+                                  maxWidth: "max-content",
+                                }}
                               >
                                 <div
                                   className="pe-3"
@@ -254,7 +261,6 @@ function Menu() {
                                   key={cat._id}
                                 >
                                   <button
-                                    id={cat._id}
                                     onClick={() =>
                                       showMenuBut({
                                         mId: cat._id,
@@ -289,13 +295,14 @@ function Menu() {
                                 </div>
                                 <div
                                   id={cat._id + "main"}
+                                  ref={setRef(cat._id + "sub_span")}
                                   className={`scroll-div ${
-                                    subBut === cat._id ? "d-contents" : "d-none"
-                                  } ${
-                                    mainCatDivSel === cat._id &&
-                                    subBut === cat._id &&
-                                    "d-sub-cat-slide"
-                                  }`}
+                                    subBut === cat._id ? "d-flex" : "d-none"
+                                  } `}
+                                  style={{
+                                    overflowX: "scroll",
+                                    maxWidth: "220px",
+                                  }}
                                 >
                                   {cat.sub.map(
                                     (dat, ind) =>
@@ -309,6 +316,7 @@ function Menu() {
                                             subSelected === dat._id &&
                                             "bor-btm-black"
                                           } `}
+                                          ref={setRef(dat._id + "sub_div")}
                                           onClick={() => highLightCat(dat._id)}
                                           key={dat._id}
                                         >
@@ -370,15 +378,14 @@ function Menu() {
                                     is: inView,
                                     sub: subb._id,
                                     main: cat._id,
-                                    /*mn: cat.name,
-                                    sn: subb.name,*/
+                                    mn: cat.name,
+                                    sn: subb.name,
                                   })
                                 }
                                 threshold={1}
                               >
                                 <div
                                   key={subb._id}
-                                  id={subb.name}
                                   ref={setRef(subb._id)}
                                   className={` mb-2`}
                                 >
