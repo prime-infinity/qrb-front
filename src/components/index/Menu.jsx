@@ -297,21 +297,25 @@ function Menu() {
                                     "d-sub-cat-slide"
                                   }`}
                                 >
-                                  {cat.sub.map((dat, ind) => (
-                                    <span
-                                      id={dat._id + "sub"}
-                                      className={` ${
-                                        ind === cat.sub.length - 1 && "pe-lg"
-                                      } mx-2 my-auto fs-14  min-width-maxcon ${
-                                        subSelected === dat._id &&
-                                        "bor-btm-black"
-                                      } `}
-                                      onClick={() => highLightCat(dat._id)}
-                                      key={dat._id}
-                                    >
-                                      {dat.name}
-                                    </span>
-                                  ))}
+                                  {cat.sub.map(
+                                    (dat, ind) =>
+                                      dat.menu.length > 0 && (
+                                        <span
+                                          id={dat._id + "sub"}
+                                          className={` ${
+                                            ind === cat.sub.length - 1 &&
+                                            "pe-lg"
+                                          } mx-2 my-auto fs-14  min-width-maxcon ${
+                                            subSelected === dat._id &&
+                                            "bor-btm-black"
+                                          } `}
+                                          onClick={() => highLightCat(dat._id)}
+                                          key={dat._id}
+                                        >
+                                          {dat.name}
+                                        </span>
+                                      )
+                                  )}
                                 </div>
                               </span>
                             )
