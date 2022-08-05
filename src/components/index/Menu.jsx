@@ -32,12 +32,7 @@ function Menu() {
 
   const [subBut, showSubB] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
-  const [catsMorphed, setCatsMor] = useState(
-    rest.categories.map((cat, index) => ({
-      ...cat,
-      order: index + 1,
-    }))
-  );
+
   const [subSelected, setSubSelected] = useState(null);
   const chevNxt = (
     <svg
@@ -106,8 +101,23 @@ function Menu() {
       if (scrolledMain === main) {
         //you are already in the maain cat
         //console.log("aler");
+        /**
+          make the main cat the container and scroll
+          the sub cats inside it
+        */
+        console.log("sub" + sn);
+        setTimeout(() => {
+          let scrollIn = getRef(main + "sub_span");
+          let subEle = getRef(sub + "sub_div");
+          let sPosition = subEle.current.getBoundingClientRect();
+          scrollIn.current.scrollTo({
+            left: sPosition.x,
+            behavior: "smooth",
+          });
+          setSubSelected(sub);
+        }, 500);
       } else {
-        console.log(mn, sn);
+        console.log("main" + mn);
         //first, let us scroll to the main cat
         let outsider = document.getElementById("sticky");
         let ele = getRef(main + "main_span");
@@ -121,21 +131,6 @@ function Menu() {
 
         //open up main cat to reveal sub
         subBut === main ? showSubB(null) : showSubB(main);
-
-        /**
-          make the main cat the container and scroll
-          the sub cats inside it
-        */
-        setTimeout(() => {
-          let scrollIn = getRef(main + "sub_span");
-          let subEle = getRef(sub + "sub_div");
-          let sPosition = subEle.current.getBoundingClientRect();
-          scrollIn.current.scrollTo({
-            left: sPosition.x,
-            behavior: "smooth",
-          });
-          setSubSelected(sub);
-        }, 2000);
       }
     }
 
@@ -241,93 +236,87 @@ function Menu() {
                       </div>
                     )}
                     {/* the actual buttons */}
-                    {catsMorphed &&
-                      catsMorphed
-                        ?.sort((a, b) => a.order - b.order)
-                        .map(
-                          (cat, index) =>
-                            cat.sub.length > 0 && (
-                              <span
-                                className={`d-flex ${false && "cat-div-selec"}`}
-                                ref={setRef(cat._id + "main_span")}
-                                style={{
-                                  minWidth: "min-content",
-                                  maxWidth: "max-content",
-                                }}
+                    {rest.categories?.map(
+                      (cat, index) =>
+                        cat.sub.length > 0 && (
+                          <span
+                            className={`d-flex ${false && "cat-div-selec"}`}
+                            ref={setRef(cat._id + "main_span")}
+                            style={{
+                              minWidth: "min-content",
+                              maxWidth: "max-content",
+                            }}
+                          >
+                            <div
+                              className="pe-3"
+                              style={{ width: "max-content" }}
+                              key={cat._id}
+                            >
+                              <button
+                                onClick={() =>
+                                  showMenuBut({
+                                    mId: cat._id,
+                                    fSubCat: cat.sub[0],
+                                  })
+                                }
+                                className="btn fs-14 bg-them text-white cat-button"
                               >
-                                <div
-                                  className="pe-3"
-                                  style={{ width: "max-content" }}
-                                  key={cat._id}
-                                >
-                                  <button
-                                    onClick={() =>
-                                      showMenuBut({
-                                        mId: cat._id,
-                                        fSubCat: cat.sub[0],
-                                      })
-                                    }
-                                    className="btn fs-14 bg-them text-white cat-button"
-                                  >
-                                    <span className="cat-btn-txt">
-                                      {cat.name}
-                                    </span>
+                                <span className="cat-btn-txt">{cat.name}</span>
 
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      className={`cat-btn-arr ${
-                                        subBut === cat._id
-                                          ? "rotate-icon"
-                                          : "counter-rotate-icon"
-                                      }`}
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      strokeWidth={2}
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M9 5l7 7-7 7"
-                                      />
-                                    </svg>
-                                  </button>
-                                </div>
-                                <div
-                                  id={cat._id + "main"}
-                                  ref={setRef(cat._id + "sub_span")}
-                                  className={`scroll-div ${
-                                    subBut === cat._id ? "d-flex" : "d-none"
-                                  } `}
-                                  style={{
-                                    overflowX: "scroll",
-                                    maxWidth: "220px",
-                                  }}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className={`cat-btn-arr ${
+                                    subBut === cat._id
+                                      ? "rotate-icon"
+                                      : "counter-rotate-icon"
+                                  }`}
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
                                 >
-                                  {cat.sub.map(
-                                    (dat, ind) =>
-                                      dat.menu.length > 0 && (
-                                        <span
-                                          id={dat._id + "sub"}
-                                          className={` ${
-                                            ind === cat.sub.length - 1 &&
-                                            "pe-lg"
-                                          } mx-2 my-auto fs-14  min-width-maxcon ${
-                                            subSelected === dat._id &&
-                                            "bor-btm-black"
-                                          } `}
-                                          ref={setRef(dat._id + "sub_div")}
-                                          onClick={() => highLightCat(dat._id)}
-                                          key={dat._id}
-                                        >
-                                          {dat.name}
-                                        </span>
-                                      )
-                                  )}
-                                </div>
-                              </span>
-                            )
-                        )}
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 5l7 7-7 7"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                            <div
+                              id={cat._id + "main"}
+                              ref={setRef(cat._id + "sub_span")}
+                              className={`scroll-div ${
+                                subBut === cat._id ? "d-flex" : "d-none"
+                              } `}
+                              style={{
+                                overflowX: "scroll",
+                                maxWidth: "220px",
+                              }}
+                            >
+                              {cat.sub.map(
+                                (dat, ind) =>
+                                  dat.menu.length > 0 && (
+                                    <span
+                                      id={dat._id + "sub"}
+                                      className={` ${
+                                        ind === cat.sub.length - 1 && "pe-lg"
+                                      } mx-2 my-auto fs-14  min-width-maxcon ${
+                                        subSelected === dat._id &&
+                                        "bor-btm-black"
+                                      } `}
+                                      ref={setRef(dat._id + "sub_div")}
+                                      onClick={() => highLightCat(dat._id)}
+                                      key={dat._id}
+                                    >
+                                      {dat.name}
+                                    </span>
+                                  )
+                              )}
+                            </div>
+                          </span>
+                        )
+                    )}
                   </div>
                 )}
               </div>
