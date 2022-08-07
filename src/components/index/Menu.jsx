@@ -133,34 +133,6 @@ function Menu() {
         //subBut === main ? showSubB(null) : showSubB(main);
       }
     }
-
-    /*if (is) {
-      //console.log(sub, main, mainCatDivSel);
-      if (main === mainCatDivSel) {
-        //scroll sub cat and highlight
-        //console.log(sn);
-        setLock(sub);
-        let subCat = document.getElementById(sub + "sub");
-        let subPosition = subCat.getBoundingClientRect();
-        let minCat = document.getElementById(main + "main");
-        minCat.scrollTo({
-          left: subPosition.x - 300,
-          behavior: "smooth",
-        });
-      }
-    }
-    /*if (is) {
-      showSubB(main);
-      var htmlElement = document.getElementById(sub);
-      var elementPosition = htmlElement.getBoundingClientRect();
-      var outsider = document.getElementById("sticky");
-      outsider.scrollTo({
-        left: elementPosition.x + 250,
-        behavior: "smooth",
-      });
-      setLock(sub);
-      //console.log(mn, sn);
-    }*/
   };
 
   const toAddCat = () => {
