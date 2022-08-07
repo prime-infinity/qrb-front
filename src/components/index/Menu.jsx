@@ -130,7 +130,7 @@ function Menu() {
         setSm(main);
 
         //open up main cat to reveal sub
-        subBut === main ? showSubB(null) : showSubB(main);
+        //subBut === main ? showSubB(null) : showSubB(main);
       }
     }
 
