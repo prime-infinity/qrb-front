@@ -63,13 +63,19 @@ function Menu() {
     setRedrng(false);
   };
 
-  const scrollToCategory = (id, name) => {
-    console.log(name);
+  const scrollToMainCategory = (id, name) => {
+    //console.log(name);
     subBut === id ? showSubB(null) : showSubB(id);
     setTimeout(() => {
       let scrollTo = getRef(id + "main_button_span");
       scrollTo.current.scrollIntoView({ inline: "start" });
     }, 100);
+  };
+
+  const scrollToSubCategory = (id, name) => {
+    console.log(id, name);
+    //let scrollTo = getRef(id + "sub_button_span");
+    //scrollTo.current.scrollIntoView({ inline: "start" });
   };
 
   return (
@@ -146,13 +152,13 @@ function Menu() {
                             }}
                           >
                             <Link
-                              to={cat.sub[0]._id + "sub_menu_span"}
+                              to={cat.sub[0]._id + "main_menu_span"}
                               spy={true}
                               smooth={true}
                               duration={1000}
                               offset={-100}
                               onSetActive={() =>
-                                scrollToCategory(cat._id, cat.name)
+                                scrollToMainCategory(cat._id, cat.name)
                               }
                             >
                               <div className="pe-3">
@@ -205,14 +211,29 @@ function Menu() {
                                 (dat, ind) =>
                                   dat.menu.length > 0 && (
                                     <span
-                                      id={dat._id + "sub"}
                                       className={` ${
                                         ind === cat.sub.length - 1 && "pe-lg"
                                       } mx-2 my-auto fs-14  min-width-maxcon`}
-                                      ref={setRef(dat._id + "sub_div")}
                                       key={dat._id}
                                     >
-                                      {dat.name}
+                                      <Link
+                                        to={dat._id + "main_menu_span"}
+                                        spy={true}
+                                        smooth={true}
+                                        duration={1000}
+                                        offset={-100}
+                                        onSetActive={() =>
+                                          scrollToSubCategory(dat._id, dat.name)
+                                        }
+                                      >
+                                        <span
+                                          ref={setRef(
+                                            dat._id + "sub_button_span"
+                                          )}
+                                        >
+                                          {dat.name}
+                                        </span>
+                                      </Link>
                                     </span>
                                   )
                               )}
@@ -264,7 +285,7 @@ function Menu() {
                           (subb, index) =>
                             subb.menu.length > 0 && (
                               <Element
-                                name={subb._id + "sub_menu_span"}
+                                name={subb._id + "main_menu_span"}
                                 key={subb._id}
                                 className={` ${
                                   rest.categories[rest.categories.length - 1]
