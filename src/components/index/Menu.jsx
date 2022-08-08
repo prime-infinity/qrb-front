@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 //import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
-import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue, toggleAddingCat } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
@@ -11,6 +10,7 @@ import ItemsBottom from "../../ui/ItemsBottom";
 //import Shrudding from "../../ui/Shrudding";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
 import AddCartModal from "../../ui/AddCartModal";
+import { Link, Element } from "react-scroll";
 
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
@@ -28,12 +28,9 @@ function Menu() {
     };
   }, [dispatch]);
 
-  //console.log(rest.categories);
-
   const [subBut, showSubB] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
 
-  const [subSelected, setSubSelected] = useState(null);
   const chevNxt = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -49,90 +46,11 @@ function Menu() {
     </svg>
   );
 
-  const [scrolledMain, setSm] = useState(null);
-
-  //this below function scrolls vertically
-  //to the first menu item
-  const scrollToVerToFirsItem = (fSubCat) => {
-    //get first menu itemid,so we can scroll to it
-    let firstMenuItemId = fSubCat?.menu[0]?._id;
-    if (firstMenuItemId) {
-      //console.log(firstMenuItemId);
-      /*
-    we have the id of the first item
-    of the first sub cat of this
-    main cat clicked, we now have to scroll toit
-  */
-      let scrollTo = getRef(firstMenuItemId);
-      scrollTo.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  };
-
   //this below function opens up the main cats
   //to reveal the subcats
   const showMenuBut = (data) => {
-    const { mId, fSubCat } = data;
+    const { mId } = data;
     subBut === mId ? showSubB(null) : showSubB(mId);
-
-    //scrollToVerToFirsItem(fSubCat);
-  };
-
-  //this below function is called when a sub cat
-  //is clicked, it scrolls the menu list down to
-  //locate the menu items
-  const highLightCat = (e) => {
-    setSubSelected(e);
-    //scroll to position
-    const toScrollTo = getRef(e);
-    if (toScrollTo) {
-      toScrollTo.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-  };
-
-  const lockOnTarget = (data) => {
-    //console.log(data);
-    let { is, sub, main, mn, sn } = data;
-    if (is) {
-      //if already scolled to that
-      //main cat
-      if (scrolledMain === main) {
-        //you are already in the maain cat
-        //console.log("aler");
-        /**
-          make the main cat the container and scroll
-          the sub cats inside it
-        */
-        console.log("sub" + sn);
-        setTimeout(() => {
-          let scrollIn = getRef(main + "sub_span");
-          let subEle = getRef(sub + "sub_div");
-          let sPosition = subEle.current.getBoundingClientRect();
-          scrollIn.current.scrollTo({
-            left: sPosition.x,
-            behavior: "smooth",
-          });
-          setSubSelected(sub);
-        }, 500);
-      } else {
-        console.log("main" + mn);
-        //first, let us scroll to the main cat
-        let outsider = document.getElementById("sticky");
-        let ele = getRef(main + "main_span");
-        let aPositi = ele.current.getBoundingClientRect();
-        //console.log(aPositi);
-        outsider.scrollTo({
-          left: aPositi.x,
-          behavior: "smooth",
-        });
-        setSm(main);
-
-        //open up main cat to reveal sub
-        //subBut === main ? showSubB(null) : showSubB(main);
-      }
-    }
   };
 
   const toAddCat = () => {
@@ -145,9 +63,12 @@ function Menu() {
     setRedrng(false);
   };
 
-  //console.log(rest.categories);
-
-  //console.log(catsMorphed);
+  const scrollToCategory = (id, name) => {
+    console.log(name);
+    let scrollTo = getRef(id + "main_button_span");
+    scrollTo.current.scrollIntoView({ inline: "center" });
+    //subBut === id ? showSubB(null) : showSubB(id);
+  };
 
   return (
     <>
@@ -212,49 +133,58 @@ function Menu() {
                       (cat, index) =>
                         cat.sub.length > 0 && (
                           <span
-                            className={`d-flex ${false && "cat-div-selec"}`}
-                            ref={setRef(cat._id + "main_span")}
+                            className={`d-flex`}
+                            ref={setRef(cat._id + "main_button_span")}
+                            key={cat._id}
                             style={{
                               minWidth: "min-content",
                               maxWidth: "max-content",
                             }}
                           >
-                            <div
-                              className="pe-3"
-                              style={{ width: "max-content" }}
-                              key={cat._id}
+                            <Link
+                              to={cat.sub[0]._id + "sub_menu_span"}
+                              spy={true}
+                              smooth={true}
+                              duration={1000}
+                              offset={-100}
+                              onSetActive={() =>
+                                scrollToCategory(cat._id, cat.name)
+                              }
                             >
-                              <button
-                                onClick={() =>
-                                  showMenuBut({
-                                    mId: cat._id,
-                                    fSubCat: cat.sub[0],
-                                  })
-                                }
-                                className="btn fs-14 bg-them text-white cat-button"
-                              >
-                                <span className="cat-btn-txt">{cat.name}</span>
-
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className={`cat-btn-arr ${
-                                    subBut === cat._id
-                                      ? "rotate-icon"
-                                      : "counter-rotate-icon"
-                                  }`}
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth={2}
+                              <div className="pe-3">
+                                <button
+                                  onClick={() =>
+                                    showMenuBut({
+                                      mId: cat._id,
+                                      fSubCat: cat.sub[0],
+                                    })
+                                  }
+                                  className="btn fs-14 bg-them text-white cat-button"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M9 5l7 7-7 7"
-                                  />
-                                </svg>
-                              </button>
-                            </div>
+                                  <span className="cat-btn-txt">
+                                    {cat.name}
+                                  </span>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={`cat-btn-arr ${
+                                      subBut === cat._id
+                                        ? "rotate-icon"
+                                        : "counter-rotate-icon"
+                                    }`}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M9 5l7 7-7 7"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </Link>
                             <div
                               id={cat._id + "main"}
                               ref={setRef(cat._id + "sub_span")}
@@ -273,12 +203,8 @@ function Menu() {
                                       id={dat._id + "sub"}
                                       className={` ${
                                         ind === cat.sub.length - 1 && "pe-lg"
-                                      } mx-2 my-auto fs-14  min-width-maxcon ${
-                                        subSelected === dat._id &&
-                                        "bor-btm-black"
-                                      } `}
+                                      } mx-2 my-auto fs-14  min-width-maxcon`}
                                       ref={setRef(dat._id + "sub_div")}
-                                      onClick={() => highLightCat(dat._id)}
                                       key={dat._id}
                                     >
                                       {dat.name}
@@ -328,28 +254,15 @@ function Menu() {
                 <div className="col-12 mb-2 mw-100">
                   <div className="row">
                     <Accordion>
-                      {rest.categories?.map((cat) =>
+                      {rest.categories?.map((cat, mainIndex) =>
                         cat.sub.map(
                           (subb, index) =>
                             subb.menu.length > 0 && (
-                              <InView
-                                as="div"
-                                onChange={(inView) =>
-                                  lockOnTarget({
-                                    is: inView,
-                                    sub: subb._id,
-                                    main: cat._id,
-                                    mn: cat.name,
-                                    sn: subb.name,
-                                  })
-                                }
-                                threshold={1}
+                              <Element
+                                name={subb._id + "sub_menu_span"}
+                                key={subb._id}
                               >
-                                <div
-                                  key={subb._id}
-                                  ref={setRef(subb._id)}
-                                  className={` mb-2`}
-                                >
+                                <div className={` mb-2`}>
                                   {subb.menu.length > 0 && (
                                     <div className="row px-0 justify-content-center">
                                       <div className="col-11 px-0 pb-2">
@@ -375,7 +288,7 @@ function Menu() {
                                     </>
                                   ))}
                                 </div>
-                              </InView>
+                              </Element>
                             )
                         )
                       )}
