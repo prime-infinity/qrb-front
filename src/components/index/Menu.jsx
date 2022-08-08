@@ -65,9 +65,11 @@ function Menu() {
 
   const scrollToCategory = (id, name) => {
     console.log(name);
-    let scrollTo = getRef(id + "main_button_span");
-    scrollTo.current.scrollIntoView({ inline: "center" });
-    //subBut === id ? showSubB(null) : showSubB(id);
+    subBut === id ? showSubB(null) : showSubB(id);
+    setTimeout(() => {
+      let scrollTo = getRef(id + "main_button_span");
+      scrollTo.current.scrollIntoView({ inline: "start" });
+    }, 100);
   };
 
   return (
@@ -133,8 +135,10 @@ function Menu() {
                       (cat, index) =>
                         cat.sub.length > 0 && (
                           <span
-                            className={`d-flex`}
-                            ref={setRef(cat._id + "main_button_span")}
+                            className={`${
+                              rest.categories[rest.categories.length - 1]
+                                ._id === cat._id && "mr-100"
+                            } d-flex`}
                             key={cat._id}
                             style={{
                               minWidth: "min-content",
@@ -153,6 +157,7 @@ function Menu() {
                             >
                               <div className="pe-3">
                                 <button
+                                  ref={setRef(cat._id + "main_button_span")}
                                   onClick={() =>
                                     showMenuBut({
                                       mId: cat._id,
@@ -261,6 +266,13 @@ function Menu() {
                               <Element
                                 name={subb._id + "sub_menu_span"}
                                 key={subb._id}
+                                className={` ${
+                                  rest.categories[rest.categories.length - 1]
+                                    .sub[
+                                    rest.categories[rest.categories.length - 1]
+                                      .sub.length - 1
+                                  ].name === subb.name && "pb-100"
+                                }`}
                               >
                                 <div className={` mb-2`}>
                                   {subb.menu.length > 0 && (
