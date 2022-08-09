@@ -64,7 +64,7 @@ function Menu() {
   };
 
   const scrollToMainCategory = (id, name) => {
-    //console.log(name);
+    console.log("main: ", name);
     subBut === id ? showSubB(null) : showSubB(id);
     setTimeout(() => {
       let scrollTo = getRef(id + "main_button_span");
@@ -73,7 +73,7 @@ function Menu() {
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    console.log(id, name);
+    console.log("sub: ", name);
     let scrollIn = getRef(mid + "sub_span");
     let scrollTo = getRef(id + "sub_button");
     let elePosi = scrollTo.current.getBoundingClientRect();
