@@ -63,9 +63,8 @@ function Menu() {
     setRedrng(false);
   };
 
-  const scrollToMainCategory = (id, name) => {
-    console.log("main: ", name);
-    subBut === id ? showSubB(null) : showSubB(id);
+  const scrollToMainCategory = (id) => {
+    showSubB(id);
     setTimeout(() => {
       let scrollTo = getRef(id + "main_button_span");
       scrollTo.current.scrollIntoView({ inline: "start" });
@@ -73,7 +72,9 @@ function Menu() {
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    console.log("sub: ", name);
+    if (subBut !== mid) {
+      scrollToMainCategory(mid);
+    }
     let scrollIn = getRef(mid + "sub_span");
     let scrollTo = getRef(id + "sub_button");
     let elePosi = scrollTo.current.getBoundingClientRect();
