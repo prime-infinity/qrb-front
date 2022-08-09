@@ -72,10 +72,15 @@ function Menu() {
     }, 100);
   };
 
-  const scrollToSubCategory = (id, name) => {
+  const scrollToSubCategory = (id, name, mid) => {
     console.log(id, name);
-    //let scrollTo = getRef(id + "sub_button_span");
-    //scrollTo.current.scrollIntoView({ inline: "start" });
+    let scrollIn = getRef(mid + "sub_span");
+    let scrollTo = getRef(id + "sub_button");
+    let elePosi = scrollTo.current.getBoundingClientRect();
+    scrollIn.current.scrollTo({
+      left: elePosi.x,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -223,13 +228,15 @@ function Menu() {
                                         duration={1000}
                                         offset={-100}
                                         onSetActive={() =>
-                                          scrollToSubCategory(dat._id, dat.name)
+                                          scrollToSubCategory(
+                                            dat._id,
+                                            dat.name,
+                                            cat._id
+                                          )
                                         }
                                       >
                                         <span
-                                          ref={setRef(
-                                            dat._id + "sub_button_span"
-                                          )}
+                                          ref={setRef(dat._id + "sub_button")}
                                         >
                                           {dat.name}
                                         </span>
