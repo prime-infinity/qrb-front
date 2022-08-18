@@ -41,11 +41,9 @@ function CustomToggle({ eventKey, callback, item }) {
           {item?.files?.length > 0 && (
             <div
               id={item.name}
-              className={` ${!viewMode && "stubburn-height"}  ${
-                viewMode && "cat-left-view"
-              } ${!isCurrentEventKey && "border-right-theme"} ${
-                isCurrentEventKey && "max-w-zero "
-              } cat-left`}
+              className={`   ${viewMode && "cat-left-view"} ${
+                !isCurrentEventKey && "border-right-theme"
+              } ${isCurrentEventKey && "max-w-zero "} cat-left`}
             >
               <span className="cat-icon">
                 <img
@@ -56,7 +54,7 @@ function CustomToggle({ eventKey, callback, item }) {
               </span>
             </div>
           )}
-          <div className="cat-right">
+          <div className={`${!viewMode && "stubburn-height"} cat-right `}>
             <div className="cat-head">
               <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
                 {item.name}
