@@ -46,7 +46,7 @@ function Header() {
 
   const goMenu = () => {
     //setMmenu(!mMenu);
-    //showMobileMenu();
+    showMobileMenu();
     navigate(`${rest.url}/menu`);
   };
 
@@ -284,7 +284,8 @@ function Header() {
                     </svg>
                   </span>
                 )}
-                {rest.menu.length > 0 && (
+                {
+                  //rest.menu.length > 0 && (
                   <span onClick={changeView} className="ps-3">
                     {viewMode ? (
                       <svg
@@ -310,7 +311,8 @@ function Header() {
                       </svg>
                     )}
                   </span>
-                )}
+                  /*)*/
+                }
               </>
             )}
             {properUrl(location.pathname) === `/${rest.url}/menu` && (

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const backendHost = "http://localhost:2000/api/";
-const backendHost = "https://youngback.herokuapp.com/api/";
+const backendHost = "http://localhost:2000/api/";
+//const backendHost = "https://youngback.herokuapp.com/api/";
 
 export async function getIndexRest() {
   try {
@@ -140,9 +140,12 @@ export async function getRestOfOwner(token) {
     const { data } = await axios.get(backendHost + "resturant/owner", {
       headers: { "x-auth-token": token },
     });
-    return data;
+    console.log(data);
+    //return data;
   } catch (e) {
-    return e.message;
+    //console.log(e.response);
+    //return e.message;
+    return e.response;
   }
 }
 

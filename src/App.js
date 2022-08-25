@@ -10,8 +10,9 @@ import {
   setRest,
   setRestInited,
 } from "./redux/slices/restSlice";
-import { getAuth } from "./redux/slices/authSlice";
+import { getAuth, setAuth } from "./redux/slices/authSlice";
 import { getRestOfOwner } from "./helpers/web";
+import { removeFromLocal } from "./helpers/storage";
 
 function App() {
   let { resturant } = useParams();
@@ -41,7 +42,7 @@ function App() {
     if (rest !== "Network Error" && rest !== null) {
       navigate(`/${rest?.url}`);
       dispatch(setRestInited(true));
-      console.log("rest is ", rest);
+      console.log("index rest is ", rest);
     }
   };
 
@@ -85,11 +86,20 @@ function App() {
               //get it for him
               if (rest === null) {
                 getRestOfOwner(authState.token)
-                  .then((ree) => {
-                    console.log("users resturant is", ree);
-                    dispatch(setRest(ree));
-                    navigate(`/${ree.url}`);
-                    dispatch(setRestInited(true));
+                  .then((response) => {
+                    console.log(response);
+                    if (response.status === 400 || response.status === 401) {
+                      console.log("auth expired");
+                      //auth error,incase of expired auth keys,
+                      //flush localStorage of keys and setAuth = null
+                      removeFromLocal();
+                      dispatch(setAuth(null));
+                    } else {
+                      console.log("users resturant is", response);
+                      dispatch(setRest(response));
+                      navigate(`/${response.url}`);
+                      dispatch(setRestInited(true));
+                    }
                   })
                   .catch((eer) => {
                     console.log(eer);
