@@ -327,7 +327,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <span className="text-secondary px-2 fs-12 text-decoration-underline">
                       powered by{" "}
                     </span>
-                    <span className="fw-bold"> qrb</span> <br />
+                    <span className="fw-bold">moono</span> <br />
                     {/*<span>
                       autState.isRest ={" "}
                       {authState?.isRestOwner ? "true" : "false"}
