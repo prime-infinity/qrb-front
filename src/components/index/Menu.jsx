@@ -97,7 +97,7 @@ function Menu() {
         )}
         <div className="row pt-5">
           <div className="col-12">
-            {/** head button part */}
+            {/** head button part should be here */}
 
             {/** menu part */}
             <div className="row  mt-5">
