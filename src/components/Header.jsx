@@ -461,6 +461,136 @@ function Header() {
             ) : null}
           </span>
         </Container>
+        <Container fluid className="mx-md-5 pt-3">
+          <div
+            class="row g-0 flex-nowrap scroll-div sticky"
+            style={{ overflowX: "scroll", borderBottom: "2px solid black" }}
+          >
+            <div class="pe-3" style={{ width: "max-content" }}>
+              <button
+                class="btn fs-14 bg-them text-white cat-button"
+                style={{ borderRadius: "0px" }}
+              >
+                drinks
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class=" counter-rotate-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style={{ width: "20px", height: "20px" }}
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="d-none">
+              <span id="coffee" class="mx-2 my-auto fs-14  min-width-maxcon">
+                coffee
+              </span>
+              <span id="Juice" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Juice
+              </span>
+              <span id="Tea" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Tea
+              </span>
+              <span id="Soda" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Soda
+              </span>
+              <span id="Milk" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Milk
+              </span>
+              <span id="Lemonade" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Lemonade
+              </span>
+            </div>
+            <div class="pe-3" style={{ width: "max-content" }}>
+              <button
+                class="btn fs-14 bg-them text-white cat-button"
+                style={{ borderRadius: "0px" }}
+              >
+                main menu
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class=" counter-rotate-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style={{ width: "20px", height: "20px" }}
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="d-none">
+              <span
+                id="French Fries"
+                class="mx-2 my-auto fs-14  min-width-maxcon"
+              >
+                French Fries
+              </span>
+              <span
+                id="Onion Rings"
+                class="mx-2 my-auto fs-14  min-width-maxcon"
+              >
+                Onion Rings
+              </span>
+              <span
+                id="Fried Shrimps"
+                class="mx-2 my-auto fs-14  min-width-maxcon"
+              >
+                Fried Shrimps
+              </span>
+              <span id="Chicked" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Chicked
+              </span>
+            </div>
+            <div class="pe-3" style={{ width: "max-content" }}>
+              <button
+                class="btn fs-14 bg-them text-white cat-button"
+                style={{ borderRadius: "0px" }}
+              >
+                lunch
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class=" counter-rotate-icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style={{ width: "20px", height: "20px" }}
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="d-none">
+              <span id="Donuts" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Donuts
+              </span>
+              <span id="Coke" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Coke
+              </span>
+              <span id="Chips" class="mx-2 my-auto fs-14  min-width-maxcon">
+                Chips
+              </span>
+            </div>
+          </div>
+        </Container>
       </Navbar>
     </>
   ) : inRestCreation() ? (
