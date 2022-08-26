@@ -182,12 +182,13 @@ select {
 .sticky {
   transition: 0.5s ease;
   position: fixed;
-  top: 9%;
+  /*top: 9%;*/
   width: 93%;
   z-index: 1;
   background-color: #f6f4f2;
-  padding-top: 2%;
+  /*padding-top: 2%;*/
   padding-bottom: 2%;
+  margin-top: -7%;
 }
 .sticky + .content {
   padding-top: 102px;
