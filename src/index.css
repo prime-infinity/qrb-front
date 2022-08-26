@@ -567,3 +567,6 @@ span.cat-icon img {
 .mr-100{
   margin-right: 100%;
 }
+.not-a{
+  text-decoration: none !important;
+}

@@ -163,6 +163,7 @@ function Menu() {
                               smooth={true}
                               duration={1000}
                               offset={-100}
+                              activeClass="not-a"
                               onSetActive={() =>
                                 scrollToMainCategory(cat._id, cat.name)
                               }
@@ -228,6 +229,7 @@ function Menu() {
                                         smooth={true}
                                         duration={1000}
                                         offset={-100}
+                                        activeClass="text-dark"
                                         onSetActive={() =>
                                           scrollToSubCategory(
                                             dat._id,
