@@ -306,7 +306,7 @@ function AddMenuItem() {
                     onChange={(e) =>
                       setForm({ ...formData, price: e.target.value })
                     }
-                    type="text"
+                    type="number"
                     placeholder="price($)"
                     className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                   />

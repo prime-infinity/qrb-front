@@ -117,7 +117,8 @@ function Header() {
       properUrl(location.pathname) === `/${rest.url}/about` ||
       location.pathname === "/login" ||
       location.pathname === "/edit-resturant-details" ||
-      location.pathname === "/edit-rest-profile"
+      location.pathname === "/edit-rest-profile" ||
+      location.pathname === "/add-item"
     ) {
       return true;
     }
@@ -209,7 +210,7 @@ function Header() {
                   </svg>
                 ) : location.pathname === "/login" ? (
                   <span onClick={goHome} className="ps-2 fs-23 fw-bold">
-                    qrb
+                    moono
                   </span>
                 ) : location.pathname === "/edit-rest-profile" ? (
                   <svg
@@ -253,7 +254,7 @@ function Header() {
                     <span className="ms-3 fs-18">add category</span>
                   ) : location.pathname === "/login" ? (
                     <span className="ms-2 text-secondary fs-14">
-                      digital menu
+                      resturant remote
                     </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
                     <span className="ms-3 fs-18">{"edit my resturant"}</span>
