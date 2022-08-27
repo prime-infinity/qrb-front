@@ -194,7 +194,9 @@ function Header() {
                 {location.pathname === "/add-item" ||
                 location.pathname === "/add-category" ? (
                   <svg
-                    onClick={goMenu}
+                    onClick={() => {
+                      navigate(`${rest.url}/menu`);
+                    }}
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ width: "25px", verticalAlign: "text-bottom" }}
                     fill="none"
