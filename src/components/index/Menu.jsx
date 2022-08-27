@@ -67,7 +67,7 @@ function Menu() {
     showSubB(id);
     setTimeout(() => {
       let scrollTo = getRef(id + "main_button_span");
-      scrollTo.current.scrollIntoView({ inline: "start" });
+      //scrollTo.current.scrollIntoView({ inline: "start" });
     }, 100);
   };
 
@@ -78,10 +78,10 @@ function Menu() {
     let scrollIn = getRef(mid + "sub_span");
     let scrollTo = getRef(id + "sub_button");
     let elePosi = scrollTo.current.getBoundingClientRect();
-    scrollIn.current.scrollTo({
+    /*scrollIn.current.scrollTo({
       left: elePosi.x,
       behavior: "smooth",
-    });
+    });*/
   };
 
   return (
