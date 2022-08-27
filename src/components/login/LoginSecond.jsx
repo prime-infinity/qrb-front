@@ -116,7 +116,7 @@ function LoginSecond({ resend, field }) {
             aria-hidden="true"
           ></span>
         )}
-        {!pending && <span>enter qrb</span>}
+        {!pending && <span>enter moono</span>}
       </button>
       <div className="row text-center">
         <div className="col-12">{error ? errorDiv : null}</div>

@@ -4,9 +4,15 @@ import Select from "react-select";
 import ImageUploading from "react-images-uploading";
 import { useSelector, useDispatch } from "react-redux";
 import { addMenuItem } from "../helpers/web";
-import { toggleUploading } from "../redux/slices/menuSlice";
+import {
+  toggleAddingCat,
+  toggleOverlay,
+  toggleUploading,
+} from "../redux/slices/menuSlice";
 import { setRest } from "../redux/slices/restSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import AddCartModal from "../ui/AddCartModal";
+import PureOverlay from "../ui/PureOverlay";
 
 function AddMenuItem() {
   const dispatch = useDispatch();
@@ -14,11 +20,14 @@ function AddMenuItem() {
   let location = useLocation();
   const rest = useSelector((state) => state.rest.rest);
   const needToUpload = useSelector((state) => state.menu.uploadingMenu);
+  const isAddingCat = useSelector((state) => state.menu.isAddingCat);
+  const overlay = useSelector((state) => state.menu.overlay);
   const [selectedOption, setSelectedOption] = useState(null);
   const [subOptions, setSubOptions] = useState(null);
   const [imageUpPending, setImageUpPending] = useState(false);
   const [imaUpLdErr, setImgErr] = useState(null);
   const authState = useSelector((state) => state.auth.auth);
+  const [redrng, setRedrng] = useState(false);
 
   const menuMainOptions = rest.categories.map((cat, index) => ({
     value: cat._id,
@@ -105,16 +114,30 @@ function AddMenuItem() {
       });
   };
 
-  /*const addCat = () => {
-    console.log("is adding category,add menu item");
-  };*/
+  const addCat = () => {
+    dispatch(toggleAddingCat(true));
+    dispatch(toggleOverlay(true));
+    setRedrng(true);
+  };
+  const closeOverlay = () => {
+    dispatch(toggleAddingCat(false));
+    setRedrng(false);
+  };
 
   return (
     <>
+      {isAddingCat && <AddCartModal close={closeOverlay} />}
       <div
         className="container-fluid pt-5 px-4 big-bg-theme"
         style={{ minHeight: "100vh" }}
       >
+        {overlay && (
+          <PureOverlay
+            redrng={redrng}
+            closeOverlay={closeOverlay}
+            width={`100%`}
+          />
+        )}
         <div className="row pt-4">
           {location.pathname === "/add-item" && (
             <div className="col-12">
@@ -306,7 +329,7 @@ function AddMenuItem() {
                     onChange={(e) =>
                       setForm({ ...formData, price: e.target.value })
                     }
-                    type="text"
+                    type="number"
                     placeholder="price($)"
                     className="form-control fs-14 big-bg-theme border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
                   />
@@ -352,7 +375,7 @@ function AddMenuItem() {
               {/** end of choose cate */}
 
               {/**delete item */}
-              {/*<div className="row mt-5 pb-5 mb-3">
+              <div className="row mt-5 pb-5 mb-3">
                 <div className="col-12 float-add-cat-button" onClick={addCat}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -365,7 +388,7 @@ function AddMenuItem() {
                   </svg>
                   <span className="fw-bold fs-14">add category</span>
                 </div>
-                  </div>*/}
+              </div>
             </div>
           )}
         </div>

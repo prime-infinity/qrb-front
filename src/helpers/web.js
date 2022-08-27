@@ -140,8 +140,8 @@ export async function getRestOfOwner(token) {
     const { data } = await axios.get(backendHost + "resturant/owner", {
       headers: { "x-auth-token": token },
     });
-    console.log(data);
-    //return data;
+    //console.log(data);
+    return data;
   } catch (e) {
     //console.log(e.response);
     //return e.message;
