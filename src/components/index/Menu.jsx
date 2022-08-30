@@ -61,6 +61,9 @@ function Menu() {
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
     setRedrng(false);
+    setTimeout(() => {
+      dispatch(toggleOverlay(false));
+    }, 400);
   };
 
   const scrollToMainCategory = (id) => {

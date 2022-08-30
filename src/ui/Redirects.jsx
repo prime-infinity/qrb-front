@@ -16,6 +16,9 @@ function Redirects() {
   };
   const closeOverlay = () => {
     setRedrng(false);
+    setTimeout(() => {
+      dispatch(toggleOverlay(false));
+    }, 400);
   };
   return (
     <>
