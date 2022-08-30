@@ -214,7 +214,7 @@ function Menu() {
                               } `}
                               style={{
                                 overflowX: "scroll",
-                                maxWidth: "220px",
+                                maxWidth: "max-content",
                               }}
                             >
                               {cat.sub.map(
