@@ -33,7 +33,9 @@ function CustomToggle({ eventKey, callback, item }) {
 
   return (
     <div
-      className={`row border-left-right`}
+      className={`row border-left-right ${
+        isCurrentEventKey && "border-bottom-drk"
+      }`}
       onClick={() => decoratedOnClick(item.name)}
     >
       <div className="m-cat ps-0 pe-0">

@@ -20,8 +20,8 @@ function ItemsBottom({ item, place, length }) {
       <div className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}>
         <CustomToggle eventKey={item.name} item={item} />
 
-        <div className="row">
-          <div className="col-12 p-0 bottom-acc">
+        <div className={`row border-left-right border-bottom-drk`}>
+          <div className="col-12 p-0 ">
             <Accordion.Collapse eventKey={item.name}>
               <Slider {...settings}>
                 {item &&
