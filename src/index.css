@@ -183,7 +183,7 @@ select {
   transition: 0.5s ease;
   position: fixed;
   /*top: 9%;*/
-  width: 93%;
+  width: 91.6%;
   z-index: 1;
   background-color: #f6f4f2;
   /*padding-top: 2%;*/
@@ -569,4 +569,8 @@ span.cat-icon img {
 }
 .not-a{
   text-decoration: none !important;
+}
+.mx-1-plus-some{
+  margin-right: 0.30rem !important;
+  margin-left: 0.28rem !important;
 }

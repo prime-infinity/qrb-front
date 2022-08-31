@@ -106,7 +106,7 @@ function Menu() {
                 {!searchBar && (
                   <div
                     id="sticky"
-                    className="row mx-1 pb-3 g-0 flex-nowrap scroll-div sticky"
+                    className="row mx-1-plus-some pb-3 g-0 flex-nowrap scroll-div sticky"
                     style={{
                       overflowX: "scroll",
                       borderBottom: "1px solid black",
