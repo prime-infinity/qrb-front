@@ -570,3 +570,6 @@ span.cat-icon img {
   margin-right: 0.30rem !important;
   margin-left: 0.28rem !important;
 }
+.neg-mar{
+  margin-bottom: -8px;
+}

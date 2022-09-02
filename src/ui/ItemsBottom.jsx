@@ -26,7 +26,7 @@ function ItemsBottom({ item, place, length }) {
               <Slider {...settings}>
                 {item &&
                   item.files.map((file, index) => (
-                    <div className="" key={index}>
+                    <div className="neg-mar" key={index}>
                       <div className="sl-img">
                         <img src={file} style={{ width: "100%" }} alt="" />
                       </div>
