@@ -323,11 +323,7 @@ select {
 .menu-border {
   border-top: 2px solid black;
 }
-.slide {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-}
+
 .img-fluid-slider {
   height: 100%;
   width: 100%;
