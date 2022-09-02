@@ -67,15 +67,15 @@ function Menu() {
   };
 
   const scrollToMainCategory = (id) => {
-    showSubB(id);
+    /*showSubB(id);
     setTimeout(() => {
       let scrollTo = getRef(id + "main_button_span");
       scrollTo?.current?.scrollIntoView({ inline: "start" });
-    }, 100);
+    }, 100);*/
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    if (subBut !== mid) {
+    /*if (subBut !== mid) {
       scrollToMainCategory(mid);
     }
     let scrollIn = getRef(mid + "sub_span");
@@ -84,7 +84,7 @@ function Menu() {
     scrollIn?.current?.scrollTo({
       left: elePosi.x,
       behavior: "smooth",
-    });
+    });*/
   };
 
   return (
