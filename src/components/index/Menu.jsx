@@ -11,7 +11,9 @@ import ItemsBottom from "../../ui/ItemsBottom";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
 import AddCartModal from "../../ui/AddCartModal";
 import { Link, Element } from "react-scroll";
-
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const searchBar = useSelector((state) => state.menu.searchBar);
@@ -67,24 +69,28 @@ function Menu() {
   };
 
   const scrollToMainCategory = (id) => {
-    /*showSubB(id);
+    showSubB(id);
     setTimeout(() => {
-      let scrollTo = getRef(id + "main_button_span");
-      scrollTo?.current?.scrollIntoView({ inline: "start" });
-    }, 100);*/
+      let scrollToDiv = getRef(id + "main_button_span");
+      gsap.to("#sticky", {
+        duration: 0.7,
+        scrollTo: { x: scrollToDiv.current },
+      });
+    }, 400);
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    /*if (subBut !== mid) {
+    if (subBut !== mid) {
       scrollToMainCategory(mid);
     }
     let scrollIn = getRef(mid + "sub_span");
     let scrollTo = getRef(id + "sub_button");
     let elePosi = scrollTo.current.getBoundingClientRect();
-    scrollIn?.current?.scrollTo({
-      left: elePosi.x,
-      behavior: "smooth",
-    });*/
+    gsap.to(scrollIn?.current, {
+      duration: 1,
+      scrollTo: { x: elePosi.x, offsetX: 100 },
+    });
+    //gsap.to(scrollIn?.current, { x: 100 - elePosi.x, duration: 0.4 });
   };
 
   return (
@@ -214,7 +220,7 @@ function Menu() {
                               } `}
                               style={{
                                 overflowX: "scroll",
-                                maxWidth: "max-content",
+                                maxWidth: "250px",
                               }}
                             >
                               {cat.sub.map(
