@@ -88,17 +88,22 @@ function App() {
                 getRestOfOwner(authState.token)
                   .then((response) => {
                     console.log(response);
-                    if (response.status === 400 || response.status === 401) {
-                      console.log("auth expired");
-                      //auth error,incase of expired auth keys,
-                      //flush localStorage of keys and setAuth = null
-                      removeFromLocal();
-                      dispatch(setAuth(null));
-                    } else {
-                      console.log("users resturant is", response);
+                    if (response === "Network Error") {
+                      //there is a network error,i.e, no internet
                       dispatch(setRest(response));
-                      navigate(`/${response.url}`);
-                      dispatch(setRestInited(true));
+                    } else {
+                      if (response.status === 400 || response.status === 401) {
+                        console.log("auth expired");
+                        //auth error,incase of expired auth keys,
+                        //flush localStorage of keys and setAuth = null
+                        removeFromLocal();
+                        dispatch(setAuth(null));
+                      } else {
+                        console.log("users resturant is", response);
+                        dispatch(setRest(response));
+                        navigate(`/${response.url}`);
+                        dispatch(setRestInited(true));
+                      }
                     }
                   })
                   .catch((eer) => {

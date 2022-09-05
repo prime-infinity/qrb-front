@@ -144,8 +144,10 @@ export async function getRestOfOwner(token) {
     return data;
   } catch (e) {
     //console.log(e.response);
+    //console.log(e.message);
     //return e.message;
-    return e.response;
+    //return e.response;
+    return e.message ? e.message : e.response;
   }
 }
 
