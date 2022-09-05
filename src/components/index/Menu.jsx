@@ -286,50 +286,51 @@ function Menu() {
                 <div className="col-12 mb-2 mw-100">
                   <div className="row">
                     <Accordion>
-                      {rest.categories?.map((cat, mainIndex) =>
-                        cat.sub.map(
-                          (subb, index) =>
-                            subb.menu.length > 0 && (
-                              <Element
-                                name={subb._id + "main_menu_span"}
-                                key={subb._id}
-                                className={` ${
-                                  rest.categories[rest.categories.length - 1]
-                                    .sub[
+                      {rest.categories?.map(
+                        (cat, mainIndex) =>
+                          cat.sub.length > 0 &&
+                          cat.sub.map(
+                            (subb, index) =>
+                              subb.menu.length > 0 && (
+                                <Element
+                                  name={subb._id + "main_menu_span"}
+                                  key={subb._id}
+                                  className={` ${
                                     rest.categories[rest.categories.length - 1]
-                                      .sub.length - 1
-                                  ].name === subb.name && "pb-100"
-                                }`}
-                              >
-                                <div className={` mb-2`}>
-                                  {subb.menu.length > 0 && (
-                                    <div className="row px-0 justify-content-center">
-                                      <div className="col-11 px-0 pb-2">
-                                        <span className="fs-13">
-                                          {cat.name}
-                                        </span>
-                                        <span>{chevNxt}</span>
-                                        <span className="fs-13">
-                                          {subb.name}
-                                        </span>
+                                      .sub[
+                                      rest.categories[
+                                        rest.categories.length - 1
+                                      ].sub.length - 1
+                                    ].name === subb.name && "pb-100"
+                                  }`}
+                                >
+                                  <div className={` mb-2`}>
+                                    {subb.menu.length > 0 && (
+                                      <div className="row px-0 justify-content-center">
+                                        <div className="col-11 px-0 pb-2">
+                                          <span className="fs-13">
+                                            {cat.name}
+                                          </span>
+                                          <span>{chevNxt}</span>
+                                          <span className="fs-13">
+                                            {subb.name}
+                                          </span>
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
 
-                                  {subb.menu.map((item, indexx) => (
-                                    <>
+                                    {subb.menu.map((item, indexx) => (
                                       <ItemsBottom
                                         key={item._id}
                                         place={indexx}
                                         item={item}
                                         length={subb.menu.length}
                                       />
-                                    </>
-                                  ))}
-                                </div>
-                              </Element>
-                            )
-                        )
+                                    ))}
+                                  </div>
+                                </Element>
+                              )
+                          )
                       )}
                     </Accordion>
                   </div>
