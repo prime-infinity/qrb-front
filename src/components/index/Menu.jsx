@@ -70,31 +70,14 @@ function Menu() {
 
   const scrollToMainCategory = (id) => {
     showSubB(id);
-    /*setTimeout(() => {
-      let scrollToDiv = getRef(id + "main_button_span");
-      gsap.to("#sticky", {
-        duration: 0.7,
-        scrollTo: { x: scrollToDiv.current },
-      });
-    }, 400);*/
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    /*if (subBut !== mid) {
-      scrollToMainCategory(mid);
-    }*/
-
-    //let scrollIn = getRef(mid + "sub_span");
-    //let scrollTo = getRef(id + "sub_button");
-    //let elePosi = scrollTo.current.getBoundingClientRect();
-
     let scrollTo = getRef(id + "sub_button");
     gsap.to("#sticky", {
       duration: 0.8,
       scrollTo: { x: scrollTo.current, offsetX: 100 },
     });
-
-    //gsap.to(scrollIn?.current, { x: 100 - elePosi.x, duration: 0.4 });
   };
 
   return (
