@@ -70,26 +70,30 @@ function Menu() {
 
   const scrollToMainCategory = (id) => {
     showSubB(id);
-    setTimeout(() => {
+    /*setTimeout(() => {
       let scrollToDiv = getRef(id + "main_button_span");
       gsap.to("#sticky", {
         duration: 0.7,
         scrollTo: { x: scrollToDiv.current },
       });
-    }, 400);
+    }, 400);*/
   };
 
   const scrollToSubCategory = (id, name, mid) => {
-    if (subBut !== mid) {
+    /*if (subBut !== mid) {
       scrollToMainCategory(mid);
-    }
-    let scrollIn = getRef(mid + "sub_span");
+    }*/
+
+    //let scrollIn = getRef(mid + "sub_span");
+    //let scrollTo = getRef(id + "sub_button");
+    //let elePosi = scrollTo.current.getBoundingClientRect();
+
     let scrollTo = getRef(id + "sub_button");
-    let elePosi = scrollTo.current.getBoundingClientRect();
-    gsap.to(scrollIn?.current, {
-      duration: 1,
-      scrollTo: { x: elePosi.x, offsetX: 100 },
+    gsap.to("#sticky", {
+      duration: 0.8,
+      scrollTo: { x: scrollTo.current, offsetX: 100 },
     });
+
     //gsap.to(scrollIn?.current, { x: 100 - elePosi.x, duration: 0.4 });
   };
 
@@ -216,11 +220,11 @@ function Menu() {
                               id={cat._id + "main"}
                               ref={setRef(cat._id + "sub_span")}
                               className={`scroll-div ${
-                                subBut === cat._id ? "d-flex" : "d-none"
+                                true ? "d-flex" : "d-none"
                               } `}
                               style={{
                                 overflowX: "scroll",
-                                maxWidth: "250px",
+                                maxWidth: "max-content",
                               }}
                             >
                               {cat.sub.map(
