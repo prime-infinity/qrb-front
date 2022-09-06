@@ -73,10 +73,11 @@ function Menu() {
   };
 
   const scrollToSubCategory = (id, name, mid) => {
+    console.log(name);
     let scrollTo = getRef(id + "sub_button");
     gsap.to("#sticky", {
       duration: 0.8,
-      scrollTo: { x: scrollTo.current, offsetX: 100 },
+      scrollTo: { x: scrollTo.current, offsetX: 150 },
     });
   };
 
@@ -218,6 +219,7 @@ function Menu() {
                                         ind === cat.sub.length - 1 && "pe-lg"
                                       } mx-2 my-auto fs-14  min-width-maxcon`}
                                       key={dat._id}
+                                      ref={setRef(dat._id + "sub_button")}
                                     >
                                       <Link
                                         to={dat._id + "main_menu_span"}
@@ -234,11 +236,7 @@ function Menu() {
                                           )
                                         }
                                       >
-                                        <span
-                                          ref={setRef(dat._id + "sub_button")}
-                                        >
-                                          {dat.name}
-                                        </span>
+                                        <span>{dat.name}</span>
                                       </Link>
                                     </span>
                                   )
