@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 //import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
+import { InView } from "react-intersection-observer";
 import { pbFalse, pbTrue, toggleAddingCat } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
@@ -20,6 +21,7 @@ function Menu() {
   const isAddingCat = useSelector((state) => state.menu.isAddingCat);
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
+  const [inSub, setInSub] = useState(null);
   const [redrng, setRedrng] = useState(false);
   const dispatch = useDispatch();
 
@@ -72,13 +74,27 @@ function Menu() {
     showSubB(id);
   };
 
-  const scrollToSubCategory = (id, name, mid) => {
-    console.log(name);
+  /*const scrollToSubCategory = (id, name, mid) => {
+    //console.log(name);
     let scrollTo = getRef(id + "sub_button");
     gsap.to("#sticky", {
       duration: 0.8,
       scrollTo: { x: scrollTo.current, offsetX: 150 },
     });
+  };*/
+
+  const lockOnTarget = (data) => {
+    //console.log(data);
+    let { is, sub /*, main, mn,*/ } = data;
+    if (is) {
+      //console.log(sn);
+      setInSub(sub);
+      let scrollTo = getRef(sub + "sub_button");
+      gsap.to("#sticky", {
+        duration: 0.8,
+        scrollTo: { x: scrollTo.current, offsetX: 150 },
+      });
+    }
   };
 
   return (
@@ -159,7 +175,7 @@ function Menu() {
                               spy={true}
                               smooth={true}
                               duration={1000}
-                              offset={-100}
+                              offset={-200}
                               activeClass="not-a"
                               onSetActive={() =>
                                 scrollToMainCategory(cat._id, cat.name)
@@ -221,23 +237,13 @@ function Menu() {
                                       key={dat._id}
                                       ref={setRef(dat._id + "sub_button")}
                                     >
-                                      <Link
-                                        to={dat._id + "main_menu_span"}
-                                        spy={true}
-                                        smooth={true}
-                                        duration={1000}
-                                        offset={-100}
-                                        activeClass="text-dark"
-                                        onSetActive={() =>
-                                          scrollToSubCategory(
-                                            dat._id,
-                                            dat.name,
-                                            cat._id
-                                          )
-                                        }
+                                      <span
+                                        className={`${
+                                          inSub === dat._id && "bor-btm-black"
+                                        }`}
                                       >
                                         <span>{dat.name}</span>
-                                      </Link>
+                                      </span>
                                     </span>
                                   )
                               )}
@@ -290,9 +296,21 @@ function Menu() {
                           cat.sub.map(
                             (subb, index) =>
                               subb.menu.length > 0 && (
-                                <Element
-                                  name={subb._id + "main_menu_span"}
+                                <InView
+                                  as="div"
                                   key={subb._id}
+                                  onChange={(inView) =>
+                                    lockOnTarget({
+                                      is: inView,
+                                      sub: subb._id,
+                                      sn: subb.name,
+                                      /*main: cat._id,
+                                      mn: cat.name,
+                                      mn: cat.name,
+                                    */
+                                    })
+                                  }
+                                  threshold={1}
                                   className={` ${
                                     rest.categories[rest.categories.length - 1]
                                       .sub[
@@ -302,31 +320,33 @@ function Menu() {
                                     ].name === subb.name && "pb-100"
                                   }`}
                                 >
-                                  <div className={` mb-2`}>
-                                    {subb.menu.length > 0 && (
-                                      <div className="row px-0 justify-content-center">
-                                        <div className="col-11 px-0 pb-2">
-                                          <span className="fs-13">
-                                            {cat.name}
-                                          </span>
-                                          <span>{chevNxt}</span>
-                                          <span className="fs-13">
-                                            {subb.name}
-                                          </span>
+                                  <Element name={subb._id + "main_menu_span"}>
+                                    <div className={` mb-2`}>
+                                      {subb.menu.length > 0 && (
+                                        <div className="row px-0 justify-content-center">
+                                          <div className="col-11 px-0 pb-2">
+                                            <span className="fs-13">
+                                              {cat.name}
+                                            </span>
+                                            <span>{chevNxt}</span>
+                                            <span className="fs-13">
+                                              {subb.name}
+                                            </span>
+                                          </div>
                                         </div>
-                                      </div>
-                                    )}
+                                      )}
 
-                                    {subb.menu.map((item, indexx) => (
-                                      <ItemsBottom
-                                        key={item._id}
-                                        place={indexx}
-                                        item={item}
-                                        length={subb.menu.length}
-                                      />
-                                    ))}
-                                  </div>
-                                </Element>
+                                      {subb.menu.map((item, indexx) => (
+                                        <ItemsBottom
+                                          key={item._id}
+                                          place={indexx}
+                                          item={item}
+                                          length={subb.menu.length}
+                                        />
+                                      ))}
+                                    </div>
+                                  </Element>
+                                </InView>
                               )
                           )
                       )}
