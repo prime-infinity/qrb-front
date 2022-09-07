@@ -97,6 +97,14 @@ function Menu() {
     }
   };
 
+  const scrollToSubCatGsap = (id) => {
+    let scrollTo = getRef(id + "main_menu_span");
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: { y: scrollTo.current, offsetY: 150 },
+    });
+  };
+
   return (
     <>
       {isAddingCat && <AddCartModal close={closeOverlay} />}
@@ -238,6 +246,9 @@ function Menu() {
                                       ref={setRef(dat._id + "sub_button")}
                                     >
                                       <span
+                                        onClick={() =>
+                                          scrollToSubCatGsap(dat._id)
+                                        }
                                         className={`${
                                           inSub === dat._id && "bor-btm-black"
                                         }`}
@@ -288,7 +299,7 @@ function Menu() {
               </div>
             */ //) : (
                 <div className="col-12 mb-2 mw-100">
-                  <div className="row">
+                  <div className="row" id="menus-cont">
                     <Accordion>
                       {rest.categories?.map(
                         (cat, mainIndex) =>
@@ -323,7 +334,12 @@ function Menu() {
                                   <Element name={subb._id + "main_menu_span"}>
                                     <div className={` mb-2`}>
                                       {subb.menu.length > 0 && (
-                                        <div className="row px-0 justify-content-center">
+                                        <div
+                                          ref={setRef(
+                                            subb._id + "main_menu_span"
+                                          )}
+                                          className="row px-0 justify-content-center"
+                                        >
                                           <div className="col-11 px-0 pb-2">
                                             <span className="fs-13">
                                               {cat.name}

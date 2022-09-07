@@ -565,6 +565,7 @@ span.cat-icon img {
 }
 .not-a{
   text-decoration: none !important;
+  color: black;
 }
 .mx-1-plus-some{
   margin-right: 0.30rem !important;
