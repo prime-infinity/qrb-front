@@ -22,7 +22,7 @@ function Menu() {
   const authState = useSelector((state) => state.auth.auth);
   const [inSub, setInSub] = useState(null);
   const [redrng, setRedrng] = useState(false);
-  const [lockHori, setHLock] = useState(false);
+  const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,6 +31,12 @@ function Menu() {
       dispatch(pbFalse());
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHLock(false);
+    }, 100);
+  }, []);
 
   const [subBut, showSubB] = useState(null);
   const [getRef, setRef] = useDynamicRefs();
@@ -70,19 +76,6 @@ function Menu() {
     }, 400);
   };
 
-  /*const scrollToMainCategory = (id) => {
-    showSubB(id);
-  };*/
-
-  /*const scrollToSubCategory = (id, name, mid) => {
-    //console.log(name);
-    let scrollTo = getRef(id + "sub_button");
-    gsap.to("#sticky", {
-      duration: 0.8,
-      scrollTo: { x: scrollTo.current, offsetX: 150 },
-    });
-  };*/
-
   const lockOnTarget = (data) => {
     let { is, sub, main } = data;
     if (is && !lockHori) {
@@ -91,7 +84,7 @@ function Menu() {
       let scrollTo = getRef(sub + "sub_button");
       gsap.to("#sticky", {
         duration: 1.5,
-        scrollTo: { x: scrollTo.current, offsetX: 150 },
+        scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
       });
     }
   };
