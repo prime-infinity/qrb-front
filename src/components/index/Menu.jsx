@@ -11,7 +11,6 @@ import ItemsBottom from "../../ui/ItemsBottom";
 //import Shrudding from "../../ui/Shrudding";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
 import AddCartModal from "../../ui/AddCartModal";
-import { Link, Element } from "react-scroll";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
@@ -23,6 +22,7 @@ function Menu() {
   const authState = useSelector((state) => state.auth.auth);
   const [inSub, setInSub] = useState(null);
   const [redrng, setRedrng] = useState(false);
+  const [lockHori, setHLock] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,9 +70,9 @@ function Menu() {
     }, 400);
   };
 
-  const scrollToMainCategory = (id) => {
+  /*const scrollToMainCategory = (id) => {
     showSubB(id);
-  };
+  };*/
 
   /*const scrollToSubCategory = (id, name, mid) => {
     //console.log(name);
@@ -84,24 +84,42 @@ function Menu() {
   };*/
 
   const lockOnTarget = (data) => {
-    //console.log(data);
-    let { is, sub /*, main, mn,*/ } = data;
-    if (is) {
-      //console.log(sn);
+    let { is, sub, main } = data;
+    if (is && !lockHori) {
       setInSub(sub);
+      showSubB(main);
       let scrollTo = getRef(sub + "sub_button");
       gsap.to("#sticky", {
-        duration: 0.8,
+        duration: 1.5,
         scrollTo: { x: scrollTo.current, offsetX: 150 },
       });
     }
   };
 
+  const isDoneSub = () => {
+    setHLock(false);
+  };
+
   const scrollToSubCatGsap = (id) => {
+    //console.log("scrolling sub");
+    setInSub(id);
+    setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
-      duration: 1,
+      duration: 0.8,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
+      onComplete: isDoneSub,
+    });
+  };
+
+  const scrollToMainCatGsap = (id) => {
+    //console.log("scrolling main");
+    setHLock(true);
+    let scrollTo = getRef(id + "main_menu_span");
+    gsap.to(window, {
+      duration: 0.8,
+      scrollTo: { y: scrollTo.current, offsetY: 150 },
+      onComplete: isDoneSub,
     });
   };
 
@@ -178,15 +196,9 @@ function Menu() {
                               maxWidth: "max-content",
                             }}
                           >
-                            <Link
-                              to={cat.sub[0]._id + "main_menu_span"}
-                              spy={true}
-                              smooth={true}
-                              duration={1000}
-                              offset={-200}
-                              activeClass="not-a"
-                              onSetActive={() =>
-                                scrollToMainCategory(cat._id, cat.name)
+                            <span
+                              onClick={() =>
+                                scrollToMainCatGsap(cat.sub[0]._id)
                               }
                             >
                               <div className="pe-3">
@@ -223,7 +235,7 @@ function Menu() {
                                   </svg>
                                 </button>
                               </div>
-                            </Link>
+                            </span>
                             <div
                               id={cat._id + "main"}
                               ref={setRef(cat._id + "sub_span")}
@@ -315,8 +327,8 @@ function Menu() {
                                       is: inView,
                                       sub: subb._id,
                                       sn: subb.name,
-                                      /*main: cat._id,
-                                      mn: cat.name,
+                                      main: cat._id,
+                                      /*mn: cat.name,
                                       mn: cat.name,
                                     */
                                     })
@@ -331,37 +343,35 @@ function Menu() {
                                     ].name === subb.name && "pb-100"
                                   }`}
                                 >
-                                  <Element name={subb._id + "main_menu_span"}>
-                                    <div className={` mb-2`}>
-                                      {subb.menu.length > 0 && (
-                                        <div
-                                          ref={setRef(
-                                            subb._id + "main_menu_span"
-                                          )}
-                                          className="row px-0 justify-content-center"
-                                        >
-                                          <div className="col-11 px-0 pb-2">
-                                            <span className="fs-13">
-                                              {cat.name}
-                                            </span>
-                                            <span>{chevNxt}</span>
-                                            <span className="fs-13">
-                                              {subb.name}
-                                            </span>
-                                          </div>
+                                  <div className={` mb-2`}>
+                                    {subb.menu.length > 0 && (
+                                      <div
+                                        ref={setRef(
+                                          subb._id + "main_menu_span"
+                                        )}
+                                        className="row px-0 justify-content-center"
+                                      >
+                                        <div className="col-11 px-0 pb-2">
+                                          <span className="fs-13">
+                                            {cat.name}
+                                          </span>
+                                          <span>{chevNxt}</span>
+                                          <span className="fs-13">
+                                            {subb.name}
+                                          </span>
                                         </div>
-                                      )}
+                                      </div>
+                                    )}
 
-                                      {subb.menu.map((item, indexx) => (
-                                        <ItemsBottom
-                                          key={item._id}
-                                          place={indexx}
-                                          item={item}
-                                          length={subb.menu.length}
-                                        />
-                                      ))}
-                                    </div>
-                                  </Element>
+                                    {subb.menu.map((item, indexx) => (
+                                      <ItemsBottom
+                                        key={item._id}
+                                        place={indexx}
+                                        item={item}
+                                        length={subb.menu.length}
+                                      />
+                                    ))}
+                                  </div>
                                 </InView>
                               )
                           )
