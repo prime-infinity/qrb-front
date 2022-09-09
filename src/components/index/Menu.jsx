@@ -35,7 +35,7 @@ function Menu() {
   useEffect(() => {
     setTimeout(() => {
       setHLock(false);
-    }, 100);
+    }, 300);
   }, []);
 
   const [subBut, showSubB] = useState(null);
@@ -182,7 +182,7 @@ function Menu() {
                             className={`${
                               rest.categories[rest.categories.length - 1]
                                 ._id === cat._id && "mr-100"
-                            } d-flex`}
+                            } d-flex ${index !== 0 && "ps-3"}`}
                             key={cat._id}
                             style={{
                               minWidth: "min-content",
