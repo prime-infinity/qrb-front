@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Accordion from "react-bootstrap/Accordion";
 import useDynamicRefs from "use-dynamic-refs";
 
-function ItemsBottom({ item, place, length }) {
+function ItemsBottom({ item, place, length, parents }) {
   //eslint-disable-next-line
   const [getRef, setRef] = useDynamicRefs();
 
@@ -18,7 +18,7 @@ function ItemsBottom({ item, place, length }) {
   return (
     <div ref={setRef(item._id)} className="row px-0 justify-content-center">
       <div className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}>
-        <CustomToggle eventKey={item.name} item={item} />
+        <CustomToggle eventKey={item.name} item={item} parents={parents} />
 
         <div className={`row border-left-right border-bottom-drk`}>
           <div className="col-12 p-0 ">

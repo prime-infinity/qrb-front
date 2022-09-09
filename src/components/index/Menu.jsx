@@ -360,6 +360,10 @@ function Menu() {
                                       <ItemsBottom
                                         key={item._id}
                                         place={indexx}
+                                        parents={{
+                                          main: cat._id,
+                                          sub: subb._id,
+                                        }}
                                         item={item}
                                         length={subb.menu.length}
                                       />

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteMenuItemBack } from "./web";
 import { setRest } from "../redux/slices/restSlice";
 
-function CustomToggle({ eventKey, callback, item }) {
+function CustomToggle({ eventKey, callback, item, parents }) {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.menu.view);
   const rest = useSelector((state) => state.rest.rest);
@@ -19,9 +19,11 @@ function CustomToggle({ eventKey, callback, item }) {
 
   const isCurrentEventKey = activeEventKey === eventKey;
 
-  const deleteMenuItem = (name) => {
+  const deleteMenuItem = (id) => {
+    //console.log(id);
+    let data = { ...parents, id: id };
     if (window.confirm("delete menu item?")) {
-      deleteMenuItemBack({ name: name, restId: rest._id }, authState.token)
+      deleteMenuItemBack({ data: data, restId: rest._id }, authState.token)
         .then((res) => {
           dispatch(setRest(res));
         })
@@ -100,7 +102,7 @@ function CustomToggle({ eventKey, callback, item }) {
                         backgroundColor: "white",
                         border: "1px solid black",
                       }}
-                      onClick={() => deleteMenuItem(item.name)}
+                      onClick={() => deleteMenuItem(item._id)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
