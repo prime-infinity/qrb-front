@@ -45,9 +45,12 @@ function Login() {
   return (
     <div
       className="container-fluid pt-5 px-4 big-bg-theme"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh", maxHeight: "100vh" }}
     >
-      <div className="row pt-5">
+      <div
+        className="row pt-5"
+        style={{ position: "fixed", width: "94%", left: "6%" }}
+      >
         <div className="col-12 mb-3">
           <PhoneInput
             placeholder="enter mobile no"
