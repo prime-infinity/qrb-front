@@ -303,7 +303,7 @@ function Menu() {
                 </div>
               </div>
             */ //) : (
-                <div className="col-12 mb-2 mw-100">
+                <div className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest.categories?.map(
@@ -327,14 +327,6 @@ function Menu() {
                                     })
                                   }
                                   threshold={1}
-                                  className={` ${
-                                    rest.categories[rest.categories.length - 1]
-                                      .sub[
-                                      rest.categories[
-                                        rest.categories.length - 1
-                                      ].sub.length - 1
-                                    ].name === subb.name && "pb-100"
-                                  }`}
                                 >
                                   <div className={` mb-2`}>
                                     {subb.menu.length > 0 && (
