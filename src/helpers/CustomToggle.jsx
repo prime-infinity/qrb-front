@@ -19,6 +19,10 @@ function CustomToggle({ eventKey, callback, item, parents }) {
 
   const isCurrentEventKey = activeEventKey === eventKey;
 
+  const editMenuItem = (id) => {
+    console.log(id);
+  };
+
   const deleteMenuItem = (id) => {
     //console.log(id);
     let data = { ...parents, id: id };
@@ -59,10 +63,47 @@ function CustomToggle({ eventKey, callback, item, parents }) {
             </div>
           )}
           <div className={`${!viewMode && "stubburn-height"} cat-right `}>
-            <div className="cat-head">
+            <div className="cat-head d-flex">
               <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
                 {item.name}
               </h4>
+
+              {viewMode && authState && authState?._id === rest.user && (
+                <span className="mx-4 d-flex">
+                  <span className="d-flex">
+                    <svg
+                      onClick={() => editMenuItem(item._id)}
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "18px", verticalAlign: "sub" }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                      />
+                    </svg>
+                  </span>
+                  <span className="d-flex ms-4">
+                    <svg
+                      onClick={() => deleteMenuItem(item._id)}
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ width: "18px", verticalAlign: "sub" }}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              )}
 
               <span className="price">
                 {viewMode && item?.status === "1" && (
@@ -96,27 +137,49 @@ function CustomToggle({ eventKey, callback, item, parents }) {
                   style={{ position: "absolute", bottom: "6%" }}
                 >
                   {authState && authState?._id === rest.user && (
-                    <span
-                      style={{
-                        padding: "3%",
-                        backgroundColor: "white",
-                        border: "1px solid black",
-                      }}
-                      onClick={() => deleteMenuItem(item._id)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="svg-icon"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                    <>
+                      <span
+                        style={{
+                          padding: "3%",
+                          marginRight: "5px",
+                        }}
+                        onClick={() => editMenuItem(item._id)}
                       >
-                        <path
-                          fillRule="evenodd"
-                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ width: "18px", verticalAlign: "sub" }}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        style={{
+                          padding: "3%",
+                        }}
+                        onClick={() => deleteMenuItem(item._id)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ width: "18px", verticalAlign: "sub" }}
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </>
                   )}
                 </div>
               </div>

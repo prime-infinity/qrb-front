@@ -134,7 +134,7 @@ select {
 }
 
 .d-flex{
-  transition: 5.5s ease;
+  transition: 1.5s ease;
   display: flex;
 }
 .cat-div-selec{
