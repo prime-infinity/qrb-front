@@ -62,7 +62,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
               </span>
             </div>
           )}
-          <div className={`${!viewMode && "stubburn-height"} cat-right `}>
+          <div className={`${!viewMode && ""} cat-right `}>
             <div className="cat-head d-flex">
               <h4 style={{ marginBottom: viewMode ? "0px" : "5px" }}>
                 {item.name}
