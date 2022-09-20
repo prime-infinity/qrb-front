@@ -3,10 +3,12 @@ import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteMenuItemBack } from "./web";
-import { setRest } from "../redux/slices/restSlice";
+import { setRest, setRestToEdit } from "../redux/slices/restSlice";
+import { useNavigate } from "react-router-dom";
 
 function CustomToggle({ eventKey, callback, item, parents }) {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const viewMode = useSelector((state) => state.menu.view);
   const rest = useSelector((state) => state.rest.rest);
   const authState = useSelector((state) => state.auth.auth);
@@ -20,11 +22,12 @@ function CustomToggle({ eventKey, callback, item, parents }) {
   const isCurrentEventKey = activeEventKey === eventKey;
 
   const editMenuItem = (id) => {
-    console.log(id);
+    //console.log(id);
+    dispatch(setRestToEdit(id));
+    navigate("/edit-item");
   };
 
   const deleteMenuItem = (id) => {
-    //console.log(id);
     let data = { ...parents, id: id };
     if (window.confirm("delete menu item?")) {
       deleteMenuItemBack({ data: data, restId: rest._id }, authState.token)
@@ -72,7 +75,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
                 <span className="mx-4 d-flex">
                   <span className="d-flex">
                     <svg
-                      onClick={() => editMenuItem(item._id)}
+                      onClick={() => editMenuItem(item)}
                       xmlns="http://www.w3.org/2000/svg"
                       style={{ width: "18px", verticalAlign: "sub" }}
                       fill="none"
@@ -143,7 +146,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
                           padding: "3%",
                           marginRight: "5px",
                         }}
-                        onClick={() => editMenuItem(item._id)}
+                        onClick={() => editMenuItem(item)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

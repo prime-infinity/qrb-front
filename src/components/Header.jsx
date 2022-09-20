@@ -67,6 +67,10 @@ function Header() {
     dispatch(toggleUploading(true));
   };
 
+  const editMenuItem = () => {
+    console.log("editing menu item");
+  };
+
   /*const toEditRestProfile = () => {
     navigate("/edit-rest-profile");
   };*/
@@ -118,7 +122,8 @@ function Header() {
       location.pathname === "/login" ||
       location.pathname === "/edit-resturant-details" ||
       location.pathname === "/edit-rest-profile" ||
-      location.pathname === "/add-item"
+      location.pathname === "/add-item" ||
+      location.pathname === "/edit-item"
     ) {
       return true;
     }
@@ -178,6 +183,7 @@ function Header() {
               >
                 {properUrl(location.pathname) !== `/${rest.url}` &&
                   (location.pathname === "/add-item" ||
+                  location.pathname === "/edit-item" ||
                   location.pathname === "/add-category"
                     ? null
                     : location.pathname === "/login"
@@ -192,6 +198,7 @@ function Header() {
             {properUrl(location.pathname) !== `/${rest.url}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
+                location.pathname === "/edit-item" ||
                 location.pathname === "/add-category" ? (
                   <svg
                     onClick={() => {
@@ -252,6 +259,8 @@ function Header() {
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
                     <span className="ms-3 fs-18">add item</span>
+                  ) : location.pathname === "/edit-item" ? (
+                    <span className="ms-3 fs-18">edit item</span>
                   ) : location.pathname === "/add-category" ? (
                     <span className="ms-3 fs-18">add category</span>
                   ) : location.pathname === "/login" ? (
@@ -379,6 +388,23 @@ function Header() {
             {location.pathname === "/add-item" ? (
               <svg
                 onClick={addMenuItem}
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: "30px" }}
+                className="text-secondary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            ) : location.pathname === "/edit-item" ? (
+              <svg
+                onClick={editMenuItem}
                 xmlns="http://www.w3.org/2000/svg"
                 style={{ width: "30px" }}
                 className="text-secondary"

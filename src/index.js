@@ -22,6 +22,7 @@ import CreateResturantYear from "./components/createresturant/CreateResturantYea
 import CreateResturantDesc from "./components/createresturant/CreateResturantDesc";
 import CreateResturantWel from "./components/createresturant/CreateResturantWel";
 import EditUserProfile from "./views/EditUserProfile";
+import EditMenuItem from "./views/EditMenuItem";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -38,6 +39,7 @@ root.render(
 
             <Route path="/login" element={<Login />} />
             <Route path="/add-item" element={<AddMenuItem />} />
+            <Route path="/edit-item" element={<EditMenuItem />} />
             <Route path="/add-category" element={<AddMenuItem />} />
             <Route
               path="/edit-resturant-details"

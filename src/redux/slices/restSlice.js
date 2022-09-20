@@ -7,8 +7,12 @@ export const restSlice = createSlice({
     rest: null,
     restInited: false,
     restMenu: null,
+    restToEdit: null,
   },
   reducers: {
+    setRestToEdit: (state, action) => {
+      state.restToEdit = action.payload;
+    },
     setRest: (state, action) => {
       state.rest = action.payload;
       state.restMenu = state.rest.menu;
@@ -37,6 +41,7 @@ export const restSlice = createSlice({
 });
 
 export const { setRest } = restSlice.actions;
+export const { setRestToEdit } = restSlice.actions;
 export const { setRestSummary } = restSlice.actions;
 export const { setRestImages } = restSlice.actions;
 export const { setRestWelcomScreen } = restSlice.actions;

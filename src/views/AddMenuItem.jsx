@@ -152,13 +152,7 @@ function AddMenuItem() {
                     acceptType={["jpg", "jpeg"]}
                     dataURLKey="data_url"
                   >
-                    {({
-                      imageList,
-                      onImageUpload,
-                      /*onImageUpdate,*/
-                      onImageRemove,
-                      errors,
-                    }) => (
+                    {({ imageList, onImageUpload, onImageRemove, errors }) => (
                       <div className="covers-list-wrapper">
                         <div className="">
                           {imaUpLdErr ? imgErrorDiv : null}
