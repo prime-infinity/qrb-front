@@ -11,6 +11,7 @@ import {
   initMenuSlide,
   toggleSearchBar,
   toggleUploading,
+  toggleEditing,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 import { useState } from "react";
@@ -69,6 +70,7 @@ function Header() {
 
   const editMenuItem = () => {
     console.log("editing menu item");
+    dispatch(toggleEditing(true));
   };
 
   /*const toEditRestProfile = () => {

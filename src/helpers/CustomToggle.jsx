@@ -22,7 +22,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
   const isCurrentEventKey = activeEventKey === eventKey;
 
   const editMenuItem = (id) => {
-    //console.log(id);
+    console.log(id);
     dispatch(setRestToEdit(id));
     navigate("/edit-item");
   };
