@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 function EditMenuItem() {
   let location = useLocation();
   const restToEdit = useSelector((state) => state.rest.restToEdit);
-  const editingMenu = useSelector((state) => state.menu.editingMenu);
+  const editing = useSelector((state) => state.menu.editingMenu);
   const [imageUpPending, setImageUpPending] = useState(false);
   const [images, setImages] = React.useState([]);
   const onChange = (imageList, addUpdateIndex) => {
@@ -23,17 +23,18 @@ function EditMenuItem() {
     price: restToEdit.price,
     description: restToEdit.description,
   });
+  const doneEdit = () => {
+    console.log("ddd");
+    //setImageUpPending(true);
+    //console.log(formData, 5);
+  };
   useEffect(() => {
-    if (editingMenu) {
+    if (editing) {
       doneEdit();
-      console.log("ddd");
     }
     // eslint-disable-next-line
-  }, [editingMenu]);
-  const doneEdit = () => {
-    setImageUpPending(true);
-    console.log(formData, 5);
-  };
+  }, [editing]);
+
   return (
     <>
       <div

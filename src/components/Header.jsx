@@ -72,11 +72,11 @@ function Header() {
     console.log("editing menu item");
     dispatch(toggleEditing(true));
   };
-
-  /*const toEditRestProfile = () => {
-    navigate("/edit-rest-profile");
-  };*/
-
+  const cancelAllAddAndEdit = () => {
+    navigate(`${rest.url}/menu`);
+    dispatch(toggleUploading(false));
+    dispatch(toggleEditing(false));
+  };
   const goDetails = () => {
     navigate("/edit-resturant-details");
   };
@@ -203,9 +203,7 @@ function Header() {
                 location.pathname === "/edit-item" ||
                 location.pathname === "/add-category" ? (
                   <svg
-                    onClick={() => {
-                      navigate(`${rest.url}/menu`);
-                    }}
+                    onClick={cancelAllAddAndEdit}
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ width: "25px", verticalAlign: "text-bottom" }}
                     fill="none"
