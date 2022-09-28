@@ -275,6 +275,24 @@ export function addMenuItem(deta, token) {
   });
 }
 
+export function editMenuItem(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/editmenu", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
 export function deleteMenuItemBack(data, token) {
   return new Promise((res, rej) => {
     axios

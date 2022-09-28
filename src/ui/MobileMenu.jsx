@@ -118,7 +118,7 @@ function MobileMenu({ goMenu, closeMenu }) {
             >
               <>
                 <span className="fw-bold fs-23 pe-2">
-                  {isResOwner && !authState?.isRestOwner ? "qrb" : ""}
+                  {isResOwner && !authState?.isRestOwner ? "Moono" : ""}
                 </span>
                 <span className="text-secondary fs-14">
                   {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}

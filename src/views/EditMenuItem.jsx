@@ -1,18 +1,27 @@
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import ImageUploading from "react-images-uploading";
 import React, { useEffect, useState } from "react";
+import { editMenuItem } from "../helpers/web";
+import { setRest } from "../redux/slices/restSlice";
+import { toggleUploading } from "../redux/slices/menuSlice";
 
 function EditMenuItem() {
   let location = useLocation();
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
   const itemToEdit = useSelector((state) => state.rest.restToEdit);
   const editing = useSelector((state) => state.menu.editingMenu);
+  const rest = useSelector((state) => state.rest.rest);
   const [imageUpPending, setImageUpPending] = useState(false);
+  const [imaUpLdErr, setImgErr] = useState(null);
+  const authState = useSelector((state) => state.auth.auth);
   const [images, setImages] = React.useState([]);
   const onChange = (imageList, addUpdateIndex) => {
     //console.log(imageList);
     setImages(imageList);
   };
+  const imgErrorDiv = <small className="text-danger">{imaUpLdErr}</small>;
 
   useEffect(() => {
     setImages(itemToEdit.item.files);
@@ -36,7 +45,7 @@ function EditMenuItem() {
 
   const doneEdit = () => {
     setImageUpPending(true);
-
+    setImgErr(null);
     const imageAsArray = images.map((img) => {
       //img.file ? img.file : convertToFile(img)
       if (img.file) {
@@ -47,19 +56,33 @@ function EditMenuItem() {
     });
     const formData2 = new FormData();
     for (let i = 0; i < imageAsArray.length; i++) {
-      //formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
-      console.log(imageAsArray[i]);
+      formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+      //console.log(imageAsArray[i]);
     }
 
-    /*formData2.append("itemid", itemToEdit.item._id);
+    formData2.append("itemid", itemToEdit.item._id);
     formData2.append("name", formData.name);
     formData2.append("status", formData.status);
     formData2.append("price", formData.price);
     formData2.append("description", formData.description);
     formData2.append("mainId", itemToEdit.main);
-    formData2.append("subId", itemToEdit.sub);*/
+    formData2.append("subId", itemToEdit.sub);
 
     //console.log(formData2);
+    editMenuItem(formData2, authState.token)
+      .then((res) => {
+        setImageUpPending(false);
+        dispatch(setRest(res));
+        dispatch(toggleUploading(false));
+        navigate(`/${rest.url}/menu`);
+      })
+      .catch((err) => {
+        setImageUpPending(false);
+        dispatch(toggleUploading(false));
+        err.response?.data
+          ? setImgErr(err.response.data)
+          : setImgErr(err.message);
+      });
   };
 
   useEffect(() => {
@@ -89,8 +112,30 @@ function EditMenuItem() {
                     acceptType={["jpg", "jpeg"]}
                     dataURLKey="data_url"
                   >
-                    {({ imageList, onImageUpload, onImageRemove }) => (
+                    {({ imageList, onImageUpload, onImageRemove, errors }) => (
                       <div className="covers-list-wrapper">
+                        <div className="">
+                          {imaUpLdErr ? imgErrorDiv : null}
+                        </div>
+                        {errors && (
+                          <div className="text-danger">
+                            {errors.maxNumber && (
+                              <span className="row">
+                                Number of selected images exceed {6}
+                              </span>
+                            )}
+                            {errors.acceptType && (
+                              <span className="row">
+                                Your selected file type is not allow
+                              </span>
+                            )}
+                            {errors.maxFileSize && (
+                              <span className="row">
+                                Selected file size exceed maxFileSize
+                              </span>
+                            )}
+                          </div>
+                        )}
                         <ul className="covers-list ps-0">
                           {imageUpPending ? (
                             <li>
