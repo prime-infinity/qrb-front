@@ -21,9 +21,9 @@ function CustomToggle({ eventKey, callback, item, parents }) {
 
   const isCurrentEventKey = activeEventKey === eventKey;
 
-  const editMenuItem = (id) => {
-    //console.log(id);
-    dispatch(setRestToEdit(id));
+  const editMenuItem = (item) => {
+    //console.log(id, parents);
+    dispatch(setRestToEdit({ ...parents, item: item }));
     navigate("/edit-item");
   };
 

@@ -5,29 +5,63 @@ import React, { useEffect, useState } from "react";
 
 function EditMenuItem() {
   let location = useLocation();
-  const restToEdit = useSelector((state) => state.rest.restToEdit);
+  const itemToEdit = useSelector((state) => state.rest.restToEdit);
   const editing = useSelector((state) => state.menu.editingMenu);
   const [imageUpPending, setImageUpPending] = useState(false);
   const [images, setImages] = React.useState([]);
   const onChange = (imageList, addUpdateIndex) => {
-    console.log(imageList);
+    //console.log(imageList);
     setImages(imageList);
   };
 
   useEffect(() => {
-    setImages(restToEdit.files);
-  }, [restToEdit.files]);
+    setImages(itemToEdit.item.files);
+  }, [itemToEdit.item.files]);
   const [formData, setForm] = useState({
-    status: parseInt(restToEdit.status),
-    name: restToEdit.name,
-    price: restToEdit.price,
-    description: restToEdit.description,
+    status: parseInt(itemToEdit.item.status),
+    name: itemToEdit.item.name,
+    price: itemToEdit.item.price,
+    description: itemToEdit.item.description,
   });
-  const doneEdit = () => {
-    console.log("ddd");
-    //setImageUpPending(true);
-    //console.log(formData, 5);
+
+  const convertToFile = async (url) => {
+    await fetch(url, { mode: "no-cors" }).then(async (response) => {
+      const contentType = response.headers.get("content-type");
+      const blob = await response.blob();
+      const file = new File([blob], "myFile.jpg", { contentType });
+      // access file here
+      return file;
+    });
   };
+
+  const doneEdit = () => {
+    setImageUpPending(true);
+
+    const imageAsArray = images.map((img) => {
+      //img.file ? img.file : convertToFile(img)
+      if (img.file) {
+        return img.file;
+      } else {
+        return convertToFile(img);
+      }
+    });
+    const formData2 = new FormData();
+    for (let i = 0; i < imageAsArray.length; i++) {
+      //formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+      console.log(imageAsArray[i]);
+    }
+
+    /*formData2.append("itemid", itemToEdit.item._id);
+    formData2.append("name", formData.name);
+    formData2.append("status", formData.status);
+    formData2.append("price", formData.price);
+    formData2.append("description", formData.description);
+    formData2.append("mainId", itemToEdit.main);
+    formData2.append("subId", itemToEdit.sub);*/
+
+    //console.log(formData2);
+  };
+
   useEffect(() => {
     if (editing) {
       doneEdit();
