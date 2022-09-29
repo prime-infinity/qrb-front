@@ -4,7 +4,8 @@ import ImageUploading from "react-images-uploading";
 import React, { useEffect, useState } from "react";
 import { editMenuItem } from "../helpers/web";
 import { setRest } from "../redux/slices/restSlice";
-import { toggleUploading } from "../redux/slices/menuSlice";
+import { toggleEditing, toggleUploading } from "../redux/slices/menuSlice";
+import { random } from "lodash";
 
 function EditMenuItem() {
   let location = useLocation();
@@ -34,32 +35,43 @@ function EditMenuItem() {
   });
 
   const convertToFile = async (url) => {
-    await fetch(url, { mode: "no-cors" }).then(async (response) => {
-      const contentType = response.headers.get("content-type");
-      const blob = await response.blob();
-      const file = new File([blob], "myFile.jpg", { contentType });
-      // access file here
-      return file;
-    });
+    const file = await fetch(url, { mode: "no-cors" }).then(
+      async (response) => {
+        const blob = await response.blob();
+        return new File([blob], "file" + random(100000) + ".jpg", {
+          type: "image/jpeg",
+        });
+      }
+    );
+    return file;
   };
 
-  const doneEdit = () => {
+  const doneEdit = async () => {
     setImageUpPending(true);
     setImgErr(null);
-    const imageAsArray = images.map((img) => {
-      //img.file ? img.file : convertToFile(img)
-      if (img.file) {
-        return img.file;
-      } else {
-        return convertToFile(img);
-      }
-    });
+
+    const imageAsArray = async (i) => {
+      const promise = i.map(async (img) => {
+        if (img.file) {
+          return img.file;
+        } else {
+          return await convertToFile(img);
+        }
+      });
+      const imageArr = await Promise.all(promise);
+      return imageArr;
+    };
+
+    const realImages = await imageAsArray(images);
+    //console.log(realImages);
+
     const formData2 = new FormData();
-    for (let i = 0; i < imageAsArray.length; i++) {
-      formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
-      //console.log(imageAsArray[i]);
+    for (let i = 0; i < realImages.length; i++) {
+      formData2.append("menu-images", realImages[i], realImages[i].name);
+      //console.log(realImages[i]);
     }
 
+    formData2.append("restid", rest._id);
     formData2.append("itemid", itemToEdit.item._id);
     formData2.append("name", formData.name);
     formData2.append("status", formData.status);
@@ -74,11 +86,13 @@ function EditMenuItem() {
         setImageUpPending(false);
         dispatch(setRest(res));
         dispatch(toggleUploading(false));
+        dispatch(toggleEditing(false));
         navigate(`/${rest.url}/menu`);
       })
       .catch((err) => {
         setImageUpPending(false);
         dispatch(toggleUploading(false));
+        dispatch(toggleEditing(false));
         err.response?.data
           ? setImgErr(err.response.data)
           : setImgErr(err.message);
