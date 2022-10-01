@@ -35,16 +35,22 @@ function EditMenuItem() {
   });
 
   const convertToFile = async (url) => {
-    const file = await fetch(url, { mode: "no-cors" }).then(
-      async (response) => {
-        const blob = await response.blob();
-        return new File([blob], "file" + random(100000) + ".jpg", {
-          type: "image/jpeg",
-        });
-      }
-    );
+    const file = fetch(
+      "https://prime-test-s3.s3.amazonaws.com/art-1659700122553.jpg",
+      { method: "GET" }
+    ).then(async (response) => {
+      console.log(response);
+      const blob = await response.blob();
+      console.log(blob);
+      let FileP = new File([blob], "file" + random(100000) + ".jpeg", {
+        type: "image/jpeg",
+      });
+      FileP.isNew = false;
+      return FileP;
+    });
     return file;
   };
+  // const convertToFile = (url) => {};
 
   const doneEdit = async () => {
     setImageUpPending(true);
@@ -53,6 +59,7 @@ function EditMenuItem() {
     const imageAsArray = async (i) => {
       const promise = i.map(async (img) => {
         if (img.file) {
+          img.file.isNew = true;
           return img.file;
         } else {
           return await convertToFile(img);
@@ -63,12 +70,13 @@ function EditMenuItem() {
     };
 
     const realImages = await imageAsArray(images);
-    //console.log(realImages);
+    console.log(images);
+    console.log(realImages);
 
     const formData2 = new FormData();
     for (let i = 0; i < realImages.length; i++) {
       formData2.append("menu-images", realImages[i], realImages[i].name);
-      //console.log(realImages[i]);
+      console.log(realImages[i]);
     }
 
     formData2.append("restid", rest._id);
