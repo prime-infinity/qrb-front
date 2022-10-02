@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { editMenuItem } from "../helpers/web";
 import { setRest } from "../redux/slices/restSlice";
 import { toggleEditing, toggleUploading } from "../redux/slices/menuSlice";
-import { random } from "lodash";
 
 function EditMenuItem() {
   let location = useLocation();
@@ -34,49 +33,29 @@ function EditMenuItem() {
     description: itemToEdit.item.description,
   });
 
-  const convertToFile = async (url) => {
-    const file = fetch(
-      "https://prime-test-s3.s3.amazonaws.com/art-1659700122553.jpg",
-      { method: "GET" }
-    ).then(async (response) => {
-      console.log(response);
-      const blob = await response.blob();
-      console.log(blob);
-      let FileP = new File([blob], "file" + random(100000) + ".jpeg", {
-        type: "image/jpeg",
-      });
-      FileP.isNew = false;
-      return FileP;
-    });
-    return file;
-  };
-  // const convertToFile = (url) => {};
-
   const doneEdit = async () => {
     setImageUpPending(true);
     setImgErr(null);
 
-    const imageAsArray = async (i) => {
-      const promise = i.map(async (img) => {
-        if (img.file) {
-          img.file.isNew = true;
-          return img.file;
-        } else {
-          return await convertToFile(img);
-        }
-      });
-      const imageArr = await Promise.all(promise);
-      return imageArr;
-    };
+    const imageAsArray = images.map((img) => {
+      //return img.file ? img.file : handleUrl(img);
+      if (img.file) {
+        return img.file;
+      } else {
+        //console.log(img);
+        return img;
+      }
+    });
 
-    const realImages = await imageAsArray(images);
-    console.log(images);
-    console.log(realImages);
+    //console.log(imageAsArray);
 
     const formData2 = new FormData();
-    for (let i = 0; i < realImages.length; i++) {
-      formData2.append("menu-images", realImages[i], realImages[i].name);
-      console.log(realImages[i]);
+    for (let i = 0; i < imageAsArray.length; i++) {
+      if (imageAsArray[i].name) {
+        formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+      } else {
+        formData2.append("imagesurl", imageAsArray[i]);
+      }
     }
 
     formData2.append("restid", rest._id);

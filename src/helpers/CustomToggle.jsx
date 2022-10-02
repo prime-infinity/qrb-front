@@ -58,7 +58,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
             >
               <span className="cat-icon">
                 <img
-                  style={{ objectFit: viewMode ? "fill" : "cover" }}
+                  style={{ objectFit: viewMode ? "cover" : "cover" }}
                   src={item.files[0]}
                   alt=""
                 />
