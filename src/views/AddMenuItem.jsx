@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMenuItem } from "../helpers/web";
 import {
   toggleAddingCat,
+  toggleLangModal,
   toggleOverlay,
   toggleUploading,
 } from "../redux/slices/menuSlice";
@@ -13,6 +14,7 @@ import { setRest } from "../redux/slices/restSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddCartModal from "../ui/AddCartModal";
 import PureOverlay from "../ui/PureOverlay";
+import LangSel from "../ui/LangSel";
 
 function AddMenuItem() {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ function AddMenuItem() {
   const needToUpload = useSelector((state) => state.menu.uploadingMenu);
   const isAddingCat = useSelector((state) => state.menu.isAddingCat);
   const overlay = useSelector((state) => state.menu.overlay);
+  const isLangModal = useSelector((state) => state.menu.isLangModal);
   const [selectedOption, setSelectedOption] = useState(null);
   const [subOptions, setSubOptions] = useState(null);
   const [imageUpPending, setImageUpPending] = useState(false);
@@ -121,12 +124,23 @@ function AddMenuItem() {
   };
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
+    dispatch(toggleLangModal(false));
     setRedrng(false);
+    setTimeout(() => {
+      dispatch(toggleOverlay(false));
+    }, 200);
+  };
+
+  const showAddLangOpt = () => {
+    dispatch(toggleLangModal(true));
+    dispatch(toggleOverlay(true));
+    setRedrng(true);
   };
 
   return (
     <>
       {isAddingCat && <AddCartModal close={closeOverlay} />}
+      {isLangModal && <LangSel />}
       <div
         className="container-fluid pt-5 px-4 big-bg-theme"
         style={{ minHeight: "100vh" }}
@@ -178,13 +192,13 @@ function AddMenuItem() {
                           </div>
                         )}
 
-                        <ul className="covers-list ps-0">
+                        <ul className="covers-list ps-0 pb-0">
                           {imageUpPending ? (
                             <li>
                               <a
                                 href="#!"
                                 className="cover-item"
-                                style={{ height: "136px" }}
+                                style={{ height: "80px" }}
                               >
                                 <span
                                   className="spinner-border spinner-border-sm"
@@ -199,7 +213,7 @@ function AddMenuItem() {
                                 onClick={onImageUpload}
                                 className="cover-item"
                                 style={{
-                                  height: "136px",
+                                  height: "80px",
                                   border: "1px dashed black",
                                   backgroundColor: "#f6f4f2",
                                 }}
@@ -207,7 +221,7 @@ function AddMenuItem() {
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  style={{ width: "40px" }}
+                                  style={{ width: "31px" }}
                                   viewBox="0 0 20 20"
                                   fill="currentColor"
                                   className="my-auto"
@@ -223,11 +237,11 @@ function AddMenuItem() {
                           )}
 
                           {imageList.map((image, index) => (
-                            <li key={index} className="col-5">
+                            <li key={index} className="">
                               <a
                                 href="#!"
                                 className="cover-item"
-                                style={{ height: "136px" }}
+                                style={{ height: "80px" }}
                               >
                                 <img src={image["data_url"]} alt="" />
                               </a>
@@ -260,16 +274,46 @@ function AddMenuItem() {
                     )}
                   </ImageUploading>
                 </div>
-                <div className="col-12 text-secondary fs-14">
+                {/*<div className="col-12 text-secondary fs-14">
                   add images to display the item to your customers
-                </div>
+                          </div>*/}
               </div>
               {/** end of image selection */}
 
-              {/** status */}
+              {/** language select */}
+              <div className="row justify-content-center">
+                <div className="col-11 ps-0">
+                  <div className="row">
+                    <div className="col-1 me-2">
+                      <img src="icons/eng.png" alt="" />
+                    </div>
+                    <div className="col-1 me-2">
+                      <img src="icons/jap.png" alt="" />
+                    </div>
+                    <div className="col-1 me-2">
+                      <svg
+                        onClick={showAddLangOpt}
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ width: "23px" }}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="my-auto"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/** end of language select */}
 
+              {/** status */}
               <div className="row mt-4">
-                <span className="fs-14 fw-bold mb-3">Status</span>
+                <span className="fs-18 fw-bold mb-3">Status</span>
 
                 <div className="col-12 px-3">
                   <div className="row">
@@ -344,7 +388,7 @@ function AddMenuItem() {
 
               {/** choose cate */}
               <div className="row mt-4">
-                <span className="fw-bold mb-3 fs-14">choose category</span>
+                <span className="fw-bold mb-3 fs-18">choose category</span>
 
                 <div className="col-6">
                   <span className="fs-14 text-secondary">main category</span>
@@ -380,7 +424,7 @@ function AddMenuItem() {
                   >
                     <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                   </svg>
-                  <span className="fw-bold fs-14">add category</span>
+                  <span className="fw-bold fs-18">add category</span>
                 </div>
               </div>
             </div>

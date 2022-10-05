@@ -230,6 +230,9 @@ select {
 .fs-18 {
   font-size: 18px;
 }
+.fs-16 {
+  font-size: 16px;
+}
 .fs-23 {
   font-size: 23px;
 }
@@ -540,7 +543,7 @@ span.cat-icon img {
 }
 .float-add-cat-button{
   position: absolute;
-  width: 40%;
+  width: 60%;
 }
 .br-4{
   border-radius: 4px;
@@ -573,4 +576,11 @@ span.cat-icon img {
 }
 .neg-mar{
   margin-bottom: -8px;
+}
+.addBtnLang{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background-color: black;
 }

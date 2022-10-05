@@ -1,6 +1,6 @@
 import AddCategory from "../components/adds/AddCategory";
 
-function AddCartModal({ close }) {
+function AddCartModal() {
   return (
     <div
       className="custom-modal"

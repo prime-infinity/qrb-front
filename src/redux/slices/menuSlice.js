@@ -12,6 +12,7 @@ export const menuSlice = createSlice({
     searchBar: false,
     isAddingCat: false,
     overlay: false,
+    isLangModal: false,
   },
   reducers: {
     toggleMenu: (state, action) => {
@@ -44,6 +45,9 @@ export const menuSlice = createSlice({
     toggleOverlay: (state, action) => {
       state.overlay = action.payload;
     },
+    toggleLangModal: (state, action) => {
+      state.isLangModal = action.payload;
+    },
   },
 });
 
@@ -57,6 +61,7 @@ export const { toggleSearchBar } = menuSlice.actions;
 export const { initMenuSlide } = menuSlice.actions;
 export const { toggleAddingCat } = menuSlice.actions;
 export const { toggleOverlay } = menuSlice.actions;
+export const { toggleLangModal } = menuSlice.actions;
 
 export default menuSlice.reducer;
 
