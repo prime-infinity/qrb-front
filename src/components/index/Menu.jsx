@@ -39,6 +39,7 @@ function Menu() {
   }, []);
 
   const [subBut, showSubB] = useState(null);
+  const [addingCat, setAddingCat] = useState(false);
   const [getRef, setRef] = useDynamicRefs();
 
   const chevNxt = (
@@ -63,10 +64,11 @@ function Menu() {
     subBut === mId ? showSubB(null) : showSubB(mId);
   };
 
-  const toAddCat = () => {
-    dispatch(toggleAddingCat(true));
+  const toggleAddCat = () => {
+    addingCat ? setAddingCat(false) : setAddingCat(true);
+    /*dispatch(toggleAddingCat(true));
     dispatch(toggleOverlay(true));
-    setRedrng(true);
+    setRedrng(true);*/
   };
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
@@ -143,37 +145,83 @@ function Menu() {
                   >
                     {" "}
                     {authState && authState?._id === rest.user && (
-                      <div className={`pe-3`} style={{ width: "max-content" }}>
+                      <div
+                        className={`pe-3 d-flex`}
+                        style={{ width: "max-content" }}
+                      >
                         <button
-                          onClick={toAddCat}
+                          onClick={toggleAddCat}
                           className="btn fs-14 bg-them text-white cat-button"
                         >
                           <span style={{ display: "flex" }}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              className="svg-icon"
                               fill="none"
                               viewBox="0 0 24 24"
+                              strokeWidth={1.5}
                               stroke="currentColor"
-                              strokeWidth={2}
+                              className="svg-icon"
                             >
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                d="M12 4.5v15m7.5-7.5h-15"
                               />
                             </svg>
                           </span>
                         </button>
+                        {addingCat && (
+                          <span className="d-flex">
+                            <button className="btn fs-14 border cat-button">
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="svg-icon"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 4.5v15m7.5-7.5h-15"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                            <button
+                              onClick={toggleAddCat}
+                              className="btn fs-14 border cat-button"
+                            >
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="svg-icon"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        )}
                       </div>
                     )}
-                    {rest.categories?.length < 1 && (
+                    {/*rest.categories?.length < 1 && (
                       <div className="pe-3" style={{ width: "max-content" }}>
                         <button className="btn fs-14 cat-button">
                           <span className="cat-btn-txt">no categories</span>
                         </button>
                       </div>
-                    )}
+                    )*/}
                     {/* the actual buttons */}
                     {rest.categories?.map(
                       (cat, index) =>
@@ -275,34 +323,26 @@ function Menu() {
             {/** menu part */}
             <div className="row  mt-5">
               {/** the menuss */}
-              {
-                /*rest.menu.length === 0 ? (
-              <div>
-                <div className="col-12">
-                  <div className="to-center">
-                    <span>
-                      <Shrudding />
-                    </span>{" "}
+              {rest.categories?.length < 1 && (
+                <div>
+                  <div className="col-12">
+                    <div className="to-center">
+                      <span></span>{" "}
+                    </div>
+                  </div>
+                  <div className="col-12 mw-100">
+                    <div
+                      className="to-center text-center"
+                      style={{ top: "50%", width: "90%" }}
+                    >
+                      <span className="fs-14 text-secondary">
+                        add categories to start <br /> adding menu items
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className="col-12 mw-100">
-                  <div
-                    className="to-center text-center"
-                    style={{ top: "70%", width: "90%" }}
-                  >
-                    <span className="fs-14 text-secondary">menu is empty</span>
-                    {authState && authState?._id === rest.user && (
-                      <button
-                        onClick={addMeniItem}
-                        className="btn mt-4 btn-solid w-100 bg-them text-white"
-                      >
-                        add items
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            */ //) : (
+              )}{" "}
+              {false && (
                 <div className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
@@ -368,8 +408,7 @@ function Menu() {
                     </Accordion>
                   </div>
                 </div>
-                /*)*/
-              }
+              )}
             </div>
           </div>
         </div>

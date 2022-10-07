@@ -118,7 +118,7 @@ function MobileMenu({ goMenu, closeMenu }) {
             >
               <>
                 <span className="fw-bold fs-23 pe-2">
-                  {isResOwner && !authState?.isRestOwner ? "Moono" : ""}
+                  {isResOwner && !authState?.isRestOwner ? "venu" : ""}
                 </span>
                 <span className="text-secondary fs-14">
                   {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}
@@ -327,7 +327,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     <span className="text-secondary px-2 fs-12 text-decoration-underline">
                       powered by{" "}
                     </span>
-                    <span className="fw-bold">moono</span> <br />
+                    <span className="fw-bold">venu</span> <br />
                     {/*<span>
                       autState.isRest ={" "}
                       {authState?.isRestOwner ? "true" : "false"}

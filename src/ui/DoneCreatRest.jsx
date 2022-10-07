@@ -24,7 +24,9 @@ function DoneCreatRest() {
         <br />
         <span className="h4 fw-bold">mahalo</span> <br />
         <br />
-        <span>welcome to qrb</span>
+        <span>
+          welcome to <span className="fw-bold">venu</span>{" "}
+        </span>
       </div>
     </div>
   );

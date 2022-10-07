@@ -513,12 +513,12 @@ span.cat-icon img {
   background-color: black;
 }
 .cat-button {
-  padding: 8px 16px !important;
   border-radius: 2px;
   height: 32px;
+  width: 32px;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 .cat-btn-arr{
   width: 16px;

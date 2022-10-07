@@ -26,7 +26,7 @@ function Header() {
   const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
-  const authState = useSelector((state) => state.auth.auth);
+  //const authState = useSelector((state) => state.auth.auth);
   const searchBar = useSelector((state) => state.menu.searchBar);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -58,9 +58,9 @@ function Header() {
     }
   };
 
-  const goToAddMenu = () => {
+  /*const goToAddMenu = () => {
     navigate("/add-item");
-  };
+  };*/
 
   const addMenuItem = () => {
     //navigate("/menu");
@@ -219,7 +219,7 @@ function Header() {
                   </svg>
                 ) : location.pathname === "/login" ? (
                   <span onClick={goHome} className="ps-2 fs-23 fw-bold">
-                    moono
+                    venu
                   </span>
                 ) : location.pathname === "/edit-rest-profile" ? (
                   <svg
@@ -280,7 +280,7 @@ function Header() {
           <span className="" style={{ zIndex: "3" }}>
             {properUrl(location.pathname) === `/${rest.url}/menu` && (
               <>
-                {authState && authState?._id === rest.user && (
+                {/*authState && authState?._id === rest.user && (
                   <span onClick={goToAddMenu} className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +295,7 @@ function Header() {
                       />
                     </svg>
                   </span>
-                )}
+                )*/}
                 {
                   //rest.menu.length > 0 && (
                   <span onClick={changeView} className="ps-3">
