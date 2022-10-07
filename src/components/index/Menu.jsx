@@ -40,6 +40,7 @@ function Menu() {
 
   const [subBut, showSubB] = useState(null);
   const [addingCat, setAddingCat] = useState(false);
+  const [catText, setCatText] = useState("");
   const [getRef, setRef] = useDynamicRefs();
 
   const chevNxt = (
@@ -66,10 +67,9 @@ function Menu() {
 
   const toggleAddCat = () => {
     addingCat ? setAddingCat(false) : setAddingCat(true);
-
-    /*dispatch(toggleAddingCat(true));
-    dispatch(toggleOverlay(true));
-    setRedrng(true);*/
+    if (addingCat) {
+      setCatText("");
+    }
   };
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
@@ -118,7 +118,16 @@ function Menu() {
       onComplete: isDoneSub,
     });
   };
-
+  const setAddCatText = (e) => {
+    setCatText(e.target.value);
+    gsap.to("#cat_input", {
+      duration: 0.5,
+      width: 4 + catText.length + "ch",
+    });
+  };
+  const addCat = () => {
+    console.log(4);
+  };
   return (
     <>
       {isAddingCat && <AddCartModal close={closeOverlay} />}
@@ -149,27 +158,40 @@ function Menu() {
                         className={`pe-3 d-flex`}
                         style={{ width: "max-content", position: "relative" }}
                       >
-                        <button
-                          onClick={toggleAddCat}
-                          className="btn fs-14 bg-them text-white cat-button"
-                        >
-                          <span style={{ display: "flex" }}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={2.5}
-                              stroke="currentColor"
-                              className="svg-icon"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                        {addingCat ? (
+                          <input
+                            ref={setRef("cat_input")}
+                            id="cat_input"
+                            value={catText}
+                            onChange={setAddCatText}
+                            className="cat-input"
+                            type="text"
+                            autoFocus
+                          />
+                        ) : !addingCat ? (
+                          <button
+                            onClick={toggleAddCat}
+                            className="btn fs-14 bg-them text-white cat-button"
+                          >
+                            <span style={{ display: "flex" }}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2.5}
+                                stroke="currentColor"
+                                className="svg-icon"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M12 4.5v15m7.5-7.5h-15"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        ) : null}
+
                         {true && (
                           <span
                             className={`d-flex`}
@@ -179,7 +201,10 @@ function Menu() {
                               left: addingCat ? "100%" : "-100%",
                             }}
                           >
-                            <button className="btn fs-14 me-2 border-black cat-button">
+                            <button
+                              onClick={addCat}
+                              className="btn fs-14 me-2 border-black cat-button"
+                            >
                               <span style={{ display: "flex" }}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +217,7 @@ function Menu() {
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    d="M12 4.5v15m7.5-7.5h-15"
+                                    d="M4.5 12.75l6 6 9-13.5"
                                   />
                                 </svg>
                               </span>

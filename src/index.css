@@ -523,6 +523,14 @@ span.cat-icon img {
   justify-content: center;
   align-items: center;
 }
+.cat-input{
+  border:1px solid #252525;
+  border-radius: 2px;
+  height: 32px;
+  width: 4ch;
+  background-color: #252525;
+  color: white;
+}
 .cat-btn-arr{
   width: 16px;
   height: 16px;
