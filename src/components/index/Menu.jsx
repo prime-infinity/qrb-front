@@ -66,6 +66,7 @@ function Menu() {
 
   const toggleAddCat = () => {
     addingCat ? setAddingCat(false) : setAddingCat(true);
+
     /*dispatch(toggleAddingCat(true));
     dispatch(toggleOverlay(true));
     setRedrng(true);*/
@@ -143,11 +144,10 @@ function Menu() {
                       borderBottom: "1px solid black",
                     }}
                   >
-                    {" "}
                     {authState && authState?._id === rest.user && (
                       <div
                         className={`pe-3 d-flex`}
-                        style={{ width: "max-content" }}
+                        style={{ width: "max-content", position: "relative" }}
                       >
                         <button
                           onClick={toggleAddCat}
@@ -158,7 +158,7 @@ function Menu() {
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
-                              strokeWidth={1.5}
+                              strokeWidth={2.5}
                               stroke="currentColor"
                               className="svg-icon"
                             >
@@ -170,15 +170,22 @@ function Menu() {
                             </svg>
                           </span>
                         </button>
-                        {addingCat && (
-                          <span className="d-flex">
-                            <button className="btn fs-14 border cat-button">
+                        {true && (
+                          <span
+                            className={`d-flex`}
+                            style={{
+                              position: "absolute",
+                              opacity: addingCat ? "1" : "0%",
+                              left: addingCat ? "100%" : "-100%",
+                            }}
+                          >
+                            <button className="btn fs-14 me-2 border-black cat-button">
                               <span style={{ display: "flex" }}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
+                                  strokeWidth={2.5}
                                   stroke="currentColor"
                                   className="svg-icon"
                                 >
@@ -192,14 +199,14 @@ function Menu() {
                             </button>
                             <button
                               onClick={toggleAddCat}
-                              className="btn fs-14 border cat-button"
+                              className="btn fs-14 border-black cat-button"
                             >
                               <span style={{ display: "flex" }}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
+                                  strokeWidth={2.5}
                                   stroke="currentColor"
                                   className="svg-icon"
                                 >

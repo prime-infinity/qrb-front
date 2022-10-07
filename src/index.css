@@ -466,6 +466,9 @@ span.cat-icon img {
 .border-dashed {
   border: 1px dashed black;
 }
+.border-black{
+  border:1px solid black;
+}
 #videowrapper {
   position: relative;
   overflow: hidden;
