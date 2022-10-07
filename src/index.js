@@ -24,6 +24,11 @@ import CreateResturantWel from "./components/createresturant/CreateResturantWel"
 import EditUserProfile from "./views/EditUserProfile";
 import EditMenuItem from "./views/EditMenuItem";
 
+/**
+ * this branch is just before
+ * young was branched off to revamp catbar ui
+ */
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
