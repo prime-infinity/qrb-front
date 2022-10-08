@@ -22,7 +22,6 @@ function Menu() {
   const isAddingCat = useSelector((state) => state.menu.isAddingCat);
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
-  const [inSub, setInSub] = useState(null);
   const [redrng, setRedrng] = useState(false);
   const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ function Menu() {
     }, 300);
   }, []);
 
-  const [subBut, showSubB] = useState(null);
+  //const [subBut, showSubB] = useState(null);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
   const [catErrs, setCatErrs] = useState(null);
@@ -64,12 +63,9 @@ function Menu() {
 
   //this below function opens up the main cats
   //to reveal the subcats
-  const showMenuBut = (data) => {
-    const { mId } = data;
-    subBut === mId ? showSubB(null) : showSubB(mId);
-  };
 
   const toggleAddCat = () => {
+    setCatErrs(null);
     addingCat ? setAddingCat(false) : setAddingCat(true);
     if (addingCat) {
       setCatText("");
@@ -84,10 +80,9 @@ function Menu() {
   };
 
   const lockOnTarget = (data) => {
-    let { is, sub, main } = data;
+    let { is, sub /*main*/ } = data;
     if (is && !lockHori) {
-      setInSub(sub);
-      showSubB(main);
+      //showSubB(main);
       let scrollTo = getRef(sub + "sub_button");
       gsap.to("#sticky", {
         duration: 1.5,
@@ -96,13 +91,12 @@ function Menu() {
     }
   };
 
-  const isDoneSub = () => {
+  /*const isDoneSub = () => {
     setHLock(false);
-  };
+  };*/
 
-  const scrollToSubCatGsap = (id) => {
+  /*const scrollToSubCatGsap = (id) => {
     //console.log("scrolling sub");
-    setInSub(id);
     setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
@@ -110,9 +104,9 @@ function Menu() {
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneSub,
     });
-  };
+  };*/
 
-  const scrollToMainCatGsap = (id) => {
+  /*const scrollToMainCatGsap = (id) => {
     //console.log("scrolling main");
     setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
@@ -121,7 +115,7 @@ function Menu() {
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneSub,
     });
-  };
+  };*/
   const setAddCatText = (e) => {
     setCatText(e.target.value);
     gsap.to("#cat_input", {
@@ -170,9 +164,30 @@ function Menu() {
                       borderBottom: "1px solid black",
                     }}
                   >
+                    {/* the actual buttons */}
+                    {rest.categories?.map((cat, index) => (
+                      <span
+                        className={`d-flex ${index !== 0 && "ps-3"}`}
+                        key={cat._id}
+                        style={{
+                          minWidth: "min-content",
+                          maxWidth: "max-content",
+                        }}
+                      >
+                        <div className="">
+                          <button
+                            style={{ width: "fit-content" }}
+                            ref={setRef(cat._id + "main_button_span")}
+                            className="btn fs-14 bg-them text-white cat-button"
+                          >
+                            <span className="cat-btn-txt">{cat.name}</span>
+                          </button>
+                        </div>
+                      </span>
+                    ))}
                     {authState && authState?._id === rest.user && (
                       <div
-                        className={`pe-3 d-flex`}
+                        className={`pe-3 ps-3 d-flex`}
                         style={{ width: "max-content", position: "relative" }}
                       >
                         {addingCat ? (
@@ -181,7 +196,7 @@ function Menu() {
                             id="cat_input"
                             value={catText}
                             onChange={setAddCatText}
-                            className="cat-input"
+                            className="cat-input fs-14"
                             type="text"
                             autoFocus
                           />
@@ -272,106 +287,18 @@ function Menu() {
                                 </svg>
                               </span>
                             </button>
-                            <span className="text-danger">
+                            <span
+                              className="text-danger fs-14 ps-2 d-flex"
+                              style={{
+                                width: "max-content",
+                                alignItems: "center",
+                              }}
+                            >
                               {catErrs && catErrs}
                             </span>
                           </span>
                         )}
                       </div>
-                    )}
-
-                    {/* the actual buttons */}
-                    {rest.categories?.map(
-                      (cat, index) =>
-                        cat.sub.length > 0 && (
-                          <span
-                            className={`${
-                              rest.categories[rest.categories.length - 1]
-                                ._id === cat._id && "mr-100"
-                            } d-flex ${index !== 0 && "ps-3"}`}
-                            key={cat._id}
-                            style={{
-                              minWidth: "min-content",
-                              maxWidth: "max-content",
-                            }}
-                          >
-                            <span
-                              onClick={() =>
-                                scrollToMainCatGsap(cat.sub[0]._id)
-                              }
-                            >
-                              <div className="pe-3">
-                                <button
-                                  ref={setRef(cat._id + "main_button_span")}
-                                  onClick={() =>
-                                    showMenuBut({
-                                      mId: cat._id,
-                                      fSubCat: cat.sub[0],
-                                    })
-                                  }
-                                  className="btn fs-14 bg-them text-white cat-button"
-                                >
-                                  <span className="cat-btn-txt">
-                                    {cat.name}
-                                  </span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className={`cat-btn-arr ${
-                                      subBut === cat._id
-                                        ? "rotate-icon"
-                                        : "counter-rotate-icon"
-                                    }`}
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M9 5l7 7-7 7"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-                            </span>
-                            <div
-                              id={cat._id + "main"}
-                              ref={setRef(cat._id + "sub_span")}
-                              className={`scroll-div ${
-                                true ? "d-flex" : "d-none"
-                              } `}
-                              style={{
-                                overflowX: "scroll",
-                                maxWidth: "max-content",
-                              }}
-                            >
-                              {cat.sub.map(
-                                (dat, ind) =>
-                                  dat.menu.length > 0 && (
-                                    <span
-                                      className={` ${
-                                        ind === cat.sub.length - 1 && "pe-lg"
-                                      } mx-2 my-auto fs-14  min-width-maxcon`}
-                                      key={dat._id}
-                                      ref={setRef(dat._id + "sub_button")}
-                                    >
-                                      <span
-                                        onClick={() =>
-                                          scrollToSubCatGsap(dat._id)
-                                        }
-                                        className={`${
-                                          inSub === dat._id && "bor-btm-black"
-                                        }`}
-                                      >
-                                        <span>{dat.name}</span>
-                                      </span>
-                                    </span>
-                                  )
-                              )}
-                            </div>
-                          </span>
-                        )
                     )}
                   </div>
                 )}
