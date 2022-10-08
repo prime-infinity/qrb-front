@@ -23,7 +23,7 @@ function Menu() {
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
   const [redrng, setRedrng] = useState(false);
-  const [lockHori, setHLock] = useState(true);
+  //const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,36 +34,26 @@ function Menu() {
   }, [dispatch]);
 
   useEffect(() => {
-    setTimeout(() => {
+    /*setTimeout(() => {
       setHLock(false);
-    }, 300);
+    }, 300);*/
   }, []);
 
   //const [subBut, showSubB] = useState(null);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
   const [catErrs, setCatErrs] = useState(null);
+  const [ctNmErs, setCatNmErr] = useState({ id: null, mes: "" });
   const [catPend, setCatPend] = useState(false);
   const [getRef, setRef] = useDynamicRefs();
-
-  const chevNxt = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "middle", width: "14px" }}
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fillRule="evenodd"
-        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
+  const [editnCat, setEditnCat] = useState({
+    id: null,
+    name: "",
+    hasTyped: false,
+  });
 
   //this below function opens up the main cats
   //to reveal the subcats
-
   const toggleAddCat = () => {
     setCatErrs(null);
     addingCat ? setAddingCat(false) : setAddingCat(true);
@@ -80,15 +70,15 @@ function Menu() {
   };
 
   const lockOnTarget = (data) => {
-    let { is, sub /*main*/ } = data;
-    if (is && !lockHori) {
-      //showSubB(main);
-      let scrollTo = getRef(sub + "sub_button");
-      gsap.to("#sticky", {
-        duration: 1.5,
-        scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
-      });
-    }
+    //let { is, sub /*main*/ } = data;
+    //if (is && !lockHori) {
+    //showSubB(main);
+    //let scrollTo = getRef(sub + "sub_button");
+    //gsap.to("#sticky", {
+    //duration: 1.5,
+    //scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
+    //});
+    //}
   };
 
   /*const isDoneSub = () => {
@@ -139,6 +129,23 @@ function Menu() {
           : setCatErrs(err.message);
       });
   };
+  const showCatOpt = (id, name) => {
+    if (authState?._id === rest.user) {
+      setEditnCat({ id: id, name: name });
+    }
+  };
+  const deleteCat = (id) => {
+    console.log("deleteing", id);
+  };
+  const calcelCat = (id) => {
+    setEditnCat({ id: null, name: "", hasTyped: false });
+  };
+  const acceptCat = (id) => {
+    console.log("accepting", id);
+  };
+  const typeCatName = (e) => {
+    setEditnCat({ ...editnCat, name: e.target.value, hasTyped: true });
+  };
   return (
     <>
       {isAddingCat && <AddCartModal close={closeOverlay} />}
@@ -180,7 +187,7 @@ function Menu() {
                             ref={setRef(cat._id + "main_button_span")}
                             className="btn fs-14 bg-them text-white cat-button"
                           >
-                            <span className="cat-btn-txt">{cat.name}</span>
+                            <span className="cat-btn-txt ">{cat.name}</span>
                           </button>
                         </div>
                       </span>
@@ -327,69 +334,153 @@ function Menu() {
                   </div>
                 </div>
               )}{" "}
-              {false && (
+              {true && (
                 <div className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
-                      {rest.categories?.map(
-                        (cat, mainIndex) =>
-                          cat.sub.length > 0 &&
-                          cat.sub.map(
-                            (subb, index) =>
-                              subb.menu.length > 0 && (
-                                <InView
-                                  as="div"
-                                  key={subb._id}
-                                  onChange={(inView) =>
-                                    lockOnTarget({
-                                      is: inView,
-                                      sub: subb._id,
-                                      sn: subb.name,
-                                      main: cat._id,
-                                      /*mn: cat.name,
+                      {rest.categories.length > 0 &&
+                        rest.categories?.map((cat, mainIndex) => (
+                          <InView
+                            as="div"
+                            key={cat._id}
+                            onChange={(inView) =>
+                              lockOnTarget({
+                                is: inView,
+                                main: cat._id,
+                                /*mn: cat.name,
                                       mn: cat.name,
                                     */
-                                    })
-                                  }
-                                  threshold={1}
+                              })
+                            }
+                            threshold={1}
+                          >
+                            <div className={` mb-2`}>
+                              {true && (
+                                <div
+                                  ref={setRef(cat._id + "main_menu_span")}
+                                  className="row px-0 justify-content-center"
                                 >
-                                  <div className={` mb-2`}>
-                                    {subb.menu.length > 0 && (
-                                      <div
-                                        ref={setRef(
-                                          subb._id + "main_menu_span"
-                                        )}
-                                        className="row px-0 justify-content-center"
-                                      >
-                                        <div className="col-11 px-0 pb-2">
-                                          <span className="fs-13">
-                                            {cat.name}
-                                          </span>
-                                          <span>{chevNxt}</span>
-                                          <span className="fs-13">
-                                            {subb.name}
-                                          </span>
-                                        </div>
-                                      </div>
-                                    )}
-
-                                    {subb.menu.map((item, indexx) => (
-                                      <ItemsBottom
-                                        key={item._id}
-                                        place={indexx}
-                                        parents={{
-                                          main: cat._id,
-                                          sub: subb._id,
-                                        }}
-                                        item={item}
-                                        length={subb.menu.length}
+                                  <div
+                                    className="col-11 px-0 pb-2"
+                                    style={{ position: "relative" }}
+                                  >
+                                    {editnCat?.id === cat._id ? (
+                                      <input
+                                        onChange={typeCatName}
+                                        value={editnCat.name}
+                                        autoFocus
+                                        className="cat-name-input big-bg-theme fs-14 ps-2"
                                       />
-                                    ))}
+                                    ) : (
+                                      <span
+                                        onClick={() =>
+                                          showCatOpt(cat._id, cat.name)
+                                        }
+                                        className={`fs-13 ${
+                                          authState &&
+                                          authState?._id === rest.user &&
+                                          "text-decoration-underline"
+                                        } `}
+                                      >
+                                        {cat.name}
+                                      </span>
+                                    )}
+                                    {editnCat?.id === cat._id && (
+                                      <span>
+                                        <span
+                                          onClick={() => calcelCat(cat._id)}
+                                          className="ms-2"
+                                        >
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={2}
+                                            stroke="currentColor"
+                                            className="svg-icon"
+                                          >
+                                            <path
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                              d="M6 18L18 6M6 6l12 12"
+                                            />
+                                          </svg>
+                                        </span>
+                                        {editnCat.hasTyped &&
+                                          editnCat.name.length > 0 &&
+                                          editnCat.name.length < 20 && (
+                                            <span className="ps-2">
+                                              <span
+                                                onClick={() =>
+                                                  acceptCat(cat._id)
+                                                }
+                                              >
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  fill="none"
+                                                  viewBox="0 0 24 24"
+                                                  strokeWidth={2}
+                                                  stroke="currentColor"
+                                                  className="svg-icon"
+                                                >
+                                                  <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M4.5 12.75l6 6 9-13.5"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </span>
+                                          )}
+                                        <span
+                                          onClick={() => deleteCat(cat._id)}
+                                          style={{
+                                            position: "absolute",
+                                            right: "0%",
+                                          }}
+                                        >
+                                          {
+                                            <svg
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              viewBox="0 0 24 24"
+                                              fill="currentColor"
+                                              className="svg-icon"
+                                            >
+                                              <path
+                                                fillRule="evenodd"
+                                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                clipRule="evenodd"
+                                              />
+                                            </svg>
+                                          }
+                                        </span>
+                                      </span>
+                                    )}
                                   </div>
-                                </InView>
-                              )
-                          )
-                      )}
+                                  {ctNmErs.id === cat._id && (
+                                    <div className="col-11">
+                                      <span className="text-danger fs-14">
+                                        {ctNmErs.mes}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {cat.menu.map((item, indexx) => (
+                                <ItemsBottom
+                                  key={item._id}
+                                  place={indexx}
+                                  parents={{
+                                    main: cat._id,
+                                  }}
+                                  item={item}
+                                  length={cat.menu.length}
+                                />
+                              ))}
+                            </div>
+                          </InView>
+                        ))}
                     </Accordion>
                   </div>
                 </div>

@@ -531,6 +531,10 @@ span.cat-icon img {
   background-color: #252525;
   color: white;
 }
+.cat-name-input{
+  border: 1px solid gray;
+  border-radius: 2px;
+}
 .cat-btn-arr{
   width: 16px;
   height: 16px;

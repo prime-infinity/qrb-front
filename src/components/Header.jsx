@@ -131,7 +131,16 @@ function Header() {
     }
     return false;
   };
-
+  const ultiRedu = () => {
+    let sum = rest.categories.reduce(
+      (prev, curr) => prev + curr.menu.length,
+      0
+    );
+    if (sum > 0) {
+      return true;
+    }
+    return false;
+  };
   return !inRestCreation() ? (
     <>
       <>
@@ -280,24 +289,8 @@ function Header() {
           <span className="" style={{ zIndex: "3" }}>
             {properUrl(location.pathname) === `/${rest.url}/menu` && (
               <>
-                {/*authState && authState?._id === rest.user && (
-                  <span onClick={goToAddMenu} className="">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ width: "26px" }}
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                )*/}
-                {
-                  //rest.menu.length > 0 && (
+                {/** the below is supposed to show when the total menu items are greater than 1 */}
+                {rest.categories?.length > 0 && ultiRedu() && (
                   <span onClick={changeView} className="ps-3">
                     {viewMode ? (
                       <svg
@@ -323,8 +316,7 @@ function Header() {
                       </svg>
                     )}
                   </span>
-                  /*)*/
-                }
+                )}
               </>
             )}
             {properUrl(location.pathname) === `/${rest.url}/menu` && (
