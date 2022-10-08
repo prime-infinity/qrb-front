@@ -13,6 +13,8 @@ import { toggleOverlay } from "../../redux/slices/menuSlice";
 import AddCartModal from "../../ui/AddCartModal";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { addMainCateogory } from "../../helpers/web";
+import { setRest } from "../../redux/slices/restSlice";
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
@@ -41,6 +43,8 @@ function Menu() {
   const [subBut, showSubB] = useState(null);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
+  const [catErrs, setCatErrs] = useState(null);
+  const [catPend, setCatPend] = useState(false);
   const [getRef, setRef] = useDynamicRefs();
 
   const chevNxt = (
@@ -126,7 +130,20 @@ function Menu() {
     });
   };
   const addCat = () => {
-    console.log(4);
+    setCatErrs(null);
+    setCatPend(true);
+    addMainCateogory({ name: catText, restid: rest._id }, authState.token)
+      .then((res) => {
+        dispatch(setRest(res));
+        setCatPend(false);
+        setAddingCat(false);
+      })
+      .catch((err) => {
+        setCatPend(false);
+        err.response?.data
+          ? setCatErrs(err.response.data)
+          : setCatErrs(err.message);
+      });
   };
   return (
     <>
@@ -201,28 +218,40 @@ function Menu() {
                               left: addingCat ? "100%" : "-100%",
                             }}
                           >
-                            <button
-                              onClick={addCat}
-                              className="btn fs-14 me-2 border-black cat-button"
-                            >
-                              <span style={{ display: "flex" }}>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={2.5}
-                                  stroke="currentColor"
-                                  className="svg-icon"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4.5 12.75l6 6 9-13.5"
-                                  />
-                                </svg>
+                            {catPend ? (
+                              <span className="me-2 border-black cat-button">
+                                <span
+                                  className="spinner-border spinner-border-sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                ></span>
                               </span>
-                            </button>
+                            ) : (
+                              <button
+                                onClick={addCat}
+                                className="btn fs-14 me-2 border-black cat-button"
+                              >
+                                <span style={{ display: "flex" }}>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2.5}
+                                    stroke="currentColor"
+                                    className="svg-icon"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M4.5 12.75l6 6 9-13.5"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
+                            )}
+
                             <button
+                              disabled={catPend}
                               onClick={toggleAddCat}
                               className="btn fs-14 border-black cat-button"
                             >
@@ -243,17 +272,14 @@ function Menu() {
                                 </svg>
                               </span>
                             </button>
+                            <span className="text-danger">
+                              {catErrs && catErrs}
+                            </span>
                           </span>
                         )}
                       </div>
                     )}
-                    {/*rest.categories?.length < 1 && (
-                      <div className="pe-3" style={{ width: "max-content" }}>
-                        <button className="btn fs-14 cat-button">
-                          <span className="cat-btn-txt">no categories</span>
-                        </button>
-                      </div>
-                    )*/}
+
                     {/* the actual buttons */}
                     {rest.categories?.map(
                       (cat, index) =>
