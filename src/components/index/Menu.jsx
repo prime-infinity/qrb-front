@@ -151,6 +151,7 @@ function Menu() {
       .then((res) => {
         dispatch(setRest(res));
         setCtPnd(null);
+        setEditnCat({ id: null, name: "", hasTyped: false });
       })
       .catch((err) => {
         setCtPnd(null);
