@@ -328,6 +328,41 @@ export function addMainCateogory(data, token) {
   });
 }
 
+export function deleteMainCateogory(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/delete-main-category", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function changeMainCateogoryName(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/change-main-category-name", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+//the below are deprecated
 export function addSubCateogory(data, token) {
   return new Promise((res, rej) => {
     axios
@@ -349,23 +384,6 @@ export function deleteSubCateogory(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/delete-sub-category", data, {
-        headers: {
-          "x-auth-token": token,
-        },
-      })
-      .then((result) => {
-        res(result.data);
-      })
-      .catch((err) => {
-        rej(err);
-      });
-  });
-}
-
-export function deleteMainCateogory(data, token) {
-  return new Promise((res, rej) => {
-    axios
-      .post(backendHost + "edit-rest/delete-main-category", data, {
         headers: {
           "x-auth-token": token,
         },
