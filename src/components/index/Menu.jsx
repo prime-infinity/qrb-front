@@ -15,6 +15,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
 import { setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
+import AddMenuItem from "../menu/AddMenuItem";
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
@@ -536,6 +537,10 @@ function Menu() {
                                   length={cat.menu.length}
                                 />
                               ))}
+
+                              {/** upload menu part */}
+                              <AddMenuItem details={cat} />
+                              {/** end of upload menu */}
                             </div>
                           </InView>
                         ))}

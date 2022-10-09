@@ -13,8 +13,12 @@ export const menuSlice = createSlice({
     isAddingCat: false,
     overlay: false,
     isLangModal: false,
+    hasInitAdding: "",
   },
   reducers: {
+    setAdding: (state, action) => {
+      state.hasInitAdding = action.payload;
+    },
     toggleMenu: (state, action) => {
       state.menu = !state.menu;
     },
@@ -62,6 +66,7 @@ export const { initMenuSlide } = menuSlice.actions;
 export const { toggleAddingCat } = menuSlice.actions;
 export const { toggleOverlay } = menuSlice.actions;
 export const { toggleLangModal } = menuSlice.actions;
+export const { setAdding } = menuSlice.actions;
 
 export default menuSlice.reducer;
 
