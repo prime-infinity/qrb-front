@@ -137,6 +137,9 @@ select {
   transition: 1.5s ease;
   display: flex;
 }
+.d-ani{
+  transition: 1s ease;
+}
 .cat-div-selec{
   display: flex !important;
   position: fixed !important;
@@ -546,6 +549,9 @@ span.cat-icon img {
 }
 .mb-08{
   margin-bottom: 0.8rem !important;
+}
+.mb-n-08{
+  margin-bottom: -0.8rem !important;
 }
 .PhoneInputCountry {
   margin-right: 16px !important;
