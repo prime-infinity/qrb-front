@@ -14,6 +14,7 @@ import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
 import { setRest } from "../../redux/slices/restSlice";
+import WarnModal from "../../ui/WarnModal";
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
@@ -51,6 +52,8 @@ function Menu() {
     name: "",
     hasTyped: false,
   });
+  const [showWarn, setShowWarn] = useState(false);
+  const [mainCatToDel, setMainToDel] = useState(null);
 
   //this below function opens up the main cats
   //to reveal the subcats
@@ -134,8 +137,9 @@ function Menu() {
       setEditnCat({ id: id, name: name });
     }
   };
-  const deleteCat = (id) => {
-    console.log("deleteing", id);
+  const deleteCat = (e) => {
+    setShowWarn(true);
+    setMainToDel(e);
   };
   const calcelCat = (id) => {
     setEditnCat({ id: null, name: "", hasTyped: false });
@@ -163,8 +167,24 @@ function Menu() {
   const typeCatName = (e) => {
     setEditnCat({ ...editnCat, name: e.target.value, hasTyped: true });
   };
+  const removeWarn = () => {
+    setShowWarn(false);
+  };
   return (
     <>
+      {showWarn && (
+        <>
+          <WarnModal
+            details={mainCatToDel && mainCatToDel}
+            close={removeWarn}
+          />
+          <PureOverlay
+            closeOverlay={removeWarn}
+            redrng={showWarn}
+            width={`100%`}
+          />
+        </>
+      )}
       {isAddingCat && <AddCartModal close={closeOverlay} />}
       <div className="container-fluid pt-5 big-bg-theme">
         {overlay && (
@@ -465,7 +485,12 @@ function Menu() {
                                           )}
                                         {ctPen !== cat._id && (
                                           <span
-                                            onClick={() => deleteCat(cat._id)}
+                                            onClick={() =>
+                                              deleteCat({
+                                                id: cat._id,
+                                                name: cat.name,
+                                              })
+                                            }
                                             style={{
                                               position: "absolute",
                                               right: "0%",

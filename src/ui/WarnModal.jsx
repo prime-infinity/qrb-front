@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteMainCateogory, deleteSubCateogory } from "../helpers/web";
+import { deleteMainCateogory /*, deleteSubCateogory*/ } from "../helpers/web";
 import { useSelector, useDispatch } from "react-redux";
 import { setRest } from "../redux/slices/restSlice";
 
@@ -28,7 +28,7 @@ function WarnModal({ close, details }) {
     setIsRem(false);
   };
 
-  const deleteSubCat = (e) => {
+  /*const deleteSubCat = (e) => {
     prep();
     deleteSubCateogory({ ...e, restid: rest._id }, authState.token)
       .then((res) => {
@@ -39,7 +39,7 @@ function WarnModal({ close, details }) {
         console.log(err);
       });
     //console.log(e);
-  };
+  };*/
   const deleteMainCat = (e) => {
     prep();
     deleteMainCateogory({ ...e, restid: rest._id }, authState.token)
@@ -54,7 +54,8 @@ function WarnModal({ close, details }) {
 
   const remove = (e) => {
     //console.log(e);
-    e.main ? deleteSubCat(e) : deleteMainCat(e);
+    //e.main ? deleteSubCat(e) : deleteMainCat(e);
+    deleteMainCat(e);
   };
 
   return (
@@ -85,7 +86,7 @@ function WarnModal({ close, details }) {
               <span className=" fs-14  text-secondary">
                 do you wish to delete{" "}
                 <span className="fw-bold">{details.name}</span> permanently? all
-                sub categories and menu items under it will also be deleted
+                menu items under it will also be deleted
               </span>
             </div>
             <div className="row justify-content-end pt-4">
