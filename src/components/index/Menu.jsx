@@ -56,6 +56,10 @@ function Menu() {
   const [showWarn, setShowWarn] = useState(false);
   const [mainCatToDel, setMainToDel] = useState(null);
 
+  const isAdmin = () => {
+    return authState && authState?._id === rest.user ? true : false;
+  };
+
   //this below function opens up the main cats
   //to reveal the subcats
   const toggleAddCat = () => {
@@ -230,7 +234,7 @@ function Menu() {
                         </div>
                       </span>
                     ))}
-                    {authState && authState?._id === rest.user && (
+                    {isAdmin() && (
                       <div
                         className={`pe-3 ps-3 d-flex`}
                         style={{ width: "max-content", position: "relative" }}
@@ -415,8 +419,7 @@ function Menu() {
                                           showCatOpt(cat._id, cat.name)
                                         }
                                         className={`fs-13 ${
-                                          authState &&
-                                          authState?._id === rest.user &&
+                                          isAdmin() &&
                                           "text-decoration-underline"
                                         } `}
                                       >
@@ -539,7 +542,7 @@ function Menu() {
                               ))}
 
                               {/** upload menu part */}
-                              <AddMenuItem details={cat} />
+                              {isAdmin() && <AddMenuItem details={cat} />}
                               {/** end of upload menu */}
                             </div>
                           </InView>

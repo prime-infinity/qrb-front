@@ -1,14 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setAdding } from "../../redux/slices/menuSlice";
+import { useState } from "react";
 
 function AddMenuItem({ details }) {
   const dispatch = useDispatch();
   const hasInitAdding = useSelector((state) => state.menu.hasInitAdding);
-
+  const [editnMen, setEditM] = useState({
+    id: null,
+    name: "",
+    description: "",
+    price: "",
+  });
   const isHere = () => {
     return hasInitAdding === details._id ? true : false;
   };
-
+  const isEditn = () => {
+    return isHere() && editnMen.id === details._id ? true : false;
+  };
   const startProc = () => {
     //console.log("pro");
     dispatch(setAdding(details._id));
@@ -17,6 +25,15 @@ function AddMenuItem({ details }) {
   const canclProc = () => {
     //console.log("canl");
     dispatch(setAdding(""));
+    setEditM({ id: null, name: "", description: "", price: "" });
+  };
+
+  const strEdit = () => {
+    setEditM({ ...editnMen, id: details._id });
+  };
+
+  const abortEdit = () => {
+    setEditM({ id: null, name: "", description: "", price: "" });
   };
 
   return (
@@ -32,25 +49,112 @@ function AddMenuItem({ details }) {
           <div
             style={{
               opacity: isHere() ? "1" : "0",
+              position: "relative",
             }}
             className="m-cat d-ani ps-0 pe-0"
           >
             <div className="m-cat-head">
               <div className=" cat-right ">
-                <div className="cat-head d-flex">
-                  <h4
-                    className="text-secondary text-decoration-underline"
-                    style={{ marginBottom: "5px" }}
-                  >
-                    name
-                  </h4>
-                  <span className="price text-secondary text-decoration-underline">
-                    $price
-                  </span>
+                <div
+                  style={{ justifyContent: "space-between" }}
+                  className="cat-head d-flex"
+                >
+                  {isEditn() ? (
+                    <input
+                      type="text"
+                      placeholder="name"
+                      autoFocus
+                      className="cat-name-input big-bg-theme fs-14 ps-2"
+                    />
+                  ) : (
+                    <h4
+                      onClick={strEdit}
+                      className="text-secondary text-decoration-underline"
+                      style={{ marginBottom: "5px" }}
+                    >
+                      name
+                    </h4>
+                  )}
+                  {isEditn() ? (
+                    <input
+                      style={{ width: "25%" }}
+                      type="number"
+                      placeholder="price($)"
+                      className="cat-name-input big-bg-theme fs-14 ps-2"
+                    />
+                  ) : (
+                    <span
+                      onClick={strEdit}
+                      className="price text-secondary text-decoration-underline"
+                    >
+                      $price
+                    </span>
+                  )}
                 </div>
-                <p className="text-secondary text-decoration-underline">
-                  description
-                </p>
+                {isEditn() ? (
+                  <input
+                    style={{ marginTop: "3%" }}
+                    type="text"
+                    placeholder="description"
+                    className="cat-name-input big-bg-theme fs-14 ps-2"
+                  />
+                ) : (
+                  <p
+                    onClick={strEdit}
+                    className="text-secondary text-decoration-underline"
+                  >
+                    description
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="row">
+              <div
+                className="col-12 text-end"
+                style={{ position: "absolute", bottom: "6%", right: "0%" }}
+              >
+                <>
+                  {isEditn() && (
+                    <span
+                      style={{
+                        marginRight: "20px",
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        style={{ width: "20px" }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12.75l6 6 9-13.5"
+                        />
+                      </svg>
+                    </span>
+                  )}
+                  {isEditn() && (
+                    <span onClick={abortEdit}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        style={{ width: "20px" }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </span>
+                  )}
+                </>
               </div>
             </div>
           </div>
