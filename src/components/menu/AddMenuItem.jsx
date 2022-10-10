@@ -10,6 +10,7 @@ function AddMenuItem({ details }) {
     name: "",
     description: "",
     price: "",
+    isSet: false,
   });
   const isHere = () => {
     return hasInitAdding === details._id ? true : false;
@@ -25,7 +26,7 @@ function AddMenuItem({ details }) {
   const canclProc = () => {
     //console.log("canl");
     dispatch(setAdding(""));
-    setEditM({ id: null, name: "", description: "", price: "" });
+    setEditM({ id: null, name: "", description: "", price: "", isSet: false });
   };
 
   const strEdit = () => {
@@ -33,9 +34,20 @@ function AddMenuItem({ details }) {
   };
 
   const abortEdit = () => {
-    setEditM({ id: null, name: "", description: "", price: "" });
+    setEditM({ id: null, name: "", description: "", price: "", isSet: false });
   };
-
+  const doneEdit = () => {
+    setEditM({ ...editnMen, isSet: true, id: null });
+  };
+  const setName = (e) => {
+    setEditM({ ...editnMen, name: e.target.value });
+  };
+  const setPrice = (e) => {
+    setEditM({ ...editnMen, price: e.target.value });
+  };
+  const setDesc = (e) => {
+    setEditM({ ...editnMen, description: e.target.value });
+  };
   return (
     <div className="row px-0 justify-content-center">
       <div
@@ -61,6 +73,8 @@ function AddMenuItem({ details }) {
                 >
                   {isEditn() ? (
                     <input
+                      onChange={setName}
+                      value={editnMen.name}
                       type="text"
                       placeholder="name"
                       autoFocus
@@ -72,11 +86,15 @@ function AddMenuItem({ details }) {
                       className="text-secondary text-decoration-underline"
                       style={{ marginBottom: "5px" }}
                     >
-                      name
+                      {editnMen?.name?.length > 0 && editnMen?.isSet
+                        ? editnMen.name
+                        : "name"}
                     </h4>
                   )}
                   {isEditn() ? (
                     <input
+                      onChange={setPrice}
+                      value={editnMen.price}
                       style={{ width: "25%" }}
                       type="number"
                       placeholder="price($)"
@@ -87,12 +105,16 @@ function AddMenuItem({ details }) {
                       onClick={strEdit}
                       className="price text-secondary text-decoration-underline"
                     >
-                      $price
+                      {editnMen?.price?.length > 0 && editnMen?.isSet
+                        ? "$" + editnMen.price
+                        : "$price"}
                     </span>
                   )}
                 </div>
                 {isEditn() ? (
                   <input
+                    onChange={setDesc}
+                    value={editnMen.description}
                     style={{ marginTop: "3%" }}
                     type="text"
                     placeholder="description"
@@ -103,7 +125,9 @@ function AddMenuItem({ details }) {
                     onClick={strEdit}
                     className="text-secondary text-decoration-underline"
                   >
-                    description
+                    {editnMen?.description?.length > 0 && editnMen?.isSet
+                      ? editnMen.description
+                      : "description"}
                   </p>
                 )}
               </div>
@@ -116,6 +140,7 @@ function AddMenuItem({ details }) {
                 <>
                   {isEditn() && (
                     <span
+                      onClick={doneEdit}
                       style={{
                         marginRight: "20px",
                       }}
