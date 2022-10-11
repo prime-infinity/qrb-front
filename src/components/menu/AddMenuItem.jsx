@@ -2,11 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAdding } from "../../redux/slices/menuSlice";
 import React, { useState } from "react";
 import ImageUploading from "react-images-uploading";
+import { addMenuItem } from "../../helpers/web";
+import { setRest } from "../../redux/slices/restSlice";
 
 function AddMenuItem({ details }) {
   const dispatch = useDispatch();
   const hasInitAdding = useSelector((state) => state.menu.hasInitAdding);
+  const rest = useSelector((state) => state.rest.rest);
+  const authState = useSelector((state) => state.auth.auth);
   const [uploadErr, setErr] = useState(null);
+  const [isUpldni, setUpldin] = useState(null);
   const [editnMen, setEditM] = useState({
     id: null,
     name: "",
@@ -24,10 +29,38 @@ function AddMenuItem({ details }) {
   const startProc = () => {
     //console.log("pro");
     dispatch(setAdding(details._id));
+    if (isHere()) {
+      setUpldin(details._id);
+      setErr(null);
+      const imageAsArray = images.map((img) => img.file);
+      const formData2 = new FormData();
+      for (let i = 0; i < imageAsArray.length; i++) {
+        formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
+      }
+
+      formData2.append("restid", rest._id);
+      formData2.append("name", editnMen.name);
+      formData2.append("status", editnMen.status);
+      formData2.append("price", editnMen.price);
+      formData2.append("description", editnMen.description);
+      formData2.append("mainId", details._id);
+
+      addMenuItem(formData2, authState.token)
+        .then((res) => {
+          dispatch(setRest(res));
+          setUpldin(null);
+          canclProc();
+        })
+        .catch((err) => {
+          setUpldin(null);
+          err.response?.data ? setErr(err.response.data) : setErr(err.message);
+        });
+    }
   };
 
   const canclProc = () => {
     //console.log("canl");
+    setErr(null);
     dispatch(setAdding(""));
     setEditM({
       id: null,
@@ -45,6 +78,7 @@ function AddMenuItem({ details }) {
   };
 
   const abortEdit = () => {
+    setErr(null);
     setEditM({
       id: null,
       name: "",
@@ -79,7 +113,11 @@ function AddMenuItem({ details }) {
     }
   };
   return (
-    <div className="row px-0 justify-content-center">
+    <div
+      className={`row px-0 justify-content-center ${
+        details?.menu?.length > 0 ? "mt-3" : ""
+      }`}
+    >
       <div
         style={{ opacity: isHere() ? "1" : "0" }}
         className={`col-11 d-ani menu-border ${isHere() ? "mb-08" : "mb-n-08"}`}
@@ -162,13 +200,14 @@ function AddMenuItem({ details }) {
                 )}
               </div>
             </div>
-            {isEditn() && (
-              <div className="row">
-                <div
-                  className="col-12 text-end"
-                  style={{ position: "absolute", bottom: "6%", right: "0%" }}
-                >
-                  <>
+
+            <div className="row">
+              <div
+                className="col-12 text-end"
+                style={{ position: "absolute", bottom: "6%", right: "0%" }}
+              >
+                <>
+                  {isEditn() ? (
                     <button
                       onClick={toggleStatus}
                       style={{ float: "left", height: "29px" }}
@@ -184,7 +223,24 @@ function AddMenuItem({ details }) {
                           : null}
                       </span>
                     </button>
+                  ) : (
+                    <button
+                      style={{ float: "left", height: "29px" }}
+                      className="btn border-black py-0"
+                    >
+                      <span className="fs-14">
+                        {editnMen.status === 0
+                          ? "available"
+                          : editnMen.status === 1
+                          ? "sold out"
+                          : editnMen.status === 2
+                          ? "hidden"
+                          : null}
+                      </span>
+                    </button>
+                  )}
 
+                  {isEditn() && (
                     <span
                       onClick={doneEdit}
                       style={{
@@ -206,7 +262,9 @@ function AddMenuItem({ details }) {
                         />
                       </svg>
                     </span>
+                  )}
 
+                  {isEditn() && (
                     <span onClick={abortEdit}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -223,10 +281,10 @@ function AddMenuItem({ details }) {
                         />
                       </svg>
                     </span>
-                  </>
-                </div>
+                  )}
+                </>
               </div>
-            )}
+            </div>
           </div>
         </div>
         <div
@@ -340,61 +398,18 @@ function AddMenuItem({ details }) {
       )}
       {/**end err */}
       {/** bottom */}
-      <div
-        className="col-11 px-0"
-        style={{ display: "flex", position: "relative" }}
-      >
-        <button
-          style={{
-            justifyContent: "center",
-            width: isHere() ? "12%" : "100%",
-          }}
-          onClick={startProc}
-          className="btn br-0 py-2 d-flex border-black"
+      {/** is not uploading */}
+      {isUpldni !== details._id && (
+        <div
+          className="col-11 px-0"
+          style={{ display: "flex", position: "relative" }}
         >
-          <span
-            style={{
-              display: "flex",
-            }}
-          >
-            {!isHere() ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="svg-icon"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                className="svg-icon"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                />
-              </svg>
-            )}
-          </span>
-        </button>
-
-        {isHere() && (
           <button
-            style={{ position: "absolute", right: "0%" }}
-            onClick={canclProc}
+            style={{
+              justifyContent: "center",
+              width: isHere() ? "12%" : "100%",
+            }}
+            onClick={startProc}
             className="btn br-0 py-2 d-flex border-black"
           >
             <span
@@ -402,24 +417,88 @@ function AddMenuItem({ details }) {
                 display: "flex",
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="svg-icon"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              {!isHere() ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="svg-icon"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="svg-icon"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12.75l6 6 9-13.5"
+                  />
+                </svg>
+              )}
             </span>
           </button>
-        )}
-      </div>
+
+          {isHere() && (
+            <button
+              style={{ position: "absolute", right: "0%" }}
+              onClick={canclProc}
+              className="btn br-0 py-2 d-flex border-black"
+            >
+              <span
+                style={{
+                  display: "flex",
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="svg-icon"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </span>
+            </button>
+          )}
+        </div>
+      )}
+      {/** is uploading */}
+      {isUpldni === details._id && (
+        <div
+          className="col-11 px-0"
+          style={{ display: "flex", position: "relative" }}
+        >
+          <button
+            style={{ justifyContent: "center" }}
+            className="btn w-100 br-0 py-2 d-flex border-black"
+          >
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
