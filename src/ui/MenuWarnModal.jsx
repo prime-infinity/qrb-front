@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteMainCateogory /*, deleteSubCateogory*/ } from "../helpers/web";
+import { deleteMenuItemBack } from "../helpers/web";
 import { useSelector, useDispatch } from "react-redux";
 import { setRest } from "../redux/slices/restSlice";
 
@@ -15,7 +15,6 @@ function WarnModal({ close, details }) {
   };
 
   const success = (e) => {
-    console.log(e);
     dispatch(setRest(e));
     setRemoved(true);
     setTimeout(() => {
@@ -27,21 +26,9 @@ function WarnModal({ close, details }) {
     setIsRem(false);
   };
 
-  /*const deleteSubCat = (e) => {
-    prep();
-    deleteSubCateogory({ ...e, restid: rest._id }, authState.token)
-      .then((res) => {
-        success(res);
-      })
-      .catch((err) => {
-        failed();
-        console.log(err);
-      });
-    //console.log(e);
-  };*/
   const deleteMainCat = (e) => {
     prep();
-    deleteMainCateogory({ ...e, restid: rest._id }, authState.token)
+    deleteMenuItemBack({ data: e, restId: rest._id }, authState.token)
       .then((res) => {
         success(res);
       })
@@ -52,8 +39,6 @@ function WarnModal({ close, details }) {
   };
 
   const remove = (e) => {
-    //console.log(e);
-    //e.main ? deleteSubCat(e) : deleteMainCat(e);
     deleteMainCat(e);
   };
 
@@ -84,8 +69,7 @@ function WarnModal({ close, details }) {
             <div className="pt-3">
               <span className=" fs-14  text-secondary">
                 do you wish to delete{" "}
-                <span className="fw-bold">{details.name}</span> permanently? all
-                menu items under it will also be deleted
+                <span className="fw-bold">{details.name}</span> permanently?
               </span>
             </div>
             <div className="row justify-content-end pt-4">
