@@ -1,16 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setAdding } from "../../redux/slices/menuSlice";
-import { useState } from "react";
+import React, { useState } from "react";
+import ImageUploading from "react-images-uploading";
 
 function AddMenuItem({ details }) {
   const dispatch = useDispatch();
   const hasInitAdding = useSelector((state) => state.menu.hasInitAdding);
+  const [uploadErr, setErr] = useState(null);
   const [editnMen, setEditM] = useState({
     id: null,
     name: "",
     description: "",
     price: "",
     isSet: false,
+    status: 0,
   });
   const isHere = () => {
     return hasInitAdding === details._id ? true : false;
@@ -26,7 +29,15 @@ function AddMenuItem({ details }) {
   const canclProc = () => {
     //console.log("canl");
     dispatch(setAdding(""));
-    setEditM({ id: null, name: "", description: "", price: "", isSet: false });
+    setEditM({
+      id: null,
+      name: "",
+      description: "",
+      price: "",
+      isSet: false,
+      status: 0,
+    });
+    setImages([]);
   };
 
   const strEdit = () => {
@@ -34,7 +45,14 @@ function AddMenuItem({ details }) {
   };
 
   const abortEdit = () => {
-    setEditM({ id: null, name: "", description: "", price: "", isSet: false });
+    setEditM({
+      id: null,
+      name: "",
+      description: "",
+      price: "",
+      isSet: false,
+      status: 0,
+    });
   };
   const doneEdit = () => {
     setEditM({ ...editnMen, isSet: true, id: null });
@@ -47,6 +65,18 @@ function AddMenuItem({ details }) {
   };
   const setDesc = (e) => {
     setEditM({ ...editnMen, description: e.target.value });
+  };
+
+  const maxNumber = 6;
+  const [images, setImages] = React.useState([]);
+  const onChange = (imageList, addUpdateIndex) => {
+    setImages(imageList);
+  };
+  const toggleStatus = () => {
+    setEditM({ ...editnMen, status: editnMen.status + 1 });
+    if (editnMen.status >= 2) {
+      setEditM({ ...editnMen, status: 0 });
+    }
   };
   return (
     <div className="row px-0 justify-content-center">
@@ -132,13 +162,29 @@ function AddMenuItem({ details }) {
                 )}
               </div>
             </div>
-            <div className="row">
-              <div
-                className="col-12 text-end"
-                style={{ position: "absolute", bottom: "6%", right: "0%" }}
-              >
-                <>
-                  {isEditn() && (
+            {isEditn() && (
+              <div className="row">
+                <div
+                  className="col-12 text-end"
+                  style={{ position: "absolute", bottom: "6%", right: "0%" }}
+                >
+                  <>
+                    <button
+                      onClick={toggleStatus}
+                      style={{ float: "left", height: "29px" }}
+                      className="btn bg-dark text-white py-0"
+                    >
+                      <span className="fs-14">
+                        {editnMen.status === 0
+                          ? "available"
+                          : editnMen.status === 1
+                          ? "sold out"
+                          : editnMen.status === 2
+                          ? "hidden"
+                          : null}
+                      </span>
+                    </button>
+
                     <span
                       onClick={doneEdit}
                       style={{
@@ -160,8 +206,7 @@ function AddMenuItem({ details }) {
                         />
                       </svg>
                     </span>
-                  )}
-                  {isEditn() && (
+
                     <span onClick={abortEdit}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -178,66 +223,122 @@ function AddMenuItem({ details }) {
                         />
                       </svg>
                     </span>
-                  )}
-                </>
+                  </>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div
-          style={{ height: isHere() ? "368px" : "0px" }}
-          className="row d-flex border-left-right border-bottom-drk"
+          style={{
+            height: isHere() ? "368px" : "0px",
+            overflowX: "scroll",
+            position: "relative",
+          }}
+          className="row flex-nowrap d-flex border-left-right border-bottom-drk"
         >
-          <div className="col-12 p-0 ">
-            <div className="accordion-collapse collapse show">
-              <div className="slick-slider slick-initialized">
-                <div className="slick-list">
-                  <div
-                    className="slick-track"
-                    style={{
-                      opacity: "1",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      width: "357px",
-                    }}
-                  >
+          {isHere() && (
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={onChange}
+              maxNumber={maxNumber}
+              acceptType={["jpg", "jpeg"]}
+              dataURLKey="data_url"
+            >
+              {({ imageList, onImageUpload, onImageRemove, errors }) => (
+                <>
+                  {errors && (
                     <div
-                      data-index="0"
-                      className="slick-slide slick-active slick-current"
-                      tabIndex="-1"
-                      aria-hidden="false"
-                      style={{ outline: "none", width: "357px" }}
+                      className="text-danger to-center bg-white"
+                      style={{ position: "absolute", zIndex: "3", top: "40%" }}
                     >
-                      <div>
-                        <div
-                          className="neg-mar"
-                          tabIndex="-1"
-                          style={{ width: "100%", display: "inline-block" }}
-                        >
-                          <div
-                            style={{
-                              height: isHere() ? "368px" : "0px",
-                              position: "relative",
-                            }}
-                            className="sl-img d-ani"
-                          >
-                            <img
-                              style={{ width: "30px", height: "30px" }}
-                              src="/icons/Shape.png"
-                              alt=""
-                              className="to-center"
-                            />
+                      {errors.maxNumber && (
+                        <span className="row text-center">
+                          <div className="col-12">
+                            Number of selected images exceed {maxNumber}
                           </div>
-                        </div>
-                      </div>
+                        </span>
+                      )}
+                      {errors.acceptType && (
+                        <span className="row text-center">
+                          <div className="col-12">
+                            Your selected file type is not allow
+                          </div>
+                        </span>
+                      )}
+                      {errors.maxFileSize && (
+                        <span className="row text-center">
+                          <div className="col-12">
+                            Selected file size exceed maxFileSize
+                          </div>
+                        </span>
+                      )}
                     </div>
+                  )}
+                  {imageList.map((image, index) => (
+                    <div
+                      key={index}
+                      className="col-12 border-black px-0"
+                      style={{ position: "relative" }}
+                    >
+                      <img
+                        style={{
+                          width: "inherit",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                        src={image["data_url"]}
+                        alt=""
+                        className="img-fluid"
+                      />
+                      <span
+                        onClick={() => onImageRemove(index)}
+                        className="border-black bg-white"
+                        style={{ position: "absolute", right: "2%", top: "3%" }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2.5}
+                          stroke="currentColor"
+                          style={{ width: "30px" }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  ))}
+                  <div
+                    onClick={onImageUpload}
+                    className="col-12 border-black px-0"
+                    style={{ position: "relative" }}
+                  >
+                    <img
+                      style={{ width: "30px", height: "30px" }}
+                      src="/icons/Shape.png"
+                      alt=""
+                      className="to-center"
+                    />
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </>
+              )}
+            </ImageUploading>
+          )}
         </div>
       </div>
-
+      {/** err */}
+      {isHere() && uploadErr && (
+        <div className="col-11 px-0 text-center">
+          <span className="text-danger">{uploadErr}</span>
+        </div>
+      )}
+      {/**end err */}
       {/** bottom */}
       <div
         className="col-11 px-0"
