@@ -117,7 +117,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
                 )}
 
                 <span className="price">
-                  {viewMode && item?.status === "1" && (
+                  {isCurrentEventKey && item?.status === "1" && (
                     <span className="me-2">
                       <svg
                         className=""
