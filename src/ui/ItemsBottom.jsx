@@ -99,6 +99,7 @@ function ItemsBottom({ item, place, length, parents }) {
       });
   };
   const abortEdit = () => {
+    setErr(null);
     dispatch(setRestToEdit(null));
   };
   const setName = (e) => {
@@ -198,7 +199,9 @@ function ItemsBottom({ item, place, length, parents }) {
                           : null}
                       </span>
                     </button>
-
+                    {error && (
+                      <span className="text-danger fs-12">{error}</span>
+                    )}
                     {isPending && (
                       <span
                         className="spinner-border spinner-border-sm"
@@ -328,7 +331,7 @@ function ItemsBottom({ item, place, length, parents }) {
                     {imageList.map((image, index) => (
                       <div
                         key={index}
-                        className="col-12 border-black px-0"
+                        className="col-12 px-0"
                         style={{ position: "relative" }}
                       >
                         <img

@@ -337,7 +337,7 @@ function AddMenuItem({ details }) {
                   {imageList.map((image, index) => (
                     <div
                       key={index}
-                      className="col-12 border-black px-0"
+                      className="col-12  px-0"
                       style={{ position: "relative" }}
                     >
                       <img
