@@ -3,13 +3,11 @@ import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRestToEdit } from "../redux/slices/restSlice";
-import { useNavigate } from "react-router-dom";
 import PureOverlay from "../ui/PureOverlay";
 import MenuWarnModal from "../ui/MenuWarnModal";
 
 function CustomToggle({ eventKey, callback, item, parents }) {
   const dispatch = useDispatch();
-  let navigate = useNavigate();
   const viewMode = useSelector((state) => state.menu.view);
   const rest = useSelector((state) => state.rest.rest);
   const authState = useSelector((state) => state.auth.auth);
@@ -27,7 +25,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
   const editMenuItem = (item) => {
     //console.log(id, parents);
     dispatch(setRestToEdit({ ...parents, item: item }));
-    navigate("/edit-item");
+    //navigate("/edit-item");
   };
 
   const deleteMenuItem = (e) => {
