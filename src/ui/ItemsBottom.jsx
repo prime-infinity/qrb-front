@@ -38,10 +38,10 @@ function ItemsBottom({ item, place, length, parents }) {
 
   useEffect(() => {
     setForm({
-      name: itemToEdit?.item.name,
-      price: itemToEdit?.item.price,
-      status: parseInt(itemToEdit?.item.status),
-      description: itemToEdit?.item.description,
+      name: itemToEdit?.item.name || "",
+      price: itemToEdit?.item.price || "",
+      status: parseInt(itemToEdit?.item.status) || 0,
+      description: itemToEdit?.item.description || "",
     });
   }, [itemToEdit?.item]);
   const settings = {
