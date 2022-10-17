@@ -92,7 +92,7 @@ function CreateResturantWel() {
                 className="col-6 offset-3 text-center border-dashed my-5"
                 style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
                 onClick={() => {
-                  selectFile({ accept: "video/mp4" });
+                  selectFile({ accept: "video/*" });
                 }}
               >
                 <span>

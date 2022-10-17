@@ -184,6 +184,8 @@ function Menu() {
     if (authState?._id === rest.user) {
       return true;
     }
+
+    //forgot if logged in and another rest
   };
   return (
     <>

@@ -15,17 +15,23 @@ function EditRestProOne() {
   const [isUpdated, setIsUpdated] = useState(false);
   const [file, selectFile] = useFileUpload();
   const [isFilePending, setFilePending] = useState(false);
-  const [formData, setFrom] = useState({});
+  const [formData, setFrom] = useState({
+    id: "",
+    name: "",
+    location: "",
+    year: "",
+    description: "",
+  });
   const [fileErrs, setFileErrs] = useState(null);
 
   useEffect(() => {
     if (rest !== null) {
       setFrom({
-        id: rest._id,
-        name: rest.name,
-        location: rest.location,
-        year: rest.year,
-        description: rest.description,
+        id: rest._id || "",
+        name: rest.name || "",
+        location: rest.location || "",
+        year: rest.year || "",
+        description: rest.description || "",
       });
     }
   }, [rest]);
@@ -174,7 +180,7 @@ function EditRestProOne() {
               <li>
                 <label
                   onClick={() => {
-                    selectFile({ accept: "video/mp4" });
+                    selectFile({ accept: "video/*" });
                   }}
                   className="cover-item"
                   style={{}}

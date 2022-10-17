@@ -11,20 +11,30 @@ function EditRestProTwo() {
   const [error, setErrors] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const [formData, setFrom] = useState({});
+  const [formData, setFrom] = useState({
+    id: "",
+    phone: "",
+    email: "",
+    website: "",
+    address: "",
+    hours: "",
+    ig: "",
+    fb: "",
+    ylp: "",
+  });
 
   useEffect(() => {
     if (rest !== null) {
       setFrom({
-        id: rest._id,
-        phone: rest.phone,
-        email: rest.email,
-        website: rest.website,
-        address: rest.address,
-        hours: rest.hours,
-        ig: rest.insta,
-        fb: rest.facebook,
-        ylp: rest.yelp,
+        id: rest._id || "",
+        phone: rest.phone || "",
+        email: rest.email || "",
+        website: rest.website || "",
+        address: rest.address || "",
+        hours: rest.hours || "",
+        ig: rest.insta || "",
+        fb: rest.facebook || "",
+        ylp: rest.yelp || "",
       });
     }
   }, [rest]);
