@@ -97,6 +97,7 @@ function EditRestProOne() {
       });
   };
   const forceUpdate = (e) => {
+    console.log(e);
     setFileSe(false);
     setTimeout(() => {
       setFileSe(true);

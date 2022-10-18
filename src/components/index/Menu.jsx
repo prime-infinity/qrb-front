@@ -185,8 +185,12 @@ function Menu() {
     if (authState?._id === rest.user) {
       return true;
     }
-
     //forgot if logged in and another rest
+    if (authState?._id) {
+      if (cat.menu.length > 0) {
+        return true;
+      }
+    }
   };
   return (
     <>
