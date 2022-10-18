@@ -15,7 +15,6 @@ export const restSlice = createSlice({
     },
     setRest: (state, action) => {
       state.rest = action.payload;
-      state.restMenu = state.rest.menu;
     },
     setRestSummary: (state, action) => {
       state.rest = { ...state.rest, summary: action.payload };
@@ -37,6 +36,9 @@ export const restSlice = createSlice({
     searchDiscarded: (state, action) => {
       state.restMenu = state.rest.menu;
     },
+    resetRestCatOrder: (state, action) => {
+      state.rest = { ...state.rest, categories: action.payload };
+    },
   },
 });
 
@@ -48,6 +50,7 @@ export const { setRestWelcomScreen } = restSlice.actions;
 export const { setRestInited } = restSlice.actions;
 export const { searchRestMenu } = restSlice.actions;
 export const { searchDiscarded } = restSlice.actions;
+export const { resetRestCatOrder } = restSlice.actions;
 
 export const initIndexRest = () => async (dispatch) => {
   const dataFromGet = await getIndexRest();

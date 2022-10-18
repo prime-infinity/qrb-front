@@ -13,7 +13,7 @@ import AddCartModal from "../../ui/AddCartModal";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
-import { setRest } from "../../redux/slices/restSlice";
+import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
 import { Reorder } from "framer-motion";
@@ -199,7 +199,8 @@ function Menu() {
     }
   };
   const reOrder = (e) => {
-    console.log(e);
+    //console.log(e);
+    dispatch(resetRestCatOrder(e));
   };
   return (
     <>
