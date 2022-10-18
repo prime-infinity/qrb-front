@@ -17,6 +17,7 @@ function CreateResturantWel() {
   const [done, setDone] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setErrors] = useState(null);
+  const [fileSele, setFileSe] = useState(true);
 
   const errorDiv = <small className="text-danger">{error}</small>;
 
@@ -76,7 +77,12 @@ function CreateResturantWel() {
         handleErrors(err);
       });
   };
-
+  const forceUpdate = (e) => {
+    setFileSe(false);
+    setTimeout(() => {
+      setFileSe(true);
+    }, 200);
+  };
   return done ? (
     <DoneCreatRest />
   ) : (
@@ -92,7 +98,9 @@ function CreateResturantWel() {
                 className="col-6 offset-3 text-center border-dashed my-5"
                 style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
                 onClick={() => {
-                  selectFile({ accept: "video/*" });
+                  selectFile({ accept: "video/mp4" }, ({ file }) => {
+                    forceUpdate(file);
+                  });
                 }}
               >
                 <span>
@@ -122,28 +130,28 @@ function CreateResturantWel() {
                   >
                     <li
                       onClick={() => {
-                        selectFile({ accept: "video/*" });
+                        selectFile({ accept: "video/mp4" }, ({ file }) => {
+                          forceUpdate(file);
+                        });
                       }}
                     >
                       <span className="cover-item">
                         <div id="videowrapper">
                           <div id="fullScreenDiv">
-                            <video
-                              id="video"
-                              role="presentation"
-                              preload="auto"
-                              playsInline
-                              crossOrigin="anonymous"
-                              loop
-                              muted
-                              autoPlay
-                            >
-                              <source src={file.source} type="video/mp4" />
-                              <source
-                                src={file.source}
-                                type="video/quicktime"
-                              />
-                            </video>
+                            {fileSele && (
+                              <video
+                                id="video"
+                                role="presentation"
+                                preload="auto"
+                                playsInline
+                                crossOrigin="anonymous"
+                                loop
+                                muted
+                                autoPlay
+                              >
+                                <source src={file.source} type="video/mp4" />
+                              </video>
+                            )}
                           </div>
                         </div>
                       </span>

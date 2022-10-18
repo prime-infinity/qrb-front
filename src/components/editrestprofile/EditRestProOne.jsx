@@ -97,7 +97,6 @@ function EditRestProOne() {
       });
   };
   const forceUpdate = (e) => {
-    console.log(e);
     setFileSe(false);
     setTimeout(() => {
       setFileSe(true);
@@ -181,8 +180,8 @@ function EditRestProOne() {
               <li>
                 <label
                   onClick={() => {
-                    selectFile({ accept: "video/*" }, ({ name }) => {
-                      forceUpdate(name);
+                    selectFile({ accept: "video/mp4" }, ({ file }) => {
+                      forceUpdate(file);
                     });
                   }}
                   className="cover-item"
@@ -220,8 +219,8 @@ function EditRestProOne() {
             {file && (
               <li
                 onClick={() => {
-                  selectFile({ accept: "video/*" }, ({ name }) => {
-                    forceUpdate(name);
+                  selectFile({ accept: "video/mp4" }, ({ file }) => {
+                    forceUpdate(file);
                   });
                 }}
               >
