@@ -17,14 +17,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   const [isResOwner, setIsUser] = useState(false);
 
   const toggleIsUser = () => {
-    /*if (authState?.isRestOwner) {
-      console.log(true);
-      setIsUser(false);
-    } else {
-      console.log(false);*/
     setIsUser(!isResOwner);
-    //}
-    //authState?.isRestOwner ? setIsUser(false) : setIsUser(!isResOwner);
   };
 
   const goLogin = () => {
@@ -124,7 +117,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}
                 </span>
               </>
-              {authState?.isRestOwner && !isResOwner && (
+              {authState?.isRestOwner === true && (
                 <span>
                   <svg
                     onClick={toEditRestProfile}

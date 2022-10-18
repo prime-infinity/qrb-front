@@ -122,10 +122,10 @@ function CreateResturantWel() {
                   >
                     <li
                       onClick={() => {
-                        selectFile({ accept: "video/mp4" });
+                        selectFile({ accept: "video/*" });
                       }}
                     >
-                      <a href="#!" className="cover-item">
+                      <span className="cover-item">
                         <div id="videowrapper">
                           <div id="fullScreenDiv">
                             <video
@@ -139,10 +139,14 @@ function CreateResturantWel() {
                               autoPlay
                             >
                               <source src={file.source} type="video/mp4" />
+                              <source
+                                src={file.source}
+                                type="video/quicktime"
+                              />
                             </video>
                           </div>
                         </div>
-                      </a>
+                      </span>
                     </li>
                   </ul>
                 </div>
