@@ -14,6 +14,7 @@ function EditRestProOne() {
   const [error, setErrors] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
   const [file, selectFile] = useFileUpload();
+  const [fileSele, setFileSe] = useState(true);
   const [isFilePending, setFilePending] = useState(false);
   const [formData, setFrom] = useState({
     id: "",
@@ -95,17 +96,16 @@ function EditRestProOne() {
         handleErrorsFile(err);
       });
   };
-
+  const forceUpdate = (e) => {
+    setFileSe(false);
+    setTimeout(() => {
+      setFileSe(true);
+    }, 200);
+  };
   return (
     <div className="col-12">
       <div className="row mx-1">
         <div className="col-12">
-          {/*<span
-            style={{ backgroundColor: "#eee" }}
-            className="my-4 fs-14 form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
-          >
-            {rest?.name}
-          </span>*/}
           <input
             value={formData.name}
             onChange={(e) => setFrom({ ...formData, name: e.target.value })}
@@ -180,10 +180,11 @@ function EditRestProOne() {
               <li>
                 <label
                   onClick={() => {
-                    selectFile({ accept: "video/*" });
+                    selectFile({ accept: "video/*" }, ({ name }) => {
+                      forceUpdate(name);
+                    });
                   }}
                   className="cover-item"
-                  style={{}}
                 >
                   <img src="/ang/round-add.svg" alt="" />
                 </label>
@@ -216,25 +217,33 @@ function EditRestProOne() {
               </li>
             )}
             {file && (
-              <li>
-                <a href="#!" className="cover-item">
+              <li
+                onClick={() => {
+                  selectFile({ accept: "video/*" }, ({ name }) => {
+                    forceUpdate(name);
+                  });
+                }}
+              >
+                <span className="cover-item">
                   <div id="videowrapper">
                     <div id="fullScreenDiv">
-                      <video
-                        id="video"
-                        role="presentation"
-                        preload="auto"
-                        playsInline
-                        crossOrigin="anonymous"
-                        loop
-                        muted
-                        autoPlay
-                      >
-                        <source src={file.source} type="video/mp4" />
-                      </video>
+                      {fileSele && (
+                        <video
+                          id="video"
+                          role="presentation"
+                          preload="auto"
+                          playsInline
+                          crossOrigin="anonymous"
+                          loop
+                          muted
+                          autoPlay
+                        >
+                          <source src={file.source} type="video/mp4" />
+                        </video>
+                      )}
                     </div>
                   </div>
-                </a>
+                </span>
               </li>
             )}
           </ul>
