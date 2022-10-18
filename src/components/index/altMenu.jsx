@@ -57,7 +57,6 @@ function Menu() {
   });
   const [showWarn, setShowWarn] = useState(false);
   const [mainCatToDel, setMainToDel] = useState(null);
-  const [showCatInput, setShowCatInput] = useState(false);
 
   const isAdmin = () => {
     return authState && authState?._id === rest.user ? true : false;
@@ -67,11 +66,7 @@ function Menu() {
   //to reveal the subcats
   const toggleAddCat = () => {
     setCatErrs(null);
-    showCatInput ? setShowCatInput(false) : setShowCatInput(true);
-    setTimeout(() => {
-      addingCat ? setAddingCat(false) : setAddingCat(true);
-    }, 100);
-
+    addingCat ? setAddingCat(false) : setAddingCat(true);
     if (addingCat) {
       setCatText("");
     }
@@ -135,7 +130,8 @@ function Menu() {
       .then((res) => {
         dispatch(setRest(res));
         setCatPend(false);
-        toggleAddCat();
+        setAddingCat(false);
+        setCatText("");
       })
       .catch((err) => {
         setCatPend(false);
@@ -198,9 +194,7 @@ function Menu() {
       }
     }
   };
-  const reOrder = (e) => {
-    console.log(e);
-  };
+  const reOrder = (e) => {};
   return (
     <>
       {showWarn && (
@@ -242,31 +236,30 @@ function Menu() {
                     {/* the actual buttons */}
                     <Reorder.Group
                       axis="x"
-                      as="div"
                       values={rest.categories}
                       onReorder={reOrder}
-                      style={{ display: "contents" }}
+                      layoutScroll
+                      style={{ overflowX: "scroll" }}
                     >
                       {rest.categories?.map((cat, index) => (
-                        <Reorder.Item
-                          as="div"
-                          className={` ${index !== 0 && "ps-3"}`}
-                          key={cat._id}
-                          value={cat}
-                          style={{
-                            minWidth: "min-content",
-                            maxWidth: "max-content",
-                          }}
-                        >
-                          <div className="">
-                            <button
-                              style={{ width: "fit-content" }}
-                              ref={setRef(cat._id + "main_button_span")}
-                              className="btn fs-14 bg-them text-white cat-button"
-                            >
-                              <span className="cat-btn-txt ">{cat.name}</span>
-                            </button>
-                          </div>
+                        <Reorder.Item key={cat._id} value={cat}>
+                          <span
+                            className={`d-flex ${index !== 0 && "ps-3"}`}
+                            style={{
+                              minWidth: "min-content",
+                              maxWidth: "max-content",
+                            }}
+                          >
+                            <div className="">
+                              <button
+                                style={{ width: "fit-content" }}
+                                ref={setRef(cat._id + "main_button_span")}
+                                className="btn fs-14 bg-them text-white cat-button"
+                              >
+                                <span className="cat-btn-txt ">{cat.name}</span>
+                              </button>
+                            </div>
+                          </span>
                         </Reorder.Item>
                       ))}
                     </Reorder.Group>
@@ -309,7 +302,7 @@ function Menu() {
                           </button>
                         ) : null}
 
-                        {showCatInput && (
+                        {true && (
                           <span
                             className={`d-flex`}
                             style={{
@@ -350,30 +343,28 @@ function Menu() {
                               </button>
                             )}
 
-                            {!catPend && (
-                              <button
-                                disabled={catPend}
-                                onClick={toggleAddCat}
-                                className="btn fs-14 border-black cat-button"
-                              >
-                                <span style={{ display: "flex" }}>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2.5}
-                                    stroke="currentColor"
-                                    className="svg-icon"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18L18 6M6 6l12 12"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
-                            )}
+                            <button
+                              disabled={catPend}
+                              onClick={toggleAddCat}
+                              className="btn fs-14 border-black cat-button"
+                            >
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={2.5}
+                                  stroke="currentColor"
+                                  className="svg-icon"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
                             <span
                               className="text-danger fs-14 ps-2 d-flex"
                               style={{
