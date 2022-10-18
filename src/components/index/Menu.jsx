@@ -129,6 +129,7 @@ function Menu() {
         dispatch(setRest(res));
         setCatPend(false);
         setAddingCat(false);
+        setCatText("");
       })
       .catch((err) => {
         setCatPend(false);
