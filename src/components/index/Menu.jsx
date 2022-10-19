@@ -16,7 +16,7 @@ import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
-import { Reorder } from "framer-motion";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -200,6 +200,30 @@ function Menu() {
     //console.log(e);
     dispatch(resetRestCatOrder(e));
   };
+  const onDragEnd = (e) => {
+    console.log(e);
+  };
+
+  const getItemStyle = (isDragging, draggableStyle) => ({
+    background: isDragging ? "grey" : "",
+    width: "fit-content",
+    // styles we need to apply on draggables
+    ...draggableStyle,
+  });
+
+  const getListStyle = (isDraggingOver) => ({
+    background: isDraggingOver ? "lightgrey" : "",
+    display: "flex",
+    overflow: "auto",
+  });
+
+  const getItems = (count) =>
+    Array.from({ length: count }, (v, k) => k).map((k) => ({
+      id: `item-${k}`,
+      content: `item ${k}`,
+    }));
+
+  const items = getItems(9);
 
   return (
     <>
@@ -240,36 +264,63 @@ function Menu() {
                     }}
                   >
                     {/* the actual buttons */}
-                    <Reorder.Group
-                      axis="x"
-                      as="div"
-                      values={rest.categories}
-                      onReorder={reOrder}
-                      style={{ display: "contents" }}
-                    >
-                      {rest.categories?.map((cat, index) => (
-                        <Reorder.Item
-                          as="div"
-                          className={` ${index !== 0 && "ps-3"}`}
-                          key={cat._id}
-                          value={cat}
-                          style={{
-                            minWidth: "min-content",
-                            maxWidth: "max-content",
-                          }}
-                        >
-                          <div className="">
-                            <button
-                              style={{ width: "fit-content" }}
-                              ref={setRef(cat._id + "main_button_span")}
-                              className="btn fs-14 bg-them text-white cat-button"
-                            >
-                              <span className="cat-btn-txt ">{cat.name}</span>
-                            </button>
+                    <DragDropContext onDragEnd={onDragEnd}>
+                      <Droppable droppableId="droppable" direction="horizontal">
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            style={getListStyle(snapshot.isDraggingOver)}
+                            {...provided.droppableProps}
+                          >
+                            {rest.categories?.map((cat, index) => (
+                              <Draggable
+                                key={cat._id.toString()}
+                                draggableId={cat._id.toString()}
+                                index={index}
+                              >
+                                {(provided, snapshot) => (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={getItemStyle(
+                                      snapshot.isDragging,
+                                      provided.draggableProps.style
+                                    )}
+                                    className="btn mx-2 fs-14 bg-them text-white cat-button"
+                                  >
+                                    <span className="">{cat.name}</span>
+                                  </div>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
                           </div>
-                        </Reorder.Item>
-                      ))}
-                    </Reorder.Group>
+                        )}
+                      </Droppable>
+                    </DragDropContext>
+                    {/*rest.categories?.map((cat, index) => (
+                      <div
+                        
+                        className={` ${index !== 0 && "ps-3"}`}
+                        key={cat._id}
+                        value={cat}
+                        style={{
+                          minWidth: "min-content",
+                          maxWidth: "max-content",
+                        }}
+                      >
+                        <div className="">
+                          <button
+                            style={{ width: "fit-content" }}
+                            ref={setRef(cat._id + "main_button_span")}
+                            className="btn fs-14 bg-them text-white cat-button"
+                          >
+                            <span className="cat-btn-txt ">{cat.name}</span>
+                          </button>
+                        </div>
+                      </div>
+                    ))*/}
                     {isAdmin() && (
                       <div
                         className={`pe-3 ps-3 d-flex`}

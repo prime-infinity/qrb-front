@@ -19,6 +19,7 @@
     "lodash": "^4.17.21",
     "otp-input-react": "^0.3.0",
     "react": "^18.0.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.2.3",
     "react-collapsible": "^2.8.4",
     "react-dom": "^18.0.0",
