@@ -16,7 +16,7 @@ import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
-import { Reorder } from "framer-motion";
+import { Reorder, useDragControls } from "framer-motion";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -58,7 +58,7 @@ function Menu() {
   const [showWarn, setShowWarn] = useState(false);
   const [mainCatToDel, setMainToDel] = useState(null);
   const [showCatInput, setShowCatInput] = useState(false);
-
+  const dragControls = useDragControls();
   const isAdmin = () => {
     return authState && authState?._id === rest.user ? true : false;
   };
@@ -202,6 +202,7 @@ function Menu() {
     //console.log(e);
     dispatch(resetRestCatOrder(e));
   };
+
   return (
     <>
       {showWarn && (
@@ -251,6 +252,8 @@ function Menu() {
                       {rest.categories?.map((cat, index) => (
                         <Reorder.Item
                           as="div"
+                          dragListener={false}
+                          dragControls={dragControls}
                           className={` ${index !== 0 && "ps-3"}`}
                           key={cat._id}
                           value={cat}
@@ -261,10 +264,25 @@ function Menu() {
                         >
                           <div className="">
                             <button
-                              style={{ width: "fit-content" }}
+                              style={{ width: "fit-content", paddingLeft: "0" }}
                               ref={setRef(cat._id + "main_button_span")}
                               className="btn fs-14 bg-them text-white cat-button"
                             >
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  onPointerDown={(e) => dragControls.start(e)}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  style={{ width: "25px" }}
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M4.5 7.5a3 3 0 013-3h9a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              </span>
                               <span className="cat-btn-txt ">{cat.name}</span>
                             </button>
                           </div>
