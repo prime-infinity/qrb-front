@@ -196,12 +196,23 @@ function Menu() {
       }
     }
   };
-  const reOrder = (e) => {
-    //console.log(e);
-    dispatch(resetRestCatOrder(e));
+  const reOrder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
   };
   const onDragEnd = (e) => {
-    console.log(e);
+    // dropped outside the list
+    if (!e.destination) {
+      return;
+    }
+    //its coming from e.source, its going to e.destination
+    let startIndex = e.source.index;
+    let endIndex = e.destination.index;
+
+    const newitems = reOrder(rest.categories, startIndex, endIndex);
+    dispatch(resetRestCatOrder(newitems));
   };
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -216,14 +227,6 @@ function Menu() {
     display: "flex",
     overflow: "auto",
   });
-
-  const getItems = (count) =>
-    Array.from({ length: count }, (v, k) => k).map((k) => ({
-      id: `item-${k}`,
-      content: `item ${k}`,
-    }));
-
-  const items = getItems(9);
 
   return (
     <>
@@ -271,6 +274,7 @@ function Menu() {
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
                             {...provided.droppableProps}
+                            className="scroll-div"
                           >
                             {rest.categories?.map((cat, index) => (
                               <Draggable
@@ -289,7 +293,12 @@ function Menu() {
                                     )}
                                     className="btn mx-2 fs-14 bg-them text-white cat-button"
                                   >
-                                    <span className="">{cat.name}</span>
+                                    <span
+                                      ref={setRef(cat._id + "main_button_span")}
+                                      className=""
+                                    >
+                                      {cat.name}
+                                    </span>
                                   </div>
                                 )}
                               </Draggable>
