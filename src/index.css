@@ -140,6 +140,9 @@ select {
 .d-ani{
   transition: 1s ease;
 }
+.d-ani-fast{
+  transition: 0.2s ease;
+}
 .cat-div-selec{
   display: flex !important;
   position: fixed !important;

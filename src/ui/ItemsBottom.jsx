@@ -127,7 +127,7 @@ function ItemsBottom({ item, place, length, parents }) {
         {isHere() && (
           <div
             style={{ height: isHere() ? "124px" : "0px" }}
-            className="row d-ani border-left-right border-bottom-drk"
+            className="row  d-ani border-left-right border-bottom-drk"
           >
             <div
               style={{
