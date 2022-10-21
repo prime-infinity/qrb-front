@@ -1,6 +1,12 @@
 body {
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
   /*overscroll-behavior-y: contain;*/
+}
+#root{
+  height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 input:focus,
 textarea:focus,
