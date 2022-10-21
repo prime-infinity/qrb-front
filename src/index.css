@@ -1,6 +1,7 @@
 body {
   font-family: "Poppins", sans-serif;
   overscroll-behavior-y: contain;
+  touch-action: none;
 }
 input:focus,
 textarea:focus,
