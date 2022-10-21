@@ -47,7 +47,7 @@ function Wrapper() {
               </span>{" "}
               <ul className="sp-details ps-0 pt-4 mb-0">
                 <li>
-                  <h6>{rest.location}ddd</h6>
+                  <h6>{rest.location}</h6>
                 </li>
                 <li>
                   <h6>{rest.year}</h6>
