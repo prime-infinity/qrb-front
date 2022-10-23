@@ -180,7 +180,7 @@ function EditRestProOne() {
               <li>
                 <label
                   onClick={() => {
-                    selectFile({ accept: "video/mp4" }, ({ file }) => {
+                    selectFile({ accept: "video/*" }, ({ file }) => {
                       forceUpdate(file);
                     });
                   }}
@@ -219,7 +219,7 @@ function EditRestProOne() {
             {file && (
               <li
                 onClick={() => {
-                  selectFile({ accept: "video/mp4" }, ({ file }) => {
+                  selectFile({ accept: "video/*" }, ({ file }) => {
                     forceUpdate(file);
                   });
                 }}

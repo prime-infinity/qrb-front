@@ -9,7 +9,6 @@ import PureOverlay from "../../ui/PureOverlay";
 
 import ItemsBottom from "../../ui/ItemsBottom";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
-import AddCartModal from "../../ui/AddCartModal";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
@@ -22,7 +21,6 @@ gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
   const searchBar = useSelector((state) => state.menu.searchBar);
-  const isAddingCat = useSelector((state) => state.menu.isAddingCat);
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
   const [redrng, setRedrng] = useState(false);
@@ -65,10 +63,12 @@ function Menu() {
   //to reveal the subcats
   const toggleAddCat = () => {
     setCatErrs(null);
-    showCatInput ? setShowCatInput(false) : setShowCatInput(true);
+    /*showCatInput ? setShowCatInput(false) : setShowCatInput(true);
     setTimeout(() => {
       addingCat ? setAddingCat(false) : setAddingCat(true);
-    }, 100);
+    }, 100);*/
+
+    addingCat ? setAddingCat(false) : setAddingCat(true);
 
     if (addingCat) {
       setCatText("");
@@ -235,6 +235,7 @@ function Menu() {
   const getItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging ? "grey" : "",
     width: "fit-content",
+    minWidth: "fit-content",
     // styles we need to apply on draggables
     ...draggableStyle,
   });
@@ -294,7 +295,7 @@ function Menu() {
           />
         </>
       )}
-      {isAddingCat && <AddCartModal close={closeOverlay} />}
+
       <div className="container-fluid pt-5 big-bg-theme">
         {overlay && (
           <PureOverlay
@@ -317,52 +318,9 @@ function Menu() {
                       borderBottom: "1px solid black",
                     }}
                   >
-                    {/* the actual buttons */}
-                    <DragDropContext onDragEnd={onDragEnd}>
-                      <Droppable droppableId="droppable" direction="horizontal">
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}
-                            {...provided.droppableProps}
-                            className="scroll-div"
-                          >
-                            {rest.categories?.map((cat, index) => (
-                              <Draggable
-                                key={cat._id.toString()}
-                                draggableId={cat._id.toString()}
-                                index={index}
-                              >
-                                {(provided, snapshot) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={getItemStyle(
-                                      snapshot.isDragging,
-                                      provided.draggableProps.style
-                                    )}
-                                    className="btn mx-2 fs-14 bg-them text-white cat-button"
-                                  >
-                                    <span
-                                      ref={setRef(cat._id + "main_button_span")}
-                                      className=""
-                                    >
-                                      {cat.name}
-                                    </span>
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
-                    </DragDropContext>
-
                     {isAdmin() && (
                       <div
-                        className={`pe-3 ps-3 d-flex`}
+                        className={`pe-3 d-flex`}
                         style={{ width: "max-content", position: "relative" }}
                       >
                         {addingCat ? (
@@ -399,83 +357,130 @@ function Menu() {
                           </button>
                         ) : null}
 
-                        {showCatInput && (
+                        <span
+                          className={`d-flex`}
+                          style={{
+                            position: "absolute",
+                            opacity: addingCat ? "1" : "0%",
+                            left: addingCat ? "100%" : "-100%",
+                          }}
+                        >
+                          {catPend ? (
+                            <span className="me-2 border-black cat-button">
+                              <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                            </span>
+                          ) : (
+                            <button
+                              onClick={addCat}
+                              className="btn fs-14 me-2 border-black cat-button"
+                            >
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={2.5}
+                                  stroke="currentColor"
+                                  className="svg-icon"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M4.5 12.75l6 6 9-13.5"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          )}
+
+                          {!catPend && (
+                            <button
+                              disabled={catPend}
+                              onClick={toggleAddCat}
+                              className="btn fs-14 border-black cat-button"
+                            >
+                              <span style={{ display: "flex" }}>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={2.5}
+                                  stroke="currentColor"
+                                  className="svg-icon"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          )}
                           <span
-                            className={`d-flex`}
+                            className="text-danger fs-14 ps-2 d-flex"
                             style={{
-                              position: "absolute",
-                              opacity: addingCat ? "1" : "0%",
-                              left: addingCat ? "100%" : "-100%",
+                              width: "max-content",
+                              alignItems: "center",
                             }}
                           >
-                            {catPend ? (
-                              <span className="me-2 border-black cat-button">
-                                <span
-                                  className="spinner-border spinner-border-sm"
-                                  role="status"
-                                  aria-hidden="true"
-                                ></span>
-                              </span>
-                            ) : (
-                              <button
-                                onClick={addCat}
-                                className="btn fs-14 me-2 border-black cat-button"
-                              >
-                                <span style={{ display: "flex" }}>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2.5}
-                                    stroke="currentColor"
-                                    className="svg-icon"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M4.5 12.75l6 6 9-13.5"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
-                            )}
-
-                            {!catPend && (
-                              <button
-                                disabled={catPend}
-                                onClick={toggleAddCat}
-                                className="btn fs-14 border-black cat-button"
-                              >
-                                <span style={{ display: "flex" }}>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2.5}
-                                    stroke="currentColor"
-                                    className="svg-icon"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18L18 6M6 6l12 12"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
-                            )}
-                            <span
-                              className="text-danger fs-14 ps-2 d-flex"
-                              style={{
-                                width: "max-content",
-                                alignItems: "center",
-                              }}
-                            >
-                              {catErrs && catErrs}
-                            </span>
+                            {catErrs && catErrs}
                           </span>
-                        )}
+                        </span>
                       </div>
+                    )}
+                    {/* the actual buttons */}
+                    {!addingCat && (
+                      <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable
+                          droppableId="droppable"
+                          direction="horizontal"
+                        >
+                          {(provided, snapshot) => (
+                            <div
+                              ref={provided.innerRef}
+                              style={getListStyle(snapshot.isDraggingOver)}
+                              {...provided.droppableProps}
+                              className="scroll-div"
+                            >
+                              {rest.categories?.map((cat, index) => (
+                                <Draggable
+                                  key={cat._id.toString()}
+                                  draggableId={cat._id.toString()}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={getItemStyle(
+                                        snapshot.isDragging,
+                                        provided.draggableProps.style
+                                      )}
+                                      className="btn mx-2 fs-14 bg-them text-white cat-button"
+                                    >
+                                      <span
+                                        ref={setRef(
+                                          cat._id + "main_button_span"
+                                        )}
+                                        className=""
+                                      >
+                                        {cat.name}
+                                      </span>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
                     )}
                   </div>
                 )}
