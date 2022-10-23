@@ -26,9 +26,14 @@ function Wrapper() {
 
   return (
     <div>
-      <video className="videoBg" autoPlay loop playsInline muted>
-        <source src={rest.welcomescreen} type="video/mp4" />
-      </video>
+      {rest?.welcomescreen.type === 1 && (
+        <video className="videoBg" autoPlay loop playsInline muted>
+          <source src={rest.welcomescreen.source} type="video/mp4" />
+        </video>
+      )}
+      {rest?.welcomescreen.type === 0 && (
+        <img className="videoBg" src={rest.welcomescreen.source} alt="" />
+      )}
       <div className="bottom-ovelay"></div>
       <div
         className="bg-wrapper"

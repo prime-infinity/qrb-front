@@ -54,7 +54,6 @@ function Menu() {
   });
   const [showWarn, setShowWarn] = useState(false);
   const [mainCatToDel, setMainToDel] = useState(null);
-  const [showCatInput, setShowCatInput] = useState(false);
   const isAdmin = () => {
     return authState && authState?._id === rest.user ? true : false;
   };
@@ -63,10 +62,6 @@ function Menu() {
   //to reveal the subcats
   const toggleAddCat = () => {
     setCatErrs(null);
-    /*showCatInput ? setShowCatInput(false) : setShowCatInput(true);
-    setTimeout(() => {
-      addingCat ? setAddingCat(false) : setAddingCat(true);
-    }, 100);*/
 
     addingCat ? setAddingCat(false) : setAddingCat(true);
 

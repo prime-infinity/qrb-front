@@ -116,10 +116,37 @@ export function createRestDesc(data, token) {
   });
 }
 
-export function createRestFinal(data, token) {
+/**
+ *
+ * the two similar functions below serve amost the same
+ * purpose, but i just thought it'll be better to have them
+ * in seperate routes
+ *
+ * one of them creates a rest with a video background,
+ * the other creates it with an image background
+ */
+
+export function createRestFinalVid(data, token) {
   return new Promise((res, rej) => {
     axios
-      .post(backendHost + "create-rest/final", data, {
+      .post(backendHost + "create-rest/finalVid", data, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+export function createRestFinalImg(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "create-rest/finalImg", data, {
         headers: {
           "x-auth-token": token,
           "Content-Type": "multipart/form-data",

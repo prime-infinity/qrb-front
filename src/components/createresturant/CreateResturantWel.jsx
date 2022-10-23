@@ -3,7 +3,7 @@ import DoneCreatRest from "../../ui/DoneCreatRest";
 import { useSelector, useDispatch } from "react-redux";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
-import { createRestFinal } from "../../helpers/web";
+import { createRestFinalVid, createRestFinalImg } from "../../helpers/web";
 import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
 import { incrementCreationState } from "../../redux/slices/createRestSlice";
 import { setRest } from "../../redux/slices/restSlice";
@@ -53,15 +53,26 @@ function CreateResturantWel() {
     formData.append("location", restCreation.restLoc);
     formData.append("year", restCreation.restYear);
     formData.append("description", restCreation.restDesc);
-
-    createRestFinal(formData, authState.token)
-      .then((res) => {
-        console.log(res);
-        handleSuccess(res);
-      })
-      .catch((err) => {
-        handleErrors(err);
-      });
+    if (mediaType === 1) {
+      createRestFinalVid(formData, authState.token)
+        .then((res) => {
+          console.log(res);
+          handleSuccess(res);
+        })
+        .catch((err) => {
+          handleErrors(err);
+        });
+    }
+    if (mediaType === 0) {
+      createRestFinalImg(formData, authState.token)
+        .then((res) => {
+          console.log(res);
+          handleSuccess(res);
+        })
+        .catch((err) => {
+          handleErrors(err);
+        });
+    }
   };
   const skip = () => {
     setPending(true);
@@ -71,9 +82,9 @@ function CreateResturantWel() {
     formData.append("year", restCreation.restYear);
     formData.append("description", restCreation.restDesc);
 
-    createRestFinal(formData, authState.token)
+    createRestFinalVid(formData, authState.token)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         handleSuccess(res);
       })
       .catch((err) => {
@@ -228,7 +239,7 @@ function CreateResturantWel() {
               )}
               {mediaType === 1 && file && (
                 <>
-                  {realFile.type == "video/mp4" ? (
+                  {realFile.type === "video/mp4" ? (
                     <div className="col-10 my-4">
                       <div className="covers-list-wrapper">
                         <ul
@@ -305,8 +316,8 @@ function CreateResturantWel() {
               {mediaType === 0 && file && (
                 <>
                   {" "}
-                  {realFile.type == "image/jpeg" ||
-                  realFile.type == "image/jpg" ? (
+                  {realFile.type === "image/jpeg" ||
+                  realFile.type === "image/jpg" ? (
                     <div className="col-10 my-4">
                       <div className="covers-list-wrapper">
                         <ul
