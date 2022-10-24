@@ -218,7 +218,24 @@ export function uploadRestDetailImages(deta, token) {
 export function updateRestWelcomeVideo(deta, token) {
   return new Promise((res, rej) => {
     axios
-      .post(backendHost + "edit-rest/welcom-screen", deta, {
+      .post(backendHost + "edit-rest/welcom-screen-video", deta, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+export function updateRestWelcomeImage(deta, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/welcom-screen-image", deta, {
         headers: {
           "x-auth-token": token,
           "Content-Type": "multipart/form-data",
