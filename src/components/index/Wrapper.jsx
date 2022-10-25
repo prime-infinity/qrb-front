@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function Wrapper() {
   const rest = useSelector((state) => state.rest.rest);
@@ -24,6 +25,13 @@ function Wrapper() {
     return e.slice(0, 9).concat("...");
   };
 
+  const [ani, setAni] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setAni(true);
+    }, 10);
+  }, []);
+
   return (
     <div>
       {rest?.welcomescreen.type === 1 && (
@@ -32,7 +40,12 @@ function Wrapper() {
         </video>
       )}
       {rest?.welcomescreen.type === 0 && (
-        <img className="videoBg" src={rest.welcomescreen.source} alt="" />
+        <img
+          style={{ height: !ani ? "50vh" : "100vh", top: !ani ? "25%" : "0" }}
+          className="videoBg d-ani-5"
+          src={rest.welcomescreen.source}
+          alt=""
+        />
       )}
       <div className="bottom-ovelay"></div>
       <div
