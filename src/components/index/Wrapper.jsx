@@ -34,12 +34,12 @@ function Wrapper() {
 
   return (
     <div>
-      {rest?.welcomescreen.type === 1 && (
+      {rest?.welcomescreen?.type === 1 && (
         <video className="videoBg" autoPlay loop playsInline muted>
           <source src={rest.welcomescreen.source} type="video/mp4" />
         </video>
       )}
-      {rest?.welcomescreen.type === 0 && (
+      {rest?.welcomescreen?.type === 0 && (
         <img
           style={{ height: !ani ? "50vh" : "100vh", top: !ani ? "25%" : "0" }}
           className="videoBg d-ani-5"
