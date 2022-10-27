@@ -543,8 +543,7 @@ span.cat-icon img {
   border-radius: 2px;
   height: 32px;
   width: 4ch;
-  background-color: #252525;
-  color: white;
+  
 }
 .cat-name-input{
   border: 1px solid gray;
@@ -616,4 +615,20 @@ span.cat-icon img {
   width: 100%;
   left: 0;
   background-color: black;
+}
+.lr-ani{
+  position: relative;
+  animation: leftright 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes leftright {
+  0%{
+    left: 0%;
+  }
+  50%{
+    left:3%;
+  }
+  100%{
+    left: 0%;
+  }
 }

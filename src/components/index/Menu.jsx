@@ -324,9 +324,8 @@ function Menu() {
                             id="cat_input"
                             value={catText}
                             onChange={setAddCatText}
-                            className="cat-input fs-14"
+                            className="cat-input fs-14 ps-3"
                             type="text"
-                            autoFocus
                           />
                         ) : !addingCat ? (
                           <button
@@ -428,6 +427,37 @@ function Menu() {
                         </span>
                       </div>
                     )}
+                    {rest.categories?.length < 1 && (
+                      <>
+                        <div
+                          className="d-ani"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            position: "relative",
+                            left: addingCat ? "100%" : "0%",
+                          }}
+                        >
+                          <span className="lr-ani">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              style={{ width: "25px" }}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                              />
+                            </svg>
+                          </span>
+                          <span className="ms-3">add a category to begin</span>
+                        </div>
+                      </>
+                    )}
                     {/* the actual buttons */}
                     {!addingCat && (
                       <DragDropContext onDragEnd={onDragEnd}>
@@ -485,30 +515,11 @@ function Menu() {
             {/** menu part */}
             <div className="row  mt-5">
               {/** the menuss */}
-              {rest.categories?.length < 1 && (
-                <div>
-                  <div className="col-12">
-                    <div className="to-center">
-                      <span></span>{" "}
-                    </div>
-                  </div>
-                  <div className="col-12 mw-100">
-                    <div
-                      className="to-center text-center"
-                      style={{ top: "50%", width: "90%" }}
-                    >
-                      <span className="fs-14 text-secondary">
-                        add categories to start <br /> adding menu items
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )}{" "}
               {true && (
                 <div className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
-                      {rest.categories.length > 0 &&
+                      {rest.categories?.length > 0 &&
                         rest.categories?.map(
                           (cat) =>
                             modifyView(cat) && (
