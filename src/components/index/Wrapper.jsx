@@ -41,7 +41,11 @@ function Wrapper() {
       )}
       {rest?.welcomescreen?.type === 0 && (
         <img
-          style={{ height: !ani ? "50vh" : "100vh", top: !ani ? "25%" : "0" }}
+          style={{
+            height: true && "100vh",
+            top: true && "0",
+            transform: ani ? "scale(1)" : "scale(1.5)",
+          }}
           className="videoBg d-ani-5"
           src={rest.welcomescreen.source}
           alt=""
