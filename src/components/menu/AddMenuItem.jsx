@@ -77,20 +77,6 @@ function AddMenuItem({ details }) {
     setEditM({ ...editnMen, id: details._id });
   };
 
-  const abortEdit = () => {
-    setErr(null);
-    setEditM({
-      id: null,
-      name: "",
-      description: "",
-      price: "",
-      isSet: false,
-      status: 0,
-    });
-  };
-  const doneEdit = () => {
-    setEditM({ ...editnMen, isSet: true, id: null });
-  };
   const setName = (e) => {
     setEditM({ ...editnMen, name: e.target.value });
   };
@@ -180,7 +166,7 @@ function AddMenuItem({ details }) {
                   )}
                 </div>
                 {isEditn() ? (
-                  <input
+                  <textarea
                     onChange={setDesc}
                     value={editnMen.description}
                     style={{ marginTop: "3%" }}
@@ -198,91 +184,6 @@ function AddMenuItem({ details }) {
                       : "description"}
                   </p>
                 )}
-              </div>
-            </div>
-
-            <div className="row">
-              <div
-                className="col-12 text-end"
-                style={{ position: "absolute", bottom: "6%", right: "0%" }}
-              >
-                <>
-                  {isEditn() ? (
-                    <button
-                      onClick={toggleStatus}
-                      style={{ float: "left", height: "29px" }}
-                      className="btn bg-dark text-white py-0"
-                    >
-                      <span className="fs-14">
-                        {editnMen.status === 0
-                          ? "available"
-                          : editnMen.status === 1
-                          ? "sold out"
-                          : editnMen.status === 2
-                          ? "hidden"
-                          : null}
-                      </span>
-                    </button>
-                  ) : (
-                    <button
-                      style={{ float: "left", height: "29px" }}
-                      className="btn border-black py-0"
-                    >
-                      <span className="fs-14">
-                        {editnMen.status === 0
-                          ? "available"
-                          : editnMen.status === 1
-                          ? "sold out"
-                          : editnMen.status === 2
-                          ? "hidden"
-                          : null}
-                      </span>
-                    </button>
-                  )}
-
-                  {isEditn() && (
-                    <span
-                      onClick={doneEdit}
-                      style={{
-                        marginRight: "20px",
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2.5}
-                        stroke="currentColor"
-                        style={{ width: "20px" }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
-                    </span>
-                  )}
-
-                  {isEditn() && (
-                    <span onClick={abortEdit}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2.5}
-                        stroke="currentColor"
-                        style={{ width: "20px" }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                </>
               </div>
             </div>
           </div>
@@ -374,7 +275,7 @@ function AddMenuItem({ details }) {
                   ))}
                   <div
                     onClick={onImageUpload}
-                    className="col-12 border-black px-0"
+                    className="col-12 px-0"
                     style={{ position: "relative" }}
                   >
                     <img
@@ -450,7 +351,29 @@ function AddMenuItem({ details }) {
               )}
             </span>
           </button>
-
+          {isHere() && (
+            <button
+              onClick={toggleStatus}
+              style={{
+                width: "40%",
+                display: "flex",
+                justifyContent: "center",
+                position: "relative",
+                left: "18%",
+              }}
+              className="btn br-0 bg-dark text-white border-black"
+            >
+              <span className="fs-14">
+                {editnMen.status === 0
+                  ? "available"
+                  : editnMen.status === 1
+                  ? "sold out"
+                  : editnMen.status === 2
+                  ? "hidden"
+                  : null}
+              </span>
+            </button>
+          )}
           {isHere() && (
             <button
               style={{ position: "absolute", right: "0%" }}

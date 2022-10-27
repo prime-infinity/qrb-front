@@ -242,6 +242,7 @@ function Menu() {
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
+    maxWidth: "max-content",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     /*background: isDraggingOver && "#edecec",
@@ -313,6 +314,55 @@ function Menu() {
                       borderBottom: "1px solid black",
                     }}
                   >
+                    {/* the actual buttons */}
+                    {!addingCat && (
+                      <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable
+                          droppableId="droppable"
+                          direction="horizontal"
+                        >
+                          {(provided, snapshot) => (
+                            <div
+                              ref={provided.innerRef}
+                              style={getListStyle(snapshot.isDraggingOver)}
+                              {...provided.droppableProps}
+                              className="scroll-div"
+                            >
+                              {rest.categories?.map((cat, index) => (
+                                <Draggable
+                                  key={cat._id.toString()}
+                                  draggableId={cat._id.toString()}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={getItemStyle(
+                                        snapshot.isDragging,
+                                        provided.draggableProps.style
+                                      )}
+                                      className="btn mx-2 fs-14 bg-them text-white cat-button"
+                                    >
+                                      <span
+                                        ref={setRef(
+                                          cat._id + "main_button_span"
+                                        )}
+                                        className=""
+                                      >
+                                        {cat.name}
+                                      </span>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
+                    )}
                     {isAdmin() && (
                       <div
                         className={`pe-3 d-flex`}
@@ -352,9 +402,10 @@ function Menu() {
                         ) : null}
 
                         <span
-                          className={`d-flex`}
+                          className={`d-ani-med`}
                           style={{
                             position: "absolute",
+                            display: "flex",
                             opacity: addingCat ? "1" : "0%",
                             left: addingCat ? "100%" : "-100%",
                           }}
@@ -454,58 +505,9 @@ function Menu() {
                               />
                             </svg>
                           </span>
-                          <span className="ms-3">add a category to begin</span>
+                          <span className="ms-3">categories</span>
                         </div>
                       </>
-                    )}
-                    {/* the actual buttons */}
-                    {!addingCat && (
-                      <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable
-                          droppableId="droppable"
-                          direction="horizontal"
-                        >
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              style={getListStyle(snapshot.isDraggingOver)}
-                              {...provided.droppableProps}
-                              className="scroll-div"
-                            >
-                              {rest.categories?.map((cat, index) => (
-                                <Draggable
-                                  key={cat._id.toString()}
-                                  draggableId={cat._id.toString()}
-                                  index={index}
-                                >
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      style={getItemStyle(
-                                        snapshot.isDragging,
-                                        provided.draggableProps.style
-                                      )}
-                                      className="btn mx-2 fs-14 bg-them text-white cat-button"
-                                    >
-                                      <span
-                                        ref={setRef(
-                                          cat._id + "main_button_span"
-                                        )}
-                                        className=""
-                                      >
-                                        {cat.name}
-                                      </span>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {provided.placeholder}
-                            </div>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
                     )}
                   </div>
                 )}

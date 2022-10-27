@@ -146,6 +146,9 @@ select {
 .d-ani{
   transition: 1s ease;
 }
+.d-ani-med{
+  transition: .5s ease;
+}
 .d-ani-fast{
   transition: 0.2s ease;
 }
@@ -543,7 +546,8 @@ span.cat-icon img {
   border-radius: 2px;
   height: 32px;
   width: 4ch;
-  
+  background-color: #252525;
+  color: white;
 }
 .cat-name-input{
   border: 1px solid gray;
