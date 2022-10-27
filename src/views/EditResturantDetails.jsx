@@ -274,117 +274,119 @@ function EditResturantDetails() {
               </button>
             )}
 
-            <ImageUploading
-              value={images}
-              onChange={onChange}
-              maxNumber={maxNumber}
-              dataURLKey="data_url"
-              multiple
-              acceptType={["jpg", "jpeg"]}
-            >
-              {({ imageList, onImageUpload, errors }) => (
-                <div
-                  className="row g-0 mt-4"
-                  style={{ position: "absolute", width: "100%", left: "0" }}
-                >
-                  <div className="col-12 text-center">
-                    <h4>upload new images</h4>
-                    {imaUpLdErr ? imgErrorDiv : null}
+            {false && (
+              <ImageUploading
+                value={images}
+                onChange={onChange}
+                maxNumber={maxNumber}
+                dataURLKey="data_url"
+                multiple
+                acceptType={["jpg", "jpeg"]}
+              >
+                {({ imageList, onImageUpload, errors }) => (
+                  <div
+                    className="row g-0 mt-4"
+                    style={{ position: "absolute", width: "100%", left: "0" }}
+                  >
+                    <div className="col-12 text-center">
+                      <h4>upload new images</h4>
+                      {imaUpLdErr ? imgErrorDiv : null}
 
-                    {errors && (
+                      {errors && (
+                        <>
+                          {errors.maxNumber && (
+                            <span className="text-danger">
+                              Number of selected images exceed {maxNumber}
+                            </span>
+                          )}
+                          {errors.acceptType && (
+                            <span className="text-danger">
+                              Your selected file type is not allow
+                            </span>
+                          )}
+                          {errors.maxFileSize && (
+                            <span className="text-danger">
+                              Selected file size exceed maxFileSize
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </div>
+
+                    {!hasSetImages && (
+                      <div className="col-6">
+                        <label
+                          onClick={onImageUpload}
+                          className="cover-item"
+                          style={{ width: "100%", height: "200px" }}
+                        >
+                          <img src="/ang/round-add.svg" alt="" />
+                        </label>
+                      </div>
+                    )}
+
+                    {hasSetImages && (
                       <>
-                        {errors.maxNumber && (
-                          <span className="text-danger">
-                            Number of selected images exceed {maxNumber}
-                          </span>
-                        )}
-                        {errors.acceptType && (
-                          <span className="text-danger">
-                            Your selected file type is not allow
-                          </span>
-                        )}
-                        {errors.maxFileSize && (
-                          <span className="text-danger">
-                            Selected file size exceed maxFileSize
-                          </span>
-                        )}
+                        <div
+                          className="col-6 text-center"
+                          style={{ backgroundColor: "#dadada" }}
+                        >
+                          {!imageUpPending && (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              style={{ width: "50px", height: "200px" }}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              onClick={uploadImages}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                              />
+                            </svg>
+                          )}
+                          {imageUpPending && (
+                            <div
+                              style={{
+                                width: "50px",
+                                height: "200px",
+                                position: "relative",
+                              }}
+                            >
+                              <div
+                                className="spinner-border"
+                                style={{
+                                  position: "absolute",
+                                  top: "45%",
+                                  left: "160%",
+                                }}
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </>
                     )}
-                  </div>
 
-                  {!hasSetImages && (
-                    <div className="col-6">
-                      <label
-                        onClick={onImageUpload}
-                        className="cover-item"
-                        style={{ width: "100%", height: "200px" }}
-                      >
-                        <img src="/ang/round-add.svg" alt="" />
-                      </label>
-                    </div>
-                  )}
-
-                  {hasSetImages && (
-                    <>
-                      <div
-                        className="col-6 text-center"
-                        style={{ backgroundColor: "#dadada" }}
-                      >
-                        {!imageUpPending && (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            style={{ width: "50px", height: "200px" }}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            onClick={uploadImages}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                            />
-                          </svg>
-                        )}
-                        {imageUpPending && (
-                          <div
-                            style={{
-                              width: "50px",
-                              height: "200px",
-                              position: "relative",
-                            }}
-                          >
-                            <div
-                              className="spinner-border"
-                              style={{
-                                position: "absolute",
-                                top: "45%",
-                                left: "160%",
-                              }}
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
-                            </div>
-                          </div>
-                        )}
+                    {imageList.map((image, index) => (
+                      <div className="col-6" key={index}>
+                        <img
+                          alt="..."
+                          className="img-fluid"
+                          src={image["data_url"]}
+                          style={{ height: "200px", width: "100%" }}
+                        />
                       </div>
-                    </>
-                  )}
-
-                  {imageList.map((image, index) => (
-                    <div className="col-6" key={index}>
-                      <img
-                        alt="..."
-                        className="img-fluid"
-                        src={image["data_url"]}
-                        style={{ height: "200px", width: "100%" }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </ImageUploading>
+                    ))}
+                  </div>
+                )}
+              </ImageUploading>
+            )}
           </div>
         </div>
       </div>
