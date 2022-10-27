@@ -148,7 +148,7 @@ function Header() {
           <MobileMenu closeMenu={showMobileMenu} goMenu={goMenu} />
         )}{" "}
         {menuSlideInited && (
-          <Overlay width={`25%`} closeOverlay={showMobileMenu} />
+          <Overlay width={`100%`} closeOverlay={showMobileMenu} />
         )}
       </>
 

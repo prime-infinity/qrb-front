@@ -56,7 +56,7 @@ select {
   height: 100%;
   overflow-y: scroll;
   padding-bottom: 20%;
-  z-index: 2;
+  z-index: 3;
   top: 0%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: 3px solid black;
@@ -285,10 +285,10 @@ select {
   background: linear-gradient(1.28deg, rgba(0, 0, 0, 0.87) 0.91%, rgba(0, 0, 0, 0) 98.77%);
 }
 .animate__animated.animate__slideInRight {
-  --animate-duration: 0.2s;
+  --animate-duration: 0.5s;
 }
 .animate__animated.animate__slideOutRight {
-  --animate-duration: 0.2s;
+  --animate-duration: 0.5s;
 }
 .animate__animated.animate__slideInLeft {
   --animate-duration: 0.1s;

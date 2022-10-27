@@ -8,8 +8,8 @@ function Overlay({ closeOverlay, width }) {
     <div
       className={`${
         mMenu
-          ? "animate__animated animate__slideInLeft"
-          : "animate__animated animate__slideOutLeft"
+          ? "animate__animated animate__fadeIn"
+          : "animate__animated animate__fadeOut"
       } overlay`}
       style={{ width: width }}
       onClick={closeOverlay}
