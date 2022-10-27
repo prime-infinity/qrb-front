@@ -4,6 +4,7 @@ export const menuSlice = createSlice({
   name: "menu",
   initialState: {
     menu: false,
+    menuFade: false,
     menuSlideInited: false,
     view: false,
     pb: false,
@@ -21,6 +22,9 @@ export const menuSlice = createSlice({
     },
     toggleMenu: (state, action) => {
       state.menu = !state.menu;
+    },
+    toggleMenuFade: (state, action) => {
+      state.menuFade = !state.menuFade;
     },
     toggleView: (state, action) => {
       state.view = !state.view;
@@ -56,6 +60,7 @@ export const menuSlice = createSlice({
 });
 
 export const { toggleMenu } = menuSlice.actions;
+export const { toggleMenuFade } = menuSlice.actions;
 export const { toggleView } = menuSlice.actions;
 export const { pbFalse } = menuSlice.actions;
 export const { pbTrue } = menuSlice.actions;

@@ -12,6 +12,7 @@ import {
   toggleSearchBar,
   toggleUploading,
   toggleEditing,
+  toggleMenuFade,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 import { useState } from "react";
@@ -23,6 +24,7 @@ function Header() {
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const menuFade = useSelector((state) => state.menu.menuFade);
   const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
   const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
@@ -32,6 +34,13 @@ function Header() {
 
   const showMobileMenu = () => {
     //show mobile menu
+    if (menuFade) {
+      setTimeout(() => {
+        dispatch(toggleMenuFade());
+      }, 1000);
+    } else {
+      dispatch(toggleMenuFade());
+    }
     dispatch(toggleMenu());
     !menuSlideInited && dispatch(initMenuSlide(true));
   };

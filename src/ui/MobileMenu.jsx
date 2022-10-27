@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
-import { toggleMenu } from "../redux/slices/menuSlice";
+import { toggleMenu, toggleMenuFade } from "../redux/slices/menuSlice";
 import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -14,6 +14,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const menuFade = useSelector((state) => state.menu.menuFade);
   const [isResOwner, setIsUser] = useState(false);
 
   const toggleIsUser = () => {
@@ -39,19 +40,30 @@ function MobileMenu({ goMenu, closeMenu }) {
     closeMenu();
     navigate(`/${rest.url}`);
   };
-
+  const menuAlterFade = () => {
+    if (menuFade) {
+      setTimeout(() => {
+        dispatch(toggleMenuFade());
+      }, 1000);
+    } else {
+      dispatch(toggleMenuFade());
+    }
+  };
   const cancelBt = () => {
     if (!isResOwner && authState?.isRestOwner) {
       dispatch(toggleMenu());
+      menuAlterFade();
     }
     if (isResOwner && authState?.isRestOwner) {
       dispatch(toggleMenu());
+      menuAlterFade();
     }
     if (isResOwner && !authState?.isRestOwner) {
       setIsUser(false);
     }
     if (!isResOwner && !authState?.isRestOwner) {
       dispatch(toggleMenu());
+      menuAlterFade();
     }
     //isResOwner ? setIsUser(false) : dispatch(toggleMenu());
   };

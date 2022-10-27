@@ -3,7 +3,7 @@ import "animate.css";
 
 function Overlay({ closeOverlay, width }) {
   const mMenu = useSelector((state) => state.menu.menu);
-
+  const menuFade = useSelector((state) => state.menu.menuFade);
   return (
     <div
       className={`${
@@ -11,7 +11,11 @@ function Overlay({ closeOverlay, width }) {
           ? "animate__animated animate__fadeIn"
           : "animate__animated animate__fadeOut"
       } overlay`}
-      style={{ width: width }}
+      style={{
+        width: width,
+        zIndex: "2",
+        display: menuFade ? "block" : "none",
+      }}
       onClick={closeOverlay}
     ></div>
   );
