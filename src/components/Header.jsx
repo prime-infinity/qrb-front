@@ -13,6 +13,7 @@ import {
   toggleUploading,
   toggleEditing,
   toggleMenuFade,
+  setEditnMenu,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 import { useState } from "react";
@@ -57,6 +58,7 @@ function Header() {
   const goMenu = () => {
     //setMmenu(!mMenu);
     showMobileMenu();
+    dispatch(setEditnMenu(false));
     navigate(`${rest.url}/menu`);
   };
 

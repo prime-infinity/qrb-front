@@ -1,9 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LongTextSvg from "./LongTextSvg";
+import { setEditnMenu } from "../redux/slices/menuSlice";
 
 function ResOwnerMobMenu({ closeMenu }) {
   const location = useLocation();
+  const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
   let navigate = useNavigate();
@@ -24,6 +26,7 @@ function ResOwnerMobMenu({ closeMenu }) {
   const editMyMenu = () => {
     //console.log("is editing menu");
     closeMenu();
+    dispatch(setEditnMenu(true));
     navigate(`/${rest.url}/menu`);
   };
   const goHome = () => {

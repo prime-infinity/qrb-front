@@ -54,8 +54,11 @@ function Menu() {
   });
   const [showWarn, setShowWarn] = useState(false);
   const [mainCatToDel, setMainToDel] = useState(null);
+  const isEditnMenu = useSelector((state) => state.menu.isEditnMenu);
   const isAdmin = () => {
-    return authState && authState?._id === rest.user ? true : false;
+    return authState && authState?._id === rest.user && isEditnMenu
+      ? true
+      : false;
   };
 
   //this below function opens up the main cats
@@ -182,9 +185,16 @@ function Menu() {
       }
     }
     if (authState?._id === rest.user) {
+      if (!isEditnMenu) {
+        if (cat.menu.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
       return true;
     }
-    //forgot if logged in and another rest
+    //if logged in and another rest
     if (authState?._id) {
       if (cat.menu.length > 0) {
         return true;

@@ -15,8 +15,12 @@ export const menuSlice = createSlice({
     overlay: false,
     isLangModal: false,
     hasInitAdding: "",
+    isEditnMenu: false,
   },
   reducers: {
+    setEditnMenu: (state, action) => {
+      state.isEditnMenu = action.payload;
+    },
     setAdding: (state, action) => {
       state.hasInitAdding = action.payload;
     },
@@ -59,6 +63,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setEditnMenu } = menuSlice.actions;
 export const { toggleMenu } = menuSlice.actions;
 export const { toggleMenuFade } = menuSlice.actions;
 export const { toggleView } = menuSlice.actions;
