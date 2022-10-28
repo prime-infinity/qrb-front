@@ -75,7 +75,7 @@ function Header() {
     dispatch(toggleEditing(false));
   };
   const goDetails = () => {
-    navigate("/edit-resturant-details");
+    goHome();
   };
 
   const goToAbout = () => {

@@ -180,7 +180,8 @@ export async function getRestOfOwner(token) {
 
 //rest owner editing resturant
 
-export async function submitRestSumm(data, token) {
+//deprecated route
+/*export async function submitRestSumm(data, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/summary", data, {
@@ -195,7 +196,7 @@ export async function submitRestSumm(data, token) {
         rej(err);
       });
   });
-}
+}*/
 
 export function uploadRestDetailImages(deta, token) {
   return new Promise((res, rej) => {

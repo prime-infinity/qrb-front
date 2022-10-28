@@ -17,6 +17,7 @@ function EditRestProTwo() {
     email: "",
     website: "",
     address: "",
+    summary: "",
     hours: "",
     ig: "",
     fb: "",
@@ -31,6 +32,7 @@ function EditRestProTwo() {
         email: rest.email || "",
         website: rest.website || "",
         address: rest.address || "",
+        summary: rest.summary || "",
         hours: rest.hours || "",
         ig: rest.insta || "",
         fb: rest.facebook || "",
@@ -126,6 +128,19 @@ function EditRestProTwo() {
             placeholder={formData.ylp ? formData.ylp : "yelp"}
             type="text"
             className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
+          />
+          <textarea
+            rows={3}
+            style={{ border: "0px", borderBottom: "1px solid black" }}
+            value={formData.summary}
+            onChange={(e) => setFrom({ ...formData, summary: e.target.value })}
+            className="my-4 fs-14 form-control text-center big-bg-theme"
+            type="text"
+            placeholder={`${
+              rest?.summary
+                ? rest?.summary
+                : "enter short summary for your business"
+            }`}
           />
           <div className="row text-center">
             <div className="col-12">{error ? errorDiv : null}</div>

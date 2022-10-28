@@ -13,7 +13,7 @@ import About from "./components/index/About";
 import Menu from "./components/index/Menu";
 import Wrapper from "./components/index/Wrapper";
 import AddMenuItem from "./views/AddMenuItem";
-import EditResturantDetails from "./views/EditResturantDetails";
+//import EditResturantDetails from "./views/EditResturantDetails";
 import EditResturantProfile from "./views/EditResturantProfile";
 import CreateResturant from "./views/CreateResturant";
 import CreateResturantName from "./components/createresturant/CreateResturantName";
@@ -40,10 +40,10 @@ root.render(
           <Route path="/add-item" element={<AddMenuItem />} />
           <Route path="/edit-item" element={<EditMenuItem />} />
           <Route path="/add-category" element={<AddMenuItem />} />
-          <Route
+          {/*<Route
             path="/edit-resturant-details"
             element={<EditResturantDetails />}
-          />
+/>*/}
 
           <Route path="/edit-rest-profile" element={<EditResturantProfile />} />
           <Route

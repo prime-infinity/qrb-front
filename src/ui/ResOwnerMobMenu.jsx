@@ -20,7 +20,7 @@ function ResOwnerMobMenu({ closeMenu }) {
 
   const editMyInfo = () => {
     closeMenu();
-    navigate("/edit-resturant-details");
+    navigate("/edit-rest-profile");
   };
 
   const editMyMenu = () => {
