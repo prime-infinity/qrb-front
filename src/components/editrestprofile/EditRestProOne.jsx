@@ -366,10 +366,11 @@ function EditRestProOne() {
               )}
               {mediaType === 2 && !file && (
                 <div
-                  className="col-12 border-dashed my-4"
-                  style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
+                  className="col-8 my-4"
+                  style={{ display: "flex", justifyContent: "center" }}
                 >
                   <ColorPicker
+                    width={200}
                     height={228}
                     color={color}
                     onChange={setColor}
