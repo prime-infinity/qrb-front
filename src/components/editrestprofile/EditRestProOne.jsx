@@ -8,6 +8,8 @@ import {
 import { setRest, setRestWelcomScreen } from "../../redux/slices/restSlice";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/lib/css/styles.css";
 
 function EditRestProOne() {
   let navigate = useNavigate();
@@ -31,6 +33,7 @@ function EditRestProOne() {
   const [mediaType, setMediaType] = useState(0);
   const [hasRend, setRendered] = useState(true);
   const [realFile, setReal] = useState(null);
+  const [color, setColor] = useColor("hex", "#121212");
 
   useEffect(() => {
     if (rest !== null) {
@@ -215,11 +218,11 @@ function EditRestProOne() {
           </div>
 
           <div className="row mt-2 justify-content-center">
-            <div className="col-4">
+            <div className="col-6">
               <div className="row border-black br-4">
                 <div
                   onClick={() => setMType(0)}
-                  className="col-6 py-2 text-center d-ani-fast"
+                  className="col-4 py-2 text-center d-ani-fast"
                   style={{
                     opacity: "0.65",
                     backgroundColor: mediaType === 0 ? "black" : "#f6f4f2",
@@ -249,13 +252,39 @@ function EditRestProOne() {
                   </span>
                 </div>
                 <div
+                  onClick={() => setMType(2)}
+                  className="col-4 py-2 text-center d-ani-fast"
+                  style={{
+                    opacity: "0.65",
+                    backgroundColor: mediaType === 2 ? "black" : "#f6f4f2",
+                    color: mediaType === 2 ? "white" : "black",
+                  }}
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      style={{ width: "20px" }}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
                   onClick={() => setMType(1)}
                   style={{
                     opacity: "0.65",
                     backgroundColor: mediaType === 1 ? "black" : "#f6f4f2",
                     color: mediaType === 1 ? "white" : "black",
                   }}
-                  className="col-6 py-2 text-center d-ani-fast"
+                  className="col-4 py-2 text-center d-ani-fast"
                 >
                   <span>
                     <svg
@@ -333,6 +362,22 @@ function EditRestProOne() {
                       />
                     </svg>
                   </span>
+                </div>
+              )}
+              {mediaType === 2 && !file && (
+                <div
+                  className="col-12 border-dashed my-4"
+                  style={{ paddingTop: "6rem", paddingBottom: "6rem" }}
+                >
+                  <ColorPicker
+                    height={228}
+                    color={color}
+                    onChange={setColor}
+                    hideHSV
+                    hideHEX
+                    hideRGB
+                    dark
+                  />
                 </div>
               )}
               {mediaType === 1 && file && (
