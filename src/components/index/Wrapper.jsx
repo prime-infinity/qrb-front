@@ -51,6 +51,17 @@ function Wrapper() {
           alt=""
         />
       )}
+      {rest?.welcomescreen?.type === 2 && (
+        <div
+          style={{
+            height: true && "100vh",
+            top: true && "0",
+            transform: ani ? "scale(1)" : "scale(1.5)",
+            backgroundColor: rest.welcomescreen.source,
+          }}
+          className="videoBg d-ani-5"
+        />
+      )}
       <div className="bottom-ovelay"></div>
       <div
         className="bg-wrapper"

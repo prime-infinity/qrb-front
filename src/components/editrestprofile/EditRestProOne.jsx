@@ -4,6 +4,7 @@ import {
   editRestProOne,
   updateRestWelcomeVideo,
   updateRestWelcomeImage,
+  updateRestWelcomeColor,
 } from "../../helpers/web";
 import { setRest, setRestWelcomScreen } from "../../redux/slices/restSlice";
 import { useFileUpload } from "use-file-upload";
@@ -93,6 +94,20 @@ function EditRestProOne() {
     }, 1000);
   };
 
+  const uploadColor = (e) => {
+    setFilePending(true);
+    setFileErrs(null);
+
+    updateRestWelcomeColor({ color: e, restId: rest._id }, authState.token)
+      .then((res) => {
+        console.log(res);
+        handleSuccessFile(res);
+      })
+      .catch((err) => {
+        handleErrorsFile(err);
+      });
+  };
+
   const uploadVideo = () => {
     setFilePending(true);
     setFileErrs(null);
@@ -145,6 +160,10 @@ function EditRestProOne() {
   const replaceWVideo = () => {
     console.log("is replacing with video", file);
     uploadVideo();
+  };
+  const replaceWColor = () => {
+    console.log("is replacing with color", color);
+    uploadColor(color);
   };
 
   return (
@@ -371,7 +390,7 @@ function EditRestProOne() {
               {mediaType === 2 && !file && (
                 <div
                   className="col-10 my-4"
-                  style={{ display: "flex", justifyContent: "center" }}
+                  style={{ display: "flex", flexWrap: "wrap" }}
                 >
                   <SketchPicker
                     onChangeComplete={handleColorChange}
@@ -379,6 +398,21 @@ function EditRestProOne() {
                     width={300}
                     presetColors={[]}
                   />
+
+                  <button
+                    disabled={isFilePending}
+                    onClick={replaceWColor}
+                    className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
+                  >
+                    {isFilePending && (
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                    {!isFilePending && <span>replace with color</span>}
+                  </button>
                 </div>
               )}
               {mediaType === 1 && file && (
