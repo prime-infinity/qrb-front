@@ -44,7 +44,7 @@ function MobileMenu({ goMenu, closeMenu }) {
     if (menuFade) {
       setTimeout(() => {
         dispatch(toggleMenuFade());
-      }, 1000);
+      }, 500);
     } else {
       dispatch(toggleMenuFade());
     }
