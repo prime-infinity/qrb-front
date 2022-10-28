@@ -8,8 +8,8 @@ import {
 import { setRest, setRestWelcomScreen } from "../../redux/slices/restSlice";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
-import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/lib/css/styles.css";
+
+import { SketchPicker } from "@hello-pangea/color-picker";
 
 function EditRestProOne() {
   let navigate = useNavigate();
@@ -33,8 +33,7 @@ function EditRestProOne() {
   const [mediaType, setMediaType] = useState(0);
   const [hasRend, setRendered] = useState(true);
   const [realFile, setReal] = useState(null);
-  const [color, setColor] = useColor("hex", "#121212");
-
+  const [color, setColor] = useState("#fff");
   useEffect(() => {
     if (rest !== null) {
       setFrom({
@@ -46,6 +45,10 @@ function EditRestProOne() {
       });
     }
   }, [rest]);
+
+  const handleColorChange = (e) => {
+    setColor(e.hex);
+  };
 
   const errorDiv = <small className="text-danger">{error}</small>;
   const fileErr = <small className="text-danger">{fileErrs}</small>;
@@ -143,6 +146,7 @@ function EditRestProOne() {
     console.log("is replacing with video", file);
     uploadVideo();
   };
+
   return (
     <div className="col-12">
       <div className="row mx-1">
@@ -366,18 +370,14 @@ function EditRestProOne() {
               )}
               {mediaType === 2 && !file && (
                 <div
-                  className="col-8 my-4"
+                  className="col-10 my-4"
                   style={{ display: "flex", justifyContent: "center" }}
                 >
-                  <ColorPicker
-                    width={200}
-                    height={228}
+                  <SketchPicker
+                    onChangeComplete={handleColorChange}
                     color={color}
-                    onChange={setColor}
-                    hideHSV
-                    hideHEX
-                    hideRGB
-                    dark
+                    width={300}
+                    presetColors={[]}
                   />
                 </div>
               )}
