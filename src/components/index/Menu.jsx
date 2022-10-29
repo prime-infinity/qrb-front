@@ -89,19 +89,25 @@ function Menu() {
     }
   };
 
-  const isDoneSub = () => {
+  /*const isDoneSub = () => {
+    console.log("done");
     setHLock(false);
-  };
+  };*/
 
   const scrollToMainCatGsap = (id) => {
     console.log("scrolling main", id);
-    setHLock(true);
-    let scrollTo = getRef(id + "main_menu_span");
-    gsap.to(window, {
+    //setHLock(true);
+    //let scrollTo = getRef(id + "main_menu_span");
+    /*scrollTo.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });*/
+    /*gsap.to(window, {
       duration: 0.8,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneSub,
-    });
+    });*/
   };
   const setAddCatText = (e) => {
     setCatText(e.target.value);
@@ -556,6 +562,7 @@ function Menu() {
                                                 cat._id + "main_menu_span"
                                               )}
                                               className="row px-0 justify-content-center"
+                                              id={cat._id + "main_menu_span"}
                                             >
                                               <div
                                                 className="col-11 px-0 pb-2"
