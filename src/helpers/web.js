@@ -160,6 +160,22 @@ export function createRestFinalImg(data, token) {
       });
   });
 }
+export function createRestFinalCol(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "create-rest/finalCol", data, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
 
 //getting resturants
 export async function getRestOfOwner(token) {

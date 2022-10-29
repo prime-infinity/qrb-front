@@ -3,10 +3,16 @@ import DoneCreatRest from "../../ui/DoneCreatRest";
 import { useSelector, useDispatch } from "react-redux";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
-import { createRestFinalVid, createRestFinalImg } from "../../helpers/web";
+import {
+  createRestFinalVid,
+  createRestFinalImg,
+  createRestFinalCol,
+} from "../../helpers/web";
 import { setIsResOwner, saveAuthToLocal } from "../../redux/slices/authSlice";
 import { incrementCreationState } from "../../redux/slices/createRestSlice";
 import { setRest } from "../../redux/slices/restSlice";
+
+import { SketchPicker } from "@hello-pangea/color-picker";
 
 function CreateResturantWel() {
   let navigate = useNavigate();
@@ -21,12 +27,17 @@ function CreateResturantWel() {
   const [mediaType, setMediaType] = useState(0);
   const [hasRend, setRendered] = useState(true);
   const [realFile, setReal] = useState(null);
+  const [color, setColor] = useState("#AA34D6");
 
   const errorDiv = <small className="text-danger">{error}</small>;
 
   useEffect(() => {
     dispatch(incrementCreationState(5));
   }, [dispatch]);
+
+  const handleColorChange = (e) => {
+    setColor(e.hex);
+  };
 
   const handleErrors = (e) => {
     setPending(false);
@@ -47,13 +58,14 @@ function CreateResturantWel() {
 
   const next = () => {
     setPending(true);
-    const formData = new FormData();
-    formData.append("welcome-image", file.file, file.name);
-    formData.append("name", restCreation.restName);
-    formData.append("location", restCreation.restLoc);
-    formData.append("year", restCreation.restYear);
-    formData.append("description", restCreation.restDesc);
+    setErrors(null);
     if (mediaType === 1) {
+      const formData = new FormData();
+      formData.append("welcome-image", file.file, file.name);
+      formData.append("name", restCreation.restName);
+      formData.append("location", restCreation.restLoc);
+      formData.append("year", restCreation.restYear);
+      formData.append("description", restCreation.restDesc);
       createRestFinalVid(formData, authState.token)
         .then((res) => {
           console.log(res);
@@ -64,7 +76,32 @@ function CreateResturantWel() {
         });
     }
     if (mediaType === 0) {
+      const formData = new FormData();
+      formData.append("welcome-image", file.file, file.name);
+      formData.append("name", restCreation.restName);
+      formData.append("location", restCreation.restLoc);
+      formData.append("year", restCreation.restYear);
+      formData.append("description", restCreation.restDesc);
       createRestFinalImg(formData, authState.token)
+        .then((res) => {
+          console.log(res);
+          handleSuccess(res);
+        })
+        .catch((err) => {
+          handleErrors(err);
+        });
+    }
+    if (mediaType === 2) {
+      createRestFinalCol(
+        {
+          color: color,
+          name: restCreation.restName,
+          location: restCreation.restLoc,
+          year: restCreation.restYear,
+          description: restCreation.restDesc,
+        },
+        authState.token
+      )
         .then((res) => {
           console.log(res);
           handleSuccess(res);
@@ -76,6 +113,7 @@ function CreateResturantWel() {
   };
   const skip = () => {
     setPending(true);
+    setErrors(null);
     const formData = new FormData();
     formData.append("name", restCreation.restName);
     formData.append("location", restCreation.restLoc);
@@ -103,6 +141,18 @@ function CreateResturantWel() {
   const setMType = (e) => {
     setMediaType(e);
   };
+
+  const disableNext = () => {
+    if (mediaType === 2 && !pending) {
+      return false;
+    } else {
+      if (!file || pending) {
+        return true;
+      }
+    }
+    return true;
+  };
+
   return done ? (
     <DoneCreatRest />
   ) : (
@@ -121,7 +171,7 @@ function CreateResturantWel() {
               <div className="row border-black br-4">
                 <div
                   onClick={() => setMType(0)}
-                  className="col-6 py-2 text-center d-ani-fast"
+                  className="col-4 py-2 text-center d-ani-fast"
                   style={{
                     opacity: "0.65",
                     backgroundColor: mediaType === 0 ? "black" : "#f6f4f2",
@@ -133,9 +183,9 @@ function CreateResturantWel() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
+                      strokeWidth={2}
                       stroke="currentColor"
-                      style={{ width: "25px" }}
+                      style={{ width: "20px" }}
                     >
                       <path
                         strokeLinecap="round"
@@ -151,22 +201,48 @@ function CreateResturantWel() {
                   </span>
                 </div>
                 <div
-                  onClick={() => setMType(1)}
+                  onClick={() => setMType(2)}
+                  className="col-4 py-2 text-center d-ani-fast"
                   style={{
                     opacity: "0.65",
-                    backgroundColor: mediaType === 1 ? "black" : "#f6f4f2",
-                    color: mediaType === 1 ? "white" : "black",
+                    backgroundColor: mediaType === 2 ? "black" : "#f6f4f2",
+                    color: mediaType === 2 ? "white" : "black",
                   }}
-                  className="col-6 py-2 text-center d-ani-fast"
                 >
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
+                      strokeWidth={2}
                       stroke="currentColor"
-                      style={{ width: "25px" }}
+                      style={{ width: "20px" }}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  onClick={() => setMType(1)}
+                  style={{
+                    opacity: "0.65",
+                    backgroundColor: mediaType === 1 ? "black" : "#f6f4f2",
+                    color: mediaType === 1 ? "white" : "black",
+                  }}
+                  className="col-4 py-2 text-center d-ani-fast"
+                >
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      style={{ width: "20px" }}
                     >
                       <path
                         strokeLinecap="round"
@@ -235,6 +311,19 @@ function CreateResturantWel() {
                       />
                     </svg>
                   </span>
+                </div>
+              )}
+              {mediaType === 2 && !file && (
+                <div
+                  className="col-10 my-4"
+                  style={{ display: "flex", flexWrap: "wrap" }}
+                >
+                  <SketchPicker
+                    onChangeComplete={handleColorChange}
+                    color={color}
+                    width={300}
+                    presetColors={[]}
+                  />
                 </div>
               )}
               {mediaType === 1 && file && (
@@ -381,7 +470,7 @@ function CreateResturantWel() {
           </div>
           <button
             onClick={next}
-            disabled={!file || pending}
+            disabled={disableNext()}
             className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
           >
             {pending && (
@@ -391,7 +480,8 @@ function CreateResturantWel() {
                 aria-hidden="true"
               ></span>
             )}
-            {!pending && <span>next</span>}
+            {!pending && mediaType === 2 && <span>pick color</span>}
+            {!pending && mediaType !== 2 && <span>next</span>}
           </button>
           {!file && (
             <button
@@ -420,8 +510,8 @@ function CreateResturantWel() {
             </svg>
           </span>
           <span className="fs-14 text-secondary">
-            choose a suitable video/image that will be used as the background
-            for your restaurant
+            choose a suitable background for your restaurant.you can change this
+            any time.
           </span>
         </div>
       </div>
