@@ -24,7 +24,7 @@ function Menu() {
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
   const [redrng, setRedrng] = useState(false);
-  //const [lockHori, setHLock] = useState(true);
+  const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pbTrue());
@@ -34,12 +34,11 @@ function Menu() {
   }, [dispatch]);
 
   useEffect(() => {
-    /*setTimeout(() => {
+    setTimeout(() => {
       setHLock(false);
-    }, 300);*/
+    }, 300);
   }, []);
 
-  //const [subBut, showSubB] = useState(null);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
   const [catErrs, setCatErrs] = useState(null);
@@ -61,8 +60,6 @@ function Menu() {
       : false;
   };
 
-  //this below function opens up the main cats
-  //to reveal the subcats
   const toggleAddCat = () => {
     setCatErrs(null);
 
@@ -81,23 +78,23 @@ function Menu() {
   };
 
   const lockOnTarget = (data) => {
-    //let { is, sub /*main*/ } = data;
-    //if (is && !lockHori) {
-    //showSubB(main);
-    //let scrollTo = getRef(sub + "sub_button");
-    //gsap.to("#sticky", {
-    //duration: 1.5,
-    //scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
-    //});
-    //}
+    let { is, main, name } = data;
+    if (is && !lockHori) {
+      //console.log(name);
+      /*let scrollTo = getRef(main + "main_button");
+      gsap.to("#new-sticky", {
+        duration: 1.5,
+        scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
+      });*/
+    }
   };
 
-  /*const isDoneSub = () => {
+  const isDoneSub = () => {
     setHLock(false);
-  };*/
+  };
 
-  /*const scrollToSubCatGsap = (id) => {
-    //console.log("scrolling sub");
+  const scrollToMainCatGsap = (id) => {
+    console.log("scrolling main", id);
     setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
@@ -105,18 +102,7 @@ function Menu() {
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneSub,
     });
-  };*/
-
-  /*const scrollToMainCatGsap = (id) => {
-    //console.log("scrolling main");
-    setHLock(true);
-    let scrollTo = getRef(id + "main_menu_span");
-    gsap.to(window, {
-      duration: 0.8,
-      scrollTo: { y: scrollTo.current, offsetY: 150 },
-      onComplete: isDoneSub,
-    });
-  };*/
+  };
   const setAddCatText = (e) => {
     setCatText(e.target.value);
     gsap.to("#cat_input", {
@@ -337,6 +323,7 @@ function Menu() {
                               style={getListStyle(snapshot.isDraggingOver)}
                               {...provided.droppableProps}
                               className="scroll-div"
+                              id="new-sticky"
                             >
                               {rest.categories?.map((cat, index) => (
                                 <Draggable
@@ -354,12 +341,13 @@ function Menu() {
                                         provided.draggableProps.style
                                       )}
                                       className="btn mx-2 fs-14 bg-them text-white cat-button"
+                                      onClick={() =>
+                                        scrollToMainCatGsap(cat._id)
+                                      }
                                     >
                                       <span
-                                        ref={setRef(
-                                          cat._id + "main_button_span"
-                                        )}
-                                        className=""
+                                        ref={setRef(cat._id + "main_button")}
+                                        className={cat.name}
                                       >
                                         {cat.name}
                                       </span>
@@ -542,6 +530,7 @@ function Menu() {
                                   lockOnTarget({
                                     is: inView,
                                     main: cat._id,
+                                    name: cat.name,
                                   })
                                 }
                                 threshold={1}
