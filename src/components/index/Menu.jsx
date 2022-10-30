@@ -11,7 +11,11 @@ import ItemsBottom from "../../ui/ItemsBottom";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { addMainCateogory, changeMainCateogoryName } from "../../helpers/web";
+import {
+  addMainCateogory,
+  changeMainCateogoryName,
+  rearngCat,
+} from "../../helpers/web";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
@@ -225,8 +229,13 @@ function Menu() {
     let startIndex = e.source.index;
     let endIndex = e.destination.index;
 
-    const newitems = reOrder(rest.categories, startIndex, endIndex);
-    dispatch(resetRestCatOrder(newitems));
+    const newItems = reOrder(rest.categories, startIndex, endIndex);
+    dispatch(resetRestCatOrder(newItems));
+    if (authState?._id === rest.user) {
+      rearngCat({ data: newItems, restId: rest._id }, authState.token)
+        .then((res) => console.log("done rearranging"))
+        .catch((err) => console.log("error rearranging", err));
+    }
   };
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -275,7 +284,11 @@ function Menu() {
       endIndex
     );
     dispatch(resetRestCatOrder(newMenuOrder));
-    //console.log(newMenuItems);
+    if (authState?._id === rest.user) {
+      rearngCat({ data: newMenuOrder, restId: rest._id }, authState.token)
+        .then((res) => console.log("done rearranging"))
+        .catch((err) => console.log("error rearranging", err));
+    }
   };
 
   return (
@@ -336,6 +349,9 @@ function Menu() {
                                   key={cat._id.toString()}
                                   draggableId={cat._id.toString()}
                                   index={index}
+                                  isDragDisabled={
+                                    authState?._id === rest.user ? false : true
+                                  }
                                 >
                                   {(provided, snapshot) => (
                                     <div
@@ -729,6 +745,11 @@ function Menu() {
                                               key={item._id.toString()}
                                               draggableId={item._id.toString()}
                                               index={indexx}
+                                              isDragDisabled={
+                                                authState?._id === rest.user
+                                                  ? false
+                                                  : true
+                                              }
                                             >
                                               {(provided, snapshot) => (
                                                 <div

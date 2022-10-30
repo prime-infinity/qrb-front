@@ -196,24 +196,6 @@ export async function getRestOfOwner(token) {
 
 //rest owner editing resturant
 
-//deprecated route
-/*export async function submitRestSumm(data, token) {
-  return new Promise((res, rej) => {
-    axios
-      .post(backendHost + "edit-rest/summary", data, {
-        headers: {
-          "x-auth-token": token,
-        },
-      })
-      .then((result) => {
-        res(result.data);
-      })
-      .catch((err) => {
-        rej(err);
-      });
-  });
-}*/
-
 export function uploadRestDetailImages(deta, token) {
   return new Promise((res, rej) => {
     axios
@@ -271,6 +253,23 @@ export function updateRestWelcomeColor(deta, token) {
   return new Promise((res, rej) => {
     axios
       .post(backendHost + "edit-rest/welcom-screen-color", deta, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((result) => {
+        res(result.data);
+      })
+      .catch((err) => {
+        rej(err);
+      });
+  });
+}
+
+export function rearngCat(data, token) {
+  return new Promise((res, rej) => {
+    axios
+      .post(backendHost + "edit-rest/rearrange-cat", data, {
         headers: {
           "x-auth-token": token,
         },
