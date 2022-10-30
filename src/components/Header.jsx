@@ -295,14 +295,14 @@ function Header() {
                       <img
                         src="/icons/bigbiew.png"
                         className="img-fluid"
-                        style={{ width: "19px" }}
+                        style={{ width: "18px" }}
                         alt=""
                       />
                     ) : (
                       <img
                         src="/icons/smallview.png"
                         className="img-fluid"
-                        style={{ width: "19px" }}
+                        style={{ width: "18px" }}
                         alt=""
                       />
                     )}
