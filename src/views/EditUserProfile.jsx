@@ -25,14 +25,18 @@ function EditUserProfile() {
 
   const errorDiv = <small className="text-danger">{error}</small>;
 
-  const [formData, setFrom] = useState({});
+  const [formData, setFrom] = useState({
+    fullname: "",
+    phone: "",
+    email: "",
+  });
 
   useEffect(() => {
     if (authState !== null) {
       setFrom({
-        fullname: authState.fullname,
-        phone: authState.phone,
-        email: authState.email,
+        fullname: authState.fullname || "",
+        phone: authState.phone || "",
+        email: authState.email || "",
       });
     }
   }, [authState]);
@@ -188,7 +192,7 @@ function EditUserProfile() {
                   </span>
                   <span className={`fs-14`}>tech support</span>
                 </li>
-                <li className="pt-2" onClick={logout}>
+                <li className="mt-4" onClick={logout}>
                   <span className="btn ps-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
