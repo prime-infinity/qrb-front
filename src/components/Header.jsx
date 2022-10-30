@@ -65,6 +65,7 @@ function Header() {
   const showSearch = () => {
     dispatch(toggleSearchBar());
     if (searchBar) {
+      setSearchTerm("");
       dispatch(searchDiscarded());
     }
   };
@@ -164,6 +165,7 @@ function Header() {
                 onChange={(e) => searching(e.target.value)}
                 name="search"
                 id="searchId"
+                className="fs-14"
               />
               <button className="btn-clear">
                 <svg

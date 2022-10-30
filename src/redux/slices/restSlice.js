@@ -6,8 +6,8 @@ export const restSlice = createSlice({
   initialState: {
     rest: null,
     restInited: false,
-    restMenu: null,
     restToEdit: null,
+    temp: null,
   },
   reducers: {
     setRestToEdit: (state, action) => {
@@ -29,12 +29,19 @@ export const restSlice = createSlice({
       state.rest = { ...state.rest, welcomescreen: action.payload };
     },
     searchRestMenu: (state, action) => {
-      state.restMenu = state.rest.menu.filter(
-        (men) => men.name === action.payload
+      let findCat = state.rest.categories.filter(
+        (cat) => cat.name === action.payload
       );
+      if (findCat.length > 0) {
+        state.temp = state.rest.categories;
+        state.rest.categories = findCat;
+      }
     },
     searchDiscarded: (state, action) => {
-      state.restMenu = state.rest.menu;
+      if (state.temp?.length > 0) {
+        state.rest.categories = state.temp;
+        state.temp = null;
+      }
     },
     resetRestCatOrder: (state, action) => {
       state.rest = { ...state.rest, categories: action.payload };
