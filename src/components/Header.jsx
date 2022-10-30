@@ -129,7 +129,7 @@ function Header() {
     return false;
   };
   const ultiRedu = () => {
-    let sum = rest.categories.reduce(
+    let sum = rest?.categories?.reduce(
       (prev, curr) => prev + curr.menu.length,
       0
     );
@@ -287,7 +287,7 @@ function Header() {
             {properUrl(location.pathname) === `/${rest.url}/menu` && (
               <>
                 {/** the below is supposed to show when the total menu items are greater than 1 */}
-                {rest.categories?.length > 0 && ultiRedu() && (
+                {ultiRedu() && (
                   <span onClick={changeView} className="">
                     {viewMode ? (
                       <svg
@@ -316,22 +316,23 @@ function Header() {
                 )}
               </>
             )}
-            {properUrl(location.pathname) === `/${rest.url}/menu` && (
-              <span onClick={showSearch} className="px-4">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.20113 0C3.22459 0 0.000976562 3.22362 0.000976562 7.20015C0.000976562 11.1767 3.22459 14.4003 7.20113 14.4003C8.86466 14.4003 10.3964 13.8361 11.6156 12.8887L16.4632 17.7364C16.8147 18.0879 17.3846 18.0879 17.736 17.7364C18.0875 17.3849 18.0875 16.8151 17.736 16.4636L12.8885 11.6161C13.8367 10.3967 14.4013 8.86436 14.4013 7.20015C14.4013 3.22362 11.1777 0 7.20113 0ZM1.80101 7.20015C1.80101 4.21775 4.21873 1.80004 7.20113 1.80004C10.1835 1.80004 12.6012 4.21775 12.6012 7.20015C12.6012 10.1825 10.1835 12.6003 7.20113 12.6003C4.21873 12.6003 1.80101 10.1825 1.80101 7.20015Z"
-                    fill="#252525"
-                  />
-                </svg>
-              </span>
-            )}
+            {properUrl(location.pathname) === `/${rest.url}/menu` &&
+              ultiRedu() && (
+                <span onClick={showSearch} className="px-4">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.20113 0C3.22459 0 0.000976562 3.22362 0.000976562 7.20015C0.000976562 11.1767 3.22459 14.4003 7.20113 14.4003C8.86466 14.4003 10.3964 13.8361 11.6156 12.8887L16.4632 17.7364C16.8147 18.0879 17.3846 18.0879 17.736 17.7364C18.0875 17.3849 18.0875 16.8151 17.736 16.4636L12.8885 11.6161C13.8367 10.3967 14.4013 8.86436 14.4013 7.20015C14.4013 3.22362 11.1777 0 7.20113 0ZM1.80101 7.20015C1.80101 4.21775 4.21873 1.80004 7.20113 1.80004C10.1835 1.80004 12.6012 4.21775 12.6012 7.20015C12.6012 10.1825 10.1835 12.6003 7.20113 12.6003C4.21873 12.6003 1.80101 10.1825 1.80101 7.20015Z"
+                      fill="#252525"
+                    />
+                  </svg>
+                </span>
+              )}
 
             {location.pathname === "/login" && (
               <span className="px-2">
