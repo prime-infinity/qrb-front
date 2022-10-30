@@ -482,7 +482,7 @@ function Menu() {
                         </span>
                       </div>
                     )}
-                    {rest.categories?.length < 1 && (
+                    {rest.categories?.length < 1 && isAdmin() && (
                       <>
                         <div
                           className="d-ani"

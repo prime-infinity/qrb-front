@@ -13,6 +13,7 @@ import { incrementCreationState } from "../../redux/slices/createRestSlice";
 import { setRest } from "../../redux/slices/restSlice";
 
 import { SketchPicker } from "@hello-pangea/color-picker";
+import { setEditnMenu } from "../../redux/slices/menuSlice";
 
 function CreateResturantWel() {
   let navigate = useNavigate();
@@ -51,6 +52,7 @@ function CreateResturantWel() {
     //change the isRstOwner of user to true
     dispatch(setIsResOwner(true));
     dispatch(saveAuthToLocal());
+    dispatch(setEditnMenu(true));
     setTimeout(() => {
       navigate(`/${e.url}`);
     }, 2000);
