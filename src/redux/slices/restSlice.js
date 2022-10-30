@@ -33,8 +33,22 @@ export const restSlice = createSlice({
         (cat) => cat.name === action.payload
       );
       if (findCat.length > 0) {
+        //console.log(findCat);
         state.temp = state.rest.categories;
         state.rest.categories = findCat;
+      }
+      if (findCat.length < 1) {
+        let found = (e) => {
+          //console.log([e]);
+          state.temp = state.rest.categories;
+          state.rest.categories = [e];
+        };
+        state.rest.categories.map((cat) =>
+          cat.menu.filter((men) =>
+            men.name === action.payload ? found({ ...cat, menu: [men] }) : null
+          )
+        );
+      } else {
       }
     },
     searchDiscarded: (state, action) => {
