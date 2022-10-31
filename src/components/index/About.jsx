@@ -133,22 +133,24 @@ function About() {
               </span>
             </div>
 
-            <div
-              className="row g-0 mt-4"
-              style={{ position: "absolute", width: "100%", left: "0" }}
-            >
-              {rest.images &&
-                rest.images.map((img, index) => (
-                  <div key={index} className="col-6">
-                    <img
-                      src={img}
-                      className="img-fluid"
-                      style={{ height: "200px", width: "100%" }}
-                      alt=""
-                    />
-                  </div>
-                ))}
-            </div>
+            {false && (
+              <div
+                className="row g-0 mt-4"
+                style={{ position: "absolute", width: "100%", left: "0" }}
+              >
+                {rest.images &&
+                  rest.images.map((img, index) => (
+                    <div key={index} className="col-6">
+                      <img
+                        src={img}
+                        className="img-fluid"
+                        style={{ height: "200px", width: "100%" }}
+                        alt=""
+                      />
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
