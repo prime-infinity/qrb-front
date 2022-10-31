@@ -7,8 +7,8 @@ function EditResturantProfile() {
 
   return (
     <div
-      className="container-fluid pt-5 big-bg-theme"
-      style={{ minHeight: "100vh" }}
+      className="container-fluid pb-5 big-bg-theme"
+      style={{ minHeight: "100vh", paddingTop: "3.5rem" }}
     >
       <div className="row pt-5">
         {/**state buttons */}
