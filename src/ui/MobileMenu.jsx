@@ -102,8 +102,11 @@ function MobileMenu({ goMenu, closeMenu }) {
             : "animate__animated animate__slideOutRight"
         } mobile-menu`}
       >
-        <div className="pt-4 mt-4">
-          <div className="col-10 offset-1 mt-4 text-end">
+        <div
+          className="pt-4 mt-4"
+          style={{ display: "flex", justifyContent: "space-around" }}
+        >
+          <div className="col-11 mt-4 text-end">
             {!isResOwner || authState?.isRestOwner ? (
               <>
                 {" "}
@@ -198,7 +201,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                       "text-decoration-underline"
                     } fs-14`}
                   >
-                    home
+                    gallery
                   </span>
 
                   <span className="btn pe-0">
@@ -227,7 +230,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                       "text-decoration-underline"
                     } fs-14`}
                   >
-                    info
+                    wiki
                   </span>
                   <span className="btn pe-0">
                     <svg
@@ -277,6 +280,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   style={{ position: "relative" }}
                 >
                   <>
+                    <hr />
                     <li className="" onClick={goLogin}>
                       {authState ? (
                         <span
@@ -288,51 +292,53 @@ function MobileMenu({ goMenu, closeMenu }) {
                           {authState.field}
                         </span>
                       ) : (
-                        <span className="fs-14">login</span>
+                        <span className="fs-18 text-decoration-underline">
+                          login
+                        </span>
                       )}
-                      <span className="btn pe-0">
-                        <svg
-                          className="svg-icon-lg"
-                          viewBox="0 0 20 21"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17.0711 3.42892C15.1823 1.54019 12.6711 0.5 10 0.5C7.32895 0.5 4.81766 1.54019 2.92892 3.42892C1.04019 5.31766 0 7.82895 0 10.5C0 13.1711 1.04019 15.6823 2.92892 17.5711C4.81766 19.4598 7.32895 20.5 10 20.5C12.6711 20.5 15.1823 19.4598 17.0711 17.5711C18.9598 15.6823 20 13.1711 20 10.5C20 7.82895 18.9598 5.31766 17.0711 3.42892ZM4.34006 17.2694C4.67026 14.4282 7.11304 12.2346 10 12.2346C11.5219 12.2346 12.953 12.8276 14.0295 13.9039C14.939 14.8135 15.5125 16.0011 15.6601 17.2693C14.1266 18.5536 12.1521 19.3281 10 19.3281C7.8479 19.3281 5.87357 18.5537 4.34006 17.2694ZM10 11.0276C8.32535 11.0276 6.96274 9.66504 6.96274 7.99039C6.96274 6.31558 8.32535 4.95312 10 4.95312C11.6747 4.95312 13.0373 6.31558 13.0373 7.99039C13.0373 9.66504 11.6747 11.0276 10 11.0276ZM16.6687 16.2787C16.3701 15.0747 15.7474 13.9647 14.8581 13.0754C14.1379 12.3552 13.2858 11.8148 12.3566 11.4763C13.4737 10.7187 14.2091 9.43875 14.2091 7.99039C14.2091 5.66953 12.3209 3.78125 10 3.78125C7.67914 3.78125 5.79086 5.66953 5.79086 7.99039C5.79086 9.43951 6.52695 10.7199 7.64496 11.4773C6.79001 11.7889 5.99884 12.2706 5.31815 12.9048C4.33243 13.8228 3.64792 14.9933 3.33054 16.2777C1.98639 14.7282 1.17188 12.7075 1.17188 10.5C1.17188 5.63214 5.13214 1.67188 10 1.67188C14.8679 1.67188 18.8281 5.63214 18.8281 10.5C18.8281 12.7079 18.0133 14.7291 16.6687 16.2787Z"
-                            fill="black"
-                          />
-                        </svg>
-                      </span>
+                      {false && (
+                        <span className="btn pe-0">
+                          <svg
+                            className="svg-icon-lg"
+                            viewBox="0 0 20 21"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M17.0711 3.42892C15.1823 1.54019 12.6711 0.5 10 0.5C7.32895 0.5 4.81766 1.54019 2.92892 3.42892C1.04019 5.31766 0 7.82895 0 10.5C0 13.1711 1.04019 15.6823 2.92892 17.5711C4.81766 19.4598 7.32895 20.5 10 20.5C12.6711 20.5 15.1823 19.4598 17.0711 17.5711C18.9598 15.6823 20 13.1711 20 10.5C20 7.82895 18.9598 5.31766 17.0711 3.42892ZM4.34006 17.2694C4.67026 14.4282 7.11304 12.2346 10 12.2346C11.5219 12.2346 12.953 12.8276 14.0295 13.9039C14.939 14.8135 15.5125 16.0011 15.6601 17.2693C14.1266 18.5536 12.1521 19.3281 10 19.3281C7.8479 19.3281 5.87357 18.5537 4.34006 17.2694ZM10 11.0276C8.32535 11.0276 6.96274 9.66504 6.96274 7.99039C6.96274 6.31558 8.32535 4.95312 10 4.95312C11.6747 4.95312 13.0373 6.31558 13.0373 7.99039C13.0373 9.66504 11.6747 11.0276 10 11.0276ZM16.6687 16.2787C16.3701 15.0747 15.7474 13.9647 14.8581 13.0754C14.1379 12.3552 13.2858 11.8148 12.3566 11.4763C13.4737 10.7187 14.2091 9.43875 14.2091 7.99039C14.2091 5.66953 12.3209 3.78125 10 3.78125C7.67914 3.78125 5.79086 5.66953 5.79086 7.99039C5.79086 9.43951 6.52695 10.7199 7.64496 11.4773C6.79001 11.7889 5.99884 12.2706 5.31815 12.9048C4.33243 13.8228 3.64792 14.9933 3.33054 16.2777C1.98639 14.7282 1.17188 12.7075 1.17188 10.5C1.17188 5.63214 5.13214 1.67188 10 1.67188C14.8679 1.67188 18.8281 5.63214 18.8281 10.5C18.8281 12.7079 18.0133 14.7291 16.6687 16.2787Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </span>
+                      )}
                     </li>
-
-                    <hr />
                   </>
 
-                  <li style={{ paddingTop: "5%", paddingBottom: "23%" }}>
+                  <li style={{ paddingTop: "0%", paddingBottom: "10%" }}>
                     <div
                       className="text-start"
                       style={{ position: "relative" }}
                     >
                       <div style={{ position: "absolute", left: "0%" }}>
-                        <span className="fs-14">owner mode</span>
-                      </div>
-                      <div style={{ position: "absolute", left: "43%" }}>
-                        <Form.Check
-                          type="switch"
-                          defaultChecked={authState?.isRestOwner}
-                          onClick={toggleIsUser}
-                          id="custom-switch"
-                          style={{ transform: "scale(1.2)" }}
-                        />
+                        <span className="fs-14">admin</span>
                       </div>
                     </div>
                   </li>
 
-                  <li className="">
-                    <span className="text-secondary px-2 fs-12 text-decoration-underline">
-                      powered by{" "}
-                    </span>
-                    <span className="fw-bold">venu</span> <br />
+                  <li
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Form.Check
+                      type="switch"
+                      defaultChecked={authState?.isRestOwner}
+                      onClick={toggleIsUser}
+                      id="custom-switch"
+                      style={{ transform: "scale(1.2)" }}
+                    />
+                    <span style={{ display: "contents" }} className="fw-bold">
+                      venu
+                    </span>{" "}
+                    <br />
                     {/*<span>
                       autState.isRest ={" "}
                       {authState?.isRestOwner ? "true" : "false"}

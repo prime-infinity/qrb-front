@@ -47,7 +47,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 "text-decoration-underline"
               } fs-14`}
             >
-              home
+              gallery
             </span>
 
             <span className="btn pe-0">
@@ -75,7 +75,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 "text-decoration-underline"
               } fs-14`}
             >
-              edit my info
+              wiki
             </span>
 
             <span className="btn pe-0">
@@ -99,7 +99,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 "text-decoration-underline"
               } fs-14`}
             >
-              edit my menu
+              menu
             </span>
 
             <span className="btn pe-0">
