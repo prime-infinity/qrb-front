@@ -38,7 +38,7 @@ function ResOwnerMobMenu({ closeMenu }) {
   };
   return (
     <>
-      {authState?.isRestOwner ? (
+      {authState?._id === rest.user ? (
         <ul className="navbar-nav ml-auto">
           <li className="" onClick={goHome}>
             <span
@@ -75,7 +75,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 "text-decoration-underline"
               } fs-14`}
             >
-              wiki
+              edit wiki
             </span>
 
             <span className="btn pe-0">
@@ -99,7 +99,7 @@ function ResOwnerMobMenu({ closeMenu }) {
                 "text-decoration-underline"
               } fs-14`}
             >
-              menu
+              edit menu
             </span>
 
             <span className="btn pe-0">
