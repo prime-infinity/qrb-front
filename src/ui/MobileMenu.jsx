@@ -18,9 +18,11 @@ function MobileMenu({ goMenu, closeMenu }) {
   const [isResOwner, setIsUser] = useState(
     authState?._id === rest.user ? true : false
   );
+  const [inAdmin, setInAdmin] = useState(false);
   const [rendChck, setRndChk] = useState(true);
   const toggleIsUser = () => {
     setIsUser(!isResOwner);
+    setInAdmin(!inAdmin);
   };
 
   const goLogin = () => {
@@ -54,6 +56,7 @@ function MobileMenu({ goMenu, closeMenu }) {
   const cancelBt = () => {
     dispatch(toggleMenu());
     menuAlterFade();
+    setInAdmin(false);
     if (!isResOwner) {
     }
     if (isResOwner) {
@@ -68,10 +71,15 @@ function MobileMenu({ goMenu, closeMenu }) {
 
   const ifShowBottom = () => {
     //this is tied to boy falling off in resownermen
-    /*if (!authState?.isRestOwner && isResOwner) {
-      return false;
-    }*/
-    return true;
+    //this should not show only when isnotrestowner
+    //and if in admin toggle
+    if (inAdmin) {
+      if (!isResOwner) {
+        return false;
+      }
+    } else {
+      return true;
+    }
   };
 
   const ifShowOther = () => {
@@ -156,8 +164,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goHome}>
                   <span
                     className={` ${
-                      properUrl(location.pathname) === `/${rest.url}` &&
-                      "text-decoration-underline"
+                      properUrl(location.pathname) === `/${rest.url}` && ""
                     } fs-14`}
                   >
                     gallery
@@ -186,7 +193,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   <span
                     className={` ${
                       properUrl(location.pathname) === `/${rest.url}/about` &&
-                      "text-decoration-underline"
+                      ""
                     } fs-14`}
                   >
                     wiki
@@ -209,8 +216,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                 <li className="" onClick={goMenu}>
                   <span
                     className={` ${
-                      properUrl(location.pathname) === `/${rest.url}/menu` &&
-                      "text-decoration-underline"
+                      properUrl(location.pathname) === `/${rest.url}/menu` && ""
                     } fs-14`}
                   >
                     menu
@@ -244,16 +250,13 @@ function MobileMenu({ goMenu, closeMenu }) {
                       {authState ? (
                         <span
                           className={` ${
-                            location.pathname === "/edit-user-profile" &&
-                            "text-decoration-underline"
+                            location.pathname === "/edit-user-profile" && ""
                           } fs-14`}
                         >
                           {authState.field}
                         </span>
                       ) : (
-                        <span className="fs-18 text-decoration-underline">
-                          login
-                        </span>
+                        <span className="fs-18 ">login</span>
                       )}
                       {false && (
                         <span className="btn pe-0">
