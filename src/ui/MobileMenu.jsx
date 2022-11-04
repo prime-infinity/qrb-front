@@ -1,5 +1,5 @@
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
@@ -18,11 +18,27 @@ function MobileMenu({ goMenu, closeMenu }) {
   const [isResOwner, setIsUser] = useState(
     authState?._id === rest.user ? true : false
   );
-  const [inAdmin, setInAdmin] = useState(false);
-  const [rendChck, setRndChk] = useState(true);
+  const [inAdmin, setInAdmin] = useState(
+    authState?._id === rest.user ? true : false
+  );
+  useEffect(() => {
+    if (!authState) {
+      setIsUser(false);
+    }
+    if (authState?._id === rest.user) {
+      setIsUser(true);
+    }
+  }, [authState, rest.user]);
+
   const toggleIsUser = () => {
-    setIsUser(!isResOwner);
-    setInAdmin(!inAdmin);
+    //setIsUser(!isResOwner);
+
+    if (inAdmin) {
+      setInAdmin(false);
+    }
+    if (!inAdmin) {
+      setInAdmin(true);
+    }
   };
 
   const goLogin = () => {
@@ -56,39 +72,36 @@ function MobileMenu({ goMenu, closeMenu }) {
   const cancelBt = () => {
     dispatch(toggleMenu());
     menuAlterFade();
-    setInAdmin(false);
-    if (!isResOwner) {
-    }
-    if (isResOwner) {
-      //re-render the checkbutton so it goesbacttofalse
-      setRndChk(false);
-      setTimeout(() => {
-        setRndChk(true);
-      }, 10);
-      setIsUser(false);
-    }
   };
 
   const ifShowBottom = () => {
     //this is tied to boy falling off in resownermen
     //this should not show only when isnotrestowner
     //and if in admin toggle
-    if (inAdmin) {
-      if (!isResOwner) {
-        return false;
+
+    if (!isResOwner) {
+      if (inAdmin) {
+        return true;
       }
-    } else {
       return true;
     }
+    return true;
   };
 
   const ifShowOther = () => {
-    if (isResOwner) {
+    if (inAdmin) {
       return true;
     }
     return false;
   };
-
+  const ifShowLogin = () => {
+    //only false when inadmin and isnotrestowner
+    if (inAdmin && !isResOwner) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const properUrl = (url) => {
     return url.replace("%20", " ");
   };
@@ -103,11 +116,11 @@ function MobileMenu({ goMenu, closeMenu }) {
         } mobile-menu`}
       >
         <div
-          className="pt-4 mt-4"
+          className="pt-4"
           style={{ display: "flex", justifyContent: "space-around" }}
         >
-          <div className="col-11 mt-4 text-end">
-            {!isResOwner || authState?.isRestOwner ? (
+          <div className="col-11 text-end">
+            {ifShowLogin() ? (
               <>
                 {" "}
                 <span className="fs-18">{rest.name}</span>
@@ -115,47 +128,56 @@ function MobileMenu({ goMenu, closeMenu }) {
               </>
             ) : null}
 
-            <div
-              className="text-start"
-              style={{
-                position: "absolute",
-                top: "2%",
-                width: "90%",
-                left: "5%",
-              }}
-            >
-              <>
-                <span className="fw-bold fs-23 pe-2">
-                  {isResOwner && !authState?.isRestOwner ? "venu" : ""}
-                </span>
-                <span className="text-secondary fs-14">
-                  {isResOwner && !authState?.isRestOwner ? "digital menu" : ""}
-                </span>
-              </>
-
-              <span onClick={cancelBt} className="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{
-                    width: "27px",
-                    height: "25px",
-                    position: "absolute",
-                    right: "0%",
-                    top: "25%",
-                  }}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </span>
-            </div>
+            {true && (
+              <div
+                className="text-start"
+                style={{
+                  position: "absolute",
+                  top: "2%",
+                  width: "90%",
+                  left: "5%",
+                }}
+              >
+                <>
+                  <span className="fw-bold fs-23 pe-2">
+                    {!ifShowLogin() && "venu"}
+                  </span>
+                  <span className="text-secondary fs-14">
+                    {!ifShowLogin() && "digital menu"}
+                  </span>
+                </>
+                {false && (
+                  <>
+                    <span>isRest = {isResOwner ? "true" : "false"}</span> <br />
+                    <span>isAdmin = {inAdmin ? "true" : "false"}</span>{" "}
+                  </>
+                )}
+                {false && (
+                  <span onClick={cancelBt} className="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{
+                        width: "27px",
+                        height: "25px",
+                        position: "absolute",
+                        right: "0%",
+                        top: "25%",
+                      }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </span>
+                )}
+              </div>
+            )}
 
             {ifShowOther() ? (
               <ResOwnerMobMenu closeMenu={closeMenu} />
@@ -245,7 +267,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                   style={{ position: "relative" }}
                 >
                   <>
-                    <hr />
+                    {ifShowLogin() && <hr />}
                     <li className="" onClick={goLogin}>
                       {authState ? (
                         <span
@@ -256,7 +278,11 @@ function MobileMenu({ goMenu, closeMenu }) {
                           {authState.field}
                         </span>
                       ) : (
-                        <span className="fs-18 ">login</span>
+                        <>
+                          {ifShowLogin() && (
+                            <span className="fs-18 ">login</span>
+                          )}
+                        </>
                       )}
                       {false && (
                         <span className="btn pe-0">
@@ -291,26 +317,18 @@ function MobileMenu({ goMenu, closeMenu }) {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <div>
-                      {rendChck && (
-                        <Form.Check
-                          type="switch"
-                          defaultChecked={isResOwner}
-                          onClick={toggleIsUser}
-                          id="custom-switch"
-                          style={{ transform: "scale(1.2)" }}
-                        />
-                      )}
+                      <Form.Check
+                        type="switch"
+                        defaultChecked={inAdmin}
+                        onClick={toggleIsUser}
+                        id="custom-switch"
+                        style={{ transform: "scale(1.2)" }}
+                      />
                     </div>
                     <span style={{ display: "contents" }} className="fw-bold">
                       venu
                     </span>{" "}
                     <br />
-                    {/*<span>
-                      autState.isRest ={" "}
-                      {authState?.isRestOwner ? "true" : "false"}
-                    </span>{" "}
-                    <br />
-                    <span>normal.isre = {isResOwner ? "true" : "false"}</span>*/}
                   </li>
                 </ul>
               </div>

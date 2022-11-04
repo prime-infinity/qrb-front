@@ -1,10 +1,10 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate /*, useLocation*/ } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LongTextSvg from "./LongTextSvg";
 import { setEditnMenu } from "../redux/slices/menuSlice";
 
 function ResOwnerMobMenu({ closeMenu }) {
-  const location = useLocation();
+  //const location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
@@ -33,22 +33,15 @@ function ResOwnerMobMenu({ closeMenu }) {
     closeMenu();
     navigate(`/${rest.url}`);
   };
-  const properUrl = (url) => {
+  /*const properUrl = (url) => {
     return url.replace("%20", " ");
-  };
+  };*/
   return (
     <>
       {authState?._id === rest.user ? (
         <ul className="navbar-nav ml-auto">
           <li className="" onClick={goHome}>
-            <span
-              className={` ${
-                properUrl(location.pathname) === `/${rest.url}` &&
-                "text-decoration-underline"
-              } fs-14`}
-            >
-              gallery
-            </span>
+            <span className={`text-decoration-underline fs-14`}>gallery</span>
 
             <span className="btn pe-0">
               <svg
@@ -69,14 +62,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             </span>
           </li>
           <li className="py-3" onClick={editMyInfo}>
-            <span
-              className={` ${
-                location.pathname === "/edit-resturant-details" &&
-                "text-decoration-underline"
-              } fs-14`}
-            >
-              edit wiki
-            </span>
+            <span className={` text-decoration-underline  fs-14`}>wiki</span>
 
             <span className="btn pe-0">
               <svg
@@ -93,14 +79,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             </span>
           </li>
           <li className="" onClick={editMyMenu}>
-            <span
-              className={` ${
-                properUrl(location.pathname) === `/${rest.url}/menu` &&
-                "text-decoration-underline"
-              } fs-14`}
-            >
-              edit menu
-            </span>
+            <span className={`text-decoration-underline  fs-14`}>menu</span>
 
             <span className="btn pe-0">
               <svg
@@ -119,14 +98,14 @@ function ResOwnerMobMenu({ closeMenu }) {
         </ul>
       ) : (
         <div>
-          <div style={{ position: "absolute", top: "13%" }}>
+          <div style={{ position: "absolute", top: "10%" }}>
             <img src="/icons/peoplesitin.png" className="img-fluid" alt="" />
           </div>
           <div
             className=""
             style={{
               position: "absolute",
-              top: "50%",
+              top: "45%",
               width: "90%",
               left: "5%",
             }}
@@ -138,7 +117,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             className=""
             style={{
               position: "absolute",
-              bottom: "8%",
+              bottom: "17%",
               width: "90%",
               left: "5%",
             }}
