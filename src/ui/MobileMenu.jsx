@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
-import { toggleMenu, toggleMenuFade } from "../redux/slices/menuSlice";
+import {
+  setEditnMenu,
+  toggleMenu,
+  toggleMenuFade,
+} from "../redux/slices/menuSlice";
 import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -31,13 +35,14 @@ function MobileMenu({ goMenu, closeMenu }) {
   }, [authState, rest.user]);
 
   const toggleIsUser = () => {
-    //setIsUser(!isResOwner);
-
     if (inAdmin) {
       setInAdmin(false);
+      dispatch(setEditnMenu(false));
     }
     if (!inAdmin) {
       setInAdmin(true);
+      //dispatch editmenu
+      dispatch(setEditnMenu(true));
     }
   };
 
