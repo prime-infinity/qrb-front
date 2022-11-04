@@ -82,7 +82,7 @@ function EditUserProfile() {
                   setFrom({ ...formData, fullname: e.target.value })
                 }
                 type="text"
-                placeholder={"full name*"}
+                placeholder={"full name"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
               <input
@@ -91,7 +91,7 @@ function EditUserProfile() {
                   setFrom({ ...formData, phone: e.target.value })
                 }
                 type="text"
-                placeholder={"phone*"}
+                placeholder={"phone"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
               <input
@@ -100,7 +100,7 @@ function EditUserProfile() {
                   setFrom({ ...formData, email: e.target.value })
                 }
                 type="email"
-                placeholder={"email*"}
+                placeholder={"email"}
                 className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
               />
             </div>

@@ -275,7 +275,9 @@ function MobileMenu({ goMenu, closeMenu }) {
                             location.pathname === "/edit-user-profile" && ""
                           } fs-14`}
                         >
-                          {authState.field}
+                          {authState.fullname?.length > 0
+                            ? authState.fullname
+                            : authState.field}
                         </span>
                       ) : (
                         <>
