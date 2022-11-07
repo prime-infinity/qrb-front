@@ -12,15 +12,6 @@ function Wrapper() {
   };
 
   // eslint-disable-next-line
-  const wrapImage = () => {
-    if (rest.welcomescreen) {
-      return { backgroundImage: `url(${rest.welcomescreen})` };
-    } else {
-      return { backgroundColor: "#979191" };
-    }
-  };
-
-  // eslint-disable-next-line
   const stripTease = (e) => {
     return e.slice(0, 9).concat("...");
   };

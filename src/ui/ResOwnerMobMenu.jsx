@@ -1,10 +1,9 @@
-import { useNavigate /*, useLocation*/ } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LongTextSvg from "./LongTextSvg";
 import { setEditnMenu } from "../redux/slices/menuSlice";
 
 function ResOwnerMobMenu({ closeMenu }) {
-  //const location = useLocation();
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.auth);
   const rest = useSelector((state) => state.rest.rest);
@@ -24,7 +23,6 @@ function ResOwnerMobMenu({ closeMenu }) {
   };
 
   const editMyMenu = () => {
-    //console.log("is editing menu");
     closeMenu();
     dispatch(setEditnMenu(true));
     navigate(`/${rest.url}/menu`);
@@ -33,9 +31,7 @@ function ResOwnerMobMenu({ closeMenu }) {
     closeMenu();
     navigate(`/${rest.url}`);
   };
-  /*const properUrl = (url) => {
-    return url.replace("%20", " ");
-  };*/
+
   return (
     <>
       {authState?._id === rest.user ? (
