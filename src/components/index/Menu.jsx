@@ -101,14 +101,13 @@ function Menu() {
   };*/
 
   const scrollToMainCatGsap = (id) => {
-    //console.log("scrolling main", id);
+    //setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
-      duration: 0.8,
+      duration: 0.5,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
-      onComplete: console.log(),
+      onComplete: console.log(3),
     });
-    //setHLock(true);
     /*scrollTo.current.scrollIntoView({
       behavior: "smooth",
       block: "center",

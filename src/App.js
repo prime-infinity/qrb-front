@@ -130,11 +130,11 @@ function App() {
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <>
+    <div style={{ overflowY: "auto", height: "100vh" }} id="appp">
       <Header />
 
       <Outlet />
-    </>
+    </div>
   );
 }
 
