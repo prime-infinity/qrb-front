@@ -16,8 +16,12 @@ export const menuSlice = createSlice({
     isLangModal: false,
     hasInitAdding: "",
     isEditnMenu: false,
+    isScrolGsap: false,
   },
   reducers: {
+    setIsScrolGsap: (state, action) => {
+      state.isScrolGsap = action.payload;
+    },
     setEditnMenu: (state, action) => {
       state.isEditnMenu = action.payload;
     },
@@ -63,6 +67,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setIsScrolGsap } = menuSlice.actions;
 export const { setEditnMenu } = menuSlice.actions;
 export const { toggleMenu } = menuSlice.actions;
 export const { toggleMenuFade } = menuSlice.actions;

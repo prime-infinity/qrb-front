@@ -22,6 +22,12 @@ function App() {
   const restInited = useSelector((state) => state.rest.restInited);
   const authState = useSelector((state) => state.auth.auth);
   const authConfam = useSelector((state) => state.auth.authConfam);
+  const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
+
+  useEffect(() => {
+    if (!isScrolGsap) {
+    }
+  }, [isScrolGsap]);
 
   const getUrlRest = () => {
     if (rest === null) {
@@ -130,7 +136,7 @@ function App() {
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <div style={{ overflowY: "auto", height: "100vh" }} id="appp">
+    <div id="app">
       <Header />
 
       <Outlet />

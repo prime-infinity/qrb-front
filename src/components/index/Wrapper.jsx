@@ -93,7 +93,7 @@ function Wrapper() {
                   onClick={toAbout}
                   className="btn btn-solid w-100 bg-them text-white "
                 >
-                  wikiii
+                  wiki
                 </button>
               </div>
               <div className="col-6 pe-3 ps-bt">

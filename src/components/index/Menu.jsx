@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 //import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
 import { InView } from "react-intersection-observer";
-import { pbFalse, pbTrue, toggleAddingCat } from "../../redux/slices/menuSlice";
+import {
+  pbFalse,
+  pbTrue,
+  setIsScrolGsap,
+  toggleAddingCat,
+} from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 import PureOverlay from "../../ui/PureOverlay";
@@ -100,13 +105,19 @@ function Menu() {
     setHLock(false);
   };*/
 
+  const isDoneGsapScr = () => {
+    console.log("done,scrol main");
+    //dispatch(setIsScrolGsap(false));
+  };
+
   const scrollToMainCatGsap = (id) => {
+    //dispatch(setIsScrolGsap(true));
     //setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
       duration: 0.5,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
-      onComplete: console.log(3),
+      onComplete: isDoneGsapScr,
     });
     /*scrollTo.current.scrollIntoView({
       behavior: "smooth",
