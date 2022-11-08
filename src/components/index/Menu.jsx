@@ -28,6 +28,7 @@ function Menu() {
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
   const [redrng, setRedrng] = useState(false);
+  // eslint-disable-next-line
   const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +40,7 @@ function Menu() {
 
   useEffect(() => {
     setTimeout(() => {
-      setHLock(false);
+      //setHLock(false);
     }, 300);
   }, []);
 
@@ -82,6 +83,7 @@ function Menu() {
   };
 
   const lockOnTarget = (data) => {
+    // eslint-disable-next-line
     let { is, main, name } = data;
     if (is && !lockHori) {
       //console.log(name);
@@ -99,18 +101,17 @@ function Menu() {
   };*/
 
   const scrollToMainCatGsap = (id) => {
-    console.log("scrolling main", id);
-    //setHLock(true);
-    //let scrollTo = getRef(id + "main_menu_span");
-    /*scrollTo.current.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });*/
-    /*gsap.to(window, {
+    //console.log("scrolling main", id);
+    let scrollTo = getRef(id + "main_menu_span");
+    gsap.to(window, {
       duration: 0.8,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
-      onComplete: isDoneSub,
+      onComplete: console.log(),
+    });
+    //setHLock(true);
+    /*scrollTo.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
     });*/
   };
   const setAddCatText = (e) => {
