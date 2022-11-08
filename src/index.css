@@ -1,17 +1,21 @@
 body {
   font-family: "Poppins", sans-serif;
-  overflow-y: hidden; /*for apple causes scrolling to stop */
+  height: 100%;
+  overflow: hidden; /*for apple causes scrolling to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
 #root{
-  /*height: 100vh;*/ /* this also cause to stop scroll */
-  /*overflow-y: auto;*//* for apple,causes scrolling to stop  */
+  
+ /* height: 100vh; /* this also cause to stop scroll */
+  /*overflow-y: auto;/* for apple,causes scrolling to stop  */
   /* anyone of the two can be altered */
+  /*-webkit-overflow-scrolling: touch; /* apple too */
+  
 }
 
 #appp{
-  /* can remove and add overflow-y to make gsap work */
-  -webkit-overflow-scrolling: touch;
+  
+  -webkit-overflow-scrolling: touch; 
 }
 
 input:focus,
