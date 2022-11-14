@@ -265,6 +265,7 @@ function Menu() {
     display: "flex",
     overflow: "auto",
     maxWidth: "max-content",
+    width: "85%",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     /*background: isDraggingOver && "#edecec",
@@ -300,6 +301,10 @@ function Menu() {
         .then((res) => console.log("done rearranging"))
         .catch((err) => console.log("error rearranging", err));
     }
+  };
+
+  const restCatHasLen = () => {
+    return rest?.categories?.length > 0 ? true : false;
   };
 
   return (
@@ -341,7 +346,7 @@ function Menu() {
                     }}
                   >
                     {/* the actual buttons */}
-                    {!addingCat && (
+                    {true && (
                       <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable
                           droppableId="droppable"
@@ -397,7 +402,11 @@ function Menu() {
                     {isAdmin() && (
                       <div
                         className={`pe-3 d-flex`}
-                        style={{ width: "max-content", position: "relative" }}
+                        style={{
+                          width: "max-content",
+                          position: restCatHasLen() ? "absolute" : "relative",
+                          right: restCatHasLen() && "0%",
+                        }}
                       >
                         {addingCat ? (
                           <input
@@ -510,7 +519,7 @@ function Menu() {
                         </span>
                       </div>
                     )}
-                    {rest.categories?.length < 1 && isAdmin() && (
+                    {rest?.categories?.length < 1 && isAdmin() && (
                       <>
                         <div
                           className="d-ani"
@@ -553,7 +562,7 @@ function Menu() {
                 <div className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
-                      {rest.categories?.length > 0 &&
+                      {rest?.categories?.length > 0 &&
                         rest.categories?.map(
                           (cat) =>
                             modifyView(cat) && (
