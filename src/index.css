@@ -1,12 +1,15 @@
 body {
   font-family: "Poppins", sans-serif;
   height: 100%;
-   /*for apple causes scrolling to stop */
+  /*overflow: hidden; /*for apple causes scrolling to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
 
 #app{
-
+  /* all the below are for apple swipe lock, but do not allow gsap */
+ /* height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; */
 }
 
 input:focus,

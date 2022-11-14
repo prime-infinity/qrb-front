@@ -404,6 +404,7 @@ function Menu() {
                             ref={setRef("cat_input")}
                             id="cat_input"
                             value={catText}
+                            autoFocus
                             onChange={setAddCatText}
                             className="cat-input fs-14 ps-3"
                             type="text"
