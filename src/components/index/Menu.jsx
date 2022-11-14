@@ -5,6 +5,7 @@ import { InView } from "react-intersection-observer";
 import {
   pbFalse,
   pbTrue,
+  // eslint-disable-next-line
   setIsScrolGsap,
   toggleAddingCat,
 } from "../../redux/slices/menuSlice";
@@ -265,7 +266,7 @@ function Menu() {
     display: "flex",
     overflow: "auto",
     maxWidth: "max-content",
-    width: "85%",
+    width: isAdmin() ? "85%" : "100%",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     /*background: isDraggingOver && "#edecec",
