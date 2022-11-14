@@ -37,12 +37,12 @@ function MobileMenu({ goMenu, closeMenu }) {
   const toggleIsUser = () => {
     if (inAdmin) {
       setInAdmin(false);
-      dispatch(setEditnMenu(false));
+      //dispatch(setEditnMenu(false));
     }
     if (!inAdmin) {
       setInAdmin(true);
       //dispatch editmenu
-      dispatch(setEditnMenu(true));
+      //dispatch(setEditnMenu(true));
     }
   };
 
