@@ -265,8 +265,6 @@ function Menu() {
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
-    maxWidth: "max-content",
-    width: isAdmin() ? "85%" : "100%",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     /*background: isDraggingOver && "#edecec",
@@ -304,9 +302,9 @@ function Menu() {
     }
   };
 
-  const restCatHasLen = () => {
+  /*const restCatHasLen = () => {
     return rest?.categories?.length > 0 ? true : false;
-  };
+  };*/
 
   return (
     <>
@@ -395,161 +393,160 @@ function Menu() {
                                 </Draggable>
                               ))}
                               {provided.placeholder}
+                              {isAdmin() && (
+                                <div
+                                  className={`pe-3 d-flex`}
+                                  style={{
+                                    width: "max-content",
+                                    position: "relative",
+                                  }}
+                                >
+                                  {addingCat ? (
+                                    <input
+                                      ref={setRef("cat_input")}
+                                      id="cat_input"
+                                      value={catText}
+                                      autoFocus
+                                      onChange={setAddCatText}
+                                      className="cat-input fs-14 ps-3"
+                                      type="text"
+                                    />
+                                  ) : !addingCat ? (
+                                    <button
+                                      onClick={toggleAddCat}
+                                      className="btn fs-14 bg-them text-white cat-button"
+                                    >
+                                      <span style={{ display: "flex" }}>
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                          strokeWidth={2.5}
+                                          stroke="currentColor"
+                                          className="svg-icon"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </button>
+                                  ) : null}
+
+                                  <span
+                                    className={`d-ani-med`}
+                                    style={{
+                                      position: "absolute",
+                                      display: "flex",
+                                      opacity: addingCat ? "1" : "0%",
+                                      left: addingCat ? "100%" : "-100%",
+                                    }}
+                                  >
+                                    {catPend ? (
+                                      <span className="me-2 border-black cat-button">
+                                        <span
+                                          className="spinner-border spinner-border-sm"
+                                          role="status"
+                                          aria-hidden="true"
+                                        ></span>
+                                      </span>
+                                    ) : (
+                                      <button
+                                        onClick={addCat}
+                                        className="btn fs-14 me-2 border-black cat-button"
+                                      >
+                                        <span style={{ display: "flex" }}>
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={2.5}
+                                            stroke="currentColor"
+                                            className="svg-icon"
+                                          >
+                                            <path
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                              d="M4.5 12.75l6 6 9-13.5"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </button>
+                                    )}
+
+                                    {!catPend && (
+                                      <button
+                                        disabled={catPend}
+                                        onClick={toggleAddCat}
+                                        className="btn fs-14 border-black cat-button"
+                                      >
+                                        <span style={{ display: "flex" }}>
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={2.5}
+                                            stroke="currentColor"
+                                            className="svg-icon"
+                                          >
+                                            <path
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                              d="M6 18L18 6M6 6l12 12"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </button>
+                                    )}
+                                    <span
+                                      className="text-danger fs-14 ps-2 d-flex"
+                                      style={{
+                                        width: "max-content",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      {catErrs && catErrs}
+                                    </span>
+                                  </span>
+                                </div>
+                              )}
+                              {rest?.categories?.length < 1 && isAdmin() && (
+                                <>
+                                  <div
+                                    className="d-ani"
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      position: "relative",
+                                      left: addingCat ? "100%" : "0%",
+                                    }}
+                                  >
+                                    <span className="lr-ani">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        style={{ width: "25px" }}
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span className="ms-3">categories</span>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           )}
                         </Droppable>
                       </DragDropContext>
-                    )}
-                    {isAdmin() && (
-                      <div
-                        className={`pe-3 d-flex`}
-                        style={{
-                          width: "max-content",
-                          position: restCatHasLen() ? "absolute" : "relative",
-                          right: restCatHasLen() && "0%",
-                        }}
-                      >
-                        {addingCat ? (
-                          <input
-                            ref={setRef("cat_input")}
-                            id="cat_input"
-                            value={catText}
-                            autoFocus
-                            onChange={setAddCatText}
-                            className="cat-input fs-14 ps-3"
-                            type="text"
-                          />
-                        ) : !addingCat ? (
-                          <button
-                            onClick={toggleAddCat}
-                            className="btn fs-14 bg-them text-white cat-button"
-                          >
-                            <span style={{ display: "flex" }}>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2.5}
-                                stroke="currentColor"
-                                className="svg-icon"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        ) : null}
-
-                        <span
-                          className={`d-ani-med`}
-                          style={{
-                            position: "absolute",
-                            display: "flex",
-                            opacity: addingCat ? "1" : "0%",
-                            left: addingCat ? "100%" : "-100%",
-                          }}
-                        >
-                          {catPend ? (
-                            <span className="me-2 border-black cat-button">
-                              <span
-                                className="spinner-border spinner-border-sm"
-                                role="status"
-                                aria-hidden="true"
-                              ></span>
-                            </span>
-                          ) : (
-                            <button
-                              onClick={addCat}
-                              className="btn fs-14 me-2 border-black cat-button"
-                            >
-                              <span style={{ display: "flex" }}>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={2.5}
-                                  stroke="currentColor"
-                                  className="svg-icon"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4.5 12.75l6 6 9-13.5"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          )}
-
-                          {!catPend && (
-                            <button
-                              disabled={catPend}
-                              onClick={toggleAddCat}
-                              className="btn fs-14 border-black cat-button"
-                            >
-                              <span style={{ display: "flex" }}>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={2.5}
-                                  stroke="currentColor"
-                                  className="svg-icon"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          )}
-                          <span
-                            className="text-danger fs-14 ps-2 d-flex"
-                            style={{
-                              width: "max-content",
-                              alignItems: "center",
-                            }}
-                          >
-                            {catErrs && catErrs}
-                          </span>
-                        </span>
-                      </div>
-                    )}
-                    {rest?.categories?.length < 1 && isAdmin() && (
-                      <>
-                        <div
-                          className="d-ani"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            position: "relative",
-                            left: addingCat ? "100%" : "0%",
-                          }}
-                        >
-                          <span className="lr-ani">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              style={{ width: "25px" }}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                              />
-                            </svg>
-                          </span>
-                          <span className="ms-3">categories</span>
-                        </div>
-                      </>
                     )}
                   </div>
                 )}
