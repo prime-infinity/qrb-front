@@ -36,8 +36,9 @@ function Wrapper() {
             height: true && "100vh",
             top: true && "0",
             transform: ani ? "scale(1)" : "scale(1.5)",
+            filter: ani ? "grayscale(0)" : "grayscale(1)",
           }}
-          className="videoBg d-ani-5"
+          className="videoBg d-ani-10"
           src={rest.welcomescreen.source}
           alt=""
         />
@@ -50,7 +51,7 @@ function Wrapper() {
             transform: ani ? "scale(1)" : "scale(1.5)",
             backgroundColor: rest.welcomescreen.source,
           }}
-          className="videoBg d-ani-5"
+          className="videoBg d-ani-10"
         />
       )}
       <div className="bottom-ovelay"></div>
