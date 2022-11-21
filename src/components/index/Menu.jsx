@@ -301,7 +301,7 @@ function Menu() {
   };*/
 
   const config = {
-    delta: 10, // min distance(px) before a swipe starts. *See Notes*
+    delta: 100, // min distance(px) before a swipe starts. *See Notes*
     preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
     trackTouch: true, // track touch input
     trackMouse: false, // track mouse input
