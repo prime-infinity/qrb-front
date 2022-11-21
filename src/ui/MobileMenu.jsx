@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
-import {
-  setEditnMenu,
-  toggleMenu,
-  toggleMenuFade,
-} from "../redux/slices/menuSlice";
+import { toggleMenu, toggleMenuFade } from "../redux/slices/menuSlice";
 import "animate.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
