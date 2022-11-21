@@ -109,7 +109,7 @@ function Menu() {
 
   const isDoneGsapScr = () => {
     console.log("done,scrol main");
-    //dispatch(setIsScrolGsap(false));
+    //setScrollPx(0);
   };
 
   const scrollToMainCatGsap = (id) => {
@@ -301,7 +301,7 @@ function Menu() {
   };*/
 
   const config = {
-    delta: 100, // min distance(px) before a swipe starts. *See Notes*
+    delta: 80, // min distance(px) before a swipe starts. *See Notes*
     preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
     trackTouch: true, // track touch input
     trackMouse: false, // track mouse input
@@ -310,7 +310,9 @@ function Menu() {
     touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
   };
   const [scrollPx, setScrollPx] = useState(0);
+  const [hScrollPx, setHscrollPx] = useState(0);
   const scrollFactor = 450;
+  const hScrollFactor = 50;
 
   const doneDown = () => {
     setScrollPx(scrollPx - scrollFactor);
@@ -319,11 +321,12 @@ function Menu() {
     setScrollPx(scrollPx + scrollFactor);
   };
   const handlers = useSwipeable({
+    //look for a way to disable this for
+    //chrome andriod
     onSwiping: (eventData) => {
-      //if (eventData.first) {
       if (eventData.dir === "Down") {
         //scroll down
-        console.log("scroll donw");
+        //console.log("scroll donw");
         gsap.to(window, {
           duration: 0.5,
           scrollTo: {
@@ -334,14 +337,39 @@ function Menu() {
       }
       if (eventData.dir === "Up") {
         //scroll up
-        console.log("scroll up");
+        //console.log("scroll up");
         gsap.to(window, {
           duration: 0.5,
           scrollTo: { y: scrollPx + scrollFactor },
           onComplete: doneUp,
         });
       }
-      //}
+    },
+    ...config,
+  });
+
+  const newHandlers = useSwipeable({
+    onSwiping: (eventData) => {
+      if (eventData.dir === "Left") {
+        //console.log("scroll left");
+        gsap.to("#new-sticky", {
+          duration: 0.5,
+          scrollTo: {
+            x: hScrollPx + hScrollFactor,
+          },
+          onComplete: setHscrollPx(hScrollPx + hScrollFactor),
+        });
+      }
+      if (eventData.dir === "Right") {
+        //console.log("scroll donw");
+        gsap.to("#new-sticky", {
+          duration: 0.5,
+          scrollTo: {
+            x: hScrollPx - hScrollFactor,
+          },
+          onComplete: setHscrollPx(hScrollPx - hScrollFactor),
+        });
+      }
     },
     ...config,
   });
@@ -377,6 +405,7 @@ function Menu() {
               <div className="col-12">
                 {!searchBar && (
                   <div
+                    {...newHandlers}
                     id="sticky"
                     className="row mx-1-plus-some pb-3 g-0 flex-nowrap scroll-div sticky"
                     style={{
@@ -417,7 +446,7 @@ function Menu() {
                                         snapshot.isDragging,
                                         provided.draggableProps.style
                                       )}
-                                      className="btn mx-2 fs-14 bg-them text-white cat-button"
+                                      className="btn me-3 fs-14 bg-them text-white cat-button"
                                       onClick={() =>
                                         scrollToMainCatGsap(cat._id)
                                       }
@@ -594,10 +623,10 @@ function Menu() {
             </div>
 
             {/** menu part */}
-            <div className="row  mt-5">
+            <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div {...handlers} className="col-12 mb-2 mw-100 pb-100">
+                <div {...handlers} className="col-12 mb-2 mw-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&
