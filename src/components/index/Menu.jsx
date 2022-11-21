@@ -26,6 +26,7 @@ import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useSwipeable } from "react-swipeable";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -267,13 +268,6 @@ function Menu() {
     overflow: "auto",
   });
   const getMenuListStyle = (isDraggingOver) => ({
-    /*background: isDraggingOver && "#edecec",
-    position: isDraggingOver && "fixed",
-    width: isDraggingOver && "100%",
-    top: isDraggingOver && "0%",
-    left: isDraggingOver && "0%",
-    height: isDraggingOver && "100%",
-    zIndex: isDraggingOver && "2",*/
     marginBottom: isDraggingOver ? "10%" : "",
     paddingBottom: isDraggingOver ? "30%" : "",
   });
@@ -305,6 +299,52 @@ function Menu() {
   /*const restCatHasLen = () => {
     return rest?.categories?.length > 0 ? true : false;
   };*/
+
+  const config = {
+    delta: 10, // min distance(px) before a swipe starts. *See Notes*
+    preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
+    trackTouch: true, // track touch input
+    trackMouse: false, // track mouse input
+    rotationAngle: 0, // set a rotation angle
+    swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
+    touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
+  };
+  const [scrollPx, setScrollPx] = useState(0);
+  const scrollFactor = 450;
+
+  const doneDown = () => {
+    setScrollPx(scrollPx - scrollFactor);
+  };
+  const doneUp = () => {
+    setScrollPx(scrollPx + scrollFactor);
+  };
+  const handlers = useSwipeable({
+    onSwiping: (eventData) => {
+      //if (eventData.first) {
+      if (eventData.dir === "Down") {
+        //scroll down
+        console.log("scroll donw");
+        gsap.to(window, {
+          duration: 0.5,
+          scrollTo: {
+            y: scrollPx - scrollFactor,
+          },
+          onComplete: doneDown,
+        });
+      }
+      if (eventData.dir === "Up") {
+        //scroll up
+        console.log("scroll up");
+        gsap.to(window, {
+          duration: 0.5,
+          scrollTo: { y: scrollPx + scrollFactor },
+          onComplete: doneUp,
+        });
+      }
+      //}
+    },
+    ...config,
+  });
 
   return (
     <>
@@ -557,7 +597,7 @@ function Menu() {
             <div className="row  mt-5">
               {/** the menuss */}
               {true && (
-                <div className="col-12 mb-2 mw-100 pb-100">
+                <div {...handlers} className="col-12 mb-2 mw-100 pb-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&

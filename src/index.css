@@ -5,13 +5,6 @@ body {
   overscroll-behavior-y: contain; /* for andr */
 }
 
-#app{
-  /* all the below are for apple swipe lock, but do not allow gsap */
- /* height: 100vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch; */
-}
-
 input:focus,
 textarea:focus,
 select:focus {
