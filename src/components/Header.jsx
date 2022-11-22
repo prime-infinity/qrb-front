@@ -312,7 +312,13 @@ function Header() {
             )}
             {properUrl(location.pathname) === `/${rest.url}/menu` &&
               ultiRedu() && (
-                <span onClick={showSearch} className="px-4">
+                <span
+                  onClick={showSearch}
+                  style={{
+                    paddingRight: "1.5rem",
+                    paddingLeft: "1.8rem",
+                  }}
+                >
                   <svg
                     width="18"
                     height="18"
