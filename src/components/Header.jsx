@@ -154,7 +154,9 @@ function Header() {
         collapseOnSelect
         expand="lg"
         id="myHeader"
-        className={`${shldHdrBg() && "big-bg-theme"} ${pad && "pb-5"} `}
+        className={`${shldHdrBg() && "big-bg-theme"} ${
+          pad && !searchBar && "pb-5"
+        } `}
       >
         <Container fluid className="mx-md-5 pt-3">
           <Navbar.Brand className="cur-pointer py-0">

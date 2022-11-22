@@ -266,6 +266,7 @@ function Menu() {
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
+    touchAction: "none",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     marginBottom: isDraggingOver ? "10%" : "",
@@ -390,7 +391,7 @@ function Menu() {
         </>
       )}
 
-      <div className="container-fluid pt-5 big-bg-theme">
+      <div className="container-fluid pt-5 big-bg-theme" id="mmm">
         {overlay && (
           <PureOverlay
             redrng={redrng}

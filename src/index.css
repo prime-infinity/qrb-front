@@ -1,10 +1,13 @@
 body {
   font-family: "Poppins", sans-serif;
   height: 100%;
+  
   /*overflow: hidden; /*for apple causes scrolling to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
-
+#mmm{
+  touch-action: none;
+}
 input:focus,
 textarea:focus,
 select:focus {
