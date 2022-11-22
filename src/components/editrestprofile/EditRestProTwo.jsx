@@ -133,7 +133,9 @@ function EditRestProTwo() {
             rows={3}
             style={{ border: "0px", borderBottom: "1px solid black" }}
             value={formData.summary}
-            onChange={(e) => setFrom({ ...formData, summary: e.target.value })}
+            onChange={(e) =>
+              setFrom({ ...formData, summary: e.target.value.toLowerCase() })
+            }
             className="my-4 fs-14 form-control text-center big-bg-theme"
             type="text"
             placeholder={`${

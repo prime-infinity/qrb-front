@@ -103,13 +103,13 @@ function ItemsBottom({ item, place, length, parents }) {
     dispatch(setRestToEdit(null));
   };
   const setName = (e) => {
-    setForm({ ...formData, name: e.target.value });
+    setForm({ ...formData, name: e.target.value.toLowerCase() });
   };
   const setPrice = (e) => {
     setForm({ ...formData, price: e.target.value });
   };
   const setDesc = (e) => {
-    setForm({ ...formData, description: e.target.value });
+    setForm({ ...formData, description: e.target.value.toLowerCase() });
   };
   const toggleStatus = () => {
     setForm({ ...formData, status: formData.status + 1 });

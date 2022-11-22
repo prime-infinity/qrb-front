@@ -42,6 +42,10 @@ function Menu() {
     dispatch(pbTrue());
     return () => {
       dispatch(pbFalse());
+      gsap.to(window, {
+        duration: 0.1,
+        scrollTo: { y: 0 },
+      });
     };
   }, [dispatch]);
 
@@ -121,13 +125,9 @@ function Menu() {
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneGsapScr,
     });
-    /*scrollTo.current.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });*/
   };
   const setAddCatText = (e) => {
-    setCatText(e.target.value);
+    setCatText(e.target.value.toLowerCase());
     gsap.to("#cat_input", {
       duration: 0.5,
       width: 4 + catText.length + "ch",

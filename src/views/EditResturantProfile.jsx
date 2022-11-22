@@ -20,7 +20,7 @@ function EditResturantProfile() {
                 actionState === 0 ? "bor-btm-black" : ""
               } col-6 text-center pb-1 border-bottom`}
             >
-              <span className="fs-14 ">home page</span>
+              <span className="fs-14 ">home</span>
             </div>
             <div
               onClick={() => setState(1)}
@@ -28,7 +28,7 @@ function EditResturantProfile() {
                 actionState === 1 ? "bor-btm-black" : ""
               } col-6 text-center pb-1 border-bottom`}
             >
-              <span className="fs-14 ">info page</span>
+              <span className="fs-14 ">wiki</span>
             </div>
           </div>
         </div>

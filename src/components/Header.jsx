@@ -278,9 +278,9 @@ function Header() {
                       resturant remote
                     </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
-                    <span className="ms-3 fs-18">{"edit my resturant"}</span>
+                    <span className="ms-3 fs-18">{"business profile"}</span>
                   ) : location.pathname === "/edit-user-profile" ? (
-                    <span className="ms-3 fs-18">{"edit my profile"}</span>
+                    <span className="ms-3 fs-18">{"user profile"}</span>
                   ) : (
                     <span className="ms-3 fw-bold"></span>
                   ))}

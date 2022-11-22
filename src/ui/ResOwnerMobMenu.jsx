@@ -94,14 +94,14 @@ function ResOwnerMobMenu({ closeMenu }) {
         </ul>
       ) : (
         <div>
-          <div style={{ position: "absolute", top: "10%" }}>
-            <img src="/icons/peoplesitin.png" className="img-fluid" alt="" />
+          <div style={{ position: "absolute" }}>
+            <img src="/icons/qrbmediaa.png" className="img-fluid" alt="" />
           </div>
           <div
             className=""
             style={{
               position: "absolute",
-              top: "45%",
+              top: "50%",
               width: "90%",
               left: "5%",
             }}
@@ -113,7 +113,7 @@ function ResOwnerMobMenu({ closeMenu }) {
             className=""
             style={{
               position: "absolute",
-              bottom: "15%",
+              bottom: "10%",
               width: "90%",
               left: "5%",
             }}

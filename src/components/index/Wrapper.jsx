@@ -91,6 +91,7 @@ function Wrapper() {
             <div className="row">
               <div className="col-6 ps-3 pe-bt">
                 <button
+                  style={{ border: "1px solid white" }}
                   onClick={toAbout}
                   className="btn btn-solid w-100 bg-them text-white "
                 >

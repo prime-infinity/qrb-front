@@ -78,13 +78,13 @@ function AddMenuItem({ details }) {
   };
 
   const setName = (e) => {
-    setEditM({ ...editnMen, name: e.target.value });
+    setEditM({ ...editnMen, name: e.target.value.toLowerCase() });
   };
   const setPrice = (e) => {
     setEditM({ ...editnMen, price: e.target.value });
   };
   const setDesc = (e) => {
-    setEditM({ ...editnMen, description: e.target.value });
+    setEditM({ ...editnMen, description: e.target.value.toLowerCase() });
   };
 
   const maxNumber = 6;

@@ -172,14 +172,18 @@ function EditRestProOne() {
         <div className="col-12">
           <input
             value={formData.name}
-            onChange={(e) => setFrom({ ...formData, name: e.target.value })}
+            onChange={(e) =>
+              setFrom({ ...formData, name: e.target.value.toLowerCase() })
+            }
             type="text"
             placeholder={formData.name}
             className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
           />
           <input
             value={formData.location}
-            onChange={(e) => setFrom({ ...formData, location: e.target.value })}
+            onChange={(e) =>
+              setFrom({ ...formData, location: e.target.value.toLowerCase() })
+            }
             type="text"
             placeholder={formData.location}
             className="my-4 fs-14 big-bg-theme form-control border-start-0 ps-0 border-end-0 border-top-0 border border-dark br-0"
@@ -194,7 +198,10 @@ function EditRestProOne() {
           <input
             value={formData.description}
             onChange={(e) =>
-              setFrom({ ...formData, description: e.target.value })
+              setFrom({
+                ...formData,
+                description: e.target.value.toLowerCase(),
+              })
             }
             type="text"
             placeholder={
