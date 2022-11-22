@@ -242,12 +242,15 @@ function Menu() {
     let startIndex = e.source.index;
     let endIndex = e.destination.index;
 
-    const newItems = reOrder(rest.categories, startIndex, endIndex);
-    dispatch(resetRestCatOrder(newItems));
-    if (authState?._id === rest.user) {
-      rearngCat({ data: newItems, restId: rest._id }, authState.token)
-        .then((res) => console.log("done rearranging"))
-        .catch((err) => console.log("error rearranging", err));
+    if (startIndex !== endIndex) {
+      console.log("will update");
+      const newItems = reOrder(rest.categories, startIndex, endIndex);
+      dispatch(resetRestCatOrder(newItems));
+      if (authState?._id === rest.user) {
+        rearngCat({ data: newItems, restId: rest._id }, authState.token)
+          .then((res) => console.log("done rearranging"))
+          .catch((err) => console.log("error rearranging", err));
+      }
     }
   };
 
@@ -283,17 +286,21 @@ function Menu() {
     //its coming from e.source, its going to e.destination
     let startIndex = e.source.index;
     let endIndex = e.destination.index;
-    const newMenuOrder = reOrderMenu(
-      rest.categories,
-      catId,
-      startIndex,
-      endIndex
-    );
-    dispatch(resetRestCatOrder(newMenuOrder));
-    if (authState?._id === rest.user) {
-      rearngCat({ data: newMenuOrder, restId: rest._id }, authState.token)
-        .then((res) => console.log("done rearranging"))
-        .catch((err) => console.log("error rearranging", err));
+
+    if (startIndex !== endIndex) {
+      console.log("will update");
+      const newMenuOrder = reOrderMenu(
+        rest.categories,
+        catId,
+        startIndex,
+        endIndex
+      );
+      dispatch(resetRestCatOrder(newMenuOrder));
+      if (authState?._id === rest.user) {
+        rearngCat({ data: newMenuOrder, restId: rest._id }, authState.token)
+          .then((res) => console.log("done rearranging"))
+          .catch((err) => console.log("error rearranging", err));
+      }
     }
   };
 
@@ -321,29 +328,35 @@ function Menu() {
   const doneUp = () => {
     setScrollPx(scrollPx + scrollFactor);
   };
+
+  const [isDragCat, setIsDragCat] = useState(false);
+  const [isDragMen, setIsDragMen] = useState(false);
+
   const handlers = useSwipeable({
     //look for a way to disable this for
     //chrome andriod
     onSwiping: (eventData) => {
-      if (eventData.dir === "Down") {
-        //scroll down
-        //console.log("scroll donw");
-        gsap.to(window, {
-          duration: 0.5,
-          scrollTo: {
-            y: scrollPx - scrollFactor,
-          },
-          onComplete: doneDown,
-        });
-      }
-      if (eventData.dir === "Up") {
-        //scroll up
-        //console.log("scroll up");
-        gsap.to(window, {
-          duration: 0.5,
-          scrollTo: { y: scrollPx + scrollFactor },
-          onComplete: doneUp,
-        });
+      if (!isDragMen) {
+        if (eventData.dir === "Down") {
+          //scroll down
+          //console.log("scroll donw");
+          gsap.to(window, {
+            duration: 0.5,
+            scrollTo: {
+              y: scrollPx - scrollFactor,
+            },
+            onComplete: doneDown,
+          });
+        }
+        if (eventData.dir === "Up") {
+          //scroll up
+          //console.log("scroll up");
+          gsap.to(window, {
+            duration: 0.5,
+            scrollTo: { y: scrollPx + scrollFactor },
+            onComplete: doneUp,
+          });
+        }
       }
     },
     ...config,
@@ -351,25 +364,27 @@ function Menu() {
 
   const newHandlers = useSwipeable({
     onSwiping: (eventData) => {
-      if (eventData.dir === "Left") {
-        //console.log("scroll left");
-        gsap.to("#new-sticky", {
-          duration: 0.5,
-          scrollTo: {
-            x: hScrollPx + hScrollFactor,
-          },
-          onComplete: setHscrollPx(hScrollPx + hScrollFactor),
-        });
-      }
-      if (eventData.dir === "Right") {
-        //console.log("scroll donw");
-        gsap.to("#new-sticky", {
-          duration: 0.5,
-          scrollTo: {
-            x: hScrollPx - hScrollFactor,
-          },
-          onComplete: setHscrollPx(hScrollPx - hScrollFactor),
-        });
+      if (!isDragCat) {
+        if (eventData.dir === "Left") {
+          //console.log("scroll left");
+          gsap.to("#new-sticky", {
+            duration: 0.5,
+            scrollTo: {
+              x: hScrollPx + hScrollFactor,
+            },
+            onComplete: setHscrollPx(hScrollPx + hScrollFactor),
+          });
+        }
+        if (eventData.dir === "Right") {
+          //console.log("scroll donw");
+          gsap.to("#new-sticky", {
+            duration: 0.5,
+            scrollTo: {
+              x: hScrollPx - hScrollFactor,
+            },
+            onComplete: setHscrollPx(hScrollPx - hScrollFactor),
+          });
+        }
       }
     },
     ...config,
@@ -425,200 +440,207 @@ function Menu() {
                             direction="horizontal"
                           >
                             {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                style={getListStyle(snapshot.isDraggingOver)}
-                                {...provided.droppableProps}
-                                className="scroll-div"
-                                id="new-sticky"
-                              >
-                                {rest.categories?.map((cat, index) => (
-                                  <Draggable
-                                    key={cat._id.toString()}
-                                    draggableId={cat._id.toString()}
-                                    index={index}
-                                    isDragDisabled={
-                                      authState?._id === rest.user
-                                        ? false
-                                        : true
-                                    }
-                                  >
-                                    {(provided, snapshot) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                          snapshot.isDragging,
-                                          provided.draggableProps.style
-                                        )}
-                                        className="btn me-3 fs-14 bg-them text-white cat-button"
-                                        onClick={() =>
-                                          scrollToMainCatGsap(cat._id)
-                                        }
-                                      >
-                                        <span
-                                          ref={setRef(cat._id + "main_button")}
-                                          className={cat.name}
+                              <>
+                                {snapshot.isDraggingOver
+                                  ? setIsDragCat(true)
+                                  : setIsDragCat(false)}
+                                <div
+                                  ref={provided.innerRef}
+                                  style={getListStyle(snapshot.isDraggingOver)}
+                                  {...provided.droppableProps}
+                                  className="scroll-div"
+                                  id="new-sticky"
+                                >
+                                  {rest.categories?.map((cat, index) => (
+                                    <Draggable
+                                      key={cat._id.toString()}
+                                      draggableId={cat._id.toString()}
+                                      index={index}
+                                      isDragDisabled={
+                                        authState?._id === rest.user
+                                          ? false
+                                          : true
+                                      }
+                                    >
+                                      {(provided, snapshot) => (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          style={getItemStyle(
+                                            snapshot.isDragging,
+                                            provided.draggableProps.style
+                                          )}
+                                          className="btn me-3 fs-14 bg-them text-white cat-button"
+                                          onClick={() =>
+                                            scrollToMainCatGsap(cat._id)
+                                          }
                                         >
-                                          {cat.name}
-                                        </span>
-                                      </div>
-                                    )}
-                                  </Draggable>
-                                ))}
-                                {provided.placeholder}
-                                {isAdmin() && (
-                                  <div
-                                    className={`pe-3 d-flex`}
-                                    style={{
-                                      width: "max-content",
-                                      position: "relative",
-                                    }}
-                                  >
-                                    {addingCat ? (
-                                      <input
-                                        ref={setRef("cat_input")}
-                                        id="cat_input"
-                                        value={catText}
-                                        autoFocus
-                                        onChange={setAddCatText}
-                                        className="cat-input fs-14 ps-3"
-                                        type="text"
-                                      />
-                                    ) : !addingCat ? (
-                                      <button
-                                        onClick={toggleAddCat}
-                                        className="btn fs-14 bg-them text-white cat-button"
+                                          <span
+                                            ref={setRef(
+                                              cat._id + "main_button"
+                                            )}
+                                            className={cat.name}
+                                          >
+                                            {cat.name}
+                                          </span>
+                                        </div>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                  {provided.placeholder}
+                                  {isAdmin() && (
+                                    <div
+                                      className={`pe-3 d-flex`}
+                                      style={{
+                                        width: "max-content",
+                                        position: "relative",
+                                      }}
+                                    >
+                                      {addingCat ? (
+                                        <input
+                                          ref={setRef("cat_input")}
+                                          id="cat_input"
+                                          value={catText}
+                                          autoFocus
+                                          onChange={setAddCatText}
+                                          className="cat-input fs-14 ps-3"
+                                          type="text"
+                                        />
+                                      ) : !addingCat ? (
+                                        <button
+                                          onClick={toggleAddCat}
+                                          className="btn fs-14 bg-them text-white cat-button"
+                                        >
+                                          <span style={{ display: "flex" }}>
+                                            <svg
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              fill="none"
+                                              viewBox="0 0 24 24"
+                                              strokeWidth={2.5}
+                                              stroke="currentColor"
+                                              className="svg-icon"
+                                            >
+                                              <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </button>
+                                      ) : null}
+
+                                      <span
+                                        className={`d-ani-med`}
+                                        style={{
+                                          position: "absolute",
+                                          display: "flex",
+                                          opacity: addingCat ? "1" : "0%",
+                                          left: addingCat ? "100%" : "-100%",
+                                        }}
                                       >
-                                        <span style={{ display: "flex" }}>
+                                        {catPend ? (
+                                          <span className="me-2 border-black cat-button">
+                                            <span
+                                              className="spinner-border spinner-border-sm"
+                                              role="status"
+                                              aria-hidden="true"
+                                            ></span>
+                                          </span>
+                                        ) : (
+                                          <button
+                                            onClick={addCat}
+                                            className="btn fs-14 me-2 border-black cat-button"
+                                          >
+                                            <span style={{ display: "flex" }}>
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={2.5}
+                                                stroke="currentColor"
+                                                className="svg-icon"
+                                              >
+                                                <path
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  d="M4.5 12.75l6 6 9-13.5"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </button>
+                                        )}
+
+                                        {!catPend && (
+                                          <button
+                                            disabled={catPend}
+                                            onClick={toggleAddCat}
+                                            className="btn fs-14 border-black cat-button"
+                                          >
+                                            <span style={{ display: "flex" }}>
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={2.5}
+                                                stroke="currentColor"
+                                                className="svg-icon"
+                                              >
+                                                <path
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  d="M6 18L18 6M6 6l12 12"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </button>
+                                        )}
+                                        <span
+                                          className="text-danger fs-14 ps-2 d-flex"
+                                          style={{
+                                            width: "max-content",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          {catErrs && catErrs}
+                                        </span>
+                                      </span>
+                                    </div>
+                                  )}
+                                  {rest?.categories?.length < 1 && isAdmin() && (
+                                    <>
+                                      <div
+                                        className="d-ani"
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          position: "relative",
+                                          left: addingCat ? "100%" : "0%",
+                                        }}
+                                      >
+                                        <span className="lr-ani">
                                           <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
-                                            strokeWidth={2.5}
+                                            strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="svg-icon"
+                                            style={{ width: "25px" }}
                                           >
                                             <path
                                               strokeLinecap="round"
                                               strokeLinejoin="round"
-                                              d="M12 4.5v15m7.5-7.5h-15"
+                                              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
                                             />
                                           </svg>
                                         </span>
-                                      </button>
-                                    ) : null}
-
-                                    <span
-                                      className={`d-ani-med`}
-                                      style={{
-                                        position: "absolute",
-                                        display: "flex",
-                                        opacity: addingCat ? "1" : "0%",
-                                        left: addingCat ? "100%" : "-100%",
-                                      }}
-                                    >
-                                      {catPend ? (
-                                        <span className="me-2 border-black cat-button">
-                                          <span
-                                            className="spinner-border spinner-border-sm"
-                                            role="status"
-                                            aria-hidden="true"
-                                          ></span>
-                                        </span>
-                                      ) : (
-                                        <button
-                                          onClick={addCat}
-                                          className="btn fs-14 me-2 border-black cat-button"
-                                        >
-                                          <span style={{ display: "flex" }}>
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                              strokeWidth={2.5}
-                                              stroke="currentColor"
-                                              className="svg-icon"
-                                            >
-                                              <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M4.5 12.75l6 6 9-13.5"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      )}
-
-                                      {!catPend && (
-                                        <button
-                                          disabled={catPend}
-                                          onClick={toggleAddCat}
-                                          className="btn fs-14 border-black cat-button"
-                                        >
-                                          <span style={{ display: "flex" }}>
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                              strokeWidth={2.5}
-                                              stroke="currentColor"
-                                              className="svg-icon"
-                                            >
-                                              <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M6 18L18 6M6 6l12 12"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      )}
-                                      <span
-                                        className="text-danger fs-14 ps-2 d-flex"
-                                        style={{
-                                          width: "max-content",
-                                          alignItems: "center",
-                                        }}
-                                      >
-                                        {catErrs && catErrs}
-                                      </span>
-                                    </span>
-                                  </div>
-                                )}
-                                {rest?.categories?.length < 1 && isAdmin() && (
-                                  <>
-                                    <div
-                                      className="d-ani"
-                                      style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        position: "relative",
-                                        left: addingCat ? "100%" : "0%",
-                                      }}
-                                    >
-                                      <span className="lr-ani">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="none"
-                                          viewBox="0 0 24 24"
-                                          strokeWidth={1.5}
-                                          stroke="currentColor"
-                                          style={{ width: "25px" }}
-                                        >
-                                          <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                          />
-                                        </svg>
-                                      </span>
-                                      <span className="ms-3">categories</span>
-                                    </div>
-                                  </>
-                                )}
-                              </div>
+                                        <span className="ms-3">categories</span>
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+                              </>
                             )}
                           </Droppable>
                         </DragDropContext>
@@ -672,228 +694,240 @@ function Menu() {
                                     direction="vertical"
                                   >
                                     {(provided, snapshot) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        style={getMenuListStyle(
-                                          snapshot.isDraggingOver
-                                        )}
-                                        {...provided.droppableProps}
-                                        className="scroll-div d-ani-fast"
-                                      >
-                                        <div className={` mb-2`}>
-                                          {true && (
-                                            <div
-                                              ref={setRef(
-                                                cat._id + "main_menu_span"
-                                              )}
-                                              className="row px-0 justify-content-center"
-                                              id={cat._id + "main_menu_span"}
-                                            >
+                                      <>
+                                        {snapshot.isDraggingOver
+                                          ? setIsDragMen(true)
+                                          : setIsDragMen(false)}
+
+                                        <div
+                                          ref={provided.innerRef}
+                                          style={getMenuListStyle(
+                                            snapshot.isDraggingOver
+                                          )}
+                                          {...provided.droppableProps}
+                                          className="scroll-div d-ani-fast"
+                                        >
+                                          <div className={` mb-2`}>
+                                            {true && (
                                               <div
-                                                className="col-11 px-0 pb-2"
-                                                style={{ position: "relative" }}
-                                              >
-                                                {editnCat?.id === cat._id ? (
-                                                  <input
-                                                    onChange={typeCatName}
-                                                    value={editnCat.name}
-                                                    autoFocus
-                                                    className="cat-name-input big-bg-theme fs-14 ps-2"
-                                                  />
-                                                ) : (
-                                                  <span
-                                                    onClick={() =>
-                                                      showCatOpt(
-                                                        cat._id,
-                                                        cat.name
-                                                      )
-                                                    }
-                                                    className={`fs-13 ${
-                                                      isAdmin() &&
-                                                      "text-decoration-underline"
-                                                    } `}
-                                                  >
-                                                    {cat.name}
-                                                  </span>
+                                                ref={setRef(
+                                                  cat._id + "main_menu_span"
                                                 )}
-                                                {editnCat?.id !== cat._id &&
-                                                  snapshot.isDraggingOver && (
+                                                className="row px-0 justify-content-center"
+                                                id={cat._id + "main_menu_span"}
+                                              >
+                                                <div
+                                                  className="col-11 px-0 pb-2"
+                                                  style={{
+                                                    position: "relative",
+                                                  }}
+                                                >
+                                                  {editnCat?.id === cat._id ? (
+                                                    <input
+                                                      onChange={typeCatName}
+                                                      value={editnCat.name}
+                                                      autoFocus
+                                                      className="cat-name-input big-bg-theme fs-14 ps-2"
+                                                    />
+                                                  ) : (
                                                     <span
-                                                      style={{
-                                                        position: "absolute",
-                                                        right: "0%",
-                                                      }}
+                                                      onClick={() =>
+                                                        showCatOpt(
+                                                          cat._id,
+                                                          cat.name
+                                                        )
+                                                      }
+                                                      className={`fs-13 ${
+                                                        isAdmin() &&
+                                                        "text-decoration-underline"
+                                                      } `}
                                                     >
-                                                      <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        strokeWidth={1.5}
-                                                        stroke="currentColor"
-                                                        className="svg-icon"
-                                                      >
-                                                        <path
-                                                          strokeLinecap="round"
-                                                          strokeLinejoin="round"
-                                                          d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
-                                                        />
-                                                      </svg>
+                                                      {cat.name}
                                                     </span>
                                                   )}
-                                                {editnCat?.id === cat._id && (
-                                                  <span>
-                                                    {ctPen !== cat._id && (
+                                                  {editnCat?.id !== cat._id &&
+                                                    snapshot.isDraggingOver && (
                                                       <span
-                                                        onClick={() =>
-                                                          calcelCat(cat._id)
-                                                        }
-                                                        className="ms-2"
+                                                        style={{
+                                                          position: "absolute",
+                                                          right: "0%",
+                                                        }}
                                                       >
                                                         <svg
                                                           xmlns="http://www.w3.org/2000/svg"
                                                           fill="none"
                                                           viewBox="0 0 24 24"
-                                                          strokeWidth={2}
+                                                          strokeWidth={1.5}
                                                           stroke="currentColor"
                                                           className="svg-icon"
                                                         >
                                                           <path
                                                             strokeLinecap="round"
                                                             strokeLinejoin="round"
-                                                            d="M6 18L18 6M6 6l12 12"
+                                                            d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
                                                           />
                                                         </svg>
                                                       </span>
                                                     )}
-                                                    {editnCat.hasTyped &&
-                                                      editnCat.name.length >
-                                                        0 &&
-                                                      editnCat.name.length <
-                                                        20 && (
-                                                        <span className="ps-2">
-                                                          {ctPen === cat._id ? (
-                                                            <div
-                                                              className="spinner-border spinner-border-sm"
-                                                              role="status"
-                                                            >
-                                                              <span className="visually-hidden">
-                                                                Loading...
-                                                              </span>
-                                                            </div>
-                                                          ) : (
-                                                            <span
-                                                              onClick={() =>
-                                                                acceptCat(
-                                                                  cat._id
-                                                                )
-                                                              }
-                                                            >
-                                                              <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none"
-                                                                viewBox="0 0 24 24"
-                                                                strokeWidth={2}
-                                                                stroke="currentColor"
-                                                                className="svg-icon"
-                                                              >
-                                                                <path
-                                                                  strokeLinecap="round"
-                                                                  strokeLinejoin="round"
-                                                                  d="M4.5 12.75l6 6 9-13.5"
-                                                                />
-                                                              </svg>
-                                                            </span>
-                                                          )}
-                                                        </span>
-                                                      )}
-
-                                                    {ctPen !== cat._id && (
-                                                      <span
-                                                        onClick={() =>
-                                                          deleteCat({
-                                                            id: cat._id,
-                                                            name: cat.name,
-                                                          })
-                                                        }
-                                                        style={{
-                                                          position: "absolute",
-                                                          right: "0%",
-                                                        }}
-                                                      >
-                                                        {
+                                                  {editnCat?.id === cat._id && (
+                                                    <span>
+                                                      {ctPen !== cat._id && (
+                                                        <span
+                                                          onClick={() =>
+                                                            calcelCat(cat._id)
+                                                          }
+                                                          className="ms-2"
+                                                        >
                                                           <svg
                                                             xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
                                                             viewBox="0 0 24 24"
-                                                            fill="currentColor"
+                                                            strokeWidth={2}
+                                                            stroke="currentColor"
                                                             className="svg-icon"
                                                           >
                                                             <path
-                                                              fillRule="evenodd"
-                                                              d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                              clipRule="evenodd"
+                                                              strokeLinecap="round"
+                                                              strokeLinejoin="round"
+                                                              d="M6 18L18 6M6 6l12 12"
                                                             />
                                                           </svg>
-                                                        }
-                                                      </span>
-                                                    )}
-                                                  </span>
+                                                        </span>
+                                                      )}
+                                                      {editnCat.hasTyped &&
+                                                        editnCat.name.length >
+                                                          0 &&
+                                                        editnCat.name.length <
+                                                          20 && (
+                                                          <span className="ps-2">
+                                                            {ctPen ===
+                                                            cat._id ? (
+                                                              <div
+                                                                className="spinner-border spinner-border-sm"
+                                                                role="status"
+                                                              >
+                                                                <span className="visually-hidden">
+                                                                  Loading...
+                                                                </span>
+                                                              </div>
+                                                            ) : (
+                                                              <span
+                                                                onClick={() =>
+                                                                  acceptCat(
+                                                                    cat._id
+                                                                  )
+                                                                }
+                                                              >
+                                                                <svg
+                                                                  xmlns="http://www.w3.org/2000/svg"
+                                                                  fill="none"
+                                                                  viewBox="0 0 24 24"
+                                                                  strokeWidth={
+                                                                    2
+                                                                  }
+                                                                  stroke="currentColor"
+                                                                  className="svg-icon"
+                                                                >
+                                                                  <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    d="M4.5 12.75l6 6 9-13.5"
+                                                                  />
+                                                                </svg>
+                                                              </span>
+                                                            )}
+                                                          </span>
+                                                        )}
+
+                                                      {ctPen !== cat._id && (
+                                                        <span
+                                                          onClick={() =>
+                                                            deleteCat({
+                                                              id: cat._id,
+                                                              name: cat.name,
+                                                            })
+                                                          }
+                                                          style={{
+                                                            position:
+                                                              "absolute",
+                                                            right: "0%",
+                                                          }}
+                                                        >
+                                                          {
+                                                            <svg
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                              viewBox="0 0 24 24"
+                                                              fill="currentColor"
+                                                              className="svg-icon"
+                                                            >
+                                                              <path
+                                                                fillRule="evenodd"
+                                                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                                clipRule="evenodd"
+                                                              />
+                                                            </svg>
+                                                          }
+                                                        </span>
+                                                      )}
+                                                    </span>
+                                                  )}
+                                                </div>
+                                                {ctNmErs.id === cat._id && (
+                                                  <div className="col-11">
+                                                    <span className="text-danger fs-14">
+                                                      {ctNmErs.mes}
+                                                    </span>
+                                                  </div>
                                                 )}
                                               </div>
-                                              {ctNmErs.id === cat._id && (
-                                                <div className="col-11">
-                                                  <span className="text-danger fs-14">
-                                                    {ctNmErs.mes}
-                                                  </span>
-                                                </div>
-                                              )}
-                                            </div>
-                                          )}
-
-                                          {cat.menu.map((item, indexx) => (
-                                            <Draggable
-                                              key={item._id.toString()}
-                                              draggableId={item._id.toString()}
-                                              index={indexx}
-                                              isDragDisabled={
-                                                authState?._id === rest.user
-                                                  ? false
-                                                  : true
-                                              }
-                                            >
-                                              {(provided, snapshot) => (
-                                                <div
-                                                  ref={provided.innerRef}
-                                                  {...provided.draggableProps}
-                                                  {...provided.dragHandleProps}
-                                                  style={getListItemStyle(
-                                                    snapshot.isDragging,
-                                                    provided.draggableProps
-                                                      .style
-                                                  )}
-                                                >
-                                                  <ItemsBottom
-                                                    place={indexx}
-                                                    parents={{
-                                                      main: cat._id,
-                                                    }}
-                                                    item={item}
-                                                    length={cat.menu.length}
-                                                  />
-                                                </div>
-                                              )}
-                                            </Draggable>
-                                          ))}
-
-                                          {/** upload menu part */}
-                                          {isAdmin() &&
-                                            !snapshot.isDraggingOver && (
-                                              <div>
-                                                <AddMenuItem details={cat} />
-                                              </div>
                                             )}
-                                          {/** end of upload menu */}
+
+                                            {cat.menu.map((item, indexx) => (
+                                              <Draggable
+                                                key={item._id.toString()}
+                                                draggableId={item._id.toString()}
+                                                index={indexx}
+                                                isDragDisabled={
+                                                  authState?._id === rest.user
+                                                    ? false
+                                                    : true
+                                                }
+                                              >
+                                                {(provided, snapshot) => (
+                                                  <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    style={getListItemStyle(
+                                                      snapshot.isDragging,
+                                                      provided.draggableProps
+                                                        .style
+                                                    )}
+                                                  >
+                                                    <ItemsBottom
+                                                      place={indexx}
+                                                      parents={{
+                                                        main: cat._id,
+                                                      }}
+                                                      item={item}
+                                                      length={cat.menu.length}
+                                                    />
+                                                  </div>
+                                                )}
+                                              </Draggable>
+                                            ))}
+
+                                            {/** upload menu part */}
+                                            {isAdmin() &&
+                                              !snapshot.isDraggingOver && (
+                                                <div>
+                                                  <AddMenuItem details={cat} />
+                                                </div>
+                                              )}
+                                            {/** end of upload menu */}
+                                          </div>
                                         </div>
-                                      </div>
+                                      </>
                                     )}
                                   </Droppable>
                                 </DragDropContext>
