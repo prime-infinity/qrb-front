@@ -252,6 +252,7 @@ function Menu() {
           .catch((err) => console.log("error rearranging", err));
       }
     }
+    setIsDragCat(false);
   };
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -302,6 +303,7 @@ function Menu() {
           .catch((err) => console.log("error rearranging", err));
       }
     }
+    setIsDragMen(false);
   };
 
   /*const restCatHasLen = () => {
@@ -331,6 +333,13 @@ function Menu() {
 
   const [isDragCat, setIsDragCat] = useState(false);
   const [isDragMen, setIsDragMen] = useState(false);
+
+  const catDragStart = () => {
+    setIsDragCat(true);
+  };
+  const menDragStart = () => {
+    setIsDragMen(true);
+  };
 
   const handlers = useSwipeable({
     //look for a way to disable this for
@@ -434,16 +443,16 @@ function Menu() {
                     >
                       {/* the actual buttons */}
                       {true && (
-                        <DragDropContext onDragEnd={onDragEnd}>
+                        <DragDropContext
+                          onDragStart={catDragStart}
+                          onDragEnd={onDragEnd}
+                        >
                           <Droppable
                             droppableId="droppable"
                             direction="horizontal"
                           >
                             {(provided, snapshot) => (
                               <>
-                                {snapshot.isDraggingOver
-                                  ? setIsDragCat(true)
-                                  : setIsDragCat(false)}
                                 <div
                                   ref={provided.innerRef}
                                   style={getListStyle(snapshot.isDraggingOver)}
@@ -688,17 +697,16 @@ function Menu() {
                                 }
                                 threshold={1}
                               >
-                                <DragDropContext onDragEnd={onItemDragEnd}>
+                                <DragDropContext
+                                  onDragStart={menDragStart}
+                                  onDragEnd={onItemDragEnd}
+                                >
                                   <Droppable
                                     droppableId={cat._id.toString()}
                                     direction="vertical"
                                   >
                                     {(provided, snapshot) => (
                                       <>
-                                        {snapshot.isDraggingOver
-                                          ? setIsDragMen(true)
-                                          : setIsDragMen(false)}
-
                                         <div
                                           ref={provided.innerRef}
                                           style={getMenuListStyle(
