@@ -150,8 +150,10 @@ function Menu() {
       });
   };
   const showCatOpt = (id, name) => {
-    if (authState?._id === rest.user) {
-      setEditnCat({ id: id, name: name });
+    if (isAdmin()) {
+      if (authState?._id === rest.user) {
+        setEditnCat({ id: id, name: name });
+      }
     }
   };
   const deleteCat = (e) => {
@@ -913,6 +915,7 @@ function Menu() {
                                                     )}
                                                   >
                                                     <ItemsBottom
+                                                      isAdmin={isAdmin()}
                                                       place={indexx}
                                                       parents={{
                                                         main: cat._id,

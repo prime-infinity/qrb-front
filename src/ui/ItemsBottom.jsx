@@ -11,7 +11,7 @@ import { setRestToEdit } from "../redux/slices/restSlice";
 import { editMenuItem } from "../helpers/web";
 import { setRest } from "../redux/slices/restSlice";
 
-function ItemsBottom({ item, place, length, parents }) {
+function ItemsBottom({ isAdmin, item, place, length, parents }) {
   const dispatch = useDispatch();
   //eslint-disable-next-line
   const [getRef, setRef] = useDynamicRefs();
@@ -121,7 +121,12 @@ function ItemsBottom({ item, place, length, parents }) {
     <div ref={setRef(item._id)} className="row px-0 justify-content-center">
       <div className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}>
         {itemToEdit?.item._id !== item._id && (
-          <CustomToggle eventKey={item.name} item={item} parents={parents} />
+          <CustomToggle
+            eventKey={item.name}
+            item={item}
+            isAdmin={isAdmin}
+            parents={parents}
+          />
         )}
 
         {isHere() && (

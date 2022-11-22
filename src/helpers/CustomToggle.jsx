@@ -6,7 +6,7 @@ import { setRestToEdit } from "../redux/slices/restSlice";
 import PureOverlay from "../ui/PureOverlay";
 import MenuWarnModal from "../ui/MenuWarnModal";
 
-function CustomToggle({ eventKey, callback, item, parents }) {
+function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.menu.view);
   const rest = useSelector((state) => state.rest.rest);
@@ -147,7 +147,7 @@ function CustomToggle({ eventKey, callback, item, parents }) {
                     className="col-12 text-end"
                     style={{ position: "absolute", bottom: "6%" }}
                   >
-                    {authState && authState?._id === rest.user && (
+                    {isAdmin && authState && authState?._id === rest.user && (
                       <>
                         <span
                           style={{
