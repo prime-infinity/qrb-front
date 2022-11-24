@@ -467,11 +467,7 @@ function Menu() {
                                       key={cat._id.toString()}
                                       draggableId={cat._id.toString()}
                                       index={index}
-                                      isDragDisabled={
-                                        authState?._id === rest.user
-                                          ? false
-                                          : true
-                                      }
+                                      isDragDisabled={isAdmin() ? false : true}
                                     >
                                       {(provided, snapshot) => (
                                         <div
@@ -898,9 +894,7 @@ function Menu() {
                                                 draggableId={item._id.toString()}
                                                 index={indexx}
                                                 isDragDisabled={
-                                                  authState?._id === rest.user
-                                                    ? false
-                                                    : true
+                                                  isAdmin() ? false : true
                                                 }
                                               >
                                                 {(provided, snapshot) => (
