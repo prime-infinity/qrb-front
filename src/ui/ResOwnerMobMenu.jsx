@@ -57,7 +57,7 @@ function ResOwnerMobMenu({ closeMenu }) {
               </svg>
             </span>
           </li>
-          <li className="py-3" onClick={editMyInfo}>
+          <li className="my-3" onClick={editMyInfo}>
             <span className={` text-decoration-underline  fs-14`}>wiki</span>
 
             <span className="btn pe-0">

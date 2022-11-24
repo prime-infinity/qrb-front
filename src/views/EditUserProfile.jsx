@@ -67,6 +67,9 @@ function EditUserProfile() {
       });
   };
 
+  const navBack = () => {
+    navigate(-1);
+  };
   return (
     <div
       className="container-fluid pt-5 big-bg-theme"
@@ -75,7 +78,7 @@ function EditUserProfile() {
       <div className="row pt-5">
         <div className="col-12">
           <div className="row mx-1">
-            <div className="col-12">
+            <div className="col-12 ps-0 pe-0">
               <input
                 value={formData.fullname}
                 onChange={(e) =>
@@ -105,76 +108,50 @@ function EditUserProfile() {
               />
             </div>
 
-            <div className="col-12">
+            <div className="col-12 ps-0 pe-0">
               <div className="row text-center">
                 <div className="col-12">{error ? errorDiv : null}</div>
               </div>
-              {isUpdated ? (
-                <button
-                  className="btn py-3 my-3 btn-success w-100  q-font-weight-bold"
-                  type="button"
-                >
-                  {" "}
-                  Updated
-                </button>
-              ) : (
-                <button
-                  onClick={update}
-                  disabled={pending}
-                  className="btn py-3 my-3 w-100 bg-them text-white q-font-weight-bold"
-                >
-                  {pending && (
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+              <div className="row">
+                <div className="col-3 pe-0">
+                  <button
+                    className="btn py-3 w-100"
+                    style={{ border: "1px solid black" }}
+                    onClick={navBack}
+                  >
+                    back
+                  </button>
+                </div>
+                <div className="col-9">
+                  {isUpdated ? (
+                    <button
+                      className="btn py-3 btn-success w-100 "
+                      type="button"
+                    >
+                      {" "}
+                      Updated
+                    </button>
+                  ) : (
+                    <button
+                      onClick={update}
+                      disabled={pending}
+                      className="btn py-3 w-100 bg-them text-white"
+                    >
+                      {pending && (
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                      )}
+                      {!pending && <span>update</span>}
+                    </button>
                   )}
-                  {!pending && <span>update</span>}
-                </button>
-              )}
+                </div>
+              </div>
             </div>
 
-            {/*<div className="col-12">
-              <ul className="navbar-nav">
-                <li className="pb-3">
-                  <span>
-                    <svg
-                      className="svg-icon me-2"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.33333 9.66732C2.96514 9.66732 2.66667 9.9658 2.66667 10.334C2.66667 10.7022 2.96514 11.0007 3.33333 11.0007H4.66667C5.03486 11.0007 5.33333 10.7022 5.33333 10.334C5.33333 9.9658 5.03486 9.66732 4.66667 9.66732H3.33333ZM2 0.333984C0.895431 0.333984 0 1.22941 0 2.33398V11.6673C0 12.7719 0.89543 13.6673 2 13.6673H6C7.10457 13.6673 8 12.7719 8 11.6673V2.33398C8 1.22942 7.10457 0.333984 6 0.333984H2ZM1.33333 2.33398C1.33333 1.96579 1.63181 1.66732 2 1.66732H6C6.36819 1.66732 6.66667 1.96579 6.66667 2.33398V11.6673C6.66667 12.0355 6.36819 12.334 6 12.334H2C1.63181 12.334 1.33333 12.0355 1.33333 11.6673V2.33398Z"
-                        fill="#212121"
-                      />
-                    </svg>
-
-                    <span className="fs-14">{"change pin"}</span>
-                  </span>
-                </li>
-                <li className="pb-3">
-                  <span>
-                    <svg
-                      className="svg-icon me-2"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.33333 9.66732C2.96514 9.66732 2.66667 9.9658 2.66667 10.334C2.66667 10.7022 2.96514 11.0007 3.33333 11.0007H4.66667C5.03486 11.0007 5.33333 10.7022 5.33333 10.334C5.33333 9.9658 5.03486 9.66732 4.66667 9.66732H3.33333ZM2 0.333984C0.895431 0.333984 0 1.22941 0 2.33398V11.6673C0 12.7719 0.89543 13.6673 2 13.6673H6C7.10457 13.6673 8 12.7719 8 11.6673V2.33398C8 1.22942 7.10457 0.333984 6 0.333984H2ZM1.33333 2.33398C1.33333 1.96579 1.63181 1.66732 2 1.66732H6C6.36819 1.66732 6.66667 1.96579 6.66667 2.33398V11.6673C6.66667 12.0355 6.36819 12.334 6 12.334H2C1.63181 12.334 1.33333 12.0355 1.33333 11.6673V2.33398Z"
-                        fill="#212121"
-                      />
-                    </svg>
-
-                    <span className="fs-14">{"saved payment methods"}</span>
-                  </span>
-                </li>
-              </ul>
-            </div>*/}
-
-            <div className="col-12 mm-db" style={{ bottom: "8%" }}>
+            {/*<div className="col-12 mm-db" style={{ bottom: "8%" }}>
               <ul className="navbar-nav">
                 <li className="">
                   <span className="btn ps-0">
@@ -210,7 +187,7 @@ function EditUserProfile() {
                   <span className={`fs-14`}>log out</span>
                 </li>
               </ul>
-            </div>
+                  </div>*/}
           </div>
         </div>
       </div>

@@ -101,16 +101,6 @@ function Header() {
     dispatch(toggleView());
   };
 
-  const cancelUserEdition = () => {
-    navigate(`/${rest.url}`);
-    console.log("has canecled");
-  };
-
-  const approveUserEdition = () => {
-    navigate(`/${rest.url}`);
-    console.log("user is approved");
-  };
-
   const properUrl = (url) => {
     return url.replace("%20", " ");
   };
@@ -187,26 +177,17 @@ function Header() {
                 </svg>
               </button>
             </div>
-            <span>
-              <span
-                className="ms-1 fw-500"
-                style={{ fontSize: "22px" }}
-                onClick={goHome}
-              >
-                {properUrl(location.pathname) !== `/${rest.url}` &&
-                  (location.pathname === "/add-item" ||
-                  location.pathname === "/edit-item" ||
-                  location.pathname === "/add-category"
-                    ? null
-                    : location.pathname === "/login"
-                    ? null
-                    : location.pathname === "/edit-rest-profile"
-                    ? null
-                    : location.pathname === "/edit-user-profile"
-                    ? null
-                    : rest?.name && rest.name)}
+            {properUrl(location.pathname) === `/${rest.url}/menu` && (
+              <span>
+                <span
+                  className="ms-1 fw-500"
+                  style={{ fontSize: "22px" }}
+                  onClick={goHome}
+                >
+                  {rest?.name && rest.name}
+                </span>
               </span>
-            </span>
+            )}
             {properUrl(location.pathname) !== `/${rest.url}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
@@ -248,8 +229,7 @@ function Header() {
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                ) : location.pathname === "/edit-user-profile" ? (
-                  <svg
+                ) : location.pathname === "/edit-user-profile" ? null /*<svg
                     onClick={cancelUserEdition}
                     className="text-secondary"
                     xmlns="http://www.w3.org/2000/svg"
@@ -264,8 +244,7 @@ function Header() {
                       strokeLinejoin="round"
                       d="M6 18L18 6M6 6l12 12"
                     />
-                  </svg>
-                ) : null}
+                  </svg>*/ : null}
                 {!mMenu &&
                   (location.pathname === "/add-item" ? (
                     <span className="ms-3 fs-18">add item</span>
@@ -280,7 +259,7 @@ function Header() {
                   ) : location.pathname === "/edit-rest-profile" ? (
                     <span className="ms-3 fs-18">{"business profile"}</span>
                   ) : location.pathname === "/edit-user-profile" ? (
-                    <span className="ms-3 fs-18">{"user profile"}</span>
+                    <span className="ms-1 fs-18">{"user profile"}</span>
                   ) : (
                     <span className="ms-3 fw-bold"></span>
                   ))}
@@ -369,8 +348,7 @@ function Header() {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-            ) : location.pathname === "/edit-user-profile" ? (
-              <svg
+            ) : location.pathname === "/edit-user-profile" ? null /*<svg
                 onClick={approveUserEdition}
                 xmlns="http://www.w3.org/2000/svg"
                 style={{ width: "30px" }}
@@ -385,8 +363,7 @@ function Header() {
                   strokeLinejoin="round"
                   d="M5 13l4 4L19 7"
                 />
-              </svg>
-            ) : mMenu ? (
+              </svg>*/ : mMenu ? (
               <svg
                 onClick={showMobileMenu}
                 xmlns="http://www.w3.org/2000/svg"
