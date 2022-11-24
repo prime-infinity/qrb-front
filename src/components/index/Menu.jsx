@@ -5,6 +5,7 @@ import { InView } from "react-intersection-observer";
 import {
   pbFalse,
   pbTrue,
+  setIsDragMen,
   // eslint-disable-next-line
   setIsScrolGsap,
   toggleAddingCat,
@@ -321,20 +322,10 @@ function Menu() {
     swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
     touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
   };
-  const [scrollPx, setScrollPx] = useState(0);
   const [hScrollPx, setHscrollPx] = useState(0);
-  const scrollFactor = 450;
   const hScrollFactor = 50;
 
-  const doneDown = () => {
-    setScrollPx(scrollPx - scrollFactor);
-  };
-  const doneUp = () => {
-    setScrollPx(scrollPx + scrollFactor);
-  };
-
   const [isDragCat, setIsDragCat] = useState(false);
-  const [isDragMen, setIsDragMen] = useState(false);
 
   const catDragStart = () => {
     setIsDragCat(true);
@@ -342,36 +333,6 @@ function Menu() {
   const menDragStart = () => {
     setIsDragMen(true);
   };
-
-  const handlers = useSwipeable({
-    //look for a way to disable this for
-    //chrome andriod
-    onSwiping: (eventData) => {
-      if (!isDragMen) {
-        if (eventData.dir === "Down") {
-          //scroll down
-          //console.log("scroll donw");
-          gsap.to(window, {
-            duration: 0.5,
-            scrollTo: {
-              y: scrollPx - scrollFactor,
-            },
-            onComplete: doneDown,
-          });
-        }
-        if (eventData.dir === "Up") {
-          //scroll up
-          //console.log("scroll up");
-          gsap.to(window, {
-            duration: 0.5,
-            scrollTo: { y: scrollPx + scrollFactor },
-            onComplete: doneUp,
-          });
-        }
-      }
-    },
-    ...config,
-  });
 
   const newHandlers = useSwipeable({
     onSwiping: (eventData) => {
@@ -417,7 +378,7 @@ function Menu() {
         </>
       )}
 
-      <div className="container-fluid pt-5 big-bg-theme" id="mmm">
+      <div className="container-fluid pt-5 big-bg-theme">
         {overlay && (
           <PureOverlay
             redrng={redrng}
@@ -676,7 +637,7 @@ function Menu() {
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div {...handlers} className="col-12 mb-2 mw-100">
+                <div className="col-12 mb-2 mw-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&

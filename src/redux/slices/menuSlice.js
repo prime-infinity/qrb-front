@@ -17,8 +17,12 @@ export const menuSlice = createSlice({
     hasInitAdding: "",
     isEditnMenu: false,
     isScrolGsap: false,
+    isDragMen: false,
   },
   reducers: {
+    setIsDragMen: (state, action) => {
+      state.isDragMen = action.payload;
+    },
     setIsScrolGsap: (state, action) => {
       state.isScrolGsap = action.payload;
     },
@@ -67,6 +71,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setIsDragMen } = menuSlice.actions;
 export const { setIsScrolGsap } = menuSlice.actions;
 export const { setEditnMenu } = menuSlice.actions;
 export const { toggleMenu } = menuSlice.actions;

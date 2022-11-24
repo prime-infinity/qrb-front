@@ -33,9 +33,6 @@ function EditUserProfile() {
     pin: "",
   });
 
-  const setOT = (e) => {
-    console.log(e);
-  };
   useEffect(() => {
     if (authState !== null) {
       setFrom({

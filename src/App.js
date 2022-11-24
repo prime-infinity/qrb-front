@@ -3,7 +3,7 @@ import NetworkErr from "./ui/NetworkErr";
 import Header from "./components/Header";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   initIndexRest,
   initUrlRest,
@@ -14,6 +14,12 @@ import { getAuth, setAuth } from "./redux/slices/authSlice";
 import { getRestOfOwner } from "./helpers/web";
 import { removeFromLocal } from "./helpers/storage";
 import "inobounce";
+import { useSwipeable } from "react-swipeable";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollToPlugin);
+
 function App() {
   let { resturant } = useParams();
   let navigate = useNavigate();
@@ -23,7 +29,15 @@ function App() {
   const authState = useSelector((state) => state.auth.auth);
   const authConfam = useSelector((state) => state.auth.authConfam);
   const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
-
+  const isDragMen = useSelector((state) => state.menu.isDragMen);
+  const [scrollPx, setScrollPx] = useState(0);
+  const scrollFactor = 450;
+  const doneDown = () => {
+    setScrollPx(scrollPx - scrollFactor);
+  };
+  const doneUp = () => {
+    setScrollPx(scrollPx + scrollFactor);
+  };
   useEffect(() => {
     if (!isScrolGsap) {
     }
@@ -130,13 +144,51 @@ function App() {
 
     // eslint-disable-next-line
   }, [resturant, restInited, authState, dispatch, rest, authConfam]);
+  const config = {
+    delta: 80, // min distance(px) before a swipe starts. *See Notes*
+    preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
+    trackTouch: true, // track touch input
+    trackMouse: false, // track mouse input
+    rotationAngle: 0, // set a rotation angle
+    swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
+    touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
+  };
+  const handlers = useSwipeable({
+    //look for a way to disable this for
+    //chrome andriod
+    onSwiping: (eventData) => {
+      if (!isDragMen) {
+        if (eventData.dir === "Down") {
+          //scroll down
+          //console.log("scroll donw");
+          gsap.to(window, {
+            duration: 0.5,
+            scrollTo: {
+              y: scrollPx - scrollFactor,
+            },
+            onComplete: doneDown,
+          });
+        }
+        if (eventData.dir === "Up") {
+          //scroll up
+          //console.log("scroll up");
+          gsap.to(window, {
+            duration: 0.5,
+            scrollTo: { y: scrollPx + scrollFactor },
+            onComplete: doneUp,
+          });
+        }
+      }
+    },
+    ...config,
+  });
 
   return rest === null ? (
     <LoadingScreen />
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <div id="app">
+    <div {...handlers} id="app">
       <Header />
 
       <Outlet />
