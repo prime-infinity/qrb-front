@@ -79,7 +79,7 @@ function EditUserProfile() {
   return (
     <div
       className="container-fluid pt-5 big-bg-theme"
-      style={{ minHeight: "100vh" }}
+      style={{ position: "fixed", minHeight: "100vh" }}
     >
       <div className="row pt-4">
         <div className="col-12">
@@ -176,11 +176,11 @@ function EditUserProfile() {
                 </li>
               </ul>
             </div>
-            <div className="col-12 ps-0 pe-0 ">
+            <div className="col-12 ps-0 pe-0" style={{ marginTop: "60px" }}>
               <div className="row text-center">
                 <div className="col-12">{error ? errorDiv : null}</div>
               </div>
-              <div className="row mm-db" style={{ width: "98%" }}>
+              <div className="row">
                 <div className="col-3 pe-0">
                   <button
                     className="btn py-3 w-100"
