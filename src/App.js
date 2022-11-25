@@ -178,6 +178,9 @@ function App() {
             onComplete: doneUp,
           });
         }
+        if (eventData.dir === "Left") {
+          console.log("was swipped left");
+        }
       }
     },
     ...config,
