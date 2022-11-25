@@ -16,10 +16,10 @@ import {
   setEditnMenu,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-function Header() {
+function Header({ openMen, closeMen }) {
   const location = useLocation();
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,7 +33,19 @@ function Header() {
   const searchBar = useSelector((state) => state.menu.searchBar);
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    if (openMen) {
+      console.log("has swipepd");
+      showMobileMenu();
+    }
+    // eslint-disable-next-line
+  }, [openMen]);
+
   const showMobileMenu = () => {
+    setTimeout(() => {
+      closeMen();
+    }, 1000);
+
     //show mobile menu
     if (menuFade) {
       setTimeout(() => {

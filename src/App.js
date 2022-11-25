@@ -31,6 +31,7 @@ function App() {
   const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
   const isDragMen = useSelector((state) => state.menu.isDragMen);
   const [scrollPx, setScrollPx] = useState(0);
+  const [openMen, setOpenMen] = useState(false);
   const scrollFactor = 450;
   const doneDown = () => {
     setScrollPx(scrollPx - scrollFactor);
@@ -179,20 +180,22 @@ function App() {
           });
         }
         if (eventData.dir === "Left") {
-          console.log("was swipped left");
+          setOpenMen(true);
         }
       }
     },
     ...config,
   });
-
+  const closeMen = () => {
+    setOpenMen(false);
+  };
   return rest === null ? (
     <LoadingScreen />
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
     <div {...handlers} id="app">
-      <Header />
+      <Header closeMen={closeMen} openMen={openMen} />
 
       <Outlet />
     </div>
