@@ -180,7 +180,8 @@ function App() {
           });
         }
         if (eventData.dir === "Left") {
-          setOpenMen(true);
+          console.log("swiped left open menu");
+          //setOpenMen(true);
         }
       }
     },
