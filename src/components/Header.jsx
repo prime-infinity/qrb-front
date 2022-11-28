@@ -190,17 +190,17 @@ function Header({ openMen, closeMen }) {
               </button>
             </div>
             {properUrl(location.pathname) === `/${rest.url}/menu` ||
-              (properUrl(location.pathname) === `/${rest.url}/about` && (
-                <span>
-                  <span
-                    className="ms-1 fw-500"
-                    style={{ fontSize: "22px" }}
-                    onClick={goHome}
-                  >
-                    {rest?.name && rest.name}
-                  </span>
+            properUrl(location.pathname) === `/${rest.url}/about` ? (
+              <span>
+                <span
+                  className="ms-1 fw-500"
+                  style={{ fontSize: "22px" }}
+                  onClick={goHome}
+                >
+                  {rest?.name && rest.name}
                 </span>
-              ))}
+              </span>
+            ) : null}
             {properUrl(location.pathname) !== `/${rest.url}` && (
               <span style={{ position: "relative" }}>
                 {location.pathname === "/add-item" ||
