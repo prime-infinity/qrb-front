@@ -14,6 +14,7 @@ import {
   toggleEditing,
   toggleMenuFade,
   setEditnMenu,
+  setMenSwipe,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 import { useEffect, useState } from "react";
@@ -25,6 +26,9 @@ function Header({ openMen, closeMen }) {
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const mMenu = useSelector((state) => state.menu.menu);
+  const menuSwipedFromMenPage = useSelector(
+    (state) => state.menu.menuSwipedFromMenPage
+  );
   const menuFade = useSelector((state) => state.menu.menuFade);
   const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
   const pad = useSelector((state) => state.menu.pb);
@@ -34,16 +38,20 @@ function Header({ openMen, closeMen }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    if (menuSwipedFromMenPage) {
+      showMobileMenu();
+    }
     if (openMen) {
       showMobileMenu();
     }
-    // eslint-disable-next-line
-  }, [openMen]);
+    //eslint-disable-next-line
+  }, [openMen, menuSwipedFromMenPage]);
 
   const showMobileMenu = () => {
     setTimeout(() => {
       closeMen();
-    }, 1000);
+      dispatch(setMenSwipe(false));
+    }, 500);
 
     //show mobile menu
     if (menuFade) {

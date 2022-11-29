@@ -1,7 +1,7 @@
 import LoadingScreen from "./ui/LoadingScreen";
 import NetworkErr from "./ui/NetworkErr";
 import Header from "./components/Header";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import {
@@ -23,6 +23,7 @@ gsap.registerPlugin(ScrollToPlugin);
 function App() {
   let { resturant } = useParams();
   let navigate = useNavigate();
+  let location = useLocation();
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const restInited = useSelector((state) => state.rest.restInited);
@@ -154,13 +155,17 @@ function App() {
     swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
     touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
   };
+  const properUrl = (url) => {
+    return url.replace("%20", " ");
+  };
   const handlers = useSwipeable({
     //look for a way to disable this for
     //chrome andriod
     onSwiping: (eventData) => {
-      if (eventData.dir === "Left") {
-        console.log("swiped left open menu");
-        //setOpenMen(true);
+      if (properUrl(location.pathname) !== `/${rest.url}/menu`) {
+        if (eventData.dir === "Left") {
+          setOpenMen(true);
+        }
       }
 
       if (!isDragMen) {

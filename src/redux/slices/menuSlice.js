@@ -18,8 +18,12 @@ export const menuSlice = createSlice({
     isEditnMenu: false,
     isScrolGsap: false,
     isDragMen: false,
+    menuSwipedFromMenPage: false,
   },
   reducers: {
+    setMenSwipe: (state, action) => {
+      state.menuSwipedFromMenPage = action.payload;
+    },
     setIsDragMen: (state, action) => {
       state.isDragMen = action.payload;
     },
@@ -71,6 +75,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setMenSwipe } = menuSlice.actions;
 export const { setIsSwipingLeft } = menuSlice.actions;
 export const { setIsDragMen } = menuSlice.actions;
 export const { setIsScrolGsap } = menuSlice.actions;

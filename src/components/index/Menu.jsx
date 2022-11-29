@@ -6,6 +6,7 @@ import {
   pbFalse,
   pbTrue,
   setIsDragMen,
+  setMenSwipe,
   toggleAddingCat,
 } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -333,7 +334,16 @@ function Menu() {
     dispatch(setIsDragMen(true));
     console.log("menu drag start2");
   };
-
+  const handlers = useSwipeable({
+    //look for a way to disable this for
+    //chrome andriod
+    onSwiping: (eventData) => {
+      if (eventData.dir === "Left") {
+        dispatch(setMenSwipe(true));
+      }
+    },
+    ...config,
+  });
   const newHandlers = useSwipeable({
     onSwiping: (eventData) => {
       if (!isDragCat) {
@@ -637,7 +647,7 @@ function Menu() {
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div className="col-12 mb-2 mw-100">
+                <div {...handlers} className="col-12 mb-2 mw-100">
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&
