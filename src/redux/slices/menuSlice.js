@@ -71,6 +71,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setIsSwipingLeft } = menuSlice.actions;
 export const { setIsDragMen } = menuSlice.actions;
 export const { setIsScrolGsap } = menuSlice.actions;
 export const { setEditnMenu } = menuSlice.actions;

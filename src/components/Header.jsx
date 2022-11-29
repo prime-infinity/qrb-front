@@ -35,7 +35,6 @@ function Header({ openMen, closeMen }) {
 
   useEffect(() => {
     if (openMen) {
-      console.log("has swipepd");
       showMobileMenu();
     }
     // eslint-disable-next-line

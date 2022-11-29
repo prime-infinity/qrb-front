@@ -158,6 +158,11 @@ function App() {
     //look for a way to disable this for
     //chrome andriod
     onSwiping: (eventData) => {
+      if (eventData.dir === "Left") {
+        console.log("swiped left open menu");
+        //setOpenMen(true);
+      }
+
       if (!isDragMen) {
         if (eventData.dir === "Down") {
           //scroll down
@@ -178,10 +183,6 @@ function App() {
             scrollTo: { y: scrollPx + scrollFactor },
             onComplete: doneUp,
           });
-        }
-        if (eventData.dir === "Left") {
-          console.log("swiped left open menu");
-          //setOpenMen(true);
         }
       }
     },

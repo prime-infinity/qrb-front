@@ -243,7 +243,7 @@ function Menu() {
     let startIndex = e.source.index;
     let endIndex = e.destination.index;
 
-    /*if (startIndex !== endIndex) {
+    if (startIndex !== endIndex) {
       console.log("will update");
       const newItems = reOrder(rest.categories, startIndex, endIndex);
       dispatch(resetRestCatOrder(newItems));
@@ -252,7 +252,7 @@ function Menu() {
           .then((res) => console.log("done rearranging"))
           .catch((err) => console.log("error rearranging", err));
       }
-    }*/
+    }
     setIsDragCat(false);
   };
 
@@ -398,7 +398,7 @@ function Menu() {
                       id="sticky"
                       className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
                       style={{
-                        overflowX: "scroll",
+                        /*overflowX: "scroll",*/
                         paddingBottom: "0.9rem",
                         paddingRight: "2px",
                         paddingLeft: "2px",
