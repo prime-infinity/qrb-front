@@ -161,7 +161,7 @@ function App() {
       if (!isDragMen) {
         if (eventData.dir === "Down") {
           //scroll down
-          //console.log("scroll donw");
+          //console.log("down");
           gsap.to(window, {
             duration: 0.5,
             scrollTo: {
@@ -172,7 +172,7 @@ function App() {
         }
         if (eventData.dir === "Up") {
           //scroll up
-          //console.log("scroll up");
+          //console.log("up");
           gsap.to(window, {
             duration: 0.5,
             scrollTo: { y: scrollPx + scrollFactor },

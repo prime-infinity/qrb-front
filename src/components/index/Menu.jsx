@@ -6,8 +6,6 @@ import {
   pbFalse,
   pbTrue,
   setIsDragMen,
-  // eslint-disable-next-line
-  setIsScrolGsap,
   toggleAddingCat,
 } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -245,7 +243,7 @@ function Menu() {
     let startIndex = e.source.index;
     let endIndex = e.destination.index;
 
-    if (startIndex !== endIndex) {
+    /*if (startIndex !== endIndex) {
       console.log("will update");
       const newItems = reOrder(rest.categories, startIndex, endIndex);
       dispatch(resetRestCatOrder(newItems));
@@ -254,7 +252,7 @@ function Menu() {
           .then((res) => console.log("done rearranging"))
           .catch((err) => console.log("error rearranging", err));
       }
-    }
+    }*/
     setIsDragCat(false);
   };
 
@@ -306,7 +304,7 @@ function Menu() {
           .catch((err) => console.log("error rearranging", err));
       }
     }
-    setIsDragMen(false);
+    dispatch(setIsDragMen(false));
   };
 
   /*const restCatHasLen = () => {
@@ -331,7 +329,9 @@ function Menu() {
     setIsDragCat(true);
   };
   const menDragStart = () => {
-    setIsDragMen(true);
+    console.log("menu drag start1");
+    dispatch(setIsDragMen(true));
+    console.log("menu drag start2");
   };
 
   const newHandlers = useSwipeable({
