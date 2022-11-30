@@ -77,7 +77,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                   {item.name}
                 </h4>
 
-                {viewMode && authState && authState?._id === rest.user && (
+                {viewMode && isAdmin && (
                   <span className="mx-4 d-flex">
                     <span className="d-flex">
                       <svg
@@ -147,7 +147,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                     className="col-12 text-end"
                     style={{ position: "absolute", bottom: "6%" }}
                   >
-                    {isAdmin && authState && authState?._id === rest.user && (
+                    {isAdmin && (
                       <>
                         <span
                           style={{
