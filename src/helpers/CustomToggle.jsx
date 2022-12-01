@@ -9,8 +9,6 @@ import MenuWarnModal from "../ui/MenuWarnModal";
 function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.menu.view);
-  const rest = useSelector((state) => state.rest.rest);
-  const authState = useSelector((state) => state.auth.auth);
   const [showWarn, setShowWarn] = useState(false);
   const [menToDel, setMenToDel] = useState(null);
 
