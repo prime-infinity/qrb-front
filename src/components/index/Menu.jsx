@@ -342,7 +342,8 @@ function Menu() {
         dispatch(setMenSwipe(true));
       }
     },
-    ...config,
+    delta: 10,
+    swipeDuration: Infinity,
   });
   const newHandlers = useSwipeable({
     onSwiping: (eventData) => {
@@ -586,37 +587,40 @@ function Menu() {
                                       </span>
                                     </div>
                                   )}
-                                  {rest?.categories?.length < 1 && isAdmin() && (
-                                    <>
-                                      <div
-                                        className="d-ani"
-                                        style={{
-                                          display: "flex",
-                                          alignItems: "center",
-                                          position: "relative",
-                                          left: addingCat ? "100%" : "0%",
-                                        }}
-                                      >
-                                        <span className="lr-ani">
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            style={{ width: "25px" }}
-                                          >
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                            />
-                                          </svg>
-                                        </span>
-                                        <span className="ms-3">categories</span>
-                                      </div>
-                                    </>
-                                  )}
+                                  {rest?.categories?.length < 1 &&
+                                    isAdmin() && (
+                                      <>
+                                        <div
+                                          className="d-ani"
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            position: "relative",
+                                            left: addingCat ? "100%" : "0%",
+                                          }}
+                                        >
+                                          <span className="lr-ani">
+                                            <svg
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              fill="none"
+                                              viewBox="0 0 24 24"
+                                              strokeWidth={1.5}
+                                              stroke="currentColor"
+                                              style={{ width: "25px" }}
+                                            >
+                                              <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                                              />
+                                            </svg>
+                                          </span>
+                                          <span className="ms-3">
+                                            categories
+                                          </span>
+                                        </div>
+                                      </>
+                                    )}
                                 </div>
                               </>
                             )}
@@ -647,7 +651,21 @@ function Menu() {
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div {...handlers} className="col-12 mb-2 mw-100">
+                <div className="col-12 mb-2 mw-100">
+                  <div
+                    {...handlers}
+                    className="left-scroll"
+                    style={{
+                      position: "fixed",
+                      backgroundColor: "red",
+                      right: "0%",
+                      height: "100vh",
+                      width: "15%",
+                      opacity: "0",
+                    }}
+                  >
+                    s
+                  </div>
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&
