@@ -14,7 +14,6 @@ import {
   toggleEditing,
   toggleMenuFade,
   setEditnMenu,
-  setMenSwipe,
 } from "../redux/slices/menuSlice";
 import { searchDiscarded, searchRestMenu } from "../redux/slices/restSlice";
 import { useEffect, useState } from "react";
@@ -50,7 +49,6 @@ function Header({ openMen, closeMen }) {
   const showMobileMenu = () => {
     setTimeout(() => {
       closeMen();
-      dispatch(setMenSwipe(false));
     }, 500);
 
     //show mobile menu

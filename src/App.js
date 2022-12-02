@@ -158,16 +158,23 @@ function App() {
   const properUrl = (url) => {
     return url.replace("%20", " ");
   };
+  const newHandlers = useSwipeable({
+    //look for a way to disable this for
+    //chrome andriod
+    onSwiping: (eventData) => {
+      if (eventData.dir === "Left") {
+        console.log("left");
+        //dispatch(setMenSwipe(true));
+        setOpenMen(true);
+      }
+    },
+    delta: 10,
+    swipeDuration: Infinity,
+  });
   const handlers = useSwipeable({
     //look for a way to disable this for
     //chrome andriod
     onSwiping: (eventData) => {
-      if (properUrl(location.pathname) !== `/${rest.url}/menu`) {
-        if (eventData.dir === "Left") {
-          setOpenMen(true);
-        }
-      }
-
       if (!isDragMen) {
         if (properUrl(location.pathname) !== `/${rest.url}`) {
           if (eventData.dir === "Down") {
@@ -205,7 +212,22 @@ function App() {
   ) : (
     <div {...handlers} id="app">
       <Header closeMen={closeMen} openMen={openMen} />
-
+      <div
+        {...newHandlers}
+        className="left-scroll"
+        style={{
+          position: "fixed",
+          backgroundColor: "red",
+          right: "0%",
+          height: "85vh",
+          bottom: "0",
+          width: "15%",
+          zIndex: 2,
+          opacity: "0",
+        }}
+      >
+        s
+      </div>
       <Outlet />
     </div>
   );
