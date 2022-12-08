@@ -181,7 +181,7 @@ function App() {
             //scroll down
             //console.log("down");
             gsap.to(window, {
-              duration: 0.5,
+              duration: 0.8,
               scrollTo: {
                 y: scrollPx - scrollFactor,
               },
@@ -192,7 +192,7 @@ function App() {
             //scroll up
             //console.log("up");
             gsap.to(window, {
-              duration: 0.5,
+              duration: 0.8,
               scrollTo: { y: scrollPx + scrollFactor },
               onComplete: doneUp,
             });
