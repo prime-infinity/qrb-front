@@ -401,7 +401,7 @@ function Menu() {
                         /*overflowX: "scroll",*/
                         paddingBottom: "0.9rem",
                         paddingRight: "2px",
-                        paddingLeft: "2px",
+                        /*paddingLeft: "2px",*/
                       }}
                     >
                       {/* the actual buttons */}
@@ -439,7 +439,7 @@ function Menu() {
                                             snapshot.isDragging,
                                             provided.draggableProps.style
                                           )}
-                                          className="btn me-3 fs-14 bg-them text-white cat-button"
+                                          className="btn me-3 fs-16 bg-them text-white cat-button"
                                           onClick={() =>
                                             scrollToMainCatGsap(cat._id)
                                           }
@@ -621,8 +621,8 @@ function Menu() {
                       style={{
                         position: "fixed",
                         width: "100%",
-                        zIndex: "1",
-                        marginTop: "17px",
+                        zIndex: "3",
+                        marginTop: "14px",
                       }}
                       className="row justify-content-center"
                     >

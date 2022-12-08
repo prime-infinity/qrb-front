@@ -219,10 +219,10 @@ function App() {
           position: "fixed",
           backgroundColor: "red",
           right: "0%",
-          height: "85vh",
+          height: "100vh",
           bottom: "0",
           width: "15%",
-          zIndex: 2,
+          zIndex: 1,
           opacity: "0",
         }}
       >

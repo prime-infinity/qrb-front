@@ -13,7 +13,7 @@ function Overlay({ closeOverlay, width }) {
       } overlay`}
       style={{
         width: width,
-        zIndex: "2",
+        zIndex: "3",
         display: menuFade ? "block" : "none",
       }}
       onClick={closeOverlay}

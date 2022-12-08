@@ -165,7 +165,7 @@ function Header({ openMen, closeMen }) {
           pad && !searchBar && "pb-5"
         } `}
       >
-        <Container fluid className="mx-md-5 pt-3">
+        <Container fluid className="pt-3">
           <Navbar.Brand className="cur-pointer py-0">
             <div className={`search-box ${searchBar && "active-search"} `}>
               <input
@@ -401,11 +401,12 @@ function Header({ openMen, closeMen }) {
               <svg
                 onClick={showMobileMenu}
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "27px", height: "25px" }}
+                style={{ width: "27px", height: "25px", marginRight: "2px" }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={2}
+                className="hamburger"
               >
                 <path
                   strokeLinecap="round"
