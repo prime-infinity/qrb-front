@@ -129,6 +129,7 @@ function AddMenuItem({ details }) {
                     <input
                       onChange={setName}
                       value={editnMen.name}
+                      style={{ width: "65%" }}
                       type="text"
                       placeholder="name"
                       autoFocus
@@ -358,7 +359,6 @@ function AddMenuItem({ details }) {
               onClick={toggleStatus}
               style={{
                 width: "40%",
-                display: "flex",
                 justifyContent: "center",
                 position: "relative",
                 left: "18%",
@@ -378,9 +378,14 @@ function AddMenuItem({ details }) {
           )}
           {isHere() && (
             <button
-              style={{ position: "absolute", right: "0%" }}
+              style={{
+                border: "2px solid black",
+                position: "absolute",
+                right: "0%",
+                padding: "12px",
+              }}
               onClick={canclProc}
-              className="btn br-0 py-2 d-flex border-black"
+              className="btn br-0 d-flex border-black"
             >
               <span
                 style={{

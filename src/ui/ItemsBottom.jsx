@@ -151,6 +151,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                       onChange={setName}
                       value={formData.name}
                       type="text"
+                      style={{ width: "65%" }}
                       placeholder="name"
                       autoFocus
                       className="cat-name-input big-bg-theme fs-14 ps-2"
