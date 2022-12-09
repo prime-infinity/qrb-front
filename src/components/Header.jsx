@@ -198,7 +198,7 @@ function Header({ openMen, closeMen }) {
             properUrl(location.pathname) === `/${rest.url}/about` ? (
               <span>
                 <span
-                  className="ms-1 fw-500"
+                  className="ms-1 fw-600"
                   style={{ fontSize: "22px" }}
                   onClick={goHome}
                 >
@@ -401,7 +401,7 @@ function Header({ openMen, closeMen }) {
               <svg
                 onClick={showMobileMenu}
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ width: "27px", height: "25px", marginRight: "2px" }}
+                style={{ width: "27px", height: "25px", marginRight: "3px" }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

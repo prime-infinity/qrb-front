@@ -98,7 +98,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                           />
                         </svg>
                       </span>
-                      <span className="d-flex ms-3 me-1">
+                      <span className="d-flex ms-3 me-3">
                         <svg
                           onClick={() =>
                             deleteMenuItem({ id: item._id, name: item.name })

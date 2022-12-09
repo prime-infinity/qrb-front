@@ -309,9 +309,11 @@ function AddMenuItem({ details }) {
             style={{
               justifyContent: "center",
               width: isHere() ? "12%" : "100%",
+              border: "2px solid black",
+              padding: "12px",
             }}
             onClick={startProc}
-            className="btn br-0 py-2 d-flex border-black"
+            className="btn br-0 d-flex"
           >
             <span
               style={{

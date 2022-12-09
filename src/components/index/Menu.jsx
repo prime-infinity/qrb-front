@@ -398,10 +398,8 @@ function Menu() {
                       id="sticky"
                       className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
                       style={{
-                        /*overflowX: "scroll",*/
-                        paddingBottom: "0.9rem",
+                        paddingBottom: "0.6rem",
                         paddingRight: "2px",
-                        /*paddingLeft: "2px",*/
                       }}
                     >
                       {/* the actual buttons */}
@@ -439,7 +437,7 @@ function Menu() {
                                             snapshot.isDragging,
                                             provided.draggableProps.style
                                           )}
-                                          className="btn me-3 fs-16 bg-them text-white cat-button"
+                                          className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
                                           onClick={() =>
                                             scrollToMainCatGsap(cat._id)
                                           }
@@ -627,7 +625,7 @@ function Menu() {
                       className="row justify-content-center"
                     >
                       <div
-                        style={{ borderBottom: "2px solid black" }}
+                        style={{ borderBottom: "1px solid black" }}
                         className="col-11 big-bg-theme"
                       ></div>
                     </div>
