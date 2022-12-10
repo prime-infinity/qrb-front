@@ -179,22 +179,22 @@ function App() {
           if (eventData.dir === "Down") {
             //scroll down
             //console.log("down");
-            gsap.to(window, {
+            /*gsap.to(window, {
               duration: 1,
               scrollTo: {
                 y: scrollPx - scrollFactor,
               },
               onComplete: doneDown,
-            });
+            });*/
           }
           if (eventData.dir === "Up") {
             //scroll up
             //console.log("up");
-            gsap.to(window, {
+            /*gsap.to(window, {
               duration: 1,
               scrollTo: { y: scrollPx + scrollFactor },
               onComplete: doneUp,
-            });
+            });*/
           }
         }
       }

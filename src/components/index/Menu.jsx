@@ -582,7 +582,14 @@ function Menu() {
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div className="col-12 mb-2 mw-100">
+                <div
+                  style={
+                    {
+                      /* overflowY: "scroll"*/
+                    }
+                  }
+                  className="col-12 mb-2 mw-100"
+                >
                   <div className="row" id="menus-cont">
                     <Accordion>
                       {rest?.categories?.length > 0 &&
