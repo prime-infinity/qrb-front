@@ -25,7 +25,6 @@ import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useSwipeable } from "react-swipeable";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -253,7 +252,6 @@ function Menu() {
           .catch((err) => console.log("error rearranging", err));
       }
     }
-    setIsDragCat(false);
   };
 
   const getItemStyle = (isDragging, draggableStyle) => ({
@@ -271,7 +269,6 @@ function Menu() {
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
-    touchAction: "none",
   });
   const getMenuListStyle = (isDraggingOver) => ({
     marginBottom: isDraggingOver ? "10%" : "",
@@ -307,60 +304,11 @@ function Menu() {
     dispatch(setIsDragMen(false));
   };
 
-  /*const restCatHasLen = () => {
-    return rest?.categories?.length > 0 ? true : false;
-  };*/
-
-  const config = {
-    delta: 80, // min distance(px) before a swipe starts. *See Notes*
-    preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
-    trackTouch: true, // track touch input
-    trackMouse: false, // track mouse input
-    rotationAngle: 0, // set a rotation angle
-    swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
-    touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
-  };
-  const [hScrollPx, setHscrollPx] = useState(0);
-  const hScrollFactor = 50;
-
-  const [isDragCat, setIsDragCat] = useState(false);
-
-  const catDragStart = () => {
-    setIsDragCat(true);
-  };
   const menDragStart = () => {
     console.log("menu drag start1");
     dispatch(setIsDragMen(true));
     console.log("menu drag start2");
   };
-
-  const newHandlers = useSwipeable({
-    onSwiping: (eventData) => {
-      if (!isDragCat) {
-        if (eventData.dir === "Left") {
-          //console.log("scroll left");
-          gsap.to("#new-sticky", {
-            duration: 0.5,
-            scrollTo: {
-              x: hScrollPx + hScrollFactor,
-            },
-            onComplete: setHscrollPx(hScrollPx + hScrollFactor),
-          });
-        }
-        if (eventData.dir === "Right") {
-          //console.log("scroll donw");
-          gsap.to("#new-sticky", {
-            duration: 0.5,
-            scrollTo: {
-              x: hScrollPx - hScrollFactor,
-            },
-            onComplete: setHscrollPx(hScrollPx - hScrollFactor),
-          });
-        }
-      }
-    },
-    ...config,
-  });
 
   return (
     <>
@@ -394,7 +342,6 @@ function Menu() {
                 {!searchBar && (
                   <>
                     <div
-                      {...newHandlers}
                       id="sticky"
                       className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
                       style={{
@@ -404,10 +351,7 @@ function Menu() {
                     >
                       {/* the actual buttons */}
                       {true && (
-                        <DragDropContext
-                          onDragStart={catDragStart}
-                          onDragEnd={onDragEnd}
-                        >
+                        <DragDropContext onDragEnd={onDragEnd}>
                           <Droppable
                             droppableId="droppable"
                             direction="horizontal"

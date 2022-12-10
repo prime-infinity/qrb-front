@@ -13,7 +13,6 @@ import {
 import { getAuth, setAuth } from "./redux/slices/authSlice";
 import { getRestOfOwner } from "./helpers/web";
 import { removeFromLocal } from "./helpers/storage";
-import "inobounce";
 import { useSwipeable } from "react-swipeable";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
