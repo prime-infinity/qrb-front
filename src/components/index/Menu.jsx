@@ -590,24 +590,17 @@ function Menu() {
                   }
                   className="col-12 mb-2 mw-100"
                 >
-                  <div className="row" id="menus-cont">
+                  <div
+                    style={{ overflowY: "scroll" }}
+                    className="row"
+                    id="menus-cont"
+                  >
                     <Accordion>
                       {rest?.categories?.length > 0 &&
                         rest.categories?.map(
                           (cat) =>
                             modifyView(cat) && (
-                              <InView
-                                as="div"
-                                key={cat._id}
-                                onChange={(inView) =>
-                                  lockOnTarget({
-                                    is: inView,
-                                    main: cat._id,
-                                    name: cat.name,
-                                  })
-                                }
-                                threshold={1}
-                              >
+                              <div key={cat._id}>
                                 <DragDropContext
                                   onDragStart={menDragStart}
                                   onDragEnd={onItemDragEnd}
@@ -849,7 +842,7 @@ function Menu() {
                                     )}
                                   </Droppable>
                                 </DragDropContext>
-                              </InView>
+                              </div>
                             )
                         )}
                     </Accordion>

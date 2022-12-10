@@ -30,15 +30,15 @@ function App() {
   const authConfam = useSelector((state) => state.auth.authConfam);
   const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
   const isDragMen = useSelector((state) => state.menu.isDragMen);
-  const [scrollPx, setScrollPx] = useState(0);
+  //const [scrollPx, setScrollPx] = useState(0);
   const [openMen, setOpenMen] = useState(false);
-  const scrollFactor = 450;
-  const doneDown = () => {
+  //const scrollFactor = 450;
+  /*const doneDown = () => {
     setScrollPx(scrollPx - scrollFactor);
   };
   const doneUp = () => {
     setScrollPx(scrollPx + scrollFactor);
-  };
+  };*/
   useEffect(() => {
     if (!isScrolGsap) {
     }
