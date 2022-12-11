@@ -30,8 +30,6 @@ function Menu() {
   const authState = useSelector((state) => state.auth.auth);
   const scrollToMain = useSelector((state) => state.menu.scrollToMain);
   const [redrng, setRedrng] = useState(false);
-  // eslint-disable-next-line
-  const [lockHori, setHLock] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pbTrue());
