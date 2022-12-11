@@ -20,6 +20,7 @@ function MenuHeader() {
   const [catPend, setCatPend] = useState(false);
 
   const isEditnMenu = useSelector((state) => state.menu.isEditnMenu);
+  // eslint-disable-next-line
   const [getRef, setRef] = useDynamicRefs();
 
   const isAdmin = () => {

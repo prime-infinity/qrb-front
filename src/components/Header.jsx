@@ -31,7 +31,6 @@ function Header({ openMen, closeMen }) {
   );
   const menuFade = useSelector((state) => state.menu.menuFade);
   const menuSlideInited = useSelector((state) => state.menu.menuSlideInited);
-  const pad = useSelector((state) => state.menu.pb);
   const viewMode = useSelector((state) => state.menu.view);
   //const authState = useSelector((state) => state.auth.auth);
   const searchBar = useSelector((state) => state.menu.searchBar);

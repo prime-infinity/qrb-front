@@ -17,11 +17,7 @@ import ItemsBottom from "../../ui/ItemsBottom";
 import { toggleOverlay } from "../../redux/slices/menuSlice";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import {
-  addMainCateogory,
-  changeMainCateogoryName,
-  rearngCat,
-} from "../../helpers/web";
+import { changeMainCateogoryName, rearngCat } from "../../helpers/web";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
@@ -55,12 +51,8 @@ function Menu() {
     }, 300);
   }, []);
 
-  const [addingCat, setAddingCat] = useState(false);
-  const [catText, setCatText] = useState("");
-  const [catErrs, setCatErrs] = useState(null);
   const [ctNmErs, setCatNmErr] = useState({ id: null, mes: "" });
   const [ctPen, setCtPnd] = useState(null);
-  const [catPend, setCatPend] = useState(false);
   const [getRef, setRef] = useDynamicRefs();
   const [editnCat, setEditnCat] = useState({
     id: null,
