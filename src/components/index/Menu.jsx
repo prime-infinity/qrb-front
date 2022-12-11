@@ -26,7 +26,6 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
   const rest = useSelector((state) => state.rest.rest);
-  const searchBar = useSelector((state) => state.menu.searchBar);
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
   const scrollToMain = useSelector((state) => state.menu.scrollToMain);
@@ -68,15 +67,6 @@ function Menu() {
       : false;
   };
 
-  /*const toggleAddCat = () => {
-    setCatErrs(null);
-
-    addingCat ? setAddingCat(false) : setAddingCat(true);
-
-    if (addingCat) {
-      setCatText("");
-    }
-  };*/
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
     setRedrng(false);
@@ -84,24 +74,6 @@ function Menu() {
       dispatch(toggleOverlay(false));
     }, 400);
   };
-
-  //const lockOnTarget = (data) => {
-  // eslint-disable-next-line
-  //let { is, main, name } = data;
-  //if (is && !lockHori) {
-  //console.log(name);
-  /*let scrollTo = getRef(main + "main_button");
-      gsap.to("#new-sticky", {
-        duration: 1.5,
-        scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
-      });*/
-  //}
-  //};
-
-  /*const isDoneSub = () => {
-    console.log("done");
-    setHLock(false);
-  };*/
 
   const isDoneGsapScr = () => {
     console.log("done,scrol main");
@@ -125,29 +97,7 @@ function Menu() {
     };
     // eslint-disable-next-line
   }, [scrollToMain]);
-  /*const setAddCatText = (e) => {
-    setCatText(e.target.value.toLowerCase());
-    gsap.to("#cat_input", {
-      duration: 0.5,
-      width: 4 + catText.length + "ch",
-    });
-  };*/
-  /*const addCat = () => {
-    setCatErrs(null);
-    setCatPend(true);
-    addMainCateogory({ name: catText, restid: rest._id }, authState.token)
-      .then((res) => {
-        dispatch(setRest(res));
-        setCatPend(false);
-        toggleAddCat();
-      })
-      .catch((err) => {
-        setCatPend(false);
-        err.response?.data
-          ? setCatErrs(err.response.data)
-          : setCatErrs(err.message);
-      });
-  };*/
+
   const showCatOpt = (id, name) => {
     if (isAdmin()) {
       if (authState?._id === rest.user) {
@@ -211,12 +161,7 @@ function Menu() {
       }
     }
   };
-  /*const reOrder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };*/
+
   const reOrderMenu = (list, catt, startIndex, endIndex) => {
     const result = Array.from(list);
     const cat = result.filter((cat) => cat._id === catt);
@@ -234,43 +179,12 @@ function Menu() {
         : cat
     );
   };
-  /*const onDragEnd = (e) => {
-    // dropped outside the list
-    if (!e.destination) {
-      return;
-    }
-    //its coming from e.source, its going to e.destination
-    let startIndex = e.source.index;
-    let endIndex = e.destination.index;
 
-    if (startIndex !== endIndex) {
-      console.log("will update");
-      const newItems = reOrder(rest.categories, startIndex, endIndex);
-      dispatch(resetRestCatOrder(newItems));
-      if (authState?._id === rest.user) {
-        rearngCat({ data: newItems, restId: rest._id }, authState.token)
-          .then((res) => console.log("done rearranging"))
-          .catch((err) => console.log("error rearranging", err));
-      }
-    }
-  };*/
-
-  /*const getItemStyle = (isDragging, draggableStyle) => ({
-    background: isDragging ? "grey" : "",
-    width: "fit-content",
-    minWidth: "fit-content",
-    // styles we need to apply on draggables
-    ...draggableStyle,
-  });*/
   const getListItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging && "#f6f4f2",
     ...draggableStyle,
   });
-  /*const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? "#edecec" : "",
-    display: "flex",
-    overflow: "auto",
-  });*/
+
   const getMenuListStyle = (isDraggingOver) => ({
     marginBottom: isDraggingOver ? "10%" : "",
     paddingBottom: isDraggingOver ? "30%" : "",
@@ -337,240 +251,6 @@ function Menu() {
         )}
         <div className="row pt-5">
           <div className="col-12">
-            {/** head button part */}
-            {false && (
-              <div className="row ">
-                <div className="col-12">
-                  {!searchBar && (
-                    <>
-                      <div
-                        id="sticky"
-                        className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
-                        style={{
-                          paddingBottom: "0.6rem",
-                          paddingRight: "2px",
-                        }}
-                      >
-                        {/* the actual buttons */}
-                        {/*true && (
-                          <DragDropContext onDragEnd={onDragEnd}>
-                            <Droppable
-                              droppableId="droppable"
-                              direction="horizontal"
-                            >
-                              {(provided, snapshot) => (
-                                <>
-                                  <div
-                                    ref={provided.innerRef}
-                                    style={getListStyle(
-                                      snapshot.isDraggingOver
-                                    )}
-                                    {...provided.droppableProps}
-                                    className="scroll-div"
-                                    id="new-sticky"
-                                  >
-                                    {rest.categories?.map((cat, index) => (
-                                      <Draggable
-                                        key={cat._id.toString()}
-                                        draggableId={cat._id.toString()}
-                                        index={index}
-                                        isDragDisabled={
-                                          isAdmin() ? false : true
-                                        }
-                                      >
-                                        {(provided, snapshot) => (
-                                          <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                              snapshot.isDragging,
-                                              provided.draggableProps.style
-                                            )}
-                                            className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
-                                            onClick={() =>
-                                              scrollToMainCatGsap(cat._id)
-                                            }
-                                          >
-                                            <span
-                                              ref={setRef(
-                                                cat._id + "main_button"
-                                              )}
-                                              className={cat.name}
-                                            >
-                                              {cat.name}
-                                            </span>
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                    {isAdmin() && (
-                                      <div
-                                        className={`pe-3 d-flex`}
-                                        style={{
-                                          width: "max-content",
-                                          position: "relative",
-                                        }}
-                                      >
-                                        {addingCat ? (
-                                          <input
-                                            ref={setRef("cat_input")}
-                                            id="cat_input"
-                                            value={catText}
-                                            autoFocus
-                                            onChange={setAddCatText}
-                                            className="cat-input fs-14 ps-3"
-                                            type="text"
-                                          />
-                                        ) : !addingCat ? (
-                                          <button
-                                            onClick={toggleAddCat}
-                                            className="btn fs-14 bg-them text-white cat-button"
-                                          >
-                                            <span style={{ display: "flex" }}>
-                                              <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={2.5}
-                                                stroke="currentColor"
-                                                className="svg-icon"
-                                              >
-                                                <path
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  d="M12 4.5v15m7.5-7.5h-15"
-                                                />
-                                              </svg>
-                                            </span>
-                                          </button>
-                                        ) : null}
-
-                                        <span
-                                          className={`d-ani-med`}
-                                          style={{
-                                            position: "absolute",
-                                            display: "flex",
-                                            opacity: addingCat ? "1" : "0%",
-                                            left: addingCat ? "100%" : "-100%",
-                                          }}
-                                        >
-                                          {catPend ? (
-                                            <span className="me-2 border-black cat-button">
-                                              <span
-                                                className="spinner-border spinner-border-sm"
-                                                role="status"
-                                                aria-hidden="true"
-                                              ></span>
-                                            </span>
-                                          ) : (
-                                            <button
-                                              onClick={addCat}
-                                              className="btn fs-14 me-2 border-black cat-button"
-                                            >
-                                              <span style={{ display: "flex" }}>
-                                                <svg
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                  fill="none"
-                                                  viewBox="0 0 24 24"
-                                                  strokeWidth={2.5}
-                                                  stroke="currentColor"
-                                                  className="svg-icon"
-                                                >
-                                                  <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M4.5 12.75l6 6 9-13.5"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          )}
-
-                                          {!catPend && (
-                                            <button
-                                              disabled={catPend}
-                                              onClick={toggleAddCat}
-                                              className="btn fs-14 border-black cat-button"
-                                            >
-                                              <span style={{ display: "flex" }}>
-                                                <svg
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                  fill="none"
-                                                  viewBox="0 0 24 24"
-                                                  strokeWidth={2.5}
-                                                  stroke="currentColor"
-                                                  className="svg-icon"
-                                                >
-                                                  <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M6 18L18 6M6 6l12 12"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          )}
-                                          <span
-                                            className="text-danger fs-14 ps-2 d-flex"
-                                            style={{
-                                              width: "max-content",
-                                              alignItems: "center",
-                                            }}
-                                          >
-                                            {catErrs && catErrs}
-                                          </span>
-                                        </span>
-                                      </div>
-                                    )}
-                                    {rest?.categories?.length < 1 &&
-                                      isAdmin() && (
-                                        <>
-                                          <div
-                                            className="d-ani"
-                                            style={{
-                                              display: "flex",
-                                              alignItems: "center",
-                                              position: "relative",
-                                              left: addingCat ? "100%" : "0%",
-                                            }}
-                                          >
-                                            <span className="lr-ani">
-                                              <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                style={{ width: "25px" }}
-                                              >
-                                                <path
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                                />
-                                              </svg>
-                                            </span>
-                                            <span className="ms-3">
-                                              categories
-                                            </span>
-                                          </div>
-                                        </>
-                                      )}
-                                  </div>
-                                </>
-                              )}
-                            </Droppable>
-                          </DragDropContext>
-                                          )*/}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-
             {/** menu part */}
             <div className="row mt-4">
               {/** the menuss */}
