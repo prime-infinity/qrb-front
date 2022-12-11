@@ -118,8 +118,8 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
     }
   };
   return (
-    <div ref={setRef(item._id)} className="row px-0 justify-content-center">
-      <div className={`col-11 menu-border ${place !== length - 1 && "mb-08"}`}>
+    <div ref={setRef(item._id)} className=" px-0 justify-content-center">
+      <div className={` menu-border ${place !== length - 1 && "mb-08"}`}>
         {itemToEdit?.item._id !== item._id && (
           <CustomToggle
             eventKey={item.name}
@@ -132,7 +132,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
         {isHere() && (
           <div
             style={{ height: isHere() ? "124px" : "0px" }}
-            className="row  d-ani border-left-right border-bottom-drk"
+            className=" d-ani border-left-right border-bottom-drk"
           >
             <div
               style={{
@@ -182,7 +182,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                   className="col-12 text-end"
                   style={{
                     position: "absolute",
-                    bottom: "6%",
+                    /*bottom: "6%",*/
                     right: "0%",
                     display: isPending && "flex",
                     alignItems: "center",
@@ -265,7 +265,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
         )}
 
         {itemToEdit?.item._id !== item._id && (
-          <div className={`row border-left-right border-bottom-drk`}>
+          <div className={` border-left-right border-bottom-drk`}>
             <div className="col-12 p-0 ">
               <Accordion.Collapse eventKey={item.name}>
                 <Slider {...settings}>
@@ -289,7 +289,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
               overflowX: "scroll",
               position: "relative",
             }}
-            className="row flex-nowrap d-flex border-left-right border-bottom-drk"
+            className=" flex-nowrap d-flex border-left-right border-bottom-drk"
           >
             {isHere() && (
               <ImageUploading

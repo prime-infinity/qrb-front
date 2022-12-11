@@ -43,7 +43,6 @@ select {
   position: fixed;
   width: 100%;
   z-index: 2;
-  /*height: 7%;*/
 }
 .mobile-menu {
   background-color: #f6f4f2;

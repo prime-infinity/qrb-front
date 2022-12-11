@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 //import _ from "lodash";
 import useDynamicRefs from "use-dynamic-refs";
-import { InView } from "react-intersection-observer";
+//import { InView } from "react-intersection-observer";
 import {
   pbFalse,
   pbTrue,
   setIsDragMen,
+  setScrollToMain,
   toggleAddingCat,
 } from "../../redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,7 @@ function Menu() {
   const searchBar = useSelector((state) => state.menu.searchBar);
   const overlay = useSelector((state) => state.menu.overlay);
   const authState = useSelector((state) => state.auth.auth);
+  const scrollToMain = useSelector((state) => state.menu.scrollToMain);
   const [redrng, setRedrng] = useState(false);
   // eslint-disable-next-line
   const [lockHori, setHLock] = useState(true);
@@ -74,7 +76,7 @@ function Menu() {
       : false;
   };
 
-  const toggleAddCat = () => {
+  /*const toggleAddCat = () => {
     setCatErrs(null);
 
     addingCat ? setAddingCat(false) : setAddingCat(true);
@@ -82,7 +84,7 @@ function Menu() {
     if (addingCat) {
       setCatText("");
     }
-  };
+  };*/
   const closeOverlay = () => {
     dispatch(toggleAddingCat(false));
     setRedrng(false);
@@ -91,18 +93,18 @@ function Menu() {
     }, 400);
   };
 
-  const lockOnTarget = (data) => {
-    // eslint-disable-next-line
-    let { is, main, name } = data;
-    if (is && !lockHori) {
-      //console.log(name);
-      /*let scrollTo = getRef(main + "main_button");
+  //const lockOnTarget = (data) => {
+  // eslint-disable-next-line
+  //let { is, main, name } = data;
+  //if (is && !lockHori) {
+  //console.log(name);
+  /*let scrollTo = getRef(main + "main_button");
       gsap.to("#new-sticky", {
         duration: 1.5,
         scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
       });*/
-    }
-  };
+  //}
+  //};
 
   /*const isDoneSub = () => {
     console.log("done");
@@ -115,8 +117,6 @@ function Menu() {
   };
 
   const scrollToMainCatGsap = (id) => {
-    //dispatch(setIsScrolGsap(true));
-    //setHLock(true);
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
       duration: 0.5,
@@ -124,14 +124,23 @@ function Menu() {
       onComplete: isDoneGsapScr,
     });
   };
-  const setAddCatText = (e) => {
+  useEffect(() => {
+    if (scrollToMain) {
+      scrollToMainCatGsap(scrollToMain);
+    }
+    return () => {
+      dispatch(setScrollToMain(null));
+    };
+    // eslint-disable-next-line
+  }, [scrollToMain]);
+  /*const setAddCatText = (e) => {
     setCatText(e.target.value.toLowerCase());
     gsap.to("#cat_input", {
       duration: 0.5,
       width: 4 + catText.length + "ch",
     });
-  };
-  const addCat = () => {
+  };*/
+  /*const addCat = () => {
     setCatErrs(null);
     setCatPend(true);
     addMainCateogory({ name: catText, restid: rest._id }, authState.token)
@@ -146,7 +155,7 @@ function Menu() {
           ? setCatErrs(err.response.data)
           : setCatErrs(err.message);
       });
-  };
+  };*/
   const showCatOpt = (id, name) => {
     if (isAdmin()) {
       if (authState?._id === rest.user) {
@@ -210,12 +219,12 @@ function Menu() {
       }
     }
   };
-  const reOrder = (list, startIndex, endIndex) => {
+  /*const reOrder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
-  };
+  };*/
   const reOrderMenu = (list, catt, startIndex, endIndex) => {
     const result = Array.from(list);
     const cat = result.filter((cat) => cat._id === catt);
@@ -233,7 +242,7 @@ function Menu() {
         : cat
     );
   };
-  const onDragEnd = (e) => {
+  /*const onDragEnd = (e) => {
     // dropped outside the list
     if (!e.destination) {
       return;
@@ -252,24 +261,24 @@ function Menu() {
           .catch((err) => console.log("error rearranging", err));
       }
     }
-  };
+  };*/
 
-  const getItemStyle = (isDragging, draggableStyle) => ({
+  /*const getItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging ? "grey" : "",
     width: "fit-content",
     minWidth: "fit-content",
     // styles we need to apply on draggables
     ...draggableStyle,
-  });
+  });*/
   const getListItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging && "#f6f4f2",
     ...draggableStyle,
   });
-  const getListStyle = (isDraggingOver) => ({
+  /*const getListStyle = (isDraggingOver) => ({
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
-  });
+  });*/
   const getMenuListStyle = (isDraggingOver) => ({
     marginBottom: isDraggingOver ? "10%" : "",
     paddingBottom: isDraggingOver ? "30%" : "",
@@ -337,156 +346,95 @@ function Menu() {
         <div className="row pt-5">
           <div className="col-12">
             {/** head button part */}
-            <div className="row ">
-              <div className="col-12">
-                {!searchBar && (
-                  <>
-                    <div
-                      id="sticky"
-                      className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
-                      style={{
-                        paddingBottom: "0.6rem",
-                        paddingRight: "2px",
-                      }}
-                    >
-                      {/* the actual buttons */}
-                      {true && (
-                        <DragDropContext onDragEnd={onDragEnd}>
-                          <Droppable
-                            droppableId="droppable"
-                            direction="horizontal"
-                          >
-                            {(provided, snapshot) => (
-                              <>
-                                <div
-                                  ref={provided.innerRef}
-                                  style={getListStyle(snapshot.isDraggingOver)}
-                                  {...provided.droppableProps}
-                                  className="scroll-div"
-                                  id="new-sticky"
-                                >
-                                  {rest.categories?.map((cat, index) => (
-                                    <Draggable
-                                      key={cat._id.toString()}
-                                      draggableId={cat._id.toString()}
-                                      index={index}
-                                      isDragDisabled={isAdmin() ? false : true}
-                                    >
-                                      {(provided, snapshot) => (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                          style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                          )}
-                                          className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
-                                          onClick={() =>
-                                            scrollToMainCatGsap(cat._id)
-                                          }
-                                        >
-                                          <span
-                                            ref={setRef(
-                                              cat._id + "main_button"
+            {false && (
+              <div className="row ">
+                <div className="col-12">
+                  {!searchBar && (
+                    <>
+                      <div
+                        id="sticky"
+                        className="row mx-1-plus-some g-0 flex-nowrap scroll-div sticky"
+                        style={{
+                          paddingBottom: "0.6rem",
+                          paddingRight: "2px",
+                        }}
+                      >
+                        {/* the actual buttons */}
+                        {/*true && (
+                          <DragDropContext onDragEnd={onDragEnd}>
+                            <Droppable
+                              droppableId="droppable"
+                              direction="horizontal"
+                            >
+                              {(provided, snapshot) => (
+                                <>
+                                  <div
+                                    ref={provided.innerRef}
+                                    style={getListStyle(
+                                      snapshot.isDraggingOver
+                                    )}
+                                    {...provided.droppableProps}
+                                    className="scroll-div"
+                                    id="new-sticky"
+                                  >
+                                    {rest.categories?.map((cat, index) => (
+                                      <Draggable
+                                        key={cat._id.toString()}
+                                        draggableId={cat._id.toString()}
+                                        index={index}
+                                        isDragDisabled={
+                                          isAdmin() ? false : true
+                                        }
+                                      >
+                                        {(provided, snapshot) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            style={getItemStyle(
+                                              snapshot.isDragging,
+                                              provided.draggableProps.style
                                             )}
-                                            className={cat.name}
+                                            className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
+                                            onClick={() =>
+                                              scrollToMainCatGsap(cat._id)
+                                            }
                                           >
-                                            {cat.name}
-                                          </span>
-                                        </div>
-                                      )}
-                                    </Draggable>
-                                  ))}
-                                  {provided.placeholder}
-                                  {isAdmin() && (
-                                    <div
-                                      className={`pe-3 d-flex`}
-                                      style={{
-                                        width: "max-content",
-                                        position: "relative",
-                                      }}
-                                    >
-                                      {addingCat ? (
-                                        <input
-                                          ref={setRef("cat_input")}
-                                          id="cat_input"
-                                          value={catText}
-                                          autoFocus
-                                          onChange={setAddCatText}
-                                          className="cat-input fs-14 ps-3"
-                                          type="text"
-                                        />
-                                      ) : !addingCat ? (
-                                        <button
-                                          onClick={toggleAddCat}
-                                          className="btn fs-14 bg-them text-white cat-button"
-                                        >
-                                          <span style={{ display: "flex" }}>
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                              strokeWidth={2.5}
-                                              stroke="currentColor"
-                                              className="svg-icon"
+                                            <span
+                                              ref={setRef(
+                                                cat._id + "main_button"
+                                              )}
+                                              className={cat.name}
                                             >
-                                              <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M12 4.5v15m7.5-7.5h-15"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      ) : null}
-
-                                      <span
-                                        className={`d-ani-med`}
+                                              {cat.name}
+                                            </span>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                    {isAdmin() && (
+                                      <div
+                                        className={`pe-3 d-flex`}
                                         style={{
-                                          position: "absolute",
-                                          display: "flex",
-                                          opacity: addingCat ? "1" : "0%",
-                                          left: addingCat ? "100%" : "-100%",
+                                          width: "max-content",
+                                          position: "relative",
                                         }}
                                       >
-                                        {catPend ? (
-                                          <span className="me-2 border-black cat-button">
-                                            <span
-                                              className="spinner-border spinner-border-sm"
-                                              role="status"
-                                              aria-hidden="true"
-                                            ></span>
-                                          </span>
-                                        ) : (
+                                        {addingCat ? (
+                                          <input
+                                            ref={setRef("cat_input")}
+                                            id="cat_input"
+                                            value={catText}
+                                            autoFocus
+                                            onChange={setAddCatText}
+                                            className="cat-input fs-14 ps-3"
+                                            type="text"
+                                          />
+                                        ) : !addingCat ? (
                                           <button
-                                            onClick={addCat}
-                                            className="btn fs-14 me-2 border-black cat-button"
-                                          >
-                                            <span style={{ display: "flex" }}>
-                                              <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={2.5}
-                                                stroke="currentColor"
-                                                className="svg-icon"
-                                              >
-                                                <path
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  d="M4.5 12.75l6 6 9-13.5"
-                                                />
-                                              </svg>
-                                            </span>
-                                          </button>
-                                        )}
-
-                                        {!catPend && (
-                                          <button
-                                            disabled={catPend}
                                             onClick={toggleAddCat}
-                                            className="btn fs-14 border-black cat-button"
+                                            className="btn fs-14 bg-them text-white cat-button"
                                           >
                                             <span style={{ display: "flex" }}>
                                               <svg
@@ -500,96 +448,142 @@ function Menu() {
                                                 <path
                                                   strokeLinecap="round"
                                                   strokeLinejoin="round"
-                                                  d="M6 18L18 6M6 6l12 12"
+                                                  d="M12 4.5v15m7.5-7.5h-15"
                                                 />
                                               </svg>
                                             </span>
                                           </button>
-                                        )}
+                                        ) : null}
+
                                         <span
-                                          className="text-danger fs-14 ps-2 d-flex"
+                                          className={`d-ani-med`}
                                           style={{
-                                            width: "max-content",
-                                            alignItems: "center",
-                                          }}
-                                        >
-                                          {catErrs && catErrs}
-                                        </span>
-                                      </span>
-                                    </div>
-                                  )}
-                                  {rest?.categories?.length < 1 &&
-                                    isAdmin() && (
-                                      <>
-                                        <div
-                                          className="d-ani"
-                                          style={{
+                                            position: "absolute",
                                             display: "flex",
-                                            alignItems: "center",
-                                            position: "relative",
-                                            left: addingCat ? "100%" : "0%",
+                                            opacity: addingCat ? "1" : "0%",
+                                            left: addingCat ? "100%" : "-100%",
                                           }}
                                         >
-                                          <span className="lr-ani">
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                              strokeWidth={1.5}
-                                              stroke="currentColor"
-                                              style={{ width: "25px" }}
+                                          {catPend ? (
+                                            <span className="me-2 border-black cat-button">
+                                              <span
+                                                className="spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                              ></span>
+                                            </span>
+                                          ) : (
+                                            <button
+                                              onClick={addCat}
+                                              className="btn fs-14 me-2 border-black cat-button"
                                             >
-                                              <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                                              />
-                                            </svg>
+                                              <span style={{ display: "flex" }}>
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  fill="none"
+                                                  viewBox="0 0 24 24"
+                                                  strokeWidth={2.5}
+                                                  stroke="currentColor"
+                                                  className="svg-icon"
+                                                >
+                                                  <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M4.5 12.75l6 6 9-13.5"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </button>
+                                          )}
+
+                                          {!catPend && (
+                                            <button
+                                              disabled={catPend}
+                                              onClick={toggleAddCat}
+                                              className="btn fs-14 border-black cat-button"
+                                            >
+                                              <span style={{ display: "flex" }}>
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  fill="none"
+                                                  viewBox="0 0 24 24"
+                                                  strokeWidth={2.5}
+                                                  stroke="currentColor"
+                                                  className="svg-icon"
+                                                >
+                                                  <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </button>
+                                          )}
+                                          <span
+                                            className="text-danger fs-14 ps-2 d-flex"
+                                            style={{
+                                              width: "max-content",
+                                              alignItems: "center",
+                                            }}
+                                          >
+                                            {catErrs && catErrs}
                                           </span>
-                                          <span className="ms-3">
-                                            categories
-                                          </span>
-                                        </div>
-                                      </>
+                                        </span>
+                                      </div>
                                     )}
-                                </div>
-                              </>
-                            )}
-                          </Droppable>
-                        </DragDropContext>
-                      )}
-                    </div>
-                    <div
-                      style={{
-                        position: "fixed",
-                        width: "100%",
-                        zIndex: "3",
-                        marginTop: "14px",
-                      }}
-                      className="row justify-content-center"
-                    >
-                      <div
-                        style={{ borderBottom: "1px solid black" }}
-                        className="col-11 big-bg-theme"
-                      ></div>
-                    </div>
-                  </>
-                )}
+                                    {rest?.categories?.length < 1 &&
+                                      isAdmin() && (
+                                        <>
+                                          <div
+                                            className="d-ani"
+                                            style={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              position: "relative",
+                                              left: addingCat ? "100%" : "0%",
+                                            }}
+                                          >
+                                            <span className="lr-ani">
+                                              <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                style={{ width: "25px" }}
+                                              >
+                                                <path
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                                                />
+                                              </svg>
+                                            </span>
+                                            <span className="ms-3">
+                                              categories
+                                            </span>
+                                          </div>
+                                        </>
+                                      )}
+                                  </div>
+                                </>
+                              )}
+                            </Droppable>
+                          </DragDropContext>
+                                          )*/}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/** menu part */}
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div
-                  style={
-                    {
-                      /* overflowY: "scroll"*/
-                    }
-                  }
-                  className="col-12 mb-2 mw-100"
-                >
+                <div className="col-12 mb-2 mw-100">
                   <div
                     style={{ overflowY: "scroll" }}
                     className="row"
@@ -600,7 +594,7 @@ function Menu() {
                         rest.categories?.map(
                           (cat) =>
                             modifyView(cat) && (
-                              <div key={cat._id}>
+                              <div className="" key={cat._id}>
                                 <DragDropContext
                                   onDragStart={menDragStart}
                                   onDragEnd={onItemDragEnd}
@@ -625,7 +619,7 @@ function Menu() {
                                                 ref={setRef(
                                                   cat._id + "main_menu_span"
                                                 )}
-                                                className="row px-0 justify-content-center"
+                                                className=" px-0 justify-content-center"
                                                 id={cat._id + "main_menu_span"}
                                               >
                                                 <div

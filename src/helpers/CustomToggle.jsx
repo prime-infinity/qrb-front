@@ -46,7 +46,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
         </>
       )}
       <div
-        className={`row border-left-right ${
+        className={` border-left-right ${
           isCurrentEventKey && "border-bottom-drk"
         }`}
         onClick={() => decoratedOnClick(item.name)}
