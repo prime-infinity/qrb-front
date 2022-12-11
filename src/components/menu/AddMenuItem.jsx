@@ -101,7 +101,7 @@ function AddMenuItem({ details }) {
   return (
     <div
       className={`px-0 justify-content-center ${
-        details?.menu?.length > 0 ? "mt-3" : ""
+        details?.menu?.length > 0 ? "mt-4" : ""
       }`}
     >
       <div
@@ -413,10 +413,7 @@ function AddMenuItem({ details }) {
       )}
       {/** is uploading */}
       {isUpldni === details._id && (
-        <div
-          className="col-11 px-0"
-          style={{ display: "flex", position: "relative" }}
-        >
+        <div className="px-0" style={{ display: "flex", position: "relative" }}>
           <button
             style={{ justifyContent: "center" }}
             className="btn w-100 br-0 py-2 d-flex border-black"
