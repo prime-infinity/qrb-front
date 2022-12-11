@@ -100,17 +100,17 @@ function AddMenuItem({ details }) {
   };
   return (
     <div
-      className={`row px-0 justify-content-center ${
+      className={`px-0 justify-content-center ${
         details?.menu?.length > 0 ? "mt-3" : ""
       }`}
     >
       <div
         style={{ opacity: isHere() ? "1" : "0" }}
-        className={`col-11 d-ani menu-border ${isHere() ? "mb-08" : "mb-n-08"}`}
+        className={`d-ani menu-border ${isHere() ? "mb-08" : "mb-n-08"}`}
       >
         <div
           style={{ height: isHere() ? "124px" : "0px" }}
-          className="row d-ani border-left-right border-bottom-drk"
+          className="d-ani border-left-right border-bottom-drk"
         >
           <div
             style={{
@@ -195,7 +195,7 @@ function AddMenuItem({ details }) {
             overflowX: "scroll",
             position: "relative",
           }}
-          className="row flex-nowrap d-flex border-left-right border-bottom-drk"
+          className=" flex-nowrap d-flex border-left-right border-bottom-drk"
         >
           {isHere() && (
             <ImageUploading
@@ -303,7 +303,7 @@ function AddMenuItem({ details }) {
       {/** is not uploading */}
       {isUpldni !== details._id && (
         <div
-          className="col-11 px-0"
+          className=" px-0"
           style={{ display: "flex", position: "relative" }}
         >
           <button

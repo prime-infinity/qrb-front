@@ -825,7 +825,7 @@ function Menu() {
                                             {/** upload menu part */}
                                             {isAdmin() &&
                                               !snapshot.isDraggingOver && (
-                                                <div>
+                                                <div className="">
                                                   <AddMenuItem details={cat} />
                                                 </div>
                                               )}

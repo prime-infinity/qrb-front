@@ -195,7 +195,10 @@ function MenuHeader() {
                       }}
                     >
                       {catPend ? (
-                        <span className="me-2 border-black cat-button">
+                        <span
+                          style={{ width: "fit-content" }}
+                          className="me-2 border-black cat-button"
+                        >
                           <span
                             className="spinner-border spinner-border-sm"
                             role="status"
