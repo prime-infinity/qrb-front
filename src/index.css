@@ -427,6 +427,42 @@ span.cat-icon img {
   height: 128px !important;
 }
 
+.new-cat-right h4{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0;
+  color: #000000;
+  /*margin-bottom: 5px;*/
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}
+.new-cat-right > p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4c4e50;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.new-cat-right > span {
+  display: flex;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4c4e50;
+  min-height: 32px;
+  align-items: flex-end;
+  padding-bottom: 5px;
+}
 .cat-right {
   text-align: left;
   padding: 12px;

@@ -104,14 +104,17 @@ function AddMenuItem({ details }) {
         details?.menu?.length > 0 ? "mt-4" : ""
       }`}
     >
+      {/** in here */}
       <div
         style={{ opacity: isHere() ? "1" : "0" }}
         className={`d-ani menu-border ${isHere() ? "mb-08" : "mb-n-08"}`}
       >
+        {/** in below */}
         <div
           style={{ height: isHere() ? "124px" : "0px" }}
           className="d-ani border-left-right border-bottom-drk"
         >
+          {/** in below */}
           <div
             style={{
               opacity: isHere() ? "1" : "0",
@@ -120,11 +123,13 @@ function AddMenuItem({ details }) {
             }}
             className="m-cat d-ani ps-0 pe-0"
           >
+            {/** in below */}
             <div className="m-cat-head">
-              <div className=" cat-right ">
+              {/** this very below */}
+              <div style={{ width: "100%" }} className="d-flex new-cat-right">
                 <div
-                  style={{ justifyContent: "space-between" }}
-                  className="cat-head d-flex"
+                  style={{ justifyContent: "space-between", width: "100%" }}
+                  className="cat-head  px-3 d-flex"
                 >
                   {isEditn() ? (
                     <input
@@ -167,29 +172,11 @@ function AddMenuItem({ details }) {
                     </span>
                   )}
                 </div>
-                {isEditn() ? (
-                  <textarea
-                    onChange={setDesc}
-                    value={editnMen.description}
-                    style={{ marginTop: "3%" }}
-                    type="text"
-                    placeholder="description"
-                    className="cat-name-input big-bg-theme fs-14 ps-2"
-                  />
-                ) : (
-                  <p
-                    onClick={strEdit}
-                    className="text-secondary text-decoration-underline"
-                  >
-                    {editnMen?.description?.length > 0 && editnMen?.isSet
-                      ? editnMen.description
-                      : "description"}
-                  </p>
-                )}
               </div>
             </div>
           </div>
         </div>
+        {/** not below */}
         <div
           style={{
             height: isHere() ? "368px" : "0px",
