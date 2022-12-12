@@ -255,7 +255,10 @@ function Menu() {
               {true && (
                 <div className="col-12 mb-2 mw-100">
                   <div
-                    style={{ overflowY: "scroll" }}
+                    style={{
+                      overflowY: "scroll",
+                      /*overscrollBehavior: "none",*/
+                    }}
                     className="row"
                     id="menus-cont"
                   >
