@@ -129,7 +129,7 @@ function AddMenuItem({ details }) {
               <div style={{ width: "100%" }} className="d-flex new-cat-right">
                 <div
                   style={{ justifyContent: "space-between", width: "100%" }}
-                  className="cat-head  px-3 d-flex"
+                  className="cat-head  px-3 pt-3 d-flex"
                 >
                   {isEditn() ? (
                     <input
@@ -171,6 +171,27 @@ function AddMenuItem({ details }) {
                         : "$price"}
                     </span>
                   )}
+                  <div className="d-none">
+                    {isEditn() ? (
+                      <textarea
+                        onChange={setDesc}
+                        value={editnMen.description}
+                        style={{ marginTop: "3%" }}
+                        type="text"
+                        placeholder="description"
+                        className="cat-name-input big-bg-theme fs-14 ps-2"
+                      />
+                    ) : (
+                      <p
+                        onClick={strEdit}
+                        className="text-secondary text-decoration-underline"
+                      >
+                        {editnMen?.description?.length > 0 && editnMen?.isSet
+                          ? editnMen.description
+                          : "description"}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
