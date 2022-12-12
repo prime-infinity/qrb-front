@@ -138,6 +138,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
               style={{
                 opacity: isHere() ? "1" : "0",
                 position: "relative",
+                zIndex: "1",
               }}
               className="m-cat d-ani ps-0 pe-0"
             >
@@ -187,6 +188,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                     display: isPending && "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
+                    zIndex: "1",
                   }}
                 >
                   <>
@@ -357,6 +359,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                             position: "absolute",
                             right: "2%",
                             top: "3%",
+                            zIndex: "1",
                           }}
                         >
                           <svg

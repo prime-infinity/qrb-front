@@ -1,6 +1,6 @@
 import AccordionContext from "react-bootstrap/AccordionContext";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRestToEdit } from "../redux/slices/restSlice";
 import PureOverlay from "../ui/PureOverlay";
@@ -17,6 +17,11 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
     eventKey,
     () => callback && callback(eventKey)
   );
+
+  useEffect(() => {
+    dispatch(setRestToEdit(null));
+    //eslint-disable-next-line
+  }, []);
 
   const isCurrentEventKey = activeEventKey === eventKey;
 
@@ -148,7 +153,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                 <div className="row">
                   <div
                     className="col-12 text-end"
-                    style={{ position: "absolute", bottom: "6%" }}
+                    style={{ position: "absolute", bottom: "6%", zIndex: "1" }}
                   >
                     {isAdmin && (
                       <>

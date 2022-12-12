@@ -116,6 +116,7 @@ function AddMenuItem({ details }) {
             style={{
               opacity: isHere() ? "1" : "0",
               position: "relative",
+              zIndex: "1",
             }}
             className="m-cat d-ani ps-0 pe-0"
           >
@@ -255,7 +256,12 @@ function AddMenuItem({ details }) {
                       <span
                         onClick={() => onImageRemove(index)}
                         className="border-black bg-white"
-                        style={{ position: "absolute", right: "2%", top: "3%" }}
+                        style={{
+                          position: "absolute",
+                          right: "2%",
+                          top: "3%",
+                          zIndex: "1",
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -304,7 +310,7 @@ function AddMenuItem({ details }) {
       {isUpldni !== details._id && (
         <div
           className=" px-0"
-          style={{ display: "flex", position: "relative" }}
+          style={{ display: "flex", position: "relative", zIndex: "1" }}
         >
           <button
             style={{
