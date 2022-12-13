@@ -351,6 +351,8 @@ select {
   max-width: none;
   object-fit: cover;
 }
+.slick-track{
+}
 .slick-dots {
   bottom: 5% !important;
 }
@@ -408,8 +410,8 @@ span.cat-icon {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -0.2px;
-  bottom: 0;
+  top: -0.3px;
+  bottom: -0.3px;
   left: -0.2px;
   right: 0;
   
