@@ -119,7 +119,10 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
   };
   return (
     <div ref={setRef(item._id)} className=" px-0 justify-content-center">
-      <div className={` menu-border ${place !== length - 1 && "mb-08"}`}>
+      <div
+        style={{ backgroundColor: "black" }}
+        className={` menu-border ${place !== length - 1 && "mb-08"}`}
+      >
         {itemToEdit?.item._id !== item._id && (
           <CustomToggle
             eventKey={item.name}
@@ -131,7 +134,10 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
 
         {isHere() && (
           <div
-            style={{ height: isHere() ? "124px" : "0px" }}
+            style={{
+              height: isHere() ? "124px" : "0px",
+              backgroundColor: "#f6f4f2",
+            }}
             className=" d-ani border-left-right border-bottom-drk"
           >
             <div
@@ -270,21 +276,25 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
           <div className={` border-left-right border-bottom-drk`}>
             <div className="col-12 p-0 ">
               <Accordion.Collapse eventKey={item.name}>
-                {/*<img
-                  style={{ width: "100%" }}
-                  src="/images/image.jpeg"
-                  alt=""
-        />*/}
-                <Slider {...settings}>
-                  {item &&
-                    item.files.map((file, index) => (
-                      <div className="neg-mar" key={index}>
-                        <div className="sl-img">
-                          <img src={file} style={{ width: "100%" }} alt="" />
+                {/*
+                  <img
+                    style={{ width: "100%" }}
+                    src="/images/image.jpeg"
+                    alt=""
+                  />
+        */}
+                {
+                  <Slider {...settings}>
+                    {item &&
+                      item.files.map((file, index) => (
+                        <div className="neg-mar" key={index}>
+                          <div className="sl-img">
+                            <img src={file} style={{ width: "100%" }} alt="" />
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                </Slider>
+                      ))}
+                  </Slider>
+                }
               </Accordion.Collapse>
             </div>
           </div>

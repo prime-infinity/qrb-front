@@ -51,6 +51,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
         </>
       )}
       <div
+        style={{ backgroundColor: "#f6f4f2" }}
         className={` border-left-right ${
           isCurrentEventKey && "border-bottom-drk"
         }`}
@@ -185,7 +186,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                         </span>
                         <span
                           style={{
-                            padding: "3%",
+                            padding: "3% 0% 3% 3%",
                           }}
                           onClick={() =>
                             deleteMenuItem({ id: item._id, name: item.name })
