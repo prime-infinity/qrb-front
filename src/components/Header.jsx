@@ -310,8 +310,8 @@ function Header({ openMen, closeMen }) {
                       <span
                         onClick={showSearch}
                         style={{
-                          paddingRight: "1.5rem",
-                          paddingLeft: "1.8rem",
+                          marginRight: "1.8rem",
+                          marginLeft: "1.8rem",
                         }}
                       >
                         <svg
