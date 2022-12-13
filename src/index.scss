@@ -85,6 +85,7 @@ label {
   height: calc(100vw - 45px);
   position: relative;
   width: 100%;
+  
   img {
     height: 100%;
     width: 100%;
@@ -135,16 +136,8 @@ label {
 }
 .cat-head {
   position: relative;
-  //padding-right: 50px;
   .price {
-    /*position: absolute;
-    top: 0;
-    right: 0;
-    font-style: normal;
-    font-weight: 500;*/
     font-size: 14px;
-    /*line-height: 20px;*/
-    /*color: #4c4e50;*/
   }
   .avail{
     position: absolute;

@@ -60,6 +60,7 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
           <div className="m-cat-head">
             {item?.files?.length > 0 && (
               <div
+                style={{ boxSizing: "initial" }}
                 id={item.name}
                 className={`   ${viewMode && "cat-left-view"} ${
                   !isCurrentEventKey && "border-right-theme"
@@ -67,7 +68,10 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
               >
                 <span className="cat-icon">
                   <img
-                    style={{ objectFit: viewMode ? "cover" : "cover" }}
+                    style={{
+                      objectFit: viewMode ? "cover" : "cover",
+                      boxSizing: "content-box",
+                    }}
                     src={item.files[0]}
                     alt=""
                   />
