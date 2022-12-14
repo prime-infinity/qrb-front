@@ -5,7 +5,11 @@ body {
   /*overflow: hidden; /*for apple causes scrolling to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
-
+/*#root{
+  height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}*/
 input:focus,
 textarea:focus,
 select:focus {

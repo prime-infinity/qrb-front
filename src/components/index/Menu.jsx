@@ -257,6 +257,7 @@ function Menu() {
                   <div
                     style={{
                       overflowY: "scroll",
+
                       /*overscrollBehavior: "none",*/
                     }}
                     className="row"
