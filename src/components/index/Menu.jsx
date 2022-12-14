@@ -20,7 +20,6 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { changeMainCateogoryName, rearngCat } from "../../helpers/web";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
-import AddMenuItem from "../menu/AddMenuItem";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -495,15 +494,6 @@ function Menu() {
                                                 )}
                                               </Draggable>
                                             ))}
-
-                                            {/** upload menu part */}
-                                            {isAdmin() &&
-                                              !snapshot.isDraggingOver && (
-                                                <div className="">
-                                                  <AddMenuItem details={cat} />
-                                                </div>
-                                              )}
-                                            {/** end of upload menu */}
                                           </div>
                                         </div>
                                       </>

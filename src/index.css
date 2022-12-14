@@ -2,7 +2,7 @@ body {
   font-family: "Poppins", sans-serif;
   height: 100%;
   touch-action: none;
-  /*overflow: hidden; /*for apple causes scrolling to stop */
+  /*overflow: hidden; /*for apple causes auto scroll animation to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
 /*#root{
@@ -10,6 +10,16 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }*/
+
+/*
+  if the above comments are removed,
+  the app will *not* pulldown to refresh on IOS 
+  devices, which is a good thing, and a desired feature
+  but this will also interfer with the click to autoscroll
+  to category to stop
+*/
+
+
 input:focus,
 textarea:focus,
 select:focus {
