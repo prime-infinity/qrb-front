@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import MobileMenu from "../ui/MobileMenu";
 import Overlay from "../ui/Overlay";
 import { useLocation, useNavigate } from "react-router-dom";
-import CreateRestHeader from "../ui/CreateRestHeader";
 import { useSelector, useDispatch } from "react-redux";
 import {
   toggleMenu,
@@ -100,19 +99,6 @@ function Header({ openMen, closeMen }) {
     navigate(`/${rest.url}/about`);
   };
 
-  const inRestCreation = () => {
-    if (
-      location.pathname === "/create-resturant/name" ||
-      location.pathname === "/create-resturant/location" ||
-      location.pathname === "/create-resturant/year" ||
-      location.pathname === "/create-resturant/description" ||
-      location.pathname === "/create-resturant/welcome"
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   const changeView = () => {
     //setVie(!vie);
     dispatch(toggleView());
@@ -146,7 +132,7 @@ function Header({ openMen, closeMen }) {
     }
     return false;
   };
-  return !inRestCreation() ? (
+  return (
     <>
       <>
         {menuSlideInited && (
@@ -409,9 +395,7 @@ function Header({ openMen, closeMen }) {
         </Container>
       </Navbar>
     </>
-  ) : inRestCreation() ? (
-    <CreateRestHeader />
-  ) : null;
+  );
 }
 
 export default Header;

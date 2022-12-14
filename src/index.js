@@ -8,21 +8,9 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./views/Index";
-import Login from "./views/Login";
 import About from "./components/index/About";
 import Menu from "./components/index/Menu";
 import Wrapper from "./components/index/Wrapper";
-import AddMenuItem from "./views/AddMenuItem";
-//import EditResturantDetails from "./views/EditResturantDetails";
-import EditResturantProfile from "./views/EditResturantProfile";
-import CreateResturant from "./views/CreateResturant";
-import CreateResturantName from "./components/createresturant/CreateResturantName";
-import CreateResturantLoc from "./components/createresturant/CreateResturantLoc";
-import CreateResturantYear from "./components/createresturant/CreateResturantYear";
-import CreateResturantDesc from "./components/createresturant/CreateResturantDesc";
-import CreateResturantWel from "./components/createresturant/CreateResturantWel";
-import EditUserProfile from "./views/EditUserProfile";
-import EditMenuItem from "./views/EditMenuItem";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

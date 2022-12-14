@@ -4,13 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRestToEdit } from "../redux/slices/restSlice";
 import PureOverlay from "../ui/PureOverlay";
-import MenuWarnModal from "../ui/MenuWarnModal";
 
 function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
   const dispatch = useDispatch();
   const viewMode = useSelector((state) => state.menu.view);
   const [showWarn, setShowWarn] = useState(false);
-  const [menToDel, setMenToDel] = useState(null);
 
   const { activeEventKey } = useContext(AccordionContext);
   const decoratedOnClick = useAccordionButton(
@@ -31,10 +29,6 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
     //navigate("/edit-item");
   };
 
-  const deleteMenuItem = (e) => {
-    setShowWarn(true);
-    setMenToDel({ ...parents, name: e.name, id: e.id });
-  };
   const removeWarn = () => {
     setShowWarn(false);
   };
@@ -42,7 +36,6 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
     <>
       {showWarn && (
         <>
-          <MenuWarnModal details={menToDel && menToDel} close={removeWarn} />
           <PureOverlay
             closeOverlay={removeWarn}
             redrng={showWarn}
@@ -110,9 +103,6 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                       </span>
                       <span className="d-flex ms-3 me-3">
                         <svg
-                          onClick={() =>
-                            deleteMenuItem({ id: item._id, name: item.name })
-                          }
                           xmlns="http://www.w3.org/2000/svg"
                           style={{ width: "18px", verticalAlign: "sub" }}
                           viewBox="0 0 20 20"
@@ -188,9 +178,6 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                           style={{
                             padding: "3% 0% 3% 3%",
                           }}
-                          onClick={() =>
-                            deleteMenuItem({ id: item._id, name: item.name })
-                          }
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
