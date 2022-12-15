@@ -15,6 +15,7 @@ function MenuHeader() {
   const rest = useSelector((state) => state.rest.rest);
   const authState = useSelector((state) => state.auth.auth);
   const targetCat = useSelector((state) => state.menu.scrollCatBarToTarget);
+  const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
   const [catErrs, setCatErrs] = useState(null);
@@ -104,11 +105,11 @@ function MenuHeader() {
   };
 
   useEffect(() => {
-    if (targetCat) {
+    if (targetCat && !isScrolGsap) {
       scrollToCat(targetCat);
     }
     // eslint-disable-next-line
-  }, [targetCat]);
+  }, [targetCat, isScrolGsap]);
 
   const scrollToCat = (id) => {
     let scrollTo = getRef(id + "main_button");

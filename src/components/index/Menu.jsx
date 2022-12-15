@@ -6,6 +6,7 @@ import {
   pbFalse,
   pbTrue,
   setIsDragMen,
+  setIsScrolGsap,
   setScrollCatBar,
   setScrollToMain,
   toggleAddingCat,
@@ -76,11 +77,13 @@ function Menu() {
   };
 
   const isDoneGsapScr = () => {
+    dispatch(setIsScrolGsap(false));
     console.log("done,scrol main");
     //setScrollPx(0);
   };
 
   const scrollToMainCatGsap = (id) => {
+    dispatch(setIsScrolGsap(true));
     let scrollTo = getRef(id + "main_menu_span");
     gsap.to(window, {
       duration: 0.5,
