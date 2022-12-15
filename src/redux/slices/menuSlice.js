@@ -19,8 +19,12 @@ export const menuSlice = createSlice({
     isScrolGsap: false,
     isDragMen: false,
     scrollToMain: null,
+    scrollCatBarToTarget: null,
   },
   reducers: {
+    setScrollCatBar: (state, action) => {
+      state.scrollCatBarToTarget = action.payload;
+    },
     setScrollToMain: (state, action) => {
       state.scrollToMain = action.payload;
     },
@@ -75,6 +79,7 @@ export const menuSlice = createSlice({
   },
 });
 
+export const { setScrollCatBar } = menuSlice.actions;
 export const { setScrollToMain } = menuSlice.actions;
 export const { setIsSwipingLeft } = menuSlice.actions;
 export const { setIsDragMen } = menuSlice.actions;

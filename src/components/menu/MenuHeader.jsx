@@ -2,7 +2,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import { rearngCat, addMainCateogory } from "../../helpers/web";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useDynamicRefs from "use-dynamic-refs";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -14,6 +14,7 @@ function MenuHeader() {
 
   const rest = useSelector((state) => state.rest.rest);
   const authState = useSelector((state) => state.auth.auth);
+  const targetCat = useSelector((state) => state.menu.scrollCatBarToTarget);
   const [addingCat, setAddingCat] = useState(false);
   const [catText, setCatText] = useState("");
   const [catErrs, setCatErrs] = useState(null);
@@ -101,6 +102,22 @@ function MenuHeader() {
           : setCatErrs(err.message);
       });
   };
+
+  useEffect(() => {
+    if (targetCat) {
+      scrollToCat(targetCat);
+    }
+    // eslint-disable-next-line
+  }, [targetCat]);
+
+  const scrollToCat = (id) => {
+    let scrollTo = getRef(id + "main_button");
+    gsap.to("#new-sticky", {
+      duration: 1.5,
+      scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
+    });
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>

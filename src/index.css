@@ -355,8 +355,6 @@ select {
   max-width: none;
   object-fit: cover;
 }
-.slick-track{
-}
 .slick-dots {
   bottom: 5% !important;
 }

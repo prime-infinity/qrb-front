@@ -6,6 +6,7 @@ import {
   pbFalse,
   pbTrue,
   setIsDragMen,
+  setScrollCatBar,
   setScrollToMain,
   toggleAddingCat,
 } from "../../redux/slices/menuSlice";
@@ -22,6 +23,7 @@ import { resetRestCatOrder, setRest } from "../../redux/slices/restSlice";
 import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -223,6 +225,14 @@ function Menu() {
     console.log("menu drag start2");
   };
 
+  const enteredView = ({ name, id }) => {
+    console.log(name, "entered");
+    dispatch(setScrollCatBar(id));
+  };
+  const leftView = ({ name, id }) => {
+    //console.log(name, "left");
+  };
+
   return (
     <>
       {showWarn && (
@@ -287,7 +297,25 @@ function Menu() {
                                           {...provided.droppableProps}
                                           className="scroll-div d-ani-fast"
                                         >
-                                          <div className={` mb-2`}>
+                                          <motion.div
+                                            onViewportEnter={() =>
+                                              enteredView({
+                                                name: cat.name,
+                                                id: cat._id,
+                                              })
+                                            }
+                                            onViewportLeave={() =>
+                                              leftView({
+                                                name: cat.name,
+                                                id: cat._id,
+                                              })
+                                            }
+                                            viewport={{
+                                              once: false,
+                                              margin: "0px 0px -450px 0px",
+                                            }}
+                                            className={` mb-2`}
+                                          >
                                             {true && (
                                               <div
                                                 ref={setRef(
@@ -504,7 +532,7 @@ function Menu() {
                                                 </div>
                                               )}
                                             {/** end of upload menu */}
-                                          </div>
+                                          </motion.div>
                                         </div>
                                       </>
                                     )}
