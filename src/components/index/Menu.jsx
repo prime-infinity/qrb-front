@@ -297,25 +297,7 @@ function Menu() {
                                           {...provided.droppableProps}
                                           className="scroll-div d-ani-fast"
                                         >
-                                          <motion.div
-                                            onViewportEnter={() =>
-                                              enteredView({
-                                                name: cat.name,
-                                                id: cat._id,
-                                              })
-                                            }
-                                            onViewportLeave={() =>
-                                              leftView({
-                                                name: cat.name,
-                                                id: cat._id,
-                                              })
-                                            }
-                                            viewport={{
-                                              once: false,
-                                              margin: "0px 0px -450px 0px",
-                                            }}
-                                            className={` mb-2`}
-                                          >
+                                          <div className={` mb-2`}>
                                             {true && (
                                               <div
                                                 ref={setRef(
@@ -324,7 +306,24 @@ function Menu() {
                                                 className=" px-0 justify-content-center"
                                                 id={cat._id + "main_menu_span"}
                                               >
-                                                <div
+                                                <motion.div
+                                                  onViewportEnter={() =>
+                                                    enteredView({
+                                                      name: cat.name,
+                                                      id: cat._id,
+                                                    })
+                                                  }
+                                                  onViewportLeave={() =>
+                                                    leftView({
+                                                      name: cat.name,
+                                                      id: cat._id,
+                                                    })
+                                                  }
+                                                  viewport={{
+                                                    once: false,
+                                                    margin:
+                                                      "0px 0px -450px 0px",
+                                                  }}
                                                   className="col-11 px-0 pb-2"
                                                   style={{
                                                     position: "relative",
@@ -479,7 +478,7 @@ function Menu() {
                                                       )}
                                                     </span>
                                                   )}
-                                                </div>
+                                                </motion.div>
                                                 {ctNmErs.id === cat._id && (
                                                   <div className="col-11">
                                                     <span className="text-danger fs-14">
@@ -532,7 +531,7 @@ function Menu() {
                                                 </div>
                                               )}
                                             {/** end of upload menu */}
-                                          </motion.div>
+                                          </div>
                                         </div>
                                       </>
                                     )}

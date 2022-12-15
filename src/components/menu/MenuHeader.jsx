@@ -114,7 +114,7 @@ function MenuHeader() {
     let scrollTo = getRef(id + "main_button");
     gsap.to("#new-sticky", {
       duration: 1.5,
-      scrollTo: { x: scrollTo.current, offsetX: 150, autoKill: true },
+      scrollTo: { x: scrollTo.current, offsetX: 20, autoKill: true },
     });
   };
 
@@ -153,6 +153,10 @@ function MenuHeader() {
                         <span
                           ref={setRef(cat._id + "main_button")}
                           className={cat.name}
+                          style={{
+                            textDecoration:
+                              targetCat === cat._id && "underline",
+                          }}
                         >
                           {cat.name}
                         </span>
