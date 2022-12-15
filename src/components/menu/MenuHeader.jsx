@@ -119,6 +119,30 @@ function MenuHeader() {
     });
   };
 
+  const modifyView = (cat) => {
+    if (!authState?._id) {
+      if (cat.menu.length > 0) {
+        return true;
+      }
+    }
+    if (authState?._id === rest.user) {
+      if (!isEditnMenu) {
+        if (cat.menu.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+    //if logged in and another rest
+    if (authState?._id) {
+      if (cat.menu.length > 0) {
+        return true;
+      }
+    }
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -132,39 +156,43 @@ function MenuHeader() {
                 className="scroll-div"
                 id="new-sticky"
               >
-                {rest.categories?.map((cat, index) => (
-                  <Draggable
-                    key={cat._id.toString()}
-                    draggableId={cat._id.toString()}
-                    index={index}
-                    isDragDisabled={isAdmin() ? false : true}
-                  >
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                        className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
-                        onClick={() => scrollToMainCatGsap(cat._id)}
-                      >
-                        <span
-                          ref={setRef(cat._id + "main_button")}
-                          className={cat.name}
-                          style={{
-                            textDecoration:
-                              targetCat === cat._id && "underline",
-                          }}
+                {rest?.categories?.length > 0 &&
+                  rest.categories?.map(
+                    (cat, index) =>
+                      modifyView(cat) && (
+                        <Draggable
+                          key={cat._id.toString()}
+                          draggableId={cat._id.toString()}
+                          index={index}
+                          isDragDisabled={isAdmin() ? false : true}
                         >
-                          {cat.name}
-                        </span>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                          {(provided, snapshot) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                              )}
+                              className="btn me-3 fw-600 fs-14 bg-them text-white cat-button"
+                              onClick={() => scrollToMainCatGsap(cat._id)}
+                            >
+                              <span
+                                ref={setRef(cat._id + "main_button")}
+                                className={cat.name}
+                                style={{
+                                  textDecoration:
+                                    targetCat === cat._id && "underline",
+                                }}
+                              >
+                                {cat.name}
+                              </span>
+                            </div>
+                          )}
+                        </Draggable>
+                      )
+                  )}
                 {provided.placeholder}
                 {isAdmin() && (
                   <div
