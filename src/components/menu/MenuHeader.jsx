@@ -114,7 +114,7 @@ function MenuHeader() {
   const scrollToCat = (id) => {
     let scrollTo = getRef(id + "main_button");
     gsap.to("#new-sticky", {
-      duration: 1.5,
+      duration: 0.2,
       scrollTo: { x: scrollTo.current, offsetX: 20, autoKill: true },
     });
   };
