@@ -25,6 +25,7 @@ import WarnModal from "../../ui/WarnModal";
 import AddMenuItem from "../menu/AddMenuItem";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollToPlugin);
 function Menu() {
@@ -34,6 +35,12 @@ function Menu() {
   const scrollToMain = useSelector((state) => state.menu.scrollToMain);
   const [redrng, setRedrng] = useState(false);
   const dispatch = useDispatch();
+
+  const rootElement = useRef();
+  useEffect(() => {
+    rootElement.current = document.querySelector("#root");
+  }, []);
+
   useEffect(() => {
     dispatch(pbTrue());
     return () => {
@@ -85,7 +92,7 @@ function Menu() {
   const scrollToMainCatGsap = (id) => {
     dispatch(setIsScrolGsap(true));
     let scrollTo = getRef(id + "main_menu_span");
-    gsap.to(window, {
+    gsap.to(rootElement.current, {
       duration: 0.5,
       scrollTo: { y: scrollTo.current, offsetY: 150 },
       onComplete: isDoneGsapScr,
@@ -266,7 +273,10 @@ function Menu() {
             <div className="row mt-4">
               {/** the menuss */}
               {true && (
-                <div className="col-12 mb-2 mw-100">
+                <div
+                  className="col-12 mw-100"
+                  style={{ marginBottom: "120px" }}
+                >
                   <div
                     style={{
                       overflowY: "scroll",
