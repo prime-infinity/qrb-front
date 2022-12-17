@@ -164,7 +164,7 @@ function Header({ openMen, closeMen }) {
         className={`${shldHdrBg() && "big-bg-theme"} fixed-top `}
       >
         {/** px-3 here */}
-        <Container fluid className="pt-3">
+        <Container fluid className="pt-2">
           <Navbar.Brand style={{}} className="cur-pointer py-0">
             <div className={`search-box ${searchBar && "active-search"} `}>
               <input
@@ -396,13 +396,13 @@ function Header({ openMen, closeMen }) {
           {properUrl(location.pathname) === `/${rest.url}/menu` &&
             !searchBar && (
               <>
-                <div className="container-fluid px-0 pt-2">
+                <div className="container-fluid px-0 pt-3 pb-3">
                   <MenuHeader />
                 </div>
 
                 <div
-                  className="container-fluid pt-2"
-                  style={{ borderBottom: "1px solid" }}
+                  className="container-fluid"
+                  style={{ borderBottom: "1px dashed" }}
                 ></div>
               </>
             )}
