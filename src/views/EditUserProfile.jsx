@@ -71,7 +71,7 @@ function EditUserProfile() {
   };
 
   const navBack = () => {
-    navigate(-1);
+    navigate(`/${rest.url}`);
   };
   return (
     <div

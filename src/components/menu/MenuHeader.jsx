@@ -184,6 +184,8 @@ function MenuHeader() {
                                 style={{
                                   textDecoration:
                                     targetCat === cat._id && "underline",
+                                  textDecorationThickness:
+                                    targetCat === cat._id && "3px",
                                 }}
                               >
                                 {cat.name}
