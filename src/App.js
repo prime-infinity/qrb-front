@@ -1,7 +1,7 @@
 import LoadingScreen from "./ui/LoadingScreen";
 import NetworkErr from "./ui/NetworkErr";
 import Header from "./components/Header";
-import { Outlet, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import {
@@ -22,23 +22,14 @@ gsap.registerPlugin(ScrollToPlugin);
 function App() {
   let { resturant } = useParams();
   let navigate = useNavigate();
-  let location = useLocation();
   const dispatch = useDispatch();
   const rest = useSelector((state) => state.rest.rest);
   const restInited = useSelector((state) => state.rest.restInited);
   const authState = useSelector((state) => state.auth.auth);
   const authConfam = useSelector((state) => state.auth.authConfam);
   const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
-  const isDragMen = useSelector((state) => state.menu.isDragMen);
-  const [scrollPx, setScrollPx] = useState(0);
   const [openMen, setOpenMen] = useState(false);
-  const scrollFactor = 450;
-  const doneDown = () => {
-    setScrollPx(scrollPx - scrollFactor);
-  };
-  const doneUp = () => {
-    setScrollPx(scrollPx + scrollFactor);
-  };
+
   useEffect(() => {
     if (!isScrolGsap) {
     }
@@ -145,18 +136,7 @@ function App() {
 
     // eslint-disable-next-line
   }, [resturant, restInited, authState, dispatch, rest, authConfam]);
-  const config = {
-    delta: 80, // min distance(px) before a swipe starts. *See Notes*
-    preventScrollOnSwipe: true, // prevents scroll during swipe (*See Details*)
-    trackTouch: true, // track touch input
-    trackMouse: false, // track mouse input
-    rotationAngle: 0, // set a rotation angle
-    swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
-    touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
-  };
-  const properUrl = (url) => {
-    return url.replace("%20", " ");
-  };
+
   const newHandlers = useSwipeable({
     //look for a way to disable this for
     //chrome andriod
@@ -170,40 +150,7 @@ function App() {
     delta: 10,
     swipeDuration: Infinity,
   });
-  const handlers = useSwipeable({
-    //look for a way to disable this for
-    //chrome andriod
-    onSwiping: (eventData) => {
-      if (!isDragMen) {
-        if (
-          properUrl(location.pathname) !== `/${rest.url}` &&
-          properUrl(location.pathname) !== `/${rest.url}/menu`
-        ) {
-          if (eventData.dir === "Down") {
-            //scroll down
-            console.log("down");
-            gsap.to(window, {
-              duration: 1,
-              scrollTo: {
-                y: scrollPx - scrollFactor,
-              },
-              onComplete: doneDown,
-            });
-          }
-          if (eventData.dir === "Up") {
-            //scroll up
-            console.log("up");
-            gsap.to(window, {
-              duration: 1,
-              scrollTo: { y: scrollPx + scrollFactor },
-              onComplete: doneUp,
-            });
-          }
-        }
-      }
-    },
-    ...config,
-  });
+
   const closeMen = () => {
     setOpenMen(false);
   };
@@ -212,7 +159,7 @@ function App() {
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <div {...handlers} id="app">
+    <div id="app">
       <Header closeMen={closeMen} openMen={openMen} />
       <div
         {...newHandlers}

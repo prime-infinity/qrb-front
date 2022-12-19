@@ -3,7 +3,6 @@ body {
   height: 100%;
   overflow: hidden;
   /*touch-action: none;*/
-  /*overflow: hidden; /*for apple causes scrolling to stop */
   overscroll-behavior-y: contain; /* for andr */
 }
 #root{
