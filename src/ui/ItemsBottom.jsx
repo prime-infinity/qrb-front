@@ -396,7 +396,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                     ))}
                     <div
                       onClick={onImageUpload}
-                      className="col-12 border-black px-0"
+                      className="col-12 big-bg-theme px-0"
                       style={{ position: "relative" }}
                     >
                       <img

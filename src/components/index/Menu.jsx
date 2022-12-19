@@ -236,7 +236,7 @@ function Menu() {
   };
 
   const enteredView = ({ name, id }) => {
-    console.log(name, "entered");
+    //console.log(name, "entered");
     dispatch(setScrollCatBar(id));
   };
   const leftView = ({ name, id }) => {
