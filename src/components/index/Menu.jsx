@@ -337,9 +337,10 @@ function Menu() {
                                                     margin:
                                                       "0px 0px -450px 0px",
                                                   }}
-                                                  className="col-11 px-0 pb-2"
+                                                  className="px-0 pb-2"
                                                   style={{
                                                     position: "relative",
+                                                    zIndex: "1",
                                                   }}
                                                 >
                                                   {editnCat?.id === cat._id ? (
