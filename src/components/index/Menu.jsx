@@ -242,7 +242,9 @@ function Menu() {
   const leftView = ({ name, id }) => {
     //console.log(name, "left");
   };
-
+  useEffect(() => {
+    //console.log("eidted");
+  }, []);
   return (
     <>
       {showWarn && (

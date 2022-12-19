@@ -78,6 +78,7 @@ function AddMenuItem({ details }) {
   };
 
   const setName = (e) => {
+    //console.log("D");
     setEditM({ ...editnMen, name: e.target.value.toLowerCase() });
   };
   const setPrice = (e) => {
