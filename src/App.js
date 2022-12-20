@@ -16,6 +16,7 @@ import { removeFromLocal } from "./helpers/storage";
 import { useSwipeable } from "react-swipeable";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { setSwHeight } from "./redux/slices/menuSlice";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -28,6 +29,7 @@ function App() {
   const authState = useSelector((state) => state.auth.auth);
   const authConfam = useSelector((state) => state.auth.authConfam);
   const isScrolGsap = useSelector((state) => state.menu.isScrolGsap);
+  const swHeight = useSelector((state) => state.menu.swHeight);
   const [openMen, setOpenMen] = useState(false);
 
   useEffect(() => {
@@ -151,6 +153,19 @@ function App() {
     swipeDuration: Infinity,
   });
 
+  const forceHeight = () => {
+    setTimeout(() => {
+      //dispatch(setSwHeight(true));
+    }, 50);
+    console.log("change height");
+  };
+  const leaveHeight = () => {
+    console.log("leave height");
+  };
+  useEffect(() => {
+    !swHeight ? forceHeight() : leaveHeight();
+  }, [swHeight]);
+
   const closeMen = () => {
     setOpenMen(false);
   };
@@ -159,7 +174,16 @@ function App() {
   ) : rest === "Network Error" ? (
     <NetworkErr />
   ) : (
-    <div id="app">
+    <div
+      style={{
+        height: swHeight ? "100vh" : "85vh",
+        position: "fixed",
+        width: "100%",
+        top: "0",
+        bottom: "0",
+      }}
+      id="app"
+    >
       <Header closeMen={closeMen} openMen={openMen} />
       <div
         {...newHandlers}

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setAdding } from "../../redux/slices/menuSlice";
+import { setAdding, setSwHeight } from "../../redux/slices/menuSlice";
 import React, { useState } from "react";
 import ImageUploading from "react-images-uploading";
 import { addMenuItem } from "../../helpers/web";
@@ -99,6 +99,13 @@ function AddMenuItem({ details }) {
       setEditM({ ...editnMen, status: 0 });
     }
   };
+  const handleFocus = () => {
+    //dispatch(setSwHeight(false));
+    //console.log("Input focused");
+  };
+  const handleBlur = () => {
+    //dispatch(setSwHeight(true));
+  };
   return (
     <div
       className={`px-0 justify-content-center ${
@@ -143,6 +150,8 @@ function AddMenuItem({ details }) {
                           placeholder="name"
                           autoFocus
                           className="cat-name-input big-bg-theme fs-14 ps-2"
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
                         />
                       ) : (
                         <h4
@@ -163,6 +172,8 @@ function AddMenuItem({ details }) {
                           type="number"
                           placeholder="price($)"
                           className="cat-name-input big-bg-theme fs-14 ps-2"
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
                         />
                       ) : (
                         <span
@@ -183,6 +194,8 @@ function AddMenuItem({ details }) {
                         type="text"
                         placeholder="description"
                         className="cat-name-input big-bg-theme fs-14 ps-2"
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
                     ) : (
                       <p

@@ -4,9 +4,9 @@ body {
   overflow: hidden;
   overscroll-behavior-y: contain; /* for andr */
 }
-#root{
-  height: 90vh;
-  overscroll-behavior: contain;
+
+#app{
+  overscroll-behavior: none;
   overflow-y: auto;
 }
 input:focus,

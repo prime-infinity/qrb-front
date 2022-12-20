@@ -38,7 +38,7 @@ function Menu() {
 
   const rootElement = useRef();
   useEffect(() => {
-    rootElement.current = document.querySelector("#root");
+    rootElement.current = document.querySelector("#app");
   }, []);
 
   useEffect(() => {
