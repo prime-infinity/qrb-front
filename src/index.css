@@ -2,14 +2,12 @@ body {
   font-family: "Poppins", sans-serif;
   height: 100%;
   overflow: hidden;
-  /*touch-action: none;*/
   overscroll-behavior-y: contain; /* for andr */
 }
 #root{
   height: 100vh;
   overscroll-behavior: contain;
   overflow-y: auto;
-  /* -webkit-overflow-scrolling: touch; */
 }
 input:focus,
 textarea:focus,
