@@ -276,13 +276,6 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
           <div className={` border-left-right border-bottom-drk`}>
             <div className="col-12 p-0 ">
               <Accordion.Collapse eventKey={item.name}>
-                {/*
-                  <img
-                    style={{ width: "100%" }}
-                    src="/images/image.jpeg"
-                    alt=""
-                  />
-        */}
                 {
                   <Slider {...settings}>
                     {item &&

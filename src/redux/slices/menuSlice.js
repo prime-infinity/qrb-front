@@ -20,12 +20,8 @@ export const menuSlice = createSlice({
     isDragMen: false,
     scrollToMain: null,
     scrollCatBarToTarget: null,
-    swHeight: true,
   },
   reducers: {
-    setSwHeight: (state, action) => {
-      state.swHeight = action.payload;
-    },
     setScrollCatBar: (state, action) => {
       state.scrollCatBarToTarget = action.payload;
     },
@@ -83,7 +79,6 @@ export const menuSlice = createSlice({
   },
 });
 
-export const { setSwHeight } = menuSlice.actions;
 export const { setScrollCatBar } = menuSlice.actions;
 export const { setScrollToMain } = menuSlice.actions;
 export const { setIsSwipingLeft } = menuSlice.actions;

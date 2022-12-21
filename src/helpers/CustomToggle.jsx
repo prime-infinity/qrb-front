@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRestToEdit } from "../redux/slices/restSlice";
 import PureOverlay from "../ui/PureOverlay";
 import MenuWarnModal from "../ui/MenuWarnModal";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
   const dispatch = useDispatch();
@@ -68,13 +69,28 @@ function CustomToggle({ eventKey, isAdmin, callback, item, parents }) {
                 } ${isCurrentEventKey && "max-w-zero "} cat-left`}
               >
                 <span className="cat-icon">
-                  <img
+                  {/*<img
                     style={{
                       objectFit: viewMode ? "cover" : "cover",
                       boxSizing: "content-box",
                     }}
                     src={item.files[0]}
                     alt=""
+                  />*/}
+                  <LazyLoadImage
+                    placeholder={
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                    }
+                    style={{
+                      objectFit: viewMode ? "cover" : "cover",
+                      boxSizing: "content-box",
+                    }}
+                    alt={""}
+                    src={item.files[0]}
                   />
                 </span>
               </div>
