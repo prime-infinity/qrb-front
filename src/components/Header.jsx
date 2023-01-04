@@ -396,7 +396,10 @@ function Header({ openMen, closeMen }) {
           {properUrl(location.pathname) === `/${rest.url}/menu` &&
             !searchBar && (
               <>
-                <div className="container-fluid px-0 pt-3 pb-3">
+                <div
+                  style={{ width: "110%", position: "relative", left: "-5%" }}
+                  className="container-fluid px-0 pt-3 pb-3"
+                >
                   <MenuHeader />
                 </div>
 
