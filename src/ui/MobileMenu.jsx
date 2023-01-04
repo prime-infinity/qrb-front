@@ -144,7 +144,7 @@ function MobileMenu({ goMenu, closeMenu }) {
                     {!ifShowLogin() && "venu"}
                   </span>
                   <span className="text-secondary fs-14">
-                    {!ifShowLogin() && "digital menu"}
+                    {!ifShowLogin() && "virtual menu"}
                   </span>
                 </>
                 {false && (
