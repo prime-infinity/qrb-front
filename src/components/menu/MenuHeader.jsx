@@ -61,8 +61,9 @@ function MenuHeader() {
     background: isDraggingOver ? "#edecec" : "",
     display: "flex",
     overflow: "auto",
-    paddingRight: "10%",
-    paddingLeft: "10%",
+    overscrollBehavior: "none",
+    paddingRight: "1%",
+    paddingLeft: "1%",
   });
   const reOrder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
