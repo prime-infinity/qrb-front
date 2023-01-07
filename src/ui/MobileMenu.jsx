@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ResOwnerMobMenu from "./ResOwnerMobMenu";
 import { toggleMenu, toggleMenuFade } from "../redux/slices/menuSlice";
 import "animate.css";
+import { useSwipeable } from "react-swipeable";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 function MobileMenu({ goMenu, closeMenu }) {
@@ -107,9 +108,23 @@ function MobileMenu({ goMenu, closeMenu }) {
     return url.replace("%20", " ");
   };
 
+  const menHandlers = useSwipeable({
+    onSwiping: (eventData) => {
+      if (eventData.dir === "Right") {
+        if (mMenu) {
+          console.log("right");
+          closeMenu();
+        }
+      }
+    },
+    delta: 10,
+    swipeDuration: Infinity,
+  });
+
   return (
     <>
       <div
+        {...menHandlers}
         className={`${
           mMenu
             ? "animate__animated animate__slideInRight"

@@ -4,6 +4,7 @@ import "animate.css";
 function Overlay({ closeOverlay, width }) {
   const mMenu = useSelector((state) => state.menu.menu);
   const menuFade = useSelector((state) => state.menu.menuFade);
+
   return (
     <div
       className={`${

@@ -138,12 +138,9 @@ function App() {
   }, [resturant, restInited, authState, dispatch, rest, authConfam]);
 
   const newHandlers = useSwipeable({
-    //look for a way to disable this for
-    //chrome andriod
     onSwiping: (eventData) => {
       if (eventData.dir === "Left") {
         console.log("left");
-        //dispatch(setMenSwipe(true));
         setOpenMen(true);
       }
     },
@@ -186,7 +183,9 @@ function App() {
       >
         s
       </div>
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 }
