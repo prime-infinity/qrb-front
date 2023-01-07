@@ -112,7 +112,6 @@ function MobileMenu({ goMenu, closeMenu }) {
     onSwiping: (eventData) => {
       if (eventData.dir === "Right") {
         if (mMenu) {
-          console.log("right");
           closeMenu();
         }
       }
