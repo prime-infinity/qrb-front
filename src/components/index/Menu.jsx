@@ -505,39 +505,45 @@ function Menu() {
                                               </div>
                                             )}
 
-                                            {cat.menu.map((item, indexx) => (
-                                              <Draggable
-                                                key={item._id.toString()}
-                                                draggableId={item._id.toString()}
-                                                index={indexx}
-                                                isDragDisabled={
-                                                  isAdmin() ? false : true
-                                                }
-                                              >
-                                                {(provided, snapshot) => (
-                                                  <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    style={getListItemStyle(
-                                                      snapshot.isDragging,
-                                                      provided.draggableProps
-                                                        .style
-                                                    )}
+                                            {cat.menu.map(
+                                              (item, indexx) =>
+                                                item.status !== "2" && (
+                                                  <Draggable
+                                                    key={item._id.toString()}
+                                                    draggableId={item._id.toString()}
+                                                    index={indexx}
+                                                    isDragDisabled={
+                                                      isAdmin() ? false : true
+                                                    }
                                                   >
-                                                    <ItemsBottom
-                                                      isAdmin={isAdmin()}
-                                                      place={indexx}
-                                                      parents={{
-                                                        main: cat._id,
-                                                      }}
-                                                      item={item}
-                                                      length={cat.menu.length}
-                                                    />
-                                                  </div>
-                                                )}
-                                              </Draggable>
-                                            ))}
+                                                    {(provided, snapshot) => (
+                                                      <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getListItemStyle(
+                                                          snapshot.isDragging,
+                                                          provided
+                                                            .draggableProps
+                                                            .style
+                                                        )}
+                                                      >
+                                                        <ItemsBottom
+                                                          isAdmin={isAdmin()}
+                                                          place={indexx}
+                                                          parents={{
+                                                            main: cat._id,
+                                                          }}
+                                                          item={item}
+                                                          length={
+                                                            cat.menu.length
+                                                          }
+                                                        />
+                                                      </div>
+                                                    )}
+                                                  </Draggable>
+                                                )
+                                            )}
 
                                             {/** upload menu part */}
                                             {isAdmin() &&
