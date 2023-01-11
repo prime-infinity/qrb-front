@@ -271,7 +271,7 @@ function Header({ openMen, closeMen }) {
                     <span className="ms-3 fs-18">add category</span>
                   ) : location.pathname === "/login" ? (
                     <span className="ms-2 text-secondary fs-14">
-                      resturant remote
+                      virtual menu
                     </span>
                   ) : location.pathname === "/edit-rest-profile" ? (
                     <span className="ms-3 fs-18">{"business profile"}</span>

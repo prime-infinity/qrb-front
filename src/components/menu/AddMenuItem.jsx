@@ -161,7 +161,7 @@ function AddMenuItem({ details }) {
                           onChange={setPrice}
                           value={editnMen.price}
                           style={{ width: "25%" }}
-                          type="number"
+                          type="text"
                           placeholder="price($)"
                           className="cat-name-input big-bg-theme fs-14 ps-2"
                         />

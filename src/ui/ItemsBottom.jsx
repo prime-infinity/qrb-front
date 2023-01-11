@@ -43,6 +43,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
       status: parseInt(itemToEdit?.item.status) || 0,
       description: itemToEdit?.item.description || "",
     });
+    console.log(itemToEdit?.item.price);
   }, [itemToEdit?.item]);
   const settings = {
     dots: true,
@@ -167,7 +168,7 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
                       onChange={setPrice}
                       value={formData.price}
                       style={{ width: "25%" }}
-                      type="number"
+                      type="text"
                       placeholder="price($)"
                       className="cat-name-input big-bg-theme fs-14 ps-2"
                     />
