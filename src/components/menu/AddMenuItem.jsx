@@ -31,7 +31,7 @@ function AddMenuItem({ details }) {
   const compressImages = (images) => {
     return new Promise((resolve, reject) => {
       new Compressor(images, {
-        quality: 0.5,
+        quality: 0.3,
         success(result) {
           resolve(result);
         },

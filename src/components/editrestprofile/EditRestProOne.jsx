@@ -9,7 +9,7 @@ import {
 import { setRest, setRestWelcomScreen } from "../../redux/slices/restSlice";
 import { useFileUpload } from "use-file-upload";
 import { useNavigate } from "react-router-dom";
-
+import Compressor from "compressorjs";
 import { SketchPicker } from "@hello-pangea/color-picker";
 
 function EditRestProOne() {
@@ -124,21 +124,35 @@ function EditRestProOne() {
         handleErrorsFile(err);
       });
   };
+
   const uploadImage = () => {
     setFilePending(true);
     setFileErrs(null);
-    const formData = new FormData();
-    formData.append("welcome-image", file.file, file.name);
-    formData.append("restid", rest._id);
 
-    updateRestWelcomeImage(formData, authState.token)
-      .then((res) => {
-        console.log(res);
-        handleSuccessFile(res);
-      })
-      .catch((err) => {
-        handleErrorsFile(err);
-      });
+    const formData = new FormData();
+    //formData.append("welcome-image", file.file, file.name);
+    //formData.append("restid", rest._id);
+
+    new Compressor(file.file, {
+      quality: 0.5,
+      success(result) {
+        console.log(result);
+        formData.append("welcome-image", result, result.name);
+        formData.append("restid", rest._id);
+
+        updateRestWelcomeImage(formData, authState.token)
+          .then((res) => {
+            //console.log(res);
+            handleSuccessFile(res);
+          })
+          .catch((err) => {
+            handleErrorsFile(err);
+          });
+      },
+      error(err) {
+        console.log(err.message);
+      },
+    });
   };
   const forceUpdate = (e) => {
     setReal(e);

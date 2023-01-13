@@ -140,7 +140,6 @@ function App() {
   const newHandlers = useSwipeable({
     onSwiping: (eventData) => {
       if (eventData.dir === "Left") {
-        console.log("left");
         setOpenMen(true);
       }
     },
