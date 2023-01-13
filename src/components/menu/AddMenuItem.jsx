@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ImageUploading from "react-images-uploading";
 import { addMenuItem } from "../../helpers/web";
 import { setRest } from "../../redux/slices/restSlice";
+import Compressor from "compressorjs";
 
 function AddMenuItem({ details }) {
   const dispatch = useDispatch();
@@ -26,17 +27,36 @@ function AddMenuItem({ details }) {
   const isEditn = () => {
     return isHere() && editnMen.id === details._id ? true : false;
   };
-  const startProc = () => {
+
+  const compressImages = (images) => {
+    return new Promise((resolve, reject) => {
+      new Compressor(images, {
+        quality: 0.5,
+        success(result) {
+          resolve(result);
+        },
+        error(err) {
+          reject(err);
+        },
+      });
+    });
+  };
+
+  const startProc = async () => {
     //console.log("pro");
     dispatch(setAdding(details._id));
     if (isHere()) {
       setUpldin(details._id);
       setErr(null);
       const imageAsArray = images.map((img) => img.file);
+
+      const compressPromises = imageAsArray.map((img) => compressImages(img));
+      const compressedImages = await Promise.all(compressPromises);
+
       const formData2 = new FormData();
-      for (let i = 0; i < imageAsArray.length; i++) {
-        formData2.append("menu-images", imageAsArray[i], imageAsArray[i].name);
-      }
+      compressedImages.forEach((img) => {
+        formData2.append("menu-images", img, img.name);
+      });
 
       formData2.append("restid", rest._id);
       formData2.append("name", editnMen.name);

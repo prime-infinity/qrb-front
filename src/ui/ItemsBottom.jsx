@@ -43,7 +43,6 @@ function ItemsBottom({ isAdmin, item, place, length, parents }) {
       status: parseInt(itemToEdit?.item.status) || 0,
       description: itemToEdit?.item.description || "",
     });
-    console.log(itemToEdit?.item.price);
   }, [itemToEdit?.item]);
   const settings = {
     dots: true,
